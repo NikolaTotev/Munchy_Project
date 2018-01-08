@@ -14,7 +14,9 @@ namespace Nikola.Munchy.MunchyAPI
         // Add CookBook (CookBook class has to be created)
         // Add FBT (Food Balance Tracker)
         // Add BirthDay
-        FridgeTemplate UserFridge;
+        [NonSerialized]
+        public FridgeTemplate UserFridge;
+
         public string UserName { get; set; }
         public int CalorieTracker { get; set; }
         public string Sex { get; set; }

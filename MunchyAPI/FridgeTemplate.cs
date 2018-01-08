@@ -12,11 +12,12 @@ namespace Nikola.Munchy.MunchyAPI
     {
         public Dictionary<string, FoodDef> UsersFoods { get; set; }
         public string SavedFilePath;
+        public string DefaultPath;
 
-        public FridgeTemplate(string FilePathToUse)
+        public FridgeTemplate(string FilePathToUse, string DefaultFile)
         {
             SavedFilePath = FilePathToUse;
-            // UsersFoods = new Dictionary<string, FoodDef>();
+            DefaultPath = DefaultFile;
             UsersFoods = UsersFridge();
         }
 
@@ -88,14 +89,20 @@ namespace Nikola.Munchy.MunchyAPI
         }
 
         /// <summary>
-        ///  Reads the JSON file that stores the fridge information, deserializes it and assigns the "UsersFoods" to the deserialized dictionary
-        /// </summary>
+        ///  Creates a dictionary conatining "FoodDefs" based on a JSON file. If the file does not exist, a default preset is used.
+        ///  When the default preset is used it means that this is the first time a fridge is created (meaning its the first time the program is run)
+        ///  /// </summary>
         /// <returns></returns>
         public Dictionary<string, FoodDef> UsersFridge()
         {
             if (!File.Exists(SavedFilePath))
             {
-                throw new Exception(string.Format("File {0} does not exsit or can't be accessed."));
+                using (StreamReader file = File.OpenText(DefaultPath))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    Dictionary<string, FoodDef> LoadedDictionary = (Dictionary<string, FoodDef>)serializer.Deserialize(file, typeof(Dictionary<string, FoodDef>));
+                    return LoadedDictionary;
+                }
             }
 
             using (StreamReader file = File.OpenText(SavedFilePath))

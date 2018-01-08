@@ -11,58 +11,81 @@ namespace Nikola.Munchy.MunchyAPI
     public class ProgramManager
     {
         string UserFile;
+        string DefaultUserFile;
         string FoodItemsFile;
         string RecipiesFile;
         string UserFridgeFile;
+        string DefaultFridgeFile;
+        public FridgeTemplate UsersFridge;
+        public UserTemplate User { get; set; }
 
-        public List<UserTemplate> Users { get; set; }
-
-        public ProgramManager(string UserFileSave,string UserFridgeFileSave)
+        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser)
         {
             UserFile = UserFileSave;
+            DefaultUserFile = DefaultUser;
             //FoodItemsFile = FoodItemsFileSave;
-           // RecipiesFile = RecipiesFileSave;
+            // RecipiesFile = RecipiesFileSave;
             UserFridgeFile = UserFridgeFileSave;
-            Users = GetUsers();
+            DefaultFridgeFile = DefaultFridge;
+            User = new UserTemplate();
+            User = GetUser();
+            InitFridge(User);
         }
 
-        public List<UserTemplate> GetUsers()
+        /// <summary>
+        /// If the "UserFile" exists, the "User" instance gets assigned the returned "UserTemplate". If the file does not exist
+        /// i.e. there has not been a user created yet, the User gets assinged to Null. 
+        /// </summary>
+        /// <returns></returns>
+        public UserTemplate GetUser()
         {
-         List<UserTemplate> RetrievedUsers = new List<UserTemplate>();
+            UserTemplate RetrievedUsers;
             if (!File.Exists(UserFile))
             {
-                throw new Exception(string.Format("Create New User"));
-                //return RetrievedUsers;
-            }
-            else
-            {
-                using (StreamReader file = File.OpenText(UserFile))
+                using (StreamReader file = File.OpenText(DefaultUserFile))
                 {
                     JsonSerializer serializer = new JsonSerializer();
-                    RetrievedUsers = (List<UserTemplate>)serializer.Deserialize(file, typeof(List<UserTemplate>));
+                    RetrievedUsers = (UserTemplate)serializer.Deserialize(file, typeof(UserTemplate));
                     return RetrievedUsers;
                 }
             }
+
+            using (StreamReader file = File.OpenText(UserFile))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                RetrievedUsers = (UserTemplate)serializer.Deserialize(file, typeof(UserTemplate));
+                return RetrievedUsers;
+            }
+
         }
 
-        public void InitUsers()
+
+        /// <summary>
+        /// Creates a new FridgeTemplate instance and assigns it to the UserTemplate instance frige. 
+        /// The "FridgeTemplate" class handles its own serialization/deserialization. 
+        /// </summary>
+        /// <param name="UserToUse"></param>
+        public void InitFridge(UserTemplate UserToUse)
         {
-           
+            UsersFridge = new FridgeTemplate(UserFridgeFile, DefaultFridgeFile);
+            UserToUse.UserFridge = UsersFridge;
         }
 
-        public void InitFridges()
-        {
-
-        }
-
+        /// <summary>
+        /// Function is used to create brand new user. This function should be called by the UI part of the project when it detects 
+        /// that the "User" that the "ProgramManager" has is equal to "null". This function takes in user input in the form of the 
+        /// given arguments it takes.
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Sex"></param>
+        /// <param name="Age"></param>
         public void CreateUser(string Name, string Sex, int Age)
         {
-            Users = new List<UserTemplate>();
-            FridgeTemplate newFridge = new FridgeTemplate(UserFridgeFile);
             UserTemplate newUser = new UserTemplate();
             newUser.UserName = Name;
             newUser.Sex = Sex;
-            Users.Add(newUser);
+            InitFridge(newUser);
+            User = newUser;
         }
 
     }

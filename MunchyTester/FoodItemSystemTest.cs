@@ -101,13 +101,14 @@ namespace Nikola.Munchy.MunchyTester
         [TestMethod]
         public void FridgeTest()
         {
+
             // Creates an example list of 2 Food definitions. All the properties are filled in.
             List<FoodDef> Data = new List<FoodDef>
             {
                 new FoodDef { Name = "milk", Calories = 350, Carbs = 20, Protein = 50, Sugars = 100, Fat = 20, Sodium = 0, UOM = "Liters", ImageFileName = "/resources/images/milk.png" },
                 new FoodDef { Name = "butter", Calories = 500, Carbs = 10, Protein = 20, Sugars = 0, Fat = 250, Sodium = 12, UOM = "Grams", ImageFileName = "/resources/images/butter.png" }
             };
-
+                       
             // Creates an example dictionary that will be filled with the elements from the list.
             Dictionary<string, FoodDef> foods = new Dictionary<string, FoodDef>();
 
@@ -117,8 +118,23 @@ namespace Nikola.Munchy.MunchyTester
                 foods.Add(item.Name, item);
             }
 
+            List<FoodDef> DefaultData = new List<FoodDef>
+            {
+                new FoodDef { Name = "milk", Calories = 350, Carbs = 20, Protein = 50, Sugars = 100, Fat = 20, Sodium = 0, UOM = "Liters", ImageFileName = "/resources/images/milk.png" },
+                new FoodDef { Name = "butter", Calories = 211, Carbs = 10, Protein = 20, Sugars = 0, Fat = 250, Sodium = 12, UOM = "Grams", ImageFileName = "/resources/images/butter.png" },
+                new FoodDef { Name = "cheese", Calories = 330, Carbs = 10, Protein = 20, Sugars = 0, Fat = 250, Sodium = 12, UOM = "Grams", ImageFileName = "/resources/images/butter.png" },
+                new FoodDef { Name = "bread", Calories = 12, Carbs = 10, Protein = 20, Sugars = 0, Fat = 250, Sodium = 12, UOM = "Grams", ImageFileName = "/resources/images/butter.png" }
+            };
+            Dictionary<string, FoodDef> DefaultFoods = new Dictionary<string, FoodDef>();
+
+            foreach (var item in DefaultData)
+            {
+                DefaultFoods.Add(item.Name, item);
+            }
+
             // Test location of JSON data file.
             string TestFile = @"d:\Desktop\JSON_FridgeTest.json";
+            string DefaultFridge = @"d:\Desktop\DEFAULT_FRIDGE.json";
 
             // Using the stream writer a file is created at the "TestFile" location. A JsonSerializer is created and it serializes the "foods" 
             // dictionary to the file that was created.
@@ -128,11 +144,17 @@ namespace Nikola.Munchy.MunchyTester
                 serializer.Serialize(file, foods);
             }
 
+            using (StreamWriter file = File.CreateText(DefaultFridge))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, DefaultFoods);
+            }
+
             // Checks if the file that was just created has actually been created. If not it sends a test failed message.
             Assert.IsTrue(File.Exists(TestFile), "Test file {0} should exsit", TestFile);
 
             // Creates a test fridge that will be used to test fridge functionality
-            FridgeTemplate testFridge = new FridgeTemplate(TestFile);
+            FridgeTemplate testFridge = new FridgeTemplate(TestFile, DefaultFridge);
 
             // On creation the fridge dictionary should be filled, this checks if the fridge dictionary has indeed been filled.
             Assert.IsTrue(testFridge.UsersFoods != null, "UsersFoods must not be empty");
@@ -195,7 +217,45 @@ namespace Nikola.Munchy.MunchyTester
             testFridge.ModifyFoodItemAmount("rice", 0);
             // Tests if the item has indeed been removed.
             Assert.IsTrue(!testFridge.UsersFoods.ContainsKey("rice"), "Rice should be remove, as the modified amount was set to 0");
+        }
 
+        [TestMethod]
+        public void DefaultFridgeTest()
+        {
+
+            List<FoodDef> DefaultData = new List<FoodDef>
+            {
+                new FoodDef { Name = "milk", Calories = 350, Carbs = 20, Protein = 50, Sugars = 100, Fat = 20, Sodium = 0, UOM = "Liters", ImageFileName = "/resources/images/milk.png" },
+                new FoodDef { Name = "butter", Calories = 211, Carbs = 10, Protein = 20, Sugars = 0, Fat = 250, Sodium = 12, UOM = "Grams", ImageFileName = "/resources/images/butter.png" },
+                new FoodDef { Name = "cheese", Calories = 330, Carbs = 10, Protein = 20, Sugars = 0, Fat = 250, Sodium = 12, UOM = "Grams", ImageFileName = "/resources/images/butter.png" },
+                new FoodDef { Name = "bread", Calories = 12, Carbs = 10, Protein = 20, Sugars = 0, Fat = 250, Sodium = 12, UOM = "Grams", ImageFileName = "/resources/images/butter.png" }
+            };
+            Dictionary<string, FoodDef> DefaultFoods = new Dictionary<string, FoodDef>();
+
+            foreach (var item in DefaultData)
+            {
+                DefaultFoods.Add(item.Name, item);
+            }
+
+            // Test location of JSON data file.
+            string TestFile = @"d:\Desktop\JSON_FridgeTest.json";
+            string DefaultFridge = @"d:\Desktop\DEFAULT_FRIDGE.json";
+
+        
+
+            using (StreamWriter file = File.CreateText(DefaultFridge))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, DefaultFoods);
+            }
+
+            // Checks if the file that was just created has actually been created. If not it sends a test failed message.
+            Assert.IsTrue(File.Exists(DefaultFridge), "Test file {0} should exsit", DefaultFridge);
+
+            FridgeTemplate testFridge = new FridgeTemplate(TestFile, DefaultFridge);
+
+            //Assert.IsTrue(testFridge.UsersFoods.ContainsKey(DefaultData[3].Name), "DefaultData list should have been used");
+            Assert.IsTrue(!testFridge.UsersFoods.ContainsKey("bread"), "DefaultData list should have been used");
 
         }
     }
