@@ -30,20 +30,6 @@ namespace Nikola.Munchy.MunchyAPI
         public bool A_Eggs { get; set; }
         public bool A_Soy { get; set; }
 
-        public UserTemplate(FridgeTemplate newFridge)
-        {
-    
-        }
-
-
-        //public FridgeTemplate GetFridge()
-        //{
-        //    using (StreamReader file = File.OpenText(UserFridgeSave))
-        //    {
-        //        JsonSerializer serializer = new JsonSerializer();
-        //        FridgeTemplate newFridge = (FridgeTemplate)serializer.Deserialize(file, typeof(FridgeTemplate));
-        //        return newFridge;
-        //    }
     }
 
 

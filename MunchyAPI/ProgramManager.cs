@@ -59,7 +59,7 @@ namespace Nikola.Munchy.MunchyAPI
         {
             Users = new List<UserTemplate>();
             FridgeTemplate newFridge = new FridgeTemplate(UserFridgeFile);
-            UserTemplate newUser = new UserTemplate(newFridge);
+            UserTemplate newUser = new UserTemplate();
             newUser.UserName = Name;
             newUser.Sex = Sex;
             Users.Add(newUser);
