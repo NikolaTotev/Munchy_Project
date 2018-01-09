@@ -17,16 +17,23 @@ namespace Nikola.Munchy.MunchyAPI
         string UserFridgeFile;
         string DefaultFridgeFile;
         public FridgeTemplate UsersFridge;
+        public RecipeManager RecipieManag;
+        public FoodManager FoodManag;
         public UserTemplate User { get; set; }
 
-        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser)
+        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser, string RecipieDatabase, string FoodItemsDatabase)
         {
+            FoodItemsFile = FoodItemsDatabase;
+            RecipiesFile = RecipieDatabase;
+            RecipieManag = new RecipeManager(RecipiesFile, this);
+            FoodManag = new FoodManager(FoodItemsFile);
+
             UserFile = UserFileSave;
             DefaultUserFile = DefaultUser;
-            //FoodItemsFile = FoodItemsFileSave;
-            // RecipiesFile = RecipiesFileSave;
+
             UserFridgeFile = UserFridgeFileSave;
             DefaultFridgeFile = DefaultFridge;
+
             User = new UserTemplate();
             User = GetUser();
             InitFridge(User);
