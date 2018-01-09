@@ -30,7 +30,7 @@ namespace Nikola.Munchy.MunchyTester
             }
 
             // Test location of JSON data file.
-            string TestFile = @"C:\Users\admin\Documents\VS_Json_Saves\JSON_test.json";
+            string TestFile = @"/Resources/JSON_test.json";
 
             // Using the stream writer a file is created at the "TestFile" location. A JsonSerializer is created and it serializes the "foods" 
             // dictionary to the file that was created.
