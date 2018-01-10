@@ -70,7 +70,7 @@ namespace Nikola.Munchy.MunchyAPI
 
 
         /// <summary>
-        /// Sorts recipies using Binary Comparison. Sorts recipes based on: Appropriate based on user settings, 
+        /// Sorts recipies using Bit Comparison. Sorts recipes based on: Appropriate based on user settings, 
         /// if they are good for breakfast, lunch, dinner, and if the user has all the ingredients for the recipes.
         /// </summary>
         public void SortRecipes()
