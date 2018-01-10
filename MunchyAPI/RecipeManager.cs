@@ -12,17 +12,24 @@ namespace Nikola.Munchy.MunchyAPI
     {
         public string RecipeDatabaseFile;
         bool HasAllIngredients;
-        public Dictionary<string, bool> UserPreferences;
-        public List<bool> RecipieTags;
+
+        public int UserIndex;
+        public int RecipieIndex;
+        
+
+        public List<string> CompatableRecipes;
+        public List<string> Breakfast;
+        public List<string> Lunch;
+        public List<string> Dinner;
+        public List<string> RecipesWithFridgeFoods;
+
+        IDictionary<string, RecipeDef> Recipies;
+        Dictionary<string, FoodDef> FridgeItems;
+
         public List<float> FoodAmounts;
         public List<string> Ingredients;
 
-        int CurrentPos = 0;
-
-        IDictionary<string, RecipeDef> Recipies;
-
         List<RecipeDef> RecipiesToShow;
-        Dictionary<string, RecipeDef> RecipiesToSort;
 
         ProgramManager CurrentManager;
 
@@ -30,7 +37,10 @@ namespace Nikola.Munchy.MunchyAPI
         {
             RecipeDatabaseFile = DatabaseToUse;
             CurrentManager = Manager;
-            UserPreferences = Manager.User.Preferences;
+            UserIndex = Manager.User.CompatabilityIndex;
+            Recipies = GetRecipies();
+            FridgeItems = Manager.UsersFridge.UsersFoods;
+            SortRecipes();
         }
 
         /// <summary>
@@ -58,77 +68,58 @@ namespace Nikola.Munchy.MunchyAPI
 
         }
 
-        public void LoadRecipies()
-        {
-            Recipies = GetRecipies();
-            if (DateTime.Now.Hour < 11 && DateTime.Now.Hour >= 7)
-            {
-                foreach (KeyValuePair<string, RecipeDef> Recipie in Recipies)
-                {
-                    if (Recipie.Value.TimeTags.Contains("breakfast"))
-                    {
-                        RecipiesToSort.Add(Recipie.Key, Recipie.Value);
-                    }
-                }
-            }
 
-            if (DateTime.Now.Hour < 5 && DateTime.Now.Hour >= 11)
+        /// <summary>
+        /// Sorts recipies using Binary Comparison. Sorts recipes based on: Appropriate based on user settings, 
+        /// if they are good for breakfast, lunch, dinner, and if the user has all the ingredients for the recipes.
+        /// </summary>
+        public void SortRecipes()
+        {
+            foreach (KeyValuePair<string, RecipeDef> item in Recipies)
             {
-                Recipies = GetRecipies();
-                if (DateTime.Now.Hour < 11 && DateTime.Now.Hour >= 7)
+                foreach (string tag in item.Value.UserTags)
                 {
-                    foreach (KeyValuePair<string, RecipeDef> Recipie in Recipies)
+                    RecipieIndex += 2 ^ CurrentManager.CompatabilityMap.IndexOf(tag);
+                }
+
+                if ((UserIndex & RecipieIndex) == UserIndex)
+                {
+                    CompatableRecipes.Add(item.Key);
+
+                    if (item.Value.TimeTags.Contains("breakfast"))
                     {
-                        if (Recipie.Value.TimeTags.Contains("lunch"))
+                        Breakfast.Add(item.Key);
+                    }
+
+                    if (item.Value.TimeTags.Contains("lunch"))
+                    {
+                        Breakfast.Add(item.Key);
+                    }
+
+                    if (item.Value.TimeTags.Contains("dinner"))
+                    {
+                        Breakfast.Add(item.Key);
+                    }
+
+                    foreach (string food in item.Value.Ingredients)
+                    {
+                        if (FridgeItems.ContainsKey(food))
                         {
-                            RecipiesToSort.Add(Recipie.Key, Recipie.Value);
+                            HasAllIngredients = true;
+                        }
+                        else
+                        {
+                            HasAllIngredients = false;
+                            break;
                         }
                     }
-                }
-            }
 
-            if (DateTime.Now.Hour < 22 && DateTime.Now.Hour <= 5)
-            {
-                Recipies = GetRecipies();
-                if (DateTime.Now.Hour < 11 && DateTime.Now.Hour >= 7)
-                {
-                    foreach (KeyValuePair<string, RecipeDef> Recipie in Recipies)
+                    if (HasAllIngredients == true)
                     {
-                        if (Recipie.Value.TimeTags.Contains("dinner"))
-                        {
-                            RecipiesToSort.Add(Recipie.Key, Recipie.Value);
-                        }
+                        RecipesWithFridgeFoods.Add(item.Key);
                     }
                 }
             }
         }
-
-        public void SortRecipies()
-        {
-            foreach (KeyValuePair<string, RecipeDef> element in Recipies)
-            {
-                if (element.Value.UserTags == UserPreferences)
-                {
-                    RecipiesToShow.Add(element.Value);
-                }
-            }
-        }
-
-        public RecipeDef GetRecipie()
-        {
-            RecipeDef CurrentRecipie;
-            if (CurrentPos <= RecipiesToShow.Count || CurrentPos <= 15)
-            {
-                CurrentRecipie = RecipiesToShow[CurrentPos];
-                CurrentPos++;
-                return CurrentRecipie;
-            }
-            else
-            {
-                throw new Exception(string.Format("Out of recipies"));
-            }
-        }
-        
-
     }
 }

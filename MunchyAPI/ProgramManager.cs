@@ -16,10 +16,24 @@ namespace Nikola.Munchy.MunchyAPI
         string RecipiesFile;
         string UserFridgeFile;
         string DefaultFridgeFile;
+
         public FridgeTemplate UsersFridge;
         public RecipeManager RecipieManag;
         public FoodManager FoodManag;
         public UserTemplate User { get; set; }
+
+        public List<string> CompatabilityMap = new List<string>
+            {
+                "IsVegan",
+                "IsVegetarian",
+                "IsDiabetic",
+                "HasAlergies",
+                "Eggs",
+                "Dairy",
+                "Fish",
+                "Nuts",
+                "Soy"
+            };
 
         public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser, string RecipieDatabase, string FoodItemsDatabase)
         {
@@ -46,22 +60,22 @@ namespace Nikola.Munchy.MunchyAPI
         /// <returns></returns>
         public UserTemplate GetUser()
         {
-            UserTemplate RetrievedUsers;
+            UserTemplate RetrievedUser;
             if (!File.Exists(UserFile))
             {
                 using (StreamReader file = File.OpenText(DefaultUserFile))
                 {
                     JsonSerializer serializer = new JsonSerializer();
-                    RetrievedUsers = (UserTemplate)serializer.Deserialize(file, typeof(UserTemplate));
-                    return RetrievedUsers;
+                    RetrievedUser = (UserTemplate)serializer.Deserialize(file, typeof(UserTemplate));
+                    return RetrievedUser;
                 }
             }
 
             using (StreamReader file = File.OpenText(UserFile))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                RetrievedUsers = (UserTemplate)serializer.Deserialize(file, typeof(UserTemplate));
-                return RetrievedUsers;
+                RetrievedUser = (UserTemplate)serializer.Deserialize(file, typeof(UserTemplate));
+                return RetrievedUser;
             }
 
         }
@@ -86,11 +100,15 @@ namespace Nikola.Munchy.MunchyAPI
         /// <param name="Name"></param>
         /// <param name="Sex"></param>
         /// <param name="Age"></param>
-        public void CreateUser(string Name, string Sex, int Age)
+        public void CreateUser(string UserName, string UserSex, int UserAge)
         {
-            UserTemplate newUser = new UserTemplate();
-            newUser.UserName = Name;
-            newUser.Sex = Sex;
+            UserTemplate newUser = new UserTemplate
+            {
+                UserName = UserName,
+                Sex = UserSex,
+                Age = UserAge
+            };
+
             InitFridge(newUser);
             User = newUser;
         }
