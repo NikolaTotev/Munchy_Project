@@ -118,16 +118,19 @@ namespace Nikola.Munchy.MunchyAPI
         /// </summary>
         public void SaveFridge()
         {
-            if (!File.Exists(SavedFilePath))
-            {
-                throw new Exception(string.Format("File {0} does not exsit or can't be accessed."));
-            }
-
             using (StreamWriter file = File.CreateText(SavedFilePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, UsersFoods);
             }
+        }
+
+        /// <summary>
+        /// Removes all items from the fridge.
+        /// </summary>
+        public void ClearFridge()
+        {
+            UsersFoods.Clear();
         }
     }
 }

@@ -15,19 +15,20 @@ namespace Nikola.Munchy.MunchyAPI
 
         public int UserIndex;
         public int RecipieIndex;
-        
 
-        public List<string> CompatableRecipes;
-        public List<string> Breakfast;
-        public List<string> Lunch;
-        public List<string> Dinner;
-        public List<string> RecipesWithFridgeFoods;
+        // Recipes that are compatable with the user's preferences.
+        public List<string> CompatableRecipes = new List<string>();
+        // All compatable recipies that have the time tag "breakfast".
+        public List<string> Breakfast = new List<string>();
+        // All compatable recipies that have the time tag "lunch".
+        public List<string> Lunch = new List<string>();
+        // All compatable recipies that have the time tag "dinner".
+        public List<string> Dinner = new List<string>();
+        // All compatable recipes that the user has the ingredients for.
+        public List<string> RecipesWithFridgeFoods = new List<string>();
 
-        IDictionary<string, RecipeDef> Recipies;
-        Dictionary<string, FoodDef> FridgeItems;
-
-        public List<float> FoodAmounts;
-        public List<string> Ingredients;
+        public IDictionary<string, RecipeDef> Recipies;
+        public Dictionary<string, FoodDef> FridgeItems;
 
         List<RecipeDef> RecipiesToShow;
 
@@ -75,6 +76,7 @@ namespace Nikola.Munchy.MunchyAPI
         /// </summary>
         public void SortRecipes()
         {
+            UserIndex = CurrentManager.User.CompatabilityIndex;
             foreach (KeyValuePair<string, RecipeDef> item in Recipies)
             {
                 foreach (string tag in item.Value.UserTags)
@@ -82,10 +84,48 @@ namespace Nikola.Munchy.MunchyAPI
                     RecipieIndex += 2 ^ CurrentManager.CompatabilityMap.IndexOf(tag);
                 }
 
-                if ((UserIndex & RecipieIndex) == UserIndex)
+                if (UserIndex != 0)
                 {
-                    CompatableRecipes.Add(item.Key);
+                    if ((UserIndex & RecipieIndex) == UserIndex)
+                    {
+                        CompatableRecipes.Add(item.Key);
 
+                        if (item.Value.TimeTags.Contains("breakfast"))
+                        {
+                            Breakfast.Add(item.Key);
+                        }
+
+                        if (item.Value.TimeTags.Contains("lunch"))
+                        {
+                            Lunch.Add(item.Key);
+                        }
+
+                        if (item.Value.TimeTags.Contains("dinner"))
+                        {
+                            Dinner.Add(item.Key);
+                        }
+
+                        foreach (string food in item.Value.Ingredients)
+                        {
+                            if (FridgeItems.ContainsKey(food))
+                            {
+                                HasAllIngredients = true;
+                            }
+                            else
+                            {
+                                HasAllIngredients = false;
+                                break;
+                            }
+                        }
+
+                        if (HasAllIngredients == true)
+                        {
+                            RecipesWithFridgeFoods.Add(item.Key);
+                        }
+                    }
+                }
+                else
+                {
                     if (item.Value.TimeTags.Contains("breakfast"))
                     {
                         Breakfast.Add(item.Key);
@@ -93,12 +133,12 @@ namespace Nikola.Munchy.MunchyAPI
 
                     if (item.Value.TimeTags.Contains("lunch"))
                     {
-                        Breakfast.Add(item.Key);
+                        Lunch.Add(item.Key);
                     }
 
                     if (item.Value.TimeTags.Contains("dinner"))
                     {
-                        Breakfast.Add(item.Key);
+                        Dinner.Add(item.Key);
                     }
 
                     foreach (string food in item.Value.Ingredients)
@@ -119,6 +159,7 @@ namespace Nikola.Munchy.MunchyAPI
                         RecipesWithFridgeFoods.Add(item.Key);
                     }
                 }
+              
             }
         }
     }

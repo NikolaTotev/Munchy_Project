@@ -19,9 +19,10 @@ namespace Nikola.Munchy.MunchyAPI
         [NonSerialized]
         public FridgeTemplate UserFridge;
 
+        [NonSerialized]
         public ProgramManager CurrentManager;
 
-        public List<string> Preferences;
+        public List<string> Preferences = new List<string>();
 
 
         public string UserName { get; set; }
@@ -33,11 +34,23 @@ namespace Nikola.Munchy.MunchyAPI
 
 
 
-        public UserTemplate()
-        {           
-            Preferences = new List<string>();
+        public UserTemplate(ProgramManager Manager)
+        {
+            CurrentManager = Manager;
+            CompatabilityIndex = 0;
+            CalculateIndex();
         }
-              
+
+
+        public void CalculateIndex()
+        {
+            foreach (string tag in Preferences)
+            {
+                CompatabilityIndex += 2 ^ CurrentManager.CompatabilityMap.IndexOf(tag);
+            }
+        }
+
+        
     }
 
 

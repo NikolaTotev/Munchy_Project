@@ -12,7 +12,7 @@ namespace Nikola.Munchy.MunchyAPI
     public class FoodManager
     {
         string DefinitionFilePath;
-
+        public Dictionary<string, FoodDef> Foods;
 
         /// <summary>
         /// When Application is started and a food manager instance is created, the file path where the data is saved is passed into the constructor of FoodManager
@@ -21,13 +21,14 @@ namespace Nikola.Munchy.MunchyAPI
         public FoodManager(string defPath)
         {
             DefinitionFilePath = defPath;
+            Foods = GetFoodDefinitions();
         }
 
         /// <summary>
         /// Returns a dictonary that is full of the food definitions in the JSON file.
         /// </summary>
         /// <returns></returns>
-        public IDictionary<string, FoodDef> GetFoodDefinitions()
+        public Dictionary<string, FoodDef> GetFoodDefinitions()
         {
             // Throws Exception when the given file path doesn't exist or can't be accessed.
             if (!File.Exists(DefinitionFilePath))

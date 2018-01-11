@@ -47,16 +47,16 @@ namespace Nikola.Munchy.MunchyTester
                 "Dairy",
             };
 
-            UserTemplate testUser = new UserTemplate
-            {
-                Preferences = UserPreferences
-            };
+           //// UserTemplate testUser = new UserTemplate
+           // {
+           //     Preferences = UserPreferences
+           // };
 
 
-            foreach (string tag in testUser.Preferences)
-            {
-                UserIndex += 2 ^ CompatabilityMap.IndexOf(tag);
-            }
+           // foreach (string tag in testUser.Preferences)
+           // {
+           //     UserIndex += 2 ^ CompatabilityMap.IndexOf(tag);
+           // }
 
             RecipeDef testDef1 = new RecipeDef();
             RecipeDef testDef2 = new RecipeDef();

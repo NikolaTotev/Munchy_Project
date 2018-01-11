@@ -10,7 +10,7 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public class ProgramManager
     {
-        string UserFile;
+       public string UserFile;
         string DefaultUserFile;
         string FoodItemsFile;
         string RecipiesFile;
@@ -27,7 +27,6 @@ namespace Nikola.Munchy.MunchyAPI
                 "IsVegan",
                 "IsVegetarian",
                 "IsDiabetic",
-                "HasAlergies",
                 "Eggs",
                 "Dairy",
                 "Fish",
@@ -39,7 +38,6 @@ namespace Nikola.Munchy.MunchyAPI
         {
             FoodItemsFile = FoodItemsDatabase;
             RecipiesFile = RecipieDatabase;
-            RecipieManag = new RecipeManager(RecipiesFile, this);
             FoodManag = new FoodManager(FoodItemsFile);
 
             UserFile = UserFileSave;
@@ -48,9 +46,14 @@ namespace Nikola.Munchy.MunchyAPI
             UserFridgeFile = UserFridgeFileSave;
             DefaultFridgeFile = DefaultFridge;
 
-            User = new UserTemplate();
+            User = new UserTemplate(this);
             User = GetUser();
             InitFridge(User);
+
+            
+
+            RecipieManag = new RecipeManager(RecipiesFile, this);
+
         }
 
         /// <summary>
@@ -102,7 +105,7 @@ namespace Nikola.Munchy.MunchyAPI
         /// <param name="Age"></param>
         public void CreateUser(string UserName, string UserSex, int UserAge)
         {
-            UserTemplate newUser = new UserTemplate
+            UserTemplate newUser = new UserTemplate(this)
             {
                 UserName = UserName,
                 Sex = UserSex,
@@ -113,5 +116,13 @@ namespace Nikola.Munchy.MunchyAPI
             User = newUser;
         }
 
+        public void SaveUser()
+        {
+            using (StreamWriter file = File.CreateText(UserFile))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, User);
+            }
+        }
     }
 }
