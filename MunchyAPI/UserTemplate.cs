@@ -18,6 +18,8 @@ namespace Nikola.Munchy.MunchyAPI
 
         [NonSerialized]
         public FridgeTemplate UserFridge;
+        [NonSerialized]
+        public ShoppingList UserShoppingList;
 
         [NonSerialized]
         public ProgramManager CurrentManager;

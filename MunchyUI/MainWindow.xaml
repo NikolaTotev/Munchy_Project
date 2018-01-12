@@ -15,9 +15,6 @@
                 <TranslateTransform/>
             </TransformGroup>
         </Grid.RenderTransform>
-        <DockPanel HorizontalAlignment="Left" Height="85" LastChildFill="False" Margin="239,323,0,0" VerticalAlignment="Top" Width="450" Background="#FFF07B7B">
-            <Button Content="Button" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="187" DockPanel.Dock="Bottom" Margin="58,0,0,0"/>
-        </DockPanel>
 
     </Grid>
 </Window>
