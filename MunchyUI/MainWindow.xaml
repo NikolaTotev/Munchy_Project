@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MunchyUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="438.768" Width="697.464">
+    <Grid RenderTransformOrigin="0.5,0.5">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <DockPanel HorizontalAlignment="Left" Height="85" LastChildFill="False" Margin="239,323,0,0" VerticalAlignment="Top" Width="450" Background="#FFF07B7B">
+            <Button Content="Button" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="187" DockPanel.Dock="Bottom" Margin="58,0,0,0"/>
+        </DockPanel>
+
     </Grid>
 </Window>
