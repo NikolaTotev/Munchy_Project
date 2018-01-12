@@ -14,7 +14,7 @@ namespace Nikola.Munchy.MunchyAPI
         bool HasAllIngredients;
 
         public int UserIndex;
-        public int RecipieIndex;
+        public int RecipieIndex = 0;
 
         // Recipes that are compatable with the user's preferences.
         public List<string> CompatableRecipes = new List<string>();
@@ -81,7 +81,7 @@ namespace Nikola.Munchy.MunchyAPI
             {
                 foreach (string tag in item.Value.UserTags)
                 {
-                    RecipieIndex += 2 ^ CurrentManager.CompatabilityMap.IndexOf(tag);
+                    RecipieIndex += (int)Math.Pow(2, (CurrentManager.CompatabilityMap.IndexOf(tag)));
                 }
 
                 if (UserIndex != 0)
@@ -159,7 +159,9 @@ namespace Nikola.Munchy.MunchyAPI
                         RecipesWithFridgeFoods.Add(item.Key);
                     }
                 }
-              
+
+                RecipieIndex = 0;
+
             }
         }
     }

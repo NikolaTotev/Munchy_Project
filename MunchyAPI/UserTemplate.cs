@@ -46,11 +46,11 @@ namespace Nikola.Munchy.MunchyAPI
         {
             foreach (string tag in Preferences)
             {
-                CompatabilityIndex += 2 ^ CurrentManager.CompatabilityMap.IndexOf(tag);
+                CompatabilityIndex += (int)Math.Pow(2, (CurrentManager.CompatabilityMap.IndexOf(tag)));
             }
         }
 
-        
+
     }
 
 
