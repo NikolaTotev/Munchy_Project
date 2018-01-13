@@ -31,6 +31,7 @@ namespace Nikola.Munchy.MunchyAPI
                 "Dairy",
                 "Fish",
                 "Nuts",
+                "Gluten",
                 "Soy"
             };
 

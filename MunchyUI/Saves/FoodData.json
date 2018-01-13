@@ -1,0 +1,113 @@
+{
+  "milk": {
+    "Name": "milk",
+    "Calories": 300,
+    "ImageFileName": "/resources/images/milk.png"
+  },
+  "butter": {
+    "Name": "butter",
+    "Calories": 600,
+    "ImageFileName": "/resources/images/butter.png"
+  },
+  "chicken": {
+    "Name": "chicken",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "rice noodle": {
+    "Name": "rice noodle",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+  "carrot": {
+    "Name": "carrot",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+  "squash": {
+    "Name": "squash",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+  "egg": {
+    "Name": "egg",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "onion": {
+    "Name": "onion",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "cheese": {
+    "Name": "cheese",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "flour": {
+    "Name": "flour",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "chocolate": {
+    "Name": "chocolate",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "tomato": {
+    "Name": "tomato",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "lentil": {
+    "Name": "lentil",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+  "pepper": {
+    "Name": "pepper",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+  "chicken wing": {
+    "Name": "chicken wing",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+  "smoked paprika": {
+    "Name": "smoked paprika",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "salt": {
+    "Name": "salt",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "oil": {
+    "Name": "oil",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "black pepper": {
+    "Name": "black pepper",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  },
+
+  "fish": {
+    "Name": "fish",
+    "Calories": 80,
+    "ImageFileName": "/resources/images/bread.png"
+  }
+}

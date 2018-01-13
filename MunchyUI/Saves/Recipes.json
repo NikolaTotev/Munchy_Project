@@ -1,0 +1,107 @@
+{
+  "Chicken Dinner": {
+    "Name": "ChickenDinner",
+    "Description": "A dinner made of chicken",
+    "Ingredients": [ "chicken", "milk", "butter" ],
+    "TimeTags": [ "lunch", "dinner" ],
+    "UserTags": [ "IsDiabetic" ],
+    "ImageFile": "/resources/images/r_ChickenDiner"
+  },
+
+  "Rice Noodles": {
+    "Name": "Rice Noodles",
+    "Description": "Noodles",
+    "Ingredients": [ "rice noodle", "carrot", "squash", "egg" ],
+    "TimeTags": [ "lunch", "dinner" ],
+    "UserTags": [
+      "IsVegetarian",
+      "IsDiabetic",
+      "Eggs",
+      "Dairy",
+      "Fish"
+
+    ],
+    "ImageFile": "/resources/images/r_ChickenDiner"
+  },
+
+  "Onion Soup": {
+    "Name": "Onion Soup",
+    "Description": "Soup",
+    "Ingredients": [ "onion", "butter", "squash", "cheese" ],
+    "TimeTags": [ "lunch", "dinner" ],
+    "UserTags": [
+      "IsVegetarian",
+      "IsDiabetic",
+      "Eggs",
+      "Fish",
+      "Nuts",
+      "Soy"
+    ],
+    "ImageFile": "/resources/images/r_ChickenDiner"
+  },
+
+  "Cake": {
+    "Name": "Cake",
+    "Description": "Soup",
+    "Ingredients": [ "flour", "butter", "egg", "chocolate", "milk" ],
+    "TimeTags": [ "breakfast", "lunch", "dinner" ],
+    "UserTags": [
+      "IsVegetarian",
+      "Fish",
+      "Nuts",
+      "Soy"
+    ],
+    "ImageFile": "/resources/images/r_ChickenDiner"
+  },
+
+  "Lentil Soup": {
+    "Name": "Lentil Soup",
+    "Description": "Soup",
+    "Ingredients": [ "onion", "carrot", "tomato", "lentil", "pepper" ],
+    "TimeTags": [ "breakfast", "lunch", "dinner" ],
+    "UserTags": [
+      "IsVegan",
+      "IsVegetarian",
+      "IsDiabetic",
+      "Eggs",
+      "Dairy",
+      "Fish",
+      "Nuts",
+      "Soy"
+    ],
+    "ImageFile": "/resources/images/r_ChickenDiner"
+  },
+
+  "Chicken Wings": {
+    "Name": "Chicken Wings",
+    "Description": "Soup",
+    "Ingredients": [ "chicken wing", "smoked paprika", "salt", "black pepper", "oil" ],
+    "TimeTags": [ "lunch", "dinner" ],
+    "UserTags": [
+      "IsDiabetic",
+      "Eggs",
+      "Dairy",
+      "Fish",
+      "Nuts",
+      "Soy"
+    ],
+    "ImageFile": "/resources/images/r_ChickenDiner"
+  },
+
+  "Fish": {
+    "Name": "Fish",
+    "Description": "Soup",
+    "Ingredients": [ "fish", "butter", "squash", "cheese" ],
+    "TimeTags": [  "lunch", "dinner" ],
+    "UserTags": [
+      "IsDiabetic",
+      "Eggs",
+      "Dairy",
+      "Nuts",
+      "Soy"
+    ],
+    "ImageFile": "/resources/images/r_ChickenDiner"
+  }
+
+
+}
