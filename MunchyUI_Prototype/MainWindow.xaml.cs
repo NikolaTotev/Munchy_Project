@@ -30,7 +30,7 @@ namespace MunchyUI_Prototype
         string RecipeDatabase = @"d:\Desktop\Recipes.json";
 
         List<CheckBox> SettingOptions;
-
+        RecipeDef SuggestedRecipe = new RecipeDef();
         ProgramManager CurrentManager;
 
         public MainWindow()
@@ -52,6 +52,24 @@ namespace MunchyUI_Prototype
 
         private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
         {
+            
+            if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
+            {
+                SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[0]];
+            }
+
+            if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17 )
+            {
+                SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[0]];
+
+            }
+
+            if (DateTime.Now.Hour >= 17  && DateTime.Now.Hour < 24)
+            {
+                SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[3]];
+            }
+
+            tB_RecipeName.Text = SuggestedRecipe.Name;
 
         }
 
@@ -157,6 +175,8 @@ namespace MunchyUI_Prototype
             CurrentManager.SaveUser();
             CurrentManager.User.CalculateIndex();
             CurrentManager.SaveUser();
+
+            tB_UserName.Text = CurrentManager.User.UserName;
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
