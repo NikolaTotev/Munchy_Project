@@ -5,8 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MunchyUI_Prototype"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="550" Width="900">
     <Grid>
-        
+
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="48" VerticalAlignment="Top" Width="260" Margin="344,0,0,0"/>
+
+        <Ellipse HorizontalAlignment="Left" Height="298" Margin="308,112,0,0" VerticalAlignment="Top" Width="309">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/chickenDinner.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="88,10,0,0" Height="26" Width="85" FontFamily="Roboto Black" FontSize="20"><Run Text="Calories:"/><LineBreak/><Run/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="693,10,0,0" Height="26" Width="130" FontFamily="Roboto Black" FontSize="20" Text="Diet Balance:"/>
+        <TextBlock HorizontalAlignment="Left" Height="25" Margin="89,39,0,0" TextWrapping="Wrap" Text="1500" VerticalAlignment="Top" Width="81" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="22"/>
+        <TextBlock HorizontalAlignment="Left" Height="25" Margin="717,39,0,0" TextWrapping="Wrap" Text="Good" VerticalAlignment="Top" Width="81" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="22"/>
+        <TextBlock HorizontalAlignment="Left" Height="41" Margin="24,97,0,0" TextWrapping="Wrap" Text="Favorite Recipes" VerticalAlignment="Top" Width="215" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24"/>
+        <TextBlock HorizontalAlignment="Left" Height="41" Margin="653,97,0,0" TextWrapping="Wrap" Text="What you have" VerticalAlignment="Top" Width="215" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24"/>
+        <TextBlock HorizontalAlignment="Left" Height="36" Margin="344,6,0,0" TextWrapping="Wrap" Text="Nikola" VerticalAlignment="Top" Width="260" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24"/>
+        <TextBlock HorizontalAlignment="Left" Height="36" Margin="344,415,0,0" TextWrapping="Wrap" Text="Chicken Dinner" VerticalAlignment="Top" Width="260" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24"/>
+        <Button Content="More Info" HorizontalAlignment="Left" Height="38" Margin="402,456,0,0" VerticalAlignment="Top" Width="153" FontFamily="Roboto Black" FontSize="18" Foreground="#FF424242" BorderBrush="{x:Null}"/>
+        <Ellipse HorizontalAlignment="Left" Height="77" Margin="36,166,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/c700x420.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse HorizontalAlignment="Left" Height="77" Margin="133,170,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/chickenDinner.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse HorizontalAlignment="Left" Height="79" Margin="88,243,0,0" VerticalAlignment="Top" Width="79" RenderTransformOrigin="0.5,0.5">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/cake.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse HorizontalAlignment="Left" Height="77" Margin="144,316,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/psta.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Ellipse HorizontalAlignment="Left" Height="77" Margin="36,316,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.5,0.5">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="Images/compost-cookies-31-800.jpg"/>
+            </Ellipse.Fill>
+        </Ellipse>
+        <Button Content="See All" HorizontalAlignment="Left" Height="38" Margin="57,443,0,0" VerticalAlignment="Top" Width="153" FontFamily="Roboto Black" FontSize="18" Foreground="#FF424242" BorderBrush="{x:Null}"/>
+        <Button Content="Suggest Recipe" HorizontalAlignment="Left" Height="38" Margin="389,69,0,0" VerticalAlignment="Top" Width="153" FontFamily="Roboto Black" FontSize="18" Foreground="#FF424242" BorderBrush="{x:Null}"/>
+
     </Grid>
 </Window>
