@@ -49,6 +49,7 @@ namespace Nikola.Munchy.MunchyAPI
 
             User = new UserTemplate(this);
             User = GetUser();
+            User.CurrentManager = this;
             InitFridge(User);
 
             

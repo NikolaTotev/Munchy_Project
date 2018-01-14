@@ -46,6 +46,7 @@ namespace Nikola.Munchy.MunchyAPI
 
         public void CalculateIndex()
         {
+            CompatabilityIndex = 0;
             foreach (string tag in Preferences)
             {
                 CompatabilityIndex += (int)Math.Pow(2, (CurrentManager.CompatabilityMap.IndexOf(tag)));

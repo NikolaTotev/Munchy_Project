@@ -29,18 +29,21 @@ namespace MunchyUI_Prototype
         string FoodDefFile = @"d:\Desktop\FoodData.json";
         string RecipeDatabase = @"d:\Desktop\Recipes.json";
 
+        List<CheckBox> SettingOptions;
+
         ProgramManager CurrentManager;
-        
+
         public MainWindow()
         {
             InitializeComponent();
             CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile);
+            SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        }                    
+        }
 
         private void btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
         {
@@ -69,7 +72,23 @@ namespace MunchyUI_Prototype
 
         private void ShowSettings(object sender, MouseButtonEventArgs e)
         {
-            if (p_Settings.Visibility == Visibility.Hidden)
+            tb_NameInput.Text = CurrentManager.User.UserName;
+            tb_AgeInput.Text = CurrentManager.User.Age.ToString();
+            tb_WeightInput.Text = CurrentManager.User.Weight.ToString();
+
+            foreach (CheckBox element in SettingOptions)
+            {
+                if (CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
+                {
+                    element.IsChecked = true;
+                }
+                else
+                {
+                    element.IsChecked = false;
+                }
+            }
+
+                if (p_Settings.Visibility == Visibility.Hidden)
             {
                 p_Settings.Visibility = Visibility.Visible;
             }
@@ -77,6 +96,72 @@ namespace MunchyUI_Prototype
             {
                 p_Settings.Visibility = Visibility.Hidden;
             }
+
+            
+        }
+
+        private void cb_Nuts_Copy1_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void cb_Nuts_Copy_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_Save_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(tb_NameInput.Text) && !string.IsNullOrWhiteSpace(tb_AgeInput.Text) && !string.IsNullOrWhiteSpace(tb_WeightInput.Text))
+            {
+                CurrentManager.User.UserName = tb_NameInput.Text;            
+                CurrentManager.User.Age = int.Parse(tb_AgeInput.Text);
+                CurrentManager.User.Weight = int.Parse(tb_WeightInput.Text);
+            }
+
+            if (rb_Male.IsChecked == true)
+            {
+                CurrentManager.User.Sex = "male";
+            }
+
+            if (rb_Female.IsChecked == true)
+            {
+                CurrentManager.User.Sex = "female";
+            }
+
+            if (rb_Other.IsChecked == true)
+            {
+                CurrentManager.User.Sex = "other";
+            }
+
+            foreach (CheckBox element in SettingOptions)
+            {
+                if (element.IsChecked == true)
+                {
+                    if (!CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
+                    {
+                        CurrentManager.User.Preferences.Add(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
+                    }
+                }
+
+                if (element.IsChecked == false)
+                {
+                    if (CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
+                    {
+                        CurrentManager.User.Preferences.Remove(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
+                    }
+                }
+
+            }
+
+            CurrentManager.SaveUser();
+            CurrentManager.User.CalculateIndex();
+            CurrentManager.SaveUser();
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
