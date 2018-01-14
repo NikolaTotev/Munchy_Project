@@ -61,5 +61,22 @@ namespace MunchyUI_Prototype
         {
 
         }
+
+        private void btn_SaveSettings_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ShowSettings(object sender, MouseButtonEventArgs e)
+        {
+            if (p_Settings.Visibility == Visibility.Hidden)
+            {
+                p_Settings.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                p_Settings.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }
