@@ -111,6 +111,14 @@
                     </Rectangle.Fill>
                 </Rectangle>
             </Grid>
+            <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843">
+                <ListBox HorizontalAlignment="Left" Height="360" Margin="293,62,0,0" VerticalAlignment="Top" Width="323" Background="#FFC1CAD6"/>
+                <Button Content="Add" HorizontalAlignment="Left" Height="46" Margin="293,443,0,0" VerticalAlignment="Top" Width="157" Background="#FFFE5F55" FontFamily="Roboto Black" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="24"/>
+                <Button Content="Remove" HorizontalAlignment="Left" Height="46" Margin="455,443,0,0" VerticalAlignment="Top" Width="161" Foreground="#FFFCFFFC" BorderBrush="{x:Null}" Background="#FFFE5F55" FontFamily="Roboto Black" FontSize="24"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="46,62,0,0" TextWrapping="Wrap" Text="Summary" VerticalAlignment="Top" Width="192" FontFamily="Roboto Medium" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="683,62,0,0" TextWrapping="Wrap" Text="Food Info" VerticalAlignment="Top" Width="192" FontFamily="Roboto Medium" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+            </Grid>
+            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Height="46" Margin="67,10,0,0" TextWrapping="Wrap" Text="Foods" VerticalAlignment="Top" Width="249" FontFamily="Shrikhand" TextAlignment="Center" FontSize="36" Foreground="#FFFCFFFC"/>
 
         </Grid>
     </Viewbox>
