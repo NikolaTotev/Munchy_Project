@@ -69,12 +69,12 @@
             <Button x:Name="btn_ShowRecipe" Content="Show Recipe" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="140,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="145" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="18" Click="btn_ShowRecipe_Click" Background="#FFFE5F55"/>
             <Button x:Name="btn_Showfridge" Content="Show all foods" Grid.Column="3" HorizontalAlignment="Left" Height="38" Margin="62,1,0,0" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Top" Width="138" BorderBrush="{x:Null}" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" Click="btn_Showfridge_Click" Background="#FFFE5F55"/>
             <Grid x:Name="p_Settings" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="460" Margin="47,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="837" Background="#E9233843" Visibility="Hidden">
-                <Rectangle HorizontalAlignment="Left" Height="37" Stroke="White" VerticalAlignment="Top" Width="38" MouseDown="ShowSettings" Margin="789,10,0,0" OpacityMask="Black">
+                <Rectangle x:Name="btn_CloseSettings" HorizontalAlignment="Left" Height="37" Stroke="White" VerticalAlignment="Top" Width="38" MouseDown="ShowSettings" Margin="789,10,0,0" OpacityMask="Black">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="Images/8934.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
-                <TextBlock HorizontalAlignment="Left" Height="61" TextWrapping="Wrap" Text="Settings" VerticalAlignment="Top" Width="261" FontSize="48" FontFamily="Shrikhand" TextAlignment="Center" Foreground="#FFFCFFFC" Margin="286,0,0,0"/>
+                <TextBlock x:Name="tB_SettingsTitle" HorizontalAlignment="Left" Height="61" TextWrapping="Wrap" Text="Settings" VerticalAlignment="Top" Width="261" FontSize="48" FontFamily="Shrikhand" TextAlignment="Center" Foreground="#FFFCFFFC" Margin="286,0,0,0"/>
                 <CheckBox x:Name="cb_Vegan" Content="I'm Vegan" HorizontalAlignment="Left" Height="30" Margin="81,299,0,0" VerticalAlignment="Top" Width="127" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FFFCFFFC"/>
                 <CheckBox x:Name="cb_Vegetarian" Content="I'm Vegetarian" HorizontalAlignment="Left" Height="26" Margin="53,263,0,0" VerticalAlignment="Top" Width="184" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FFFCFFFC"/>
                 <CheckBox x:Name="cb_Diabetic" Content="I'm Diabetic" HorizontalAlignment="Left" Height="26" Margin="311,277,0,0" VerticalAlignment="Top" Width="153" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FFFCFFFC"/>
@@ -84,13 +84,13 @@
                 <CheckBox x:Name="cb_Dairy" Content="Dairy" HorizontalAlignment="Left" Height="26" Margin="512,307,0,0" VerticalAlignment="Top" Width="77" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FFFCFFFC"/>
                 <CheckBox x:Name="cb_Fish" Content="Fish" HorizontalAlignment="Left" Height="26" Margin="609,303,0,0" VerticalAlignment="Top" Width="65" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FFFCFFFC"/>
                 <CheckBox x:Name="cb_Eggs" Content="Eggs" HorizontalAlignment="Left" Height="26" Margin="691,303,0,0" VerticalAlignment="Top" Width="96" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FFFCFFFC"/>
-                <TextBlock HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Allergies" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FFFCFFFC" Margin="574,225,0,0"/>
-                <TextBlock HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Food Preferences" VerticalAlignment="Top" Width="220" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FFFCFFFC" Margin="40,225,0,0"/>
-                <TextBlock HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Health Issues" VerticalAlignment="Top" Width="220" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FFFCFFFC" Margin="282,225,0,0"/>
-                <TextBlock HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="White" Margin="97,78,0,0"/>
-                <TextBlock HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Age" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="White" Margin="97,115,0,0"/>
-                <TextBlock HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Weight" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="White" Margin="97,148,0,0"/>
-                <TextBlock HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Sex" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="White" Margin="533,75,0,0"/>
+                <TextBlock x:Name="tB_AllergiesLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Allergies" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FFFCFFFC" Margin="574,225,0,0"/>
+                <TextBlock x:Name="tB_FoodPrefLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Food Preferences" VerticalAlignment="Top" Width="220" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FFFCFFFC" Margin="40,225,0,0"/>
+                <TextBlock x:Name="tB_HealthIssuesLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Health Issues" VerticalAlignment="Top" Width="220" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FFFCFFFC" Margin="282,225,0,0"/>
+                <TextBlock x:Name="tB_NameLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="White" Margin="97,78,0,0"/>
+                <TextBlock x:Name="tB_AgeLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Age" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="White" Margin="97,115,0,0"/>
+                <TextBlock x:Name="tB_WeightLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Weight" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="White" Margin="97,148,0,0"/>
+                <TextBlock x:Name="tB_SexLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="Sex" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="White" Margin="533,75,0,0"/>
                 <TextBox x:Name="tb_NameInput" HorizontalAlignment="Left" Height="26" Margin="216,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FFFCFFFC" SelectionBrush="#7F223843" Background="#FFFE5F55" Text="Nikola" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20"/>
                 <TextBox x:Name="tb_AgeInput" HorizontalAlignment="Left" Height="26" Margin="216,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FFFCFFFC" SelectionBrush="#7F223843" Background="#FFFE5F55" Text="Nikola" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20"/>
                 <TextBox x:Name="tb_WeightInput" HorizontalAlignment="Left" Height="26" Margin="216,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FFFCFFFC" SelectionBrush="#7F223843" Background="#FFFE5F55" Text="Nikola" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20"/>
@@ -100,12 +100,12 @@
                 <RadioButton x:Name="rb_Other" Content="Other" HorizontalAlignment="Left" Height="23" Margin="658,119,0,0" VerticalAlignment="Top" Width="109" FontFamily="Roboto Light" FontSize="22" Background="White" Foreground="#FFFCFFFC" Checked="RadioButton_Checked"/>
 
             </Grid>
-            <Grid Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="484" Margin="27,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="857" Background="#FFC5C5C5" Visibility="Hidden">
-                <TextBlock Height="58" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="292,0,262,0" FontFamily="Shrikhand" FontSize="36" TextAlignment="Center" Foreground="#FF424242"/>
-                <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="219" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="220"/>
-                <TextBlock HorizontalAlignment="Left" Height="30" Margin="272,63,0,0" TextWrapping="Wrap" Text="Ingredients" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FF424242" TextAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" Height="30" Margin="617,63,0,0" TextWrapping="Wrap" Text="Directions" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FF424242" TextAlignment="Center"/>
-                <Rectangle HorizontalAlignment="Left" Height="40" Margin="813,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="44">
+            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="484" Margin="27,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="857" Background="#F2223843" Visibility="Visible">
+                <TextBlock x:Name="tB_RecipeTitle" Height="58" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="292,0,262,0" FontFamily="Shrikhand" FontSize="36" TextAlignment="Center" Foreground="#FFFCFFFC"/>
+                <Ellipse x:Name="img_RecipeImage" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="219" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="220"/>
+                <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="272,63,0,0" TextWrapping="Wrap" Text="Ingredients" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_DirectionsTitle" HorizontalAlignment="Left" Height="30" Margin="617,63,0,0" TextWrapping="Wrap" Text="Directions" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <Rectangle x:Name="btn_CloseRecipeView" HorizontalAlignment="Left" Height="40" Margin="813,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="44" MouseUp="btn_ShowRecipe_Click">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="Images/8934.png"/>
                     </Rectangle.Fill>
@@ -149,7 +149,7 @@
                 <TextBlock HorizontalAlignment="Left" Height="30" Margin="776,339,0,0" TextWrapping="Wrap" Text="155 g " VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
                 <TextBlock HorizontalAlignment="Left" Height="30" Margin="624,384,0,0" TextWrapping="Wrap" Text="Sodium" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <TextBlock HorizontalAlignment="Left" Height="30" Margin="777,384,0,0" TextWrapping="Wrap" Text="12 g" VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
-                <Rectangle HorizontalAlignment="Left" Height="43" Margin="848,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="46" MouseUp="btn_Showfridge_Click">
+                <Rectangle x:Name="btn_CloseFoods" HorizontalAlignment="Left" Height="43" Margin="848,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="46" MouseUp="btn_Showfridge_Click">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="Images/8934.png"/>
                     </Rectangle.Fill>

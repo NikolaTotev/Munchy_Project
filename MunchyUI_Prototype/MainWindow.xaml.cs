@@ -32,6 +32,7 @@ namespace MunchyUI_Prototype
         List<CheckBox> SettingOptions;
         RecipeDef SuggestedRecipe = new RecipeDef();
         ProgramManager CurrentManager;
+        ImageBrush RecipeImage = new ImageBrush();
 
         public MainWindow()
         {
@@ -39,6 +40,7 @@ namespace MunchyUI_Prototype
             CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile);
             SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
 
+            SuggestRecipe();
             if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
             {
                 foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
@@ -63,40 +65,22 @@ namespace MunchyUI_Prototype
 
         private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
         {
-
-            if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
-            {
-                if (CurrentManager.RecipieManag.Breakfast.Count > 0)
-                {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[0]];
-
-                }
-            }
-
-            if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
-            {
-                if (CurrentManager.RecipieManag.Lunch.Count > 0)
-                {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[0]];
-
-                }
-            }
-
-            if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
-            {
-                if (CurrentManager.RecipieManag.Dinner.Count > 0)
-                {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[3]];
-                }
-            }
-
-            tB_RecipeName.Text = SuggestedRecipe.Name;
-
+            SuggestRecipe();
         }
 
         private void btn_ShowRecipe_Click(object sender, RoutedEventArgs e)
         {
+            if (p_FullRecipeView.Visibility == Visibility.Hidden)
+            {
+                p_FullRecipeView.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                p_FullRecipeView.Visibility = Visibility.Hidden;
+            }
 
+            RecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
+            img_RecipeImage.Fill = RecipeImage;
         }
 
         private void btn_Showfridge_Click(object sender, RoutedEventArgs e)
@@ -230,6 +214,37 @@ namespace MunchyUI_Prototype
         private void btn_AddItem_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void SuggestRecipe()
+        {
+            if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
+            {
+                if (CurrentManager.RecipieManag.Breakfast.Count > 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[0]];
+
+                }
+            }
+
+            if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
+            {
+                if (CurrentManager.RecipieManag.Lunch.Count > 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[0]];
+
+                }
+            }
+
+            if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
+            {
+                if (CurrentManager.RecipieManag.Dinner.Count > 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[1]];
+                }
+            }
+
+            tB_RecipeName.Text = SuggestedRecipe.Name;
         }
     }
 }
