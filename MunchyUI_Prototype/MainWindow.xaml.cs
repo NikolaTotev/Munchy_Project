@@ -52,21 +52,31 @@ namespace MunchyUI_Prototype
 
         private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
             {
-                SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[0]];
+                if (CurrentManager.RecipieManag.Breakfast.Count > 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[0]];
+
+                }
             }
 
-            if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17 )
+            if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
             {
-                SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[0]];
+                if (CurrentManager.RecipieManag.Lunch.Count > 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[0]];
 
+                }
             }
 
-            if (DateTime.Now.Hour >= 17  && DateTime.Now.Hour < 24)
+            if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
             {
-                SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[3]];
+                if (CurrentManager.RecipieManag.Dinner.Count > 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[3]];
+                }
             }
 
             tB_RecipeName.Text = SuggestedRecipe.Name;
@@ -106,7 +116,7 @@ namespace MunchyUI_Prototype
                 }
             }
 
-                if (p_Settings.Visibility == Visibility.Hidden)
+            if (p_Settings.Visibility == Visibility.Hidden)
             {
                 p_Settings.Visibility = Visibility.Visible;
             }
@@ -115,7 +125,7 @@ namespace MunchyUI_Prototype
                 p_Settings.Visibility = Visibility.Hidden;
             }
 
-            
+
         }
 
         private void cb_Nuts_Copy1_Checked(object sender, RoutedEventArgs e)
@@ -132,7 +142,7 @@ namespace MunchyUI_Prototype
         {
             if (!string.IsNullOrWhiteSpace(tb_NameInput.Text) && !string.IsNullOrWhiteSpace(tb_AgeInput.Text) && !string.IsNullOrWhiteSpace(tb_WeightInput.Text))
             {
-                CurrentManager.User.UserName = tb_NameInput.Text;            
+                CurrentManager.User.UserName = tb_NameInput.Text;
                 CurrentManager.User.Age = int.Parse(tb_AgeInput.Text);
                 CurrentManager.User.Weight = int.Parse(tb_WeightInput.Text);
             }
@@ -177,6 +187,7 @@ namespace MunchyUI_Prototype
             CurrentManager.SaveUser();
 
             tB_UserName.Text = CurrentManager.User.UserName;
+
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
