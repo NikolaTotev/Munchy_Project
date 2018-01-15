@@ -34,8 +34,8 @@
             <TextBlock TextWrapping="Wrap" Margin="0,11,66,0" Height="26" Width="130" FontFamily="Roboto Black" FontSize="20" Text="Diet Balance:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Column="3" Foreground="#FF223843"/>
             <TextBlock Height="25" Margin="76,41,0,0" TextWrapping="Wrap" Text="1500" Width="81" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="22" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1" Foreground="#FF223843"/>
             <TextBlock Height="25" Margin="0,41,76,0" TextWrapping="Wrap" Text="Good" Width="81" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="22" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="3" Foreground="#FF223843"/>
-            <TextBlock Height="41" Margin="18,10,0,0" TextWrapping="Wrap" Text="Favorite Recipes" Width="215" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Foreground="#FF223843"/>
-            <TextBlock Height="34" Margin="0,10,6,12" TextWrapping="Wrap" Width="220" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Foreground="#FF223843"><Run Text="Recent Foods"/><LineBreak/><Run/></TextBlock>
+            <TextBlock Height="41" Margin="10,10,0,0" TextWrapping="Wrap" Text="Favorite Recipes" Width="246" TextAlignment="Center" FontFamily="Shrikhand" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Foreground="#FF223843"/>
+            <TextBlock Height="34" Margin="0,10,0,12" TextWrapping="Wrap" Width="240" TextAlignment="Center" FontFamily="Shrikhand" FontSize="26" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Foreground="#FF223843"><Run Text="Recent Foods"/><LineBreak/><Run/></TextBlock>
             <TextBlock x:Name="tB_UserName" Margin="80,4,117,29" TextWrapping="Wrap" Text="Nikola" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" Grid.Column="2" Foreground="#FFFCFFFC" MouseDown="ShowSettings"/>
             <TextBlock x:Name="tB_RecipeName" Height="36" Margin="80,0,78,2" TextWrapping="Wrap" Text="Chicken Dinner" Width="260" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="3" Foreground="#FF223843"/>
             <Ellipse Height="76" Margin="27,41,0,191" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
@@ -64,7 +64,7 @@
                 </Ellipse.Fill>
             </Ellipse>
             <Button x:Name="btn_SeeAllSavedRecipes" Content="See All" Height="38" Margin="47,0,0,67" Width="153" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Click="btn_SeeAllSavedRecipes_Click" Background="#FFFE5F55"/>
-            <ListBox x:Name="lb_Fridge" Height="288" Margin="0,10,21,10" Width="181" Background="#FFC1CAD6" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2"/>
+            <ListBox x:Name="lb_Fridge" Height="288" Margin="0,10,21,10" Width="181" Background="#FFC1CAD6" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" FontSize="22" FontFamily="Roboto Black" Foreground="#FF223843"/>
             <Button x:Name="btn_SuggestRecipe" Content="Suggest Recipe" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Grid.Column="2" Margin="121,10,0,0" Grid.Row="1" Height="36" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="18" FontFamily="Roboto Black" Click="btn_SuggestRecipe_Click" Background="#FFFE5F55"/>
             <Button x:Name="btn_ShowRecipe" Content="Show Recipe" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="140,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="145" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="18" Click="btn_ShowRecipe_Click" Background="#FFFE5F55"/>
             <Button x:Name="btn_Showfridge" Content="Show all foods" Grid.Column="3" HorizontalAlignment="Left" Height="38" Margin="62,1,0,0" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Top" Width="138" BorderBrush="{x:Null}" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" Click="btn_Showfridge_Click" Background="#FFFE5F55"/>
@@ -111,14 +111,53 @@
                     </Rectangle.Fill>
                 </Rectangle>
             </Grid>
-            <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843">
-                <ListBox HorizontalAlignment="Left" Height="360" Margin="293,62,0,0" VerticalAlignment="Top" Width="323" Background="#FFC1CAD6"/>
-                <Button Content="Add" HorizontalAlignment="Left" Height="46" Margin="293,443,0,0" VerticalAlignment="Top" Width="157" Background="#FFFE5F55" FontFamily="Roboto Black" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="24"/>
-                <Button Content="Remove" HorizontalAlignment="Left" Height="46" Margin="455,443,0,0" VerticalAlignment="Top" Width="161" Foreground="#FFFCFFFC" BorderBrush="{x:Null}" Background="#FFFE5F55" FontFamily="Roboto Black" FontSize="24"/>
-                <TextBlock HorizontalAlignment="Left" Height="30" Margin="46,62,0,0" TextWrapping="Wrap" Text="Summary" VerticalAlignment="Top" Width="192" FontFamily="Roboto Medium" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Left" Height="30" Margin="683,62,0,0" TextWrapping="Wrap" Text="Food Info" VerticalAlignment="Top" Width="192" FontFamily="Roboto Medium" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+            <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Hidden">
+                <ListBox x:Name="lb_FoodList" HorizontalAlignment="Left" Height="360" Margin="293,62,0,0" VerticalAlignment="Top" Width="323" Background="#FFC1CAD6" FontFamily="Roboto Medium" FontSize="18"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="46,62,0,0" TextWrapping="Wrap" Text="Summary" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="683,62,0,0" TextWrapping="Wrap" Text="Food Info" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="-1,97,0,0" TextWrapping="Wrap" Text="Calories :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="152,97,0,0" TextWrapping="Wrap" Text="9000" VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="-1,154,0,0" TextWrapping="Wrap" Text="Protein :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="153,154,0,0" TextWrapping="Wrap" Text="600  g" VerticalAlignment="Top" Width="117" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="0,199,0,0" TextWrapping="Wrap" Text="Fat :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="153,199,0,0" TextWrapping="Wrap" Text="900 g" VerticalAlignment="Top" Width="117" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="-1,246,0,0" TextWrapping="Wrap" Text="Carbs :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="152,246,0,0" TextWrapping="Wrap" Text="200 g" VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="-1,293,0,0" TextWrapping="Wrap" Text="Sugar :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="152,293,0,0" TextWrapping="Wrap" Text="155 g " VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="-1,353,0,0" TextWrapping="Wrap" Text="Sodium" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="152,353,0,0" TextWrapping="Wrap" Text="12 g" VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="671,99,0,0" TextWrapping="Wrap" Text="Food Name" VerticalAlignment="Top" Width="204" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="-0.284"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="623,154,0,0" TextWrapping="Wrap" Text="Calories :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="776,154,0,0" TextWrapping="Wrap" Text="555 " VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="623,200,0,0" TextWrapping="Wrap" Text="Protein :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="777,200,0,0" TextWrapping="Wrap" Text="600  g" VerticalAlignment="Top" Width="117" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="624,245,0,0" TextWrapping="Wrap" Text="Fat :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="777,245,0,0" TextWrapping="Wrap" Text="900 g" VerticalAlignment="Top" Width="117" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="623,292,0,0" TextWrapping="Wrap" Text="Carbs :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="776,292,0,0" TextWrapping="Wrap" Text="200 g" VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="623,339,0,0" TextWrapping="Wrap" Text="Sugar :" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="776,339,0,0" TextWrapping="Wrap" Text="155 g " VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="624,384,0,0" TextWrapping="Wrap" Text="Sodium" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Left" Height="30" Margin="777,384,0,0" TextWrapping="Wrap" Text="12 g" VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
+                <Rectangle HorizontalAlignment="Left" Height="43" Margin="848,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="46" MouseUp="btn_Showfridge_Click">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Images/8934.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <Button x:Name="btn_RemoveItem" Content="Remove" HorizontalAlignment="Left" Height="46" Margin="459,443,0,0" VerticalAlignment="Top" Width="157" Background="#FFFE5F55" FontFamily="Roboto Black" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="24" Click="btn_RemoveItem_Click"/>
+                <Button x:Name="btn_AddItem" Content="Add" HorizontalAlignment="Left" Height="46" Margin="293,443,0,0" VerticalAlignment="Top" Width="153" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="btn_AddItem_Click"/>
+                <TextBlock HorizontalAlignment="Left" Height="46" Margin="324,11,0,0" TextWrapping="Wrap" Text="Foods" VerticalAlignment="Top" Width="249" FontFamily="Shrikhand" TextAlignment="Center" FontSize="36" Foreground="#FFFCFFFC"/>
             </Grid>
-            <TextBlock Grid.Column="2" HorizontalAlignment="Left" Height="46" Margin="67,10,0,0" TextWrapping="Wrap" Text="Foods" VerticalAlignment="Top" Width="249" FontFamily="Shrikhand" TextAlignment="Center" FontSize="36" Foreground="#FFFCFFFC"/>
 
         </Grid>
     </Viewbox>

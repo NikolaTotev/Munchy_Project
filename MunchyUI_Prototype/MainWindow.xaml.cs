@@ -38,6 +38,17 @@ namespace MunchyUI_Prototype
             InitializeComponent();
             CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile);
             SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
+
+            if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
+            {
+                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+                {
+                    lb_FoodList.Items.Add(element.Key);
+
+                    if (lb_Fridge.Items.Count < 10)
+                        lb_Fridge.Items.Add(element.Key);
+                }
+            }
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -90,6 +101,14 @@ namespace MunchyUI_Prototype
 
         private void btn_Showfridge_Click(object sender, RoutedEventArgs e)
         {
+            if (p_UserFoods.Visibility == Visibility.Hidden)
+            {
+                p_UserFoods.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                p_UserFoods.Visibility = Visibility.Hidden;
+            }
 
         }
 
@@ -191,6 +210,24 @@ namespace MunchyUI_Prototype
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn_RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentManager.User.UserFridge.RemoveFromFridge(lb_FoodList.SelectedItem.ToString());
+            lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
+            lb_FoodList.Items.Clear();
+            CurrentManager.User.UserFridge.SaveFridge();
+
+            foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+            {
+                lb_FoodList.Items.Add(element.Key);
+            }
+        }
+
+        private void btn_AddItem_Click(object sender, RoutedEventArgs e)
         {
 
         }

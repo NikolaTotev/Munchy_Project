@@ -35,9 +35,9 @@ namespace Nikola.Munchy.MunchyAPI
         /// Removes a given item from the fridge.
         /// /// </summary>
         /// <param name="ItemToRemove"></param>
-        public void RemoveFromFridge(FoodDef ItemToRemove)
+        public void RemoveFromFridge(string ItemToRemove)
         {
-            UsersFoods.Remove(ItemToRemove.Name);
+            UsersFoods.Remove(ItemToRemove);
             SaveFridge();
         }
 
