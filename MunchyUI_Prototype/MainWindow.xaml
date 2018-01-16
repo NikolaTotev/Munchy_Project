@@ -103,13 +103,21 @@
             <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="484" Margin="27,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="857" Background="#F2223843" Visibility="Visible">
                 <TextBlock x:Name="tB_RecipeTitle" Height="58" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="292,0,262,0" FontFamily="Shrikhand" FontSize="36" TextAlignment="Center" Foreground="#FFFCFFFC"/>
                 <Ellipse x:Name="img_RecipeImage" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="219" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="220"/>
-                <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="272,63,0,0" TextWrapping="Wrap" Text="Ingredients" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="302,63,0,0" TextWrapping="Wrap" Text="Ingredients" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <TextBlock x:Name="tB_DirectionsTitle" HorizontalAlignment="Left" Height="30" Margin="617,63,0,0" TextWrapping="Wrap" Text="Directions" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <Rectangle x:Name="btn_CloseRecipeView" HorizontalAlignment="Left" Height="40" Margin="813,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="44" MouseUp="btn_ShowRecipe_Click">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="Images/8934.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
+                <ListView x:Name="lv_Ingredients" HorizontalAlignment="Left" Height="343" Margin="248,98,0,0" VerticalAlignment="Top" Width="253" FontFamily="Roboto Medium" FontSize="16" Background="#192D424D" BorderBrush="{x:Null}" Foreground="#FFFCFFFC">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Ingredients" Width="150"  DisplayMemberBinding="{Binding Name}"/>
+                            <GridViewColumn Header="Amount" Width="100" DisplayMemberBinding="{Binding Amount}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
             <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Hidden">
                 <ListBox x:Name="lb_FoodList" HorizontalAlignment="Left" Height="360" Margin="293,62,0,0" VerticalAlignment="Top" Width="323" Background="#FFC1CAD6" FontFamily="Roboto Medium" FontSize="18"/>

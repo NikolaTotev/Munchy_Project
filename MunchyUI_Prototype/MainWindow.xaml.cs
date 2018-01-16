@@ -33,14 +33,17 @@ namespace MunchyUI_Prototype
         RecipeDef SuggestedRecipe = new RecipeDef();
         ProgramManager CurrentManager;
         ImageBrush RecipeImage = new ImageBrush();
+        List<FoodDef> RecipeIngredientList;
 
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();  
             CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile);
             SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
 
-            SuggestRecipe();
+             RecipeIngredientList = new List<FoodDef>();
+
+
             if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
             {
                 foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
@@ -48,9 +51,26 @@ namespace MunchyUI_Prototype
                     lb_FoodList.Items.Add(element.Key);
 
                     if (lb_Fridge.Items.Count < 10)
-                        lb_Fridge.Items.Add(element.Key);
+                        lb_Fridge.Items.Add(element.Key);                   
                 }
             }
+            SuggestRecipe();
+
+
+
+        }
+
+        private void AddRecipeIngredientsToListView()
+        {
+            
+            foreach (string ingredient in SuggestedRecipe.Ingredients)
+            {
+                RecipeIngredientList.Add(new FoodDef() { Name = CurrentManager.FoodManag.Foods[ingredient].Name, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.Ingredients.IndexOf(ingredient)] });
+            } 
+
+
+
+            lv_Ingredients.ItemsSource = RecipeIngredientList;
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -240,11 +260,13 @@ namespace MunchyUI_Prototype
             {
                 if (CurrentManager.RecipieManag.Dinner.Count > 0)
                 {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[1]];
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[0]];
                 }
             }
 
             tB_RecipeName.Text = SuggestedRecipe.Name;
+            AddRecipeIngredientsToListView();
+
         }
     }
 }
