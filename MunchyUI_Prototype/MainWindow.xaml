@@ -100,7 +100,7 @@
                 <RadioButton x:Name="rb_Other" Content="Other" HorizontalAlignment="Left" Height="23" Margin="658,119,0,0" VerticalAlignment="Top" Width="109" FontFamily="Roboto Light" FontSize="22" Background="White" Foreground="#FFFCFFFC" Checked="RadioButton_Checked"/>
 
             </Grid>
-            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="484" Margin="27,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="857" Background="#F2223843" Visibility="Visible">
+            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="484" Margin="27,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="857" Background="#F2223843" Visibility="Hidden">
                 <TextBlock x:Name="tB_RecipeTitle" Height="58" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="292,0,262,0" FontFamily="Shrikhand" FontSize="36" TextAlignment="Center" Foreground="#FFFCFFFC"/>
                 <Ellipse x:Name="img_RecipeImage" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="219" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="220"/>
                 <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="302,63,0,0" TextWrapping="Wrap" Text="Ingredients" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
@@ -110,7 +110,7 @@
                         <ImageBrush ImageSource="Images/8934.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
-                <ListView x:Name="lv_Ingredients" HorizontalAlignment="Left" Height="343" Margin="248,98,0,0" VerticalAlignment="Top" Width="253" FontFamily="Roboto Medium" FontSize="16" Background="#192D424D" BorderBrush="{x:Null}" Foreground="#FFFCFFFC">
+                <ListView x:Name="lv_Ingredients" HorizontalAlignment="Left" Height="345" Margin="248,98,0,0" VerticalAlignment="Top" Width="253" FontFamily="Roboto Medium" FontSize="16" Background="#192D424D" BorderBrush="{x:Null}" Foreground="#FFFCFFFC">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="Ingredients" Width="150"  DisplayMemberBinding="{Binding Name}"/>
@@ -118,6 +118,18 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
+                <TextBlock x:Name="tB_Directions" HorizontalAlignment="Left" Height="357" Margin="566,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238" FontFamily="Roboto Medium" FontSize="14" Foreground="#FFFCFFFC" RenderTransformOrigin="0.5,0.5" TextAlignment="Center">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleY="0.259"/>
+                            <RotateTransform/>
+                            <TranslateTransform Y="0.513"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+                <TextBlock x:Name="tB_DirectionsTitle_Copy" HorizontalAlignment="Left" Height="30" Margin="56,252,0,0" TextWrapping="Wrap" Text="Time to cook" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_TimeToCook" HorizontalAlignment="Left" Height="30" Margin="56,282,0,0" TextWrapping="Wrap" Text="Time to cook" VerticalAlignment="Top" Width="125" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
             </Grid>
             <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Hidden">
                 <ListBox x:Name="lb_FoodList" HorizontalAlignment="Left" Height="360" Margin="293,62,0,0" VerticalAlignment="Top" Width="323" Background="#FFC1CAD6" FontFamily="Roboto Medium" FontSize="18"/>

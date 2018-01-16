@@ -10,7 +10,8 @@ namespace Nikola.Munchy.MunchyAPI
     {
         public string TypeOfFood { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string Directions { get; set; }
+        public int TimeToCook { get; set; }
         public List<string> Ingredients { get; set; }
         public List<float> Amounts { get; set; }
         public List<string> TimeTags { get; set; }
