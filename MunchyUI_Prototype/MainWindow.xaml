@@ -131,7 +131,7 @@
                 <TextBlock x:Name="tB_DirectionsTitle_Copy" HorizontalAlignment="Left" Height="30" Margin="56,252,0,0" TextWrapping="Wrap" Text="Time to cook" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <TextBlock x:Name="tB_TimeToCook" HorizontalAlignment="Left" Height="30" Margin="56,282,0,0" TextWrapping="Wrap" Text="Time to cook" VerticalAlignment="Top" Width="125" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
             </Grid>
-            <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Hidden">
+            <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Visible">
                 <ListBox x:Name="lb_FoodList" HorizontalAlignment="Left" Height="360" Margin="293,62,0,0" VerticalAlignment="Top" Width="323" Background="#FFC1CAD6" FontFamily="Roboto Medium" FontSize="18"/>
                 <TextBlock HorizontalAlignment="Left" Height="30" Margin="46,62,0,0" TextWrapping="Wrap" Text="Summary" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <TextBlock HorizontalAlignment="Left" Height="30" Margin="683,62,0,0" TextWrapping="Wrap" Text="Food Info" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
