@@ -175,11 +175,13 @@
                     </Rectangle.Fill>
                 </Rectangle>
                 <Button x:Name="btn_RemoveItem" Content="Remove" HorizontalAlignment="Left" Height="46" Margin="459,443,0,0" VerticalAlignment="Top" Width="157" Background="#FFFE5F55" FontFamily="Roboto Black" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="24" Click="btn_RemoveItem_Click"/>
-                <Button x:Name="btn_AddItem" Content="Add" HorizontalAlignment="Left" Height="46" Margin="293,443,0,0" VerticalAlignment="Top" Width="153" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="btn_AddItem_Click"/>
+                <Button x:Name="btn_OpenFoodSearch" Content="Search" HorizontalAlignment="Left" Height="46" Margin="293,443,0,0" VerticalAlignment="Top" Width="153" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="btn_AddItem_Click"/>
                 <TextBlock HorizontalAlignment="Left" Height="46" Margin="324,11,0,0" TextWrapping="Wrap" Text="Foods" VerticalAlignment="Top" Width="249" FontFamily="Shrikhand" TextAlignment="Center" FontSize="36" Foreground="#FFFCFFFC"/>
-                <Grid x:Name="p_AddFoodItemPanel" HorizontalAlignment="Left" Height="449" Margin="21,34,0,0" VerticalAlignment="Top" Width="249" Background="#FFFCFFFC">
-                    <TextBox Height="33" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Margin="4,5,5,0" TextAlignment="Center" FontFamily="Roboto Black" FontSize="16" Foreground="#FF223843" BorderBrush="{x:Null}" Background="#FFC1CAD6"/>
-                    <ListBox x:Name="lB_SuggestedFoods" HorizontalAlignment="Left" Height="396" Margin="4,43,0,0" VerticalAlignment="Top" Width="240"/>
+                <Grid x:Name="p_AddFoodItemPanel" HorizontalAlignment="Left" Height="455" Margin="21,34,0,0" VerticalAlignment="Top" Width="249" Background="#FFFCFFFC">
+                    <TextBox x:Name="tb_Search" Height="33" TextWrapping="Wrap" VerticalAlignment="Top" Margin="4,5,5,0" TextAlignment="Center" FontFamily="Roboto Black" FontSize="16" Foreground="#FF223843" BorderBrush="{x:Null}" Background="#FFC1CAD6" TextChanged="OnTextChanged" Text="Search" GotFocus="ClearTextBox"/>
+                    <ListBox x:Name="lB_SuggestedFoods" HorizontalAlignment="Left" Height="329" Margin="4,43,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="AddClickedItem"/>
+                    <TextBlock x:Name="l_SearchInfo" HorizontalAlignment="Left" Height="29" Margin="10,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="229" Foreground="#FF2D424D" FontFamily="Roboto Light" FontSize="14" TextAlignment="Center"><Run Text="Type to search for foods to add"/><LineBreak/><Run Text="."/></TextBlock>
+                    <Button x:Name="btn_Close" Content="Close" Margin="64,414,71,8" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="16" MouseUp="btn_AddItem_Click"/>
                 </Grid>
             </Grid>
 

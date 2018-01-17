@@ -51,7 +51,7 @@ namespace MunchyUI_Prototype
             SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
             RecipeIngredientList = new List<FoodDef>();
             PopulateFridgeUI();
-            SuggestRecipe();                                  
+            SuggestRecipe();
         }
 
         /// <summary>
@@ -313,6 +313,59 @@ namespace MunchyUI_Prototype
             }
             tB_RecipeName.Text = SuggestedRecipe.Name;
             AddRecipeIngredientsToListView();
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(tb_Search.Text))
+            {
+                if(tb_Search.Text != "Search")
+                {
+                    l_SearchInfo.Text = "Click on an item to add it";
+                    string searchedWord = tb_Search.Text;
+                    string ToLower = searchedWord.ToLower();
+                    
+                    foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
+                    {
+                        if (element.Key.StartsWith(ToLower.Substring(0)) && !lB_SuggestedFoods.Items.Contains(element.Key))
+                        {
+                            lB_SuggestedFoods.Items.Add(element.Key);
+                        }
+                    }
+                }                
+            }
+            else
+            {
+                lB_SuggestedFoods.Items.Clear();
+                l_SearchInfo.Text = "Type to search for an item";
+            }
+        }
+
+        private void AddClickedItem(object sender, SelectionChangedEventArgs e)
+        {
+            if (lB_SuggestedFoods.SelectedItem != null)
+            {
+                if (!CurrentManager.User.UserFridge.UsersFoods.ContainsKey((lB_SuggestedFoods.SelectedItem.ToString())))
+                {
+                    CurrentManager.User.UserFridge.AddToFridge((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()]));
+                    lb_FoodList.Items.Add((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].Name));
+                    CurrentManager.UsersFridge.SaveFridge();
+                    l_SearchInfo.Text = "Item added!";
+                }
+                else
+                {
+                    l_SearchInfo.Text = "Don't worry! You already have this.";
+                }
+            }
+            
+        }
+
+      
+
+        private void ClearTextBox(object sender, RoutedEventArgs e)
+        {
+                        tb_Search.Text = null;
+
         }
     }
 }
