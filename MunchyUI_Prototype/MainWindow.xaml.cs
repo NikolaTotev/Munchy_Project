@@ -147,6 +147,7 @@ namespace MunchyUI_Prototype
             {
                 p_UserFoods.Visibility = Visibility.Hidden;
             }
+
         }
 
         /// <summary>
@@ -274,7 +275,10 @@ namespace MunchyUI_Prototype
         /// <param name="e"></param>
         private void btn_AddItem_Click(object sender, RoutedEventArgs e)
         {
-
+            if (p_AddFoodItemPanel.Visibility == Visibility.Hidden)
+                p_AddFoodItemPanel.Visibility = Visibility.Visible;
+            else
+                p_AddFoodItemPanel.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
