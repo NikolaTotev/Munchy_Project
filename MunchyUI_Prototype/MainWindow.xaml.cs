@@ -273,13 +273,7 @@ namespace MunchyUI_Prototype
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_AddItem_Click(object sender, RoutedEventArgs e)
-        {
-            if (p_AddFoodItemPanel.Visibility == Visibility.Hidden)
-                p_AddFoodItemPanel.Visibility = Visibility.Visible;
-            else
-                p_AddFoodItemPanel.Visibility = Visibility.Hidden;
-        }
+      
 
         /// <summary>
         /// Suggests a recipe based on the time of day. Recipe sorting is handled in the back end.
@@ -362,10 +356,36 @@ namespace MunchyUI_Prototype
 
       
 
-        private void ClearTextBox(object sender, RoutedEventArgs e)
-        {
-                        tb_Search.Text = null;
+    
 
+        private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
+        {
+            tb_Search.Text = "Search";
+        }
+
+        private void SearchFoodClearTextBox(object sender, RoutedEventArgs e)
+        {
+            tb_Search.Text = null;
+
+        }
+
+        private void OpenCloseFoodSearch()
+        {
+
+            if (p_AddFoodItemPanel.Visibility == Visibility.Hidden)
+                p_AddFoodItemPanel.Visibility = Visibility.Visible;
+            else
+                p_AddFoodItemPanel.Visibility = Visibility.Hidden;
+        }
+
+        private void btn_CloseClick(object sender, RoutedEventArgs e)
+        {
+            OpenCloseFoodSearch();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenCloseFoodSearch();
         }
     }
 }
