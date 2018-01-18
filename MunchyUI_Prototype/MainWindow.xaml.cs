@@ -20,6 +20,7 @@ namespace MunchyUI_Prototype
     /// </summary>
     public partial class MainWindow : Window
     {
+
         //Save File Locations
         string UserFile = @"d:\Desktop\USER5.json";
         string DefaultUserFile = @"d:\Desktop\DEFAULT_USER.json";
@@ -30,9 +31,18 @@ namespace MunchyUI_Prototype
         string FoodDefFile = @"d:\Desktop\FoodData.json";
         string RecipeDatabase = @"d:\Desktop\Recipes.json";
 
+        //Variables for the summary of the fridge.
+        int CalorieSum = 0;
+        int ProteinSum = 0;
+        int FatSum = 0;
+        int CarbSum = 0;
+        int SugarSum = 0;
+        int SodiumSum = 0;
+
         // A list of checkboxes that are used for saving the users settings and preferences
         List<CheckBox> SettingOptions;
-
+        TextBlock[] SummaryTextBlocks;
+        int[] SummaryValues;
 
         // This list is used for populating the Ingredients ListView in the UI.
         List<FoodDef> RecipeIngredientList;
@@ -47,17 +57,19 @@ namespace MunchyUI_Prototype
         public MainWindow()
         {
             InitializeComponent();
+            SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
             CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile);
             SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
             RecipeIngredientList = new List<FoodDef>();
-            PopulateFridgeUI();
+            InitialFridgeUISetup();
+            PopulateFridgeSummary();
             SuggestRecipe();
         }
 
         /// <summary>
-        /// Adds all the elements in the users fridge to the listbox in the UI. Function is called on program start.
+        /// Handles initial Setup of the fridge UI. Called only on program start.
         /// </summary>
-        private void PopulateFridgeUI()
+        private void InitialFridgeUISetup()
         {
             if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
             {
@@ -67,6 +79,44 @@ namespace MunchyUI_Prototype
 
                     if (lb_Fridge.Items.Count < 10)
                         lb_Fridge.Items.Add(element.Key);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds all the elements in the users fridge to the listbox in the UI. Function is called on program start.
+        /// </summary>
+        private void PopulateFridgeSummary()
+        {
+            CalorieSum = 0;
+            ProteinSum = 0;
+            FatSum = 0;
+            CarbSum = 0;
+            SugarSum = 0;
+            SodiumSum = 0;
+            if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
+            {
+                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+                {
+                    CalorieSum += element.Value.Calories;
+                    ProteinSum += element.Value.Protein;
+                    FatSum += element.Value.Fat;
+                    CarbSum += element.Value.Carbs;
+                    SugarSum += element.Value.Sugars;
+                    SodiumSum += element.Value.Sodium;
+                }
+                SummaryValues = new int[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
+                for (int i = 0; i < SummaryTextBlocks.Length; i++)
+                {
+                    SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
+                }
+            }
+            else
+            {
+                SummaryValues = new int[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
+                for (int i = 0; i < SummaryTextBlocks.Length; i++)
+                {
+                    SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
                 }
             }
         }
@@ -86,11 +136,6 @@ namespace MunchyUI_Prototype
             tB_Directions.Text = SuggestedRecipe.Directions.ToString();
             tB_RecipeTitle.Text = SuggestedRecipe.Name.ToString();
             tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
-        }
-
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
         }
 
         /// <summary>
@@ -133,7 +178,7 @@ namespace MunchyUI_Prototype
         }
 
         /// <summary>
-        /// Opens full fridge view and populates the summary for the fridge.
+        /// Opens full fridge view for the fridge. Function called by the "Show Fridge" button and the close button.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -147,7 +192,6 @@ namespace MunchyUI_Prototype
             {
                 p_UserFoods.Visibility = Visibility.Hidden;
             }
-
         }
 
         /// <summary>
@@ -184,7 +228,7 @@ namespace MunchyUI_Prototype
         }
 
         /// <summary>
-        /// Saves users settings. 
+        /// Saves users settings based on the input from the settings panel.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -236,18 +280,12 @@ namespace MunchyUI_Prototype
                         CurrentManager.User.Preferences.Remove(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
                     }
                 }
-
             }
 
             CurrentManager.SaveUser();
             CurrentManager.User.CalculateIndex();
             CurrentManager.SaveUser();
             tB_UserName.Text = CurrentManager.User.UserName;
-        }
-
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-
         }
 
         /// <summary>
@@ -257,23 +295,20 @@ namespace MunchyUI_Prototype
         /// <param name="e"></param>
         private void btn_RemoveItem_Click(object sender, RoutedEventArgs e)
         {
-            CurrentManager.User.UserFridge.RemoveFromFridge(lb_FoodList.SelectedItem.ToString());
-            lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
-            lb_FoodList.Items.Clear();
-            CurrentManager.User.UserFridge.SaveFridge();
-
-            foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+            if (lb_FoodList.SelectedItem != null)
             {
-                lb_FoodList.Items.Add(element.Key);
+                CurrentManager.User.UserFridge.RemoveFromFridge(lb_FoodList.SelectedItem.ToString());
+                lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
+                lb_FoodList.Items.Clear();
+                CurrentManager.User.UserFridge.SaveFridge();
+
+                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+                {
+                    lb_FoodList.Items.Add(element.Key);
+                }
+                PopulateFridgeSummary();
             }
         }
-
-        /// <summary>
-        /// Adds item to the fridge. User searches for item via the search panel.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-      
 
         /// <summary>
         /// Suggests a recipe based on the time of day. Recipe sorting is handled in the back end.
@@ -309,16 +344,24 @@ namespace MunchyUI_Prototype
             AddRecipeIngredientsToListView();
         }
 
+        /// <summary>
+        /// When the user types in the search box (or changes the text) the listbox for suggested foods is filled with the Foods in the 
+        /// FoodData base that start with the given substring.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            // Checks if the search box is null or not.
             if (!string.IsNullOrWhiteSpace(tb_Search.Text))
             {
-                if(tb_Search.Text != "Search")
+                //Makes sure that text is not the keyword "Search"
+                if (tb_Search.Text != "Search")
                 {
                     l_SearchInfo.Text = "Click on an item to add it";
                     string searchedWord = tb_Search.Text;
                     string ToLower = searchedWord.ToLower();
-                    
+
                     foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
                     {
                         if (element.Key.StartsWith(ToLower.Substring(0)) && !lB_SuggestedFoods.Items.Contains(element.Key))
@@ -326,7 +369,7 @@ namespace MunchyUI_Prototype
                             lB_SuggestedFoods.Items.Add(element.Key);
                         }
                     }
-                }                
+                }
             }
             else
             {
@@ -335,6 +378,12 @@ namespace MunchyUI_Prototype
             }
         }
 
+        /// <summary>
+        /// Function is called once the user clicks on an item in the listbox of suggested foods. The item is added into the user fridge UI
+        /// the FoodDef is added into the user's fridge and the users fridge is saved.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddClickedItem(object sender, SelectionChangedEventArgs e)
         {
             if (lB_SuggestedFoods.SelectedItem != null)
@@ -350,42 +399,85 @@ namespace MunchyUI_Prototype
                 {
                     l_SearchInfo.Text = "Don't worry! You already have this.";
                 }
+                PopulateFridgeSummary();
             }
-            
         }
 
-      
-
-    
-
+        /// <summary>
+        /// Once the textbox has lost focus the defualt text "Search" appears;
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
         {
             tb_Search.Text = "Search";
         }
 
+        /// <summary>
+        /// Clears the textbox once the user has focused it.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchFoodClearTextBox(object sender, RoutedEventArgs e)
         {
             tb_Search.Text = null;
-
         }
 
+
+        /// <summary>
+        /// Function that handles opening and closing the search/add panel.
+        /// </summary>
         private void OpenCloseFoodSearch()
         {
-
             if (p_AddFoodItemPanel.Visibility == Visibility.Hidden)
                 p_AddFoodItemPanel.Visibility = Visibility.Visible;
             else
                 p_AddFoodItemPanel.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Button for closing the food search/add panel.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_CloseClick(object sender, RoutedEventArgs e)
         {
             OpenCloseFoodSearch();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Button for opening the food search/add panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OpenFoodSearch(object sender, RoutedEventArgs e)
         {
             OpenCloseFoodSearch();
+        }
+
+        private void ShowFoodInfo(object sender, SelectionChangedEventArgs e)
+        {
+            if (lb_FoodList.SelectedItem != null)
+            {
+                FoodDef SelectedItem = CurrentManager.FoodManag.Foods[lb_FoodList.SelectedItem.ToString()];
+                tb_FoodName.Text = SelectedItem.Name.First().ToString().ToUpper() + SelectedItem.Name.Substring(1 );
+                tb_FoodItemCalorie.Text = SelectedItem.Calories.ToString();
+                tB_FoodProtein.Text = SelectedItem.Protein.ToString();
+                tB_FoodFat.Text = SelectedItem.Fat.ToString();
+                tB_FoodCarbs.Text = SelectedItem.Carbs.ToString();
+                tB_FoodSugar.Text = SelectedItem.Sugars.ToString();
+                tB_FoodSodium.Text = SelectedItem.Sodium.ToString();
+            }
+            else
+            {
+                tb_FoodItemCalorie.Text = "0";
+                tB_FoodProtein.Text = "0";
+                tB_FoodFat.Text = "0";
+                tB_FoodCarbs.Text = "0";
+                tB_FoodSugar.Text = "0";
+                tB_FoodSodium.Text = "0";
+            }
+
         }
     }
 }
