@@ -10,17 +10,20 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public class ProgramManager
     {
-       public string UserFile;
+        public string UserFile;
         string DefaultUserFile;
         string FoodItemsFile;
         string RecipiesFile;
         string UserFridgeFile;
         string DefaultFridgeFile;
+        string RecipeSaverSaveFile;
+        string DefaultSaverSaveFile;
 
         public FridgeTemplate UsersFridge;
         public RecipeManager RecipieManag;
         public FoodManager FoodManag;
         public UserTemplate User { get; set; }
+        public RecipeSaver UserRecipeSaves;
 
         public List<string> CompatabilityMap = new List<string>
             {
@@ -35,10 +38,11 @@ namespace Nikola.Munchy.MunchyAPI
                 "Soy"
             };
 
-        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser, string RecipieDatabase, string FoodItemsDatabase)
+        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser, string RecipieDatabase, string FoodItemsDatabase, string RecipeSaveFile, string DefaultSaverFile)
         {
             FoodItemsFile = FoodItemsDatabase;
             RecipiesFile = RecipieDatabase;
+
             FoodManag = new FoodManager(FoodItemsFile);
 
             UserFile = UserFileSave;
@@ -47,15 +51,50 @@ namespace Nikola.Munchy.MunchyAPI
             UserFridgeFile = UserFridgeFileSave;
             DefaultFridgeFile = DefaultFridge;
 
+            RecipeSaverSaveFile = RecipeSaveFile;
+            DefaultSaverSaveFile = DefaultSaverFile;
+
             User = new UserTemplate(this);
             User = GetUser();
             User.CurrentManager = this;
             InitFridge(User);
 
+            UserRecipeSaves = new RecipeSaver(RecipeSaverSaveFile);  
+            UserRecipeSaves = GetRecipeSaver();
+            UserRecipeSaves.SaveLocation = RecipeSaverSaveFile;
+            UserRecipeSaves.SaveRecipeSaver();
             
-
             RecipieManag = new RecipeManager(RecipiesFile, this);
 
+        }
+
+        public RecipeSaver GetRecipeSaver()
+        {
+            RecipeSaver RetrivedSaver;
+            if (!File.Exists(RecipeSaverSaveFile))
+            {
+                if (File.Exists(DefaultSaverSaveFile))
+                {
+                    using (StreamReader file = File.OpenText(DefaultSaverSaveFile))
+                    {
+                        JsonSerializer serializer = new JsonSerializer();
+                        RetrivedSaver = (RecipeSaver)serializer.Deserialize(file, typeof(RecipeSaver));
+                        return RetrivedSaver;
+                    }
+                }
+                else
+                {
+                    UserRecipeSaves.SaveRecipeSaver();
+                    UserRecipeSaves.SaveLocation = RecipeSaverSaveFile;
+                }
+            }
+
+            using (StreamReader file = File.OpenText(RecipeSaverSaveFile))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                RetrivedSaver = (RecipeSaver)serializer.Deserialize(file, typeof(RecipeSaver));
+                return RetrivedSaver;
+            }
         }
 
         /// <summary>
