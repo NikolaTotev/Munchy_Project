@@ -52,6 +52,7 @@
     <Compile Include="RecipeManager.cs" />
     <Compile Include="RecipeSaver.cs" />
     <Compile Include="ShoppingList.cs" />
+    <Compile Include="StatisticsManager.cs" />
     <Compile Include="UserTemplate.cs" />
   </ItemGroup>
   <ItemGroup>

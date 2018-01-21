@@ -37,7 +37,7 @@
             <TextBlock Height="41" Margin="10,10,0,0" TextWrapping="Wrap" Text="Favorite Recipes" Width="246" TextAlignment="Center" FontFamily="Shrikhand" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Foreground="#FF223843"/>
             <TextBlock Height="34" Margin="0,10,0,12" TextWrapping="Wrap" Width="240" TextAlignment="Center" FontFamily="Shrikhand" FontSize="26" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Foreground="#FF223843"><Run Text="Recent Foods"/><LineBreak/><Run/></TextBlock>
             <TextBlock x:Name="tB_UserName" Margin="80,4,117,29" TextWrapping="Wrap" Text="Nikola" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" Grid.Column="2" Foreground="#FFFCFFFC" MouseDown="ShowSettings"/>
-            <TextBlock x:Name="tB_RecipeName" Height="36" Margin="80,0,78,2" TextWrapping="Wrap" Text="Chicken Dinner" Width="260" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="3" Foreground="#FF223843"/>
+            <TextBlock x:Name="tB_RecipeName" Height="48" Margin="0,0,0,63" TextWrapping="Wrap" Text="Chicken Dinner" Width="418" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" Foreground="#FF223843" Grid.RowSpan="3"/>
             <Ellipse Height="76" Margin="27,41,0,191" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="Images/c700x420.jpg"/>
@@ -66,7 +66,7 @@
             <Button x:Name="btn_SeeAllSavedRecipes" Content="See All" Height="38" Margin="47,0,0,67" Width="153" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Click="btn_SeeAllSavedRecipes_Click" Background="#FFFE5F55"/>
             <ListBox x:Name="lb_Fridge" Height="288" Margin="0,10,21,10" Width="181" Background="#FFC1CAD6" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" FontSize="22" FontFamily="Roboto Black" Foreground="#FF223843"/>
             <Button x:Name="btn_SuggestRecipe" Content="Suggest Recipe" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Grid.Column="2" Margin="121,10,0,0" Grid.Row="1" Height="36" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="18" FontFamily="Roboto Black" Click="btn_SuggestRecipe_Click" Background="#FFFE5F55"/>
-            <Button x:Name="btn_ShowRecipe" Content="Show Recipe" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="140,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="145" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="18" Click="btn_ShowRecipe_Click" Background="#FFFE5F55"/>
+            <Button x:Name="btn_ShowRecipe" Content="Show Recipe" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="140,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="145" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="18" Click="btn_ShowRecipе" Background="#FFFE5F55"/>
             <Button x:Name="btn_Showfridge" Content="Show all foods" Grid.Column="3" HorizontalAlignment="Left" Height="38" Margin="62,1,0,0" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Top" Width="138" BorderBrush="{x:Null}" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" Click="btn_Showfridge_Click" Background="#FFFE5F55"/>
             <Grid x:Name="p_Settings" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="460" Margin="47,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="837" Background="#E9233843" Visibility="Hidden">
                 <Rectangle x:Name="btn_CloseSettings" HorizontalAlignment="Left" Height="37" Stroke="White" VerticalAlignment="Top" Width="38" MouseDown="ShowSettings" Margin="789,10,0,0" OpacityMask="Black">
@@ -184,6 +184,8 @@
                 </Grid>
                 <Button Content="Search" HorizontalAlignment="Left" Height="46" Margin="303,443,0,0" VerticalAlignment="Top" Width="151" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="OpenFoodSearch"/>
             </Grid>
+            <Button x:Name="Btn_ShowNextRecipe" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="301,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="39" Click="Btn_ShowNextRecipe_Click"/>
+            <Button x:Name="Btn_ShowPreviousRecipe" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="80,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="45" Click="Btn_ShowPreviousRecipe_Click"/>
 
         </Grid>
     </Viewbox>

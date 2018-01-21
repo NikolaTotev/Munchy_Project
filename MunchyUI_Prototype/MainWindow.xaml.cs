@@ -43,6 +43,7 @@ namespace MunchyUI_Prototype
         int SugarSum = 0;
         int SodiumSum = 0;
 
+        int NumerOfRecipeToSuggest = 0;
         // A list of checkboxes that are used for saving the users settings and preferences
         List<CheckBox> SettingOptions;
         List<FoodDef> RecipeIngredientList;
@@ -114,12 +115,14 @@ namespace MunchyUI_Prototype
         // Function is called when the recipe view is opened, or when a new recipe is suggested.
         private void AddRecipeIngredientsToListView()
         {
+            RecipeIngredientList.Clear();
             foreach (string ingredient in SuggestedRecipe.Ingredients)
             {
-                RecipeIngredientList.Add(new FoodDef() { Name = CurrentManager.FoodManag.Foods[ingredient].Name, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.Ingredients.IndexOf(ingredient)] });
+                RecipeIngredientList.Add(new FoodDef() { Name = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.Ingredients.IndexOf(ingredient)] });
             }
 
             lv_Ingredients.ItemsSource = RecipeIngredientList;
+            lv_Ingredients.Items.Refresh();
             tB_Directions.Text = SuggestedRecipe.Directions.ToString();
             tB_RecipeTitle.Text = SuggestedRecipe.Name.ToString();
             tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
@@ -131,31 +134,46 @@ namespace MunchyUI_Prototype
         {
             if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
             {
-                if (CurrentManager.RecipieManag.Breakfast.Count > 0)
+                if (CurrentManager.RecipieManag.Breakfast.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count && NumerOfRecipeToSuggest >= 0)
                 {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[0]];
-
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = SuggestedRecipe.Name;
+                }
+                else
+                {
+                    tB_RecipeName.Text = null;
+                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
                 }
             }
 
+
             if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
             {
-                if (CurrentManager.RecipieManag.Lunch.Count > 0)
+                if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
                 {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[0]];
-
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = SuggestedRecipe.Name;
+                }
+                else
+                {
+                    tB_RecipeName.Text = null;
+                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
                 }
             }
 
             if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
             {
-                if (CurrentManager.RecipieManag.Dinner.Count > 0)
+                if (CurrentManager.RecipieManag.Dinner.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count && NumerOfRecipeToSuggest >= 0)
                 {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[0]];
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = SuggestedRecipe.Name;
+                }
+                else
+                {
+                    tB_RecipeName.FontSize = 18;
+                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
                 }
             }
-            tB_RecipeName.Text = SuggestedRecipe.Name;
-            AddRecipeIngredientsToListView();
         }
 
         #endregion
@@ -203,7 +221,7 @@ namespace MunchyUI_Prototype
 
                     foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
                     {
-                        if (element.Key.StartsWith(ToLower.Substring(0)) && !lB_SuggestedFoods.Items.Contains(element.Key))
+                        if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key))
                         {
                             lB_SuggestedFoods.Items.Add(element.Key);
                         }
@@ -490,14 +508,10 @@ namespace MunchyUI_Prototype
         #endregion
 
         #region Recipe related
-        /// <summary>
-        /// Calls SuggestRecipe function on button click.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
+        private void btn_ShowRecipе(object sender, RoutedEventArgs e)
         {
-            SuggestRecipe();
+            AddRecipeIngredientsToListView();
+            ShowOrCloseFullRecipeView();
         }
 
         /// <summary>
@@ -562,9 +576,29 @@ namespace MunchyUI_Prototype
         {
             FoodSearchTextChanged();
         }
+
         #endregion
 
         #endregion
+
+        private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            SuggestRecipe();
+        }
+
+        private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            tB_RecipeName.FontSize = 24;
+            NumerOfRecipeToSuggest++;
+            SuggestRecipe();
+        }
+
+        private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            tB_RecipeName.FontSize = 24;
+            NumerOfRecipeToSuggest--;
+            SuggestRecipe();
+        }
     }
 
 

@@ -68,6 +68,11 @@ namespace Nikola.Munchy.MunchyAPI
 
         }
 
+        /// <summary>
+        /// Gets saved recipe saver. If the save file doesn't exsit, it uses the default save file. 
+        /// If that doesnt exsit it creates a save file and contiunes work as normal.
+        /// </summary>
+        /// <returns></returns>
         public RecipeSaver GetRecipeSaver()
         {
             RecipeSaver RetrivedSaver;
