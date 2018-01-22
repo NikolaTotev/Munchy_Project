@@ -200,12 +200,12 @@
                 </Grid>
                 <Button x:Name="Btn_SavedRecipes" Content="Saved Recipes" HorizontalAlignment="Left" Height="53" Margin="62,360,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_SavedRecipes_Click"/>
                 <Grid x:Name="P_RecenltlyViewedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="316" Background="#19FFFFFF" Visibility="Hidden">
-                    <Ellipse x:Name="Img_RecenlyViewed_1" Fill="#FFF4F4F5" Height="118" VerticalAlignment="Top" Margin="10,7,188,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_2" Fill="#FFF4F4F5" Height="118" VerticalAlignment="Top" Margin="188,10,10,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_4" Fill="#FFF4F4F5" Height="118" VerticalAlignment="Top" Margin="188,152,10,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_3" Fill="#FFF4F4F5" Height="118" VerticalAlignment="Top" Margin="10,152,188,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_5" Fill="#FFF4F4F5" Height="118" VerticalAlignment="Top" Margin="10,285,188,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_6" Fill="#FFF4F4F5" Height="118" VerticalAlignment="Top" Margin="188,285,10,0"/>
+                    <Ellipse x:Name="Img_RecenlyViewed_1" Height="118" VerticalAlignment="Top" Margin="10,7,188,0"/>
+                    <Ellipse x:Name="Img_RecenlyViewed_2" Height="118" VerticalAlignment="Top" Margin="188,10,10,0"/>
+                    <Ellipse x:Name="Img_RecenlyViewed_4" Height="118" VerticalAlignment="Top" Margin="188,152,10,0"/>
+                    <Ellipse x:Name="Img_RecenlyViewed_3" Height="118" VerticalAlignment="Top" Margin="10,152,188,0"/>
+                    <Ellipse x:Name="Img_RecenlyViewed_5" Height="118" VerticalAlignment="Top" Margin="10,285,188,0"/>
+                    <Ellipse x:Name="Img_RecenlyViewed_6" Height="118" VerticalAlignment="Top" Margin="188,285,10,0"/>
                 </Grid>
                 <Grid x:Name="P_CookedTodayRecipes" HorizontalAlignment="Left" Height="409" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF" Visibility="Hidden">
                     <Ellipse Fill="#FFF4F4F5" Height="163" VerticalAlignment="Top" Margin="69,40,76,0"/>
