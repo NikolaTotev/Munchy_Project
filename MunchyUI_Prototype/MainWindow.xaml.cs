@@ -522,7 +522,7 @@ namespace MunchyUI_Prototype
         private void btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
         {
 
-        }
+        }/
         #endregion
 
         #region User related
