@@ -138,6 +138,11 @@ namespace MunchyUI_Prototype
                 {
                     SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
                     tB_RecipeName.Text = SuggestedRecipe.Name;
+                    if (!CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.Name))
+                    {
+                        CurrentManager.UserRecipeSaves.RecentlyViewed.Add(SuggestedRecipe.Name);
+                        CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+                    }
                 }
                 else
                 {
@@ -153,6 +158,11 @@ namespace MunchyUI_Prototype
                 {
                     SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
                     tB_RecipeName.Text = SuggestedRecipe.Name;
+                    if (!CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.Name))
+                    {
+                        CurrentManager.UserRecipeSaves.RecentlyViewed.Add(SuggestedRecipe.Name);
+                        CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+                    }
                 }
                 else
                 {
@@ -167,6 +177,11 @@ namespace MunchyUI_Prototype
                 {
                     SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
                     tB_RecipeName.Text = SuggestedRecipe.Name;
+                    if (!CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.Name))
+                    {
+                        CurrentManager.UserRecipeSaves.RecentlyViewed.Add(SuggestedRecipe.Name);
+                        CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+                    }
                 }
                 else
                 {
@@ -174,6 +189,8 @@ namespace MunchyUI_Prototype
                     tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
                 }
             }
+
+           
         }
 
         #endregion
@@ -201,6 +218,74 @@ namespace MunchyUI_Prototype
                 p_AddFoodItemPanel.Visibility = Visibility.Visible;
             else
                 p_AddFoodItemPanel.Visibility = Visibility.Hidden;
+        }
+
+        private void ShowCookedRecipes()
+        {
+            tB_SavedRecipesPanelTitle.Text = "Cooked Recipes";
+            P_CookedTodayRecipes.Visibility = Visibility.Hidden;
+            P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
+            P_SavedRecipesSearch.Visibility = Visibility.Hidden;
+            P_CookedRecipes.Visibility = Visibility.Visible;
+        }
+
+        private void ShowRecipesCookedToday()
+        {
+            tB_SavedRecipesPanelTitle.Text = "Cooked Today";
+            P_CookedTodayRecipes.Visibility = Visibility.Visible;
+            P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
+            P_SavedRecipesSearch.Visibility = Visibility.Hidden;
+            P_CookedRecipes.Visibility = Visibility.Hidden;
+        }
+
+        private void ShowAllSavedRecipes()
+        {
+            tB_SavedRecipesPanelTitle.Text = "Saved Recipes";
+            P_CookedTodayRecipes.Visibility = Visibility.Hidden;
+            P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
+            P_SavedRecipesSearch.Visibility = Visibility.Visible;
+            P_CookedRecipes.Visibility = Visibility.Hidden;
+        }
+
+        private void ShowRecentlyViewedRecipes()
+        {
+            tB_SavedRecipesPanelTitle.Text = "Recently Viewed";
+            P_CookedTodayRecipes.Visibility = Visibility.Hidden;
+            P_RecenltlyViewedRecipes.Visibility = Visibility.Visible;
+            P_SavedRecipesSearch.Visibility = Visibility.Hidden;
+            P_CookedRecipes.Visibility = Visibility.Hidden;
+
+            if (CurrentManager.UserRecipeSaves.RecentlyViewed.Count > 0)
+            {
+                Ellipse[] RecentlyViewedRecipesImages = new Ellipse[] { Img_RecenlyViewed_1, Img_RecenlyViewed_2, Img_RecenlyViewed_3, Img_RecenlyViewed_4, Img_RecenlyViewed_5, Img_RecenlyViewed_5, Img_RecenlyViewed_6 };
+                for (int i = 0; i < CurrentManager.UserRecipeSaves.RecentlyViewed.Count; i++)
+                {
+                    if (i <= 6 && CurrentManager.RecipieManag.Recipies.ContainsKey(CurrentManager.UserRecipeSaves.RecentlyViewed[i]))
+                    {
+                        RecipeImage.ImageSource = new BitmapImage(new Uri(CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile, UriKind.Relative));
+                        RecentlyViewedRecipesImages[i].Fill = RecipeImage;
+                    }
+                    else
+                    {
+                        RecentlyViewedRecipesImages[i].Fill = null;
+                        Warning_Label.Text = "There is a corrupted element in a save file! Vist the offical Munchy github for potential fixes";
+                    }
+                }
+            }           
+        }
+
+        private void ShowSavedRecipePanel()
+        {
+            if (p_SavedRecipes.Visibility == Visibility.Hidden)
+            {
+                p_SavedRecipes.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                p_SavedRecipes.Visibility = Visibility.Hidden;
+            }
+            ShowAllSavedRecipes();
+
         }
         #endregion
 
@@ -521,8 +606,49 @@ namespace MunchyUI_Prototype
         /// <param name="e"></param>
         private void btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
         {
-
+            ShowSavedRecipePanel();
         }
+
+
+        private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            SuggestRecipe();
+        }
+
+        private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            tB_RecipeName.FontSize = 24;
+            NumerOfRecipeToSuggest++;
+            SuggestRecipe();
+        }
+
+        private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            tB_RecipeName.FontSize = 24;
+            NumerOfRecipeToSuggest--;
+            SuggestRecipe();
+        }
+
+        private void Btn_CookedRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            ShowCookedRecipes();
+        }
+
+        private void Btn_RecentlyViewed_Click(object sender, RoutedEventArgs e)
+        {
+            ShowRecentlyViewedRecipes();
+        }
+
+        private void Btn_CookedToday_Click(object sender, RoutedEventArgs e)
+        {
+            ShowRecipesCookedToday();
+        }
+
+        private void Btn_SavedRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            ShowAllSavedRecipes();
+        }
+
         #endregion
 
         #region User related
@@ -581,23 +707,9 @@ namespace MunchyUI_Prototype
 
         #endregion
 
-        private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
+        private void CloseSavedRecipesPanel(object sender, MouseButtonEventArgs e)
         {
-            SuggestRecipe();
-        }
-
-        private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            tB_RecipeName.FontSize = 24;
-            NumerOfRecipeToSuggest++;
-            SuggestRecipe();
-        }
-
-        private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            tB_RecipeName.FontSize = 24;
-            NumerOfRecipeToSuggest--;
-            SuggestRecipe();
+            ShowSavedRecipePanel();
         }
     }
 

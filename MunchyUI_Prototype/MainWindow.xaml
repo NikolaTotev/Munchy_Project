@@ -23,6 +23,10 @@
                 <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
 
+            <Button x:Name="Btn_ShowPreviousRecipe" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="80,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="45" Click="Btn_ShowPreviousRecipe_Click"/>
+
+            <Button x:Name="Btn_ShowNextRecipe" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="303,11,0,0" Grid.Row="4" VerticalAlignment="Top" Width="39" Click="Btn_ShowNextRecipe_Click"/>
+
             <Rectangle Fill="#FFFE5F55" Margin="67,-1,102,26" Grid.Column="2"/>
 
             <Ellipse Height="298" Margin="47,5,61,5" Width="310" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2">
@@ -184,19 +188,17 @@
                 </Grid>
                 <Button Content="Search" HorizontalAlignment="Left" Height="46" Margin="303,443,0,0" VerticalAlignment="Top" Width="151" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="OpenFoodSearch"/>
             </Grid>
-            <Button x:Name="Btn_ShowNextRecipe" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="301,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="39" Click="Btn_ShowNextRecipe_Click"/>
-            <Button x:Name="Btn_ShowPreviousRecipe" Content="Button" Grid.Column="2" HorizontalAlignment="Left" Height="36" Margin="80,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="45" Click="Btn_ShowPreviousRecipe_Click"/>
-            <Grid x:Name="p_SavedRecipes" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843">
-                <TextBlock Height="60" TextWrapping="Wrap" Text="Saved Recipes" VerticalAlignment="Top" Margin="314,10,305,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <Button x:Name="Btn_CookedRecipes" Content="Cooked Recipes" HorizontalAlignment="Left" Height="53" Margin="62,150,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black"/>
-                <Button x:Name="Btn_RecentlyViewed" Content="Recently Viewed" HorizontalAlignment="Left" Height="53" Margin="62,221,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black"/>
-                <Button x:Name="Btn_CookedToday" Content="Cooked Today" HorizontalAlignment="Left" Height="53" Margin="62,294,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black"/>
-                <Grid x:Name="P_SavedRecipesSearch" Background="#19FFFFFF" HorizontalAlignment="Left" Height="433" Margin="283,57,0,0" VerticalAlignment="Top" Width="330" Visibility="Hidden" >
+            <Grid x:Name="p_SavedRecipes" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Visible">
+                <TextBlock x:Name="tB_SavedRecipesPanelTitle" Height="60" TextWrapping="Wrap" Text="Saved Recipes" VerticalAlignment="Top" Margin="241,10,231,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <Button x:Name="Btn_CookedRecipes" Content="Cooked Recipes" HorizontalAlignment="Left" Height="53" Margin="62,150,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedRecipes_Click"/>
+                <Button x:Name="Btn_RecentlyViewed" Content="Recently Viewed" HorizontalAlignment="Left" Height="53" Margin="62,221,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_RecentlyViewed_Click"/>
+                <Button x:Name="Btn_CookedToday" Content="Cooked Today" HorizontalAlignment="Left" Height="53" Margin="62,294,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedToday_Click"/>
+                <Grid x:Name="P_SavedRecipesSearch" Background="#19FFFFFF" HorizontalAlignment="Left" Height="433" Margin="283,57,0,0" VerticalAlignment="Top" Width="330" Visibility="Visible" >
                     <ListBox x:Name="lb_SavedRecipesList" HorizontalAlignment="Left" Height="364" VerticalAlignment="Top" Width="285" Margin="23,59,0,0"/>
                     <TextBox x:Name="tb_SearchSavedRecipes" HorizontalAlignment="Left" Height="32" Margin="23,10,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="285" TextAlignment="Center" FontFamily="Roboto Black" FontSize="22" Foreground="#F2223843" SelectionBrush="#B2FE5F55"/>
 
                 </Grid>
-                <Button x:Name="Btn_SavedRecipes" Content="Saved Recipes" HorizontalAlignment="Left" Height="53" Margin="62,360,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black"/>
+                <Button x:Name="Btn_SavedRecipes" Content="Saved Recipes" HorizontalAlignment="Left" Height="53" Margin="62,360,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_SavedRecipes_Click"/>
                 <Grid x:Name="P_RecenltlyViewedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="316" Background="#19FFFFFF" Visibility="Hidden">
                     <Ellipse x:Name="Img_RecenlyViewed_1" Fill="#FFF4F4F5" Height="118" VerticalAlignment="Top" Margin="10,7,188,0"/>
                     <Ellipse x:Name="Img_RecenlyViewed_2" Fill="#FFF4F4F5" Height="118" VerticalAlignment="Top" Margin="188,10,10,0"/>
@@ -210,10 +212,16 @@
                     <TextBlock x:Name="tB_CookedTodayRecipeName" Height="60" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="0,235,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                     <Button Content="Revisit recipe" HorizontalAlignment="Left" Height="50" Margin="57,314,0,0" VerticalAlignment="Top" Width="191" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="White" FontFamily="Roboto Black" FontSize="24"/>
                 </Grid>
-                <Grid HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF">
+                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF" Visibility="Hidden">
                     <TextBox x:Name="tb_SearchCookedRecipes" Height="30" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Margin="10,10,10,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="{x:Null}" Foreground="#FF2D424D" TextAlignment="Center" FontSize="22"/>
                     <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="365" Margin="10,45,0,0" VerticalAlignment="Top" Width="287"/>
                 </Grid>
+                <Rectangle HorizontalAlignment="Left" Height="45" Margin="845,10,0,0" VerticalAlignment="Top" Width="49" MouseUp="CloseSavedRecipesPanel">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="Images/8934.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock x:Name="Warning_Label" HorizontalAlignment="Left" Height="61" Margin="627,444,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" FontFamily="Roboto Black" FontSize="14" Foreground="#FFFE5F55" TextAlignment="Center"/>
             </Grid>
 
         </Grid>
