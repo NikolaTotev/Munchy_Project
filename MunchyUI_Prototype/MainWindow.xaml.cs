@@ -300,6 +300,12 @@ namespace MunchyUI_Prototype
             }           
         }
 
+        private void AddToCookedRecipes()
+        {
+            CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.Name);
+            CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name);
+        }
+
         private void ShowSavedRecipePanel()
         {
             if (p_SavedRecipes.Visibility == Visibility.Hidden)
@@ -736,6 +742,16 @@ namespace MunchyUI_Prototype
         private void CloseSavedRecipesPanel(object sender, MouseButtonEventArgs e)
         {
             ShowSavedRecipePanel();
+        }
+
+        private void Btn_RecipeWillBeCooked_Click(object sender, RoutedEventArgs e)
+        {
+            AddToCookedRecipes();
+        }
+
+        private void CookedRecipesTextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 

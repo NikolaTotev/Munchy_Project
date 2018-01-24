@@ -134,6 +134,7 @@
                 </TextBlock>
                 <TextBlock x:Name="tB_DirectionsTitle_Copy" HorizontalAlignment="Left" Height="30" Margin="56,252,0,0" TextWrapping="Wrap" Text="Time to cook" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <TextBlock x:Name="tB_TimeToCook" HorizontalAlignment="Left" Height="30" Margin="56,282,0,0" TextWrapping="Wrap" Text="Time to cook" VerticalAlignment="Top" Width="125" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <Button x:Name="Btn_RecipeWillBeCooked" Content="I'll Cook It!" HorizontalAlignment="Left" Height="41" Margin="353,433,0,0" VerticalAlignment="Top" Width="148" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="22" Click="Btn_RecipeWillBeCooked_Click"/>
             </Grid>
             <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Hidden">
                 <ListBox x:Name="lb_FoodList" HorizontalAlignment="Left" Height="360" Margin="293,62,0,0" VerticalAlignment="Top" Width="323" Background="#FFC1CAD6" FontFamily="Roboto Medium" FontSize="18" SelectionChanged="ShowFoodInfo"/>
@@ -193,7 +194,7 @@
                 <Button x:Name="Btn_CookedRecipes" Content="Cooked Recipes" HorizontalAlignment="Left" Height="53" Margin="62,150,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedRecipes_Click"/>
                 <Button x:Name="Btn_RecentlyViewed" Content="Recently Viewed" HorizontalAlignment="Left" Height="53" Margin="62,221,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_RecentlyViewed_Click"/>
                 <Button x:Name="Btn_CookedToday" Content="Cooked Today" HorizontalAlignment="Left" Height="53" Margin="62,294,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedToday_Click"/>
-                <Grid x:Name="P_SavedRecipesSearch" Background="#19FFFFFF" HorizontalAlignment="Left" Height="433" Margin="283,57,0,0" VerticalAlignment="Top" Width="330" Visibility="Visible" >
+                <Grid x:Name="P_SavedRecipesSearch" Background="#19FFFFFF" HorizontalAlignment="Left" Height="433" Margin="283,57,0,0" VerticalAlignment="Top" Width="330" Visibility="Hidden" >
                     <ListBox x:Name="lb_SavedRecipesList" HorizontalAlignment="Left" Height="364" VerticalAlignment="Top" Width="285" Margin="23,59,0,0"/>
                     <TextBox x:Name="tb_SearchSavedRecipes" HorizontalAlignment="Left" Height="32" Margin="23,10,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="285" TextAlignment="Center" FontFamily="Roboto Black" FontSize="22" Foreground="#F2223843" SelectionBrush="#B2FE5F55"/>
 
@@ -212,8 +213,8 @@
                     <TextBlock x:Name="tB_CookedTodayRecipeName" Height="60" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="0,235,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                     <Button Content="Revisit recipe" HorizontalAlignment="Left" Height="50" Margin="57,314,0,0" VerticalAlignment="Top" Width="191" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="White" FontFamily="Roboto Black" FontSize="24"/>
                 </Grid>
-                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF" Visibility="Hidden">
-                    <TextBox x:Name="tb_SearchCookedRecipes" Height="30" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Margin="10,10,10,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="{x:Null}" Foreground="#FF2D424D" TextAlignment="Center" FontSize="22"/>
+                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF" Visibility="Visible">
+                    <TextBox x:Name="tb_SearchCookedRecipes" Height="30" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,10,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="{x:Null}" Foreground="#FF2D424D" TextAlignment="Center" FontSize="22"/>
                     <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="365" Margin="10,45,0,0" VerticalAlignment="Top" Width="287"/>
                 </Grid>
                 <Rectangle HorizontalAlignment="Left" Height="45" Margin="845,10,0,0" VerticalAlignment="Top" Width="49" MouseUp="CloseSavedRecipesPanel">
