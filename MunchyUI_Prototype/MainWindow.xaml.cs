@@ -216,7 +216,6 @@ namespace MunchyUI_Prototype
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
         }
 
-
         private void AddToCookedRecipes()
         {
             CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.Name.ToLower());
@@ -225,21 +224,25 @@ namespace MunchyUI_Prototype
 
         private void CookedRecipesSearch()
         {
-            if (string.IsNullOrWhiteSpace(tb_SearchCookedRecipes.Text))
+            if (!string.IsNullOrWhiteSpace(tb_SearchCookedRecipes.Text))
             {
                 if (tb_SearchCookedRecipes.Text != "Search")
                 {
                     string SearchedRecipe = tb_SearchCookedRecipes.Text;
-                    string ToLower = SearchedRecipe.ToLower();
+                    string LowerCase = SearchedRecipe.ToLower();
 
                     foreach (string Recipe in CurrentManager.UserRecipeSaves.CookedRecipes)
                     {
-                        if (Recipe.StartsWith(ToLower) && !lb_ListOfCookedRecipes.Items.Contains(ToLower))
+                        if (Recipe.StartsWith(LowerCase) && !lb_ListOfCookedRecipes.Items.Contains(Recipe))
                         {
-                            lb_ListOfCookedRecipes.Items.Add(ToLower);
+                            lb_ListOfCookedRecipes.Items.Add(Recipe);
                         }
                     }
                 }
+            }
+            else
+            {
+                lb_ListOfCookedRecipes.Items.Clear();
             }
         }
 
@@ -772,6 +775,16 @@ namespace MunchyUI_Prototype
         private void CookedRecipesTextChanged(object sender, TextChangedEventArgs e)
         {
             CookedRecipesSearch();
+        }
+
+        private void SearchCookedRecipesFocused(object sender, RoutedEventArgs e)
+        {
+            tb_SearchCookedRecipes.Text = null;
+        }
+
+        private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
+        {
+            tb_SearchCookedRecipes.Text = "Search";
         }
     }
 

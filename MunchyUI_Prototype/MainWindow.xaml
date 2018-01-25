@@ -214,8 +214,8 @@
                     <Button Content="Revisit recipe" HorizontalAlignment="Left" Height="50" Margin="57,314,0,0" VerticalAlignment="Top" Width="191" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="White" FontFamily="Roboto Black" FontSize="24"/>
                 </Grid>
                 <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF" Visibility="Visible">
-                    <TextBox x:Name="tb_SearchCookedRecipes" Height="30" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,10,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="{x:Null}" Foreground="#FF2D424D" TextAlignment="Center" FontSize="22" TextChanged="CookedRecipesTextChanged"/>
-                    <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="365" Margin="10,45,0,0" VerticalAlignment="Top" Width="287"/>
+                    <TextBox x:Name="tb_SearchCookedRecipes" Height="30" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,10,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="{x:Null}" Foreground="#FF2D424D" TextAlignment="Center" FontSize="22" TextChanged="CookedRecipesTextChanged" GotFocus="SearchCookedRecipesFocused" LostFocus="SearchCookedRecipesLostFocus"/>
+                    <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="365" Margin="10,45,0,0" VerticalAlignment="Top" Width="287" FontSize="20" FontFamily="Roboto Black"/>
                 </Grid>
                 <Rectangle HorizontalAlignment="Left" Height="45" Margin="845,10,0,0" VerticalAlignment="Top" Width="49" MouseUp="CloseSavedRecipesPanel">
                     <Rectangle.Fill>
