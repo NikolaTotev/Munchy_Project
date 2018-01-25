@@ -199,12 +199,12 @@ namespace MunchyUI_Prototype
                         {
                             CurrentManager.UserRecipeSaves.RecentlyViewed.Add(SuggestedRecipe.Name);
                             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-                        }                        
+                        }
                     }
                     else
                     {
                         CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
-                        CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);                      
+                        CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
                     }
                 }
                 else
@@ -214,14 +214,37 @@ namespace MunchyUI_Prototype
                 }
             }
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+        }
 
 
+        private void AddToCookedRecipes()
+        {
+            CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.Name.ToLower());
+            CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name.ToLower());
+        }
+
+        private void CookedRecipesSearch()
+        {
+            if (string.IsNullOrWhiteSpace(tb_SearchCookedRecipes.Text))
+            {
+                if (tb_SearchCookedRecipes.Text != "Search")
+                {
+                    string SearchedRecipe = tb_SearchCookedRecipes.Text;
+                    string ToLower = SearchedRecipe.ToLower();
+
+                    foreach (string Recipe in CurrentManager.UserRecipeSaves.CookedRecipes)
+                    {
+                        if (Recipe.StartsWith(ToLower) && !lb_ListOfCookedRecipes.Items.Contains(ToLower))
+                        {
+                            lb_ListOfCookedRecipes.Items.Add(ToLower);
+                        }
+                    }
+                }
+            }
         }
 
         #endregion
 
-
-        #region Fridge related functions
 
         #region UI Show/Hide functions
         private void ShowOrCloseFridge()
@@ -297,14 +320,9 @@ namespace MunchyUI_Prototype
                         Warning_Label.Text = "There is a corrupted element in a save file! Vist the offical Munchy github for potential fixes";
                     }
                 }
-            }           
+            }
         }
 
-        private void AddToCookedRecipes()
-        {
-            CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.Name);
-            CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name);
-        }
 
         private void ShowSavedRecipePanel()
         {
@@ -320,6 +338,8 @@ namespace MunchyUI_Prototype
 
         }
         #endregion
+
+        #region Fridge related functions
 
         #region Adding/Removing food items
 
@@ -751,7 +771,7 @@ namespace MunchyUI_Prototype
 
         private void CookedRecipesTextChanged(object sender, TextChangedEventArgs e)
         {
-
+            CookedRecipesSearch();
         }
     }
 
