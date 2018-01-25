@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Nikola.Munchy.MunchyAPI;
+using System.IO;
 namespace MunchyUI_Prototype
 {
     /// <summary>
@@ -58,6 +59,7 @@ namespace MunchyUI_Prototype
 
         // RecipeImage handles the recipe image on the full recipe view aswell as the recipe view on the main menu.
         ImageBrush RecipeImage = new ImageBrush();
+        ImageBrush SuggestedRecipeImage = new ImageBrush();
 
         // ================= UI LOGIC =================
         #region UI Logic
@@ -151,6 +153,12 @@ namespace MunchyUI_Prototype
                         CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
                         CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
                     }
+
+                    if (File.Exists(SuggestedRecipe.ImageFile))
+                    {
+                        SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
+                        Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
+                    }
                 }
                 else
                 {
@@ -179,6 +187,12 @@ namespace MunchyUI_Prototype
                         CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
                         CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
                     }
+
+                    if (File.Exists(SuggestedRecipe.ImageFile))
+                    {
+                        SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
+                        Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
+                    }
                 }
                 else
                 {
@@ -206,6 +220,12 @@ namespace MunchyUI_Prototype
                         CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
                         CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
                     }
+
+                    if (File.Exists(SuggestedRecipe.ImageFile))
+                    {
+                        SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
+                        Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
+                    }
                 }
                 else
                 {
@@ -222,6 +242,30 @@ namespace MunchyUI_Prototype
             CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name.ToLower());
         }
 
+        private void SavedRecipesSearch()
+        {
+            if (!string.IsNullOrWhiteSpace(tb_SearchSavedRecipes.Text))
+            {
+                if (tb_SearchSavedRecipes.Text != "Search")
+                {
+                    string SearchedSavedRecipe = tb_SearchSavedRecipes.Text;
+                    string LowerCase = SearchedSavedRecipe.ToLower();
+
+                    foreach (string Recipe in CurrentManager.UserRecipeSaves.SavedRecipes)
+                    {
+                        if (Recipe.StartsWith(LowerCase) && !lb_SavedRecipesList.Items.Contains((Recipe.First().ToString().ToUpper() + Recipe.Substring(1))))
+                        {
+                            lb_SavedRecipesList.Items.Add(Recipe.First().ToString().ToUpper() + Recipe.Substring(1));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                lb_SavedRecipesList.Items.Clear();
+            }
+        }
+
         private void CookedRecipesSearch()
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchCookedRecipes.Text))
@@ -233,9 +277,9 @@ namespace MunchyUI_Prototype
 
                     foreach (string Recipe in CurrentManager.UserRecipeSaves.CookedRecipes)
                     {
-                        if (Recipe.StartsWith(LowerCase) && !lb_ListOfCookedRecipes.Items.Contains(Recipe))
+                        if (Recipe.StartsWith(LowerCase) && !lb_ListOfCookedRecipes.Items.Contains((Recipe.First().ToString().ToUpper() + Recipe.Substring(1))))
                         {
-                            lb_ListOfCookedRecipes.Items.Add(Recipe);
+                            lb_ListOfCookedRecipes.Items.Add(Recipe.First().ToString().ToUpper() + Recipe.Substring(1));
                         }
                     }
                 }
@@ -785,6 +829,21 @@ namespace MunchyUI_Prototype
         private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
         {
             tb_SearchCookedRecipes.Text = "Search";
+        }
+
+        private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
+        {
+            tb_SearchSavedRecipes.Text = "Search";
+        }
+
+        private void SearchSavedRecipesFocused(object sender, RoutedEventArgs e)
+        {
+            tb_SearchSavedRecipes.Text = null;
+        }
+
+        private void SearchSavedRecipesTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SavedRecipesSearch();
         }
     }
 
