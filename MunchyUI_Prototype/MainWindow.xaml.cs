@@ -61,6 +61,18 @@ namespace MunchyUI_Prototype
         ImageBrush RecipeImage = new ImageBrush();
         ImageBrush SuggestedRecipeImage = new ImageBrush();
 
+
+        ImageBrush RecentRecipe_1 = new ImageBrush();
+        ImageBrush RecentRecipe_2 = new ImageBrush();
+        ImageBrush RecentRecipe_3 = new ImageBrush();
+        ImageBrush RecentRecipe_4 = new ImageBrush();
+        ImageBrush RecentRecipe_5 = new ImageBrush();
+        ImageBrush RecentRecipe_6 = new ImageBrush();
+
+        ImageBrush[] RecentlyViewedRecipeImages;
+        Ellipse[] RecentlyViewedRecipesImages;
+        Ellipse[] FrontPageRecentlyViewedImages;
+
         // ================= UI LOGIC =================
         #region UI Logic
 
@@ -72,10 +84,12 @@ namespace MunchyUI_Prototype
             SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
             CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, DefaultSaver);
             SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
+            RecentlyViewedRecipeImages = new ImageBrush[] { RecentRecipe_1, RecentRecipe_2, RecentRecipe_3, RecentRecipe_4, RecentRecipe_5, RecentRecipe_6 };
             RecipeIngredientList = new List<FoodDef>();
             InitialFridgeUISetup();
             PopulateFridgeSummary();
             SuggestRecipe();
+            SetRecentlyViewedImages();
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
@@ -150,8 +164,11 @@ namespace MunchyUI_Prototype
                     }
                     else
                     {
-                        CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
-                        CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
+                        if (!CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.Name))
+                        {
+                            CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
+                            CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
+                        }
                     }
 
                     if (File.Exists(SuggestedRecipe.ImageFile))
@@ -184,8 +201,11 @@ namespace MunchyUI_Prototype
                     }
                     else
                     {
-                        CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
-                        CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
+                        if (!CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.Name))
+                        {
+                            CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
+                            CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
+                        }
                     }
 
                     if (File.Exists(SuggestedRecipe.ImageFile))
@@ -217,8 +237,11 @@ namespace MunchyUI_Prototype
                     }
                     else
                     {
-                        CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
-                        CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
+                        if (!CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.Name))
+                        {
+                            CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
+                            CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
+                        }
                     }
 
                     if (File.Exists(SuggestedRecipe.ImageFile))
@@ -240,6 +263,7 @@ namespace MunchyUI_Prototype
         {
             CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.Name.ToLower());
             CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name.ToLower());
+            CurrentManager.UserRecipeSaves.SaveRecipeSaver();
         }
 
         private void SavedRecipesSearch()
@@ -343,23 +367,23 @@ namespace MunchyUI_Prototype
             P_CookedRecipes.Visibility = Visibility.Hidden;
         }
 
-        private void ShowRecentlyViewedRecipes()
+        private void SetRecentlyViewedImages()
         {
-            tB_SavedRecipesPanelTitle.Text = "Recently Viewed";
-            P_CookedTodayRecipes.Visibility = Visibility.Hidden;
-            P_RecenltlyViewedRecipes.Visibility = Visibility.Visible;
-            P_SavedRecipesSearch.Visibility = Visibility.Hidden;
-            P_CookedRecipes.Visibility = Visibility.Hidden;
-
             if (CurrentManager.UserRecipeSaves.RecentlyViewed.Count > 0)
             {
-                Ellipse[] RecentlyViewedRecipesImages = new Ellipse[] { Img_RecenlyViewed_1, Img_RecenlyViewed_2, Img_RecenlyViewed_3, Img_RecenlyViewed_4, Img_RecenlyViewed_5, Img_RecenlyViewed_6 };
+                RecentlyViewedRecipesImages = new Ellipse[] { Img_RecentlyViewed_1, Img_RecentlyViewed_2, Img_RecentlyViewed_3, Img_RecentlyViewed_4, Img_RecentlyViewed_5, Img_RecentlyViewed_6 };
+                FrontPageRecentlyViewedImages = new Ellipse[] { Img_FrontRecentlyViewed_1, Img_FrontRecentlyViewed_2, Img_FrontRecentlyViewed_3, Img_FrontRecentlyViewed_4, Img_FrontRecentlyViewed_5 };
+
                 for (int i = 0; i < CurrentManager.UserRecipeSaves.RecentlyViewed.Count; i++)
                 {
                     if (i <= 6 && CurrentManager.RecipieManag.Recipies.ContainsKey(CurrentManager.UserRecipeSaves.RecentlyViewed[i]))
                     {
-                        RecipeImage.ImageSource = new BitmapImage(new Uri(CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile, UriKind.Relative));
-                        RecentlyViewedRecipesImages[i].Fill = RecipeImage;
+                        RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile, UriKind.Relative));
+                        RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
+                        if (i <= 4)
+                        {
+                            FrontPageRecentlyViewedImages[i].Fill = RecentlyViewedRecipeImages[i];
+                        }
                     }
                     else
                     {
@@ -370,482 +394,494 @@ namespace MunchyUI_Prototype
             }
         }
 
-
-        private void ShowSavedRecipePanel()
+        private void ShowRecentlyViewedRecipes()
         {
-            if (p_SavedRecipes.Visibility == Visibility.Hidden)
-            {
-                p_SavedRecipes.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                p_SavedRecipes.Visibility = Visibility.Hidden;
-            }
-            ShowAllSavedRecipes();
+            tB_SavedRecipesPanelTitle.Text = "Recently Viewed";
+            P_CookedTodayRecipes.Visibility = Visibility.Hidden;
+            P_RecenltlyViewedRecipes.Visibility = Visibility.Visible;
+            P_SavedRecipesSearch.Visibility = Visibility.Hidden;
+            P_CookedRecipes.Visibility = Visibility.Hidden;
 
+            SetRecentlyViewedImages();
         }
-        #endregion
+    
 
-        #region Fridge related functions
 
-        #region Adding/Removing food items
-
-        // Called when the text in the textbox for searching for foods is changed
-        private void FoodSearchTextChanged()
+    private void ShowSavedRecipePanel()
+    {
+        if (p_SavedRecipes.Visibility == Visibility.Hidden)
         {
-            // Checks if the search box is null or not.
-            if (!string.IsNullOrWhiteSpace(tb_Search.Text))
-            {
-                //Makes sure that text is not the keyword "Search"
-                if (tb_Search.Text != "Search")
-                {
-                    l_SearchInfo.Text = "Click on an item to add it";
-                    string searchedWord = tb_Search.Text;
-                    string ToLower = searchedWord.ToLower();
+            p_SavedRecipes.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            p_SavedRecipes.Visibility = Visibility.Hidden;
+        }
+        ShowAllSavedRecipes();
 
-                    foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
+    }
+    #endregion
+
+    #region Fridge related functions
+
+    #region Adding/Removing food items
+
+    // Called when the text in the textbox for searching for foods is changed
+    private void FoodSearchTextChanged()
+    {
+        // Checks if the search box is null or not.
+        if (!string.IsNullOrWhiteSpace(tb_Search.Text))
+        {
+            //Makes sure that text is not the keyword "Search"
+            if (tb_Search.Text != "Search")
+            {
+                l_SearchInfo.Text = "Click on an item to add it";
+                string searchedWord = tb_Search.Text;
+                string ToLower = searchedWord.ToLower();
+
+                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
+                {
+                    if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key))
                     {
-                        if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key))
-                        {
-                            lB_SuggestedFoods.Items.Add(element.Key);
-                        }
+                        lB_SuggestedFoods.Items.Add(element.Key);
                     }
                 }
             }
-            else
-            {
-                lB_SuggestedFoods.Items.Clear();
-                l_SearchInfo.Text = "Type to search for an item";
-            }
         }
-
-        // Function is called once the user clicks on an item in the listbox of suggested foods. The item is added into the user fridge UI
-        // the FoodDef is added into the user's fridge and the users fridge is saved.
-        private void AddClickedFoodItem()
+        else
         {
-            if (lB_SuggestedFoods.SelectedItem != null)
-            {
-                if (!CurrentManager.User.UserFridge.UsersFoods.ContainsKey((lB_SuggestedFoods.SelectedItem.ToString())))
-                {
-                    CurrentManager.User.UserFridge.AddToFridge((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()]));
-                    lb_FoodList.Items.Add((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].Name));
-                    CurrentManager.UsersFridge.SaveFridge();
-                    l_SearchInfo.Text = "Item added!";
-                }
-                else
-                {
-                    l_SearchInfo.Text = "Don't worry! You already have this.";
-                }
-                PopulateFridgeSummary();
-            }
+            lB_SuggestedFoods.Items.Clear();
+            l_SearchInfo.Text = "Type to search for an item";
         }
+    }
 
-        private void RemoveItem()
+    // Function is called once the user clicks on an item in the listbox of suggested foods. The item is added into the user fridge UI
+    // the FoodDef is added into the user's fridge and the users fridge is saved.
+    private void AddClickedFoodItem()
+    {
+        if (lB_SuggestedFoods.SelectedItem != null)
         {
-            if (lb_FoodList.SelectedItem != null)
+            if (!CurrentManager.User.UserFridge.UsersFoods.ContainsKey((lB_SuggestedFoods.SelectedItem.ToString())))
             {
-                CurrentManager.User.UserFridge.RemoveFromFridge(lb_FoodList.SelectedItem.ToString());
-                lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
-                lb_FoodList.Items.Clear();
-                CurrentManager.User.UserFridge.SaveFridge();
-
-                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
-                {
-                    lb_FoodList.Items.Add(element.Key);
-                }
-                PopulateFridgeSummary();
-            }
-        }
-        #endregion
-
-        #region Fridge infromation management
-        // Adds all the elements in the users fridge to the listbox in the UI. Function is called on program start.
-        private void PopulateFridgeSummary()
-        {
-            CalorieSum = 0;
-            ProteinSum = 0;
-            FatSum = 0;
-            CarbSum = 0;
-            SugarSum = 0;
-            SodiumSum = 0;
-            if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
-            {
-                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
-                {
-                    CalorieSum += element.Value.Calories;
-                    ProteinSum += element.Value.Protein;
-                    FatSum += element.Value.Fat;
-                    CarbSum += element.Value.Carbs;
-                    SugarSum += element.Value.Sugars;
-                    SodiumSum += element.Value.Sodium;
-                }
-                SummaryValues = new int[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
-                for (int i = 0; i < SummaryTextBlocks.Length; i++)
-                {
-                    SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
-                }
+                CurrentManager.User.UserFridge.AddToFridge((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()]));
+                lb_FoodList.Items.Add((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].Name));
+                CurrentManager.UsersFridge.SaveFridge();
+                l_SearchInfo.Text = "Item added!";
             }
             else
             {
-                SummaryValues = new int[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
-                for (int i = 0; i < SummaryTextBlocks.Length; i++)
-                {
-                    SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
-                }
+                l_SearchInfo.Text = "Don't worry! You already have this.";
+            }
+            PopulateFridgeSummary();
+        }
+    }
+
+    private void RemoveItem()
+    {
+        if (lb_FoodList.SelectedItem != null)
+        {
+            CurrentManager.User.UserFridge.RemoveFromFridge(lb_FoodList.SelectedItem.ToString());
+            lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
+            lb_FoodList.Items.Clear();
+            CurrentManager.User.UserFridge.SaveFridge();
+
+            foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+            {
+                lb_FoodList.Items.Add(element.Key);
+            }
+            PopulateFridgeSummary();
+        }
+    }
+    #endregion
+
+    #region Fridge infromation management
+    // Adds all the elements in the users fridge to the listbox in the UI. Function is called on program start.
+    private void PopulateFridgeSummary()
+    {
+        CalorieSum = 0;
+        ProteinSum = 0;
+        FatSum = 0;
+        CarbSum = 0;
+        SugarSum = 0;
+        SodiumSum = 0;
+        if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
+        {
+            foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+            {
+                CalorieSum += element.Value.Calories;
+                ProteinSum += element.Value.Protein;
+                FatSum += element.Value.Fat;
+                CarbSum += element.Value.Carbs;
+                SugarSum += element.Value.Sugars;
+                SodiumSum += element.Value.Sodium;
+            }
+            SummaryValues = new int[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
+            for (int i = 0; i < SummaryTextBlocks.Length; i++)
+            {
+                SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
             }
         }
-
-        // When a food item is selected in the listbox. The panel on the right shows the foods nutritional information.
-        private void GetAndShowFoodInfo()
+        else
         {
-            if (lb_FoodList.SelectedItem != null)
+            SummaryValues = new int[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
+            for (int i = 0; i < SummaryTextBlocks.Length; i++)
             {
-                FoodDef SelectedItem = CurrentManager.FoodManag.Foods[lb_FoodList.SelectedItem.ToString()];
-                tb_FoodName.Text = SelectedItem.Name.First().ToString().ToUpper() + SelectedItem.Name.Substring(1);
-                tb_FoodItemCalorie.Text = SelectedItem.Calories.ToString();
-                tB_FoodProtein.Text = SelectedItem.Protein.ToString();
-                tB_FoodFat.Text = SelectedItem.Fat.ToString();
-                tB_FoodCarbs.Text = SelectedItem.Carbs.ToString();
-                tB_FoodSugar.Text = SelectedItem.Sugars.ToString();
-                tB_FoodSodium.Text = SelectedItem.Sodium.ToString();
+                SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
+            }
+        }
+    }
+
+    // When a food item is selected in the listbox. The panel on the right shows the foods nutritional information.
+    private void GetAndShowFoodInfo()
+    {
+        if (lb_FoodList.SelectedItem != null)
+        {
+            FoodDef SelectedItem = CurrentManager.FoodManag.Foods[lb_FoodList.SelectedItem.ToString()];
+            tb_FoodName.Text = SelectedItem.Name.First().ToString().ToUpper() + SelectedItem.Name.Substring(1);
+            tb_FoodItemCalorie.Text = SelectedItem.Calories.ToString();
+            tB_FoodProtein.Text = SelectedItem.Protein.ToString();
+            tB_FoodFat.Text = SelectedItem.Fat.ToString();
+            tB_FoodCarbs.Text = SelectedItem.Carbs.ToString();
+            tB_FoodSugar.Text = SelectedItem.Sugars.ToString();
+            tB_FoodSodium.Text = SelectedItem.Sodium.ToString();
+        }
+        else
+        {
+            tb_FoodItemCalorie.Text = "0";
+            tB_FoodProtein.Text = "0";
+            tB_FoodFat.Text = "0";
+            tB_FoodCarbs.Text = "0";
+            tB_FoodSugar.Text = "0";
+            tB_FoodSodium.Text = "0";
+        }
+    }
+    #endregion
+
+    #endregion
+
+    #region User settings functions
+
+    private void ShowSettingsPanel()
+    {
+        tb_NameInput.Text = CurrentManager.User.UserName;
+        tb_AgeInput.Text = CurrentManager.User.Age.ToString();
+        tb_WeightInput.Text = CurrentManager.User.Weight.ToString();
+
+        foreach (CheckBox element in SettingOptions)
+        {
+            if (CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
+            {
+                element.IsChecked = true;
             }
             else
             {
-                tb_FoodItemCalorie.Text = "0";
-                tB_FoodProtein.Text = "0";
-                tB_FoodFat.Text = "0";
-                tB_FoodCarbs.Text = "0";
-                tB_FoodSugar.Text = "0";
-                tB_FoodSodium.Text = "0";
+                element.IsChecked = false;
             }
         }
-        #endregion
 
-        #endregion
-
-        #region User settings functions
-
-        private void ShowSettingsPanel()
+        if (p_Settings.Visibility == Visibility.Hidden)
         {
-            tb_NameInput.Text = CurrentManager.User.UserName;
-            tb_AgeInput.Text = CurrentManager.User.Age.ToString();
-            tb_WeightInput.Text = CurrentManager.User.Weight.ToString();
+            p_Settings.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            p_Settings.Visibility = Visibility.Hidden;
+        }
+    }
 
-            foreach (CheckBox element in SettingOptions)
+    private void SaveUserSettings()
+    {
+        int parsedValue;
+        if (!string.IsNullOrWhiteSpace(tb_NameInput.Text) && !string.IsNullOrWhiteSpace(tb_AgeInput.Text) && !string.IsNullOrWhiteSpace(tb_WeightInput.Text))
+        {
+            CurrentManager.User.UserName = tb_NameInput.Text;
+
+            if (int.TryParse(tb_AgeInput.Text, out parsedValue))
+                CurrentManager.User.Age = int.Parse(tb_AgeInput.Text);
+            else MessageBox.Show("Age is a number value!");
+
+            if (int.TryParse(tb_WeightInput.Text, out parsedValue))
+                CurrentManager.User.Weight = int.Parse(tb_WeightInput.Text);
+            else MessageBox.Show("Weight is a number value!");
+        }
+
+        if (rb_Male.IsChecked == true)
+        {
+            CurrentManager.User.Sex = "male";
+        }
+
+        if (rb_Female.IsChecked == true)
+        {
+            CurrentManager.User.Sex = "female";
+        }
+
+        if (rb_Other.IsChecked == true)
+        {
+            CurrentManager.User.Sex = "other";
+        }
+
+        foreach (CheckBox element in SettingOptions)
+        {
+            if (element.IsChecked == true)
+            {
+                if (!CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
+                {
+                    CurrentManager.User.Preferences.Add(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
+                }
+            }
+
+            if (element.IsChecked == false)
             {
                 if (CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
                 {
-                    element.IsChecked = true;
-                }
-                else
-                {
-                    element.IsChecked = false;
+                    CurrentManager.User.Preferences.Remove(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
                 }
             }
-
-            if (p_Settings.Visibility == Visibility.Hidden)
-            {
-                p_Settings.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                p_Settings.Visibility = Visibility.Hidden;
-            }
         }
 
-        private void SaveUserSettings()
-        {
-            int parsedValue;
-            if (!string.IsNullOrWhiteSpace(tb_NameInput.Text) && !string.IsNullOrWhiteSpace(tb_AgeInput.Text) && !string.IsNullOrWhiteSpace(tb_WeightInput.Text))
-            {
-                CurrentManager.User.UserName = tb_NameInput.Text;
-
-                if (int.TryParse(tb_AgeInput.Text, out parsedValue))
-                    CurrentManager.User.Age = int.Parse(tb_AgeInput.Text);
-                else MessageBox.Show("Age is a number value!");
-
-                if (int.TryParse(tb_WeightInput.Text, out parsedValue))
-                    CurrentManager.User.Weight = int.Parse(tb_WeightInput.Text);
-                else MessageBox.Show("Weight is a number value!");
-            }
-
-            if (rb_Male.IsChecked == true)
-            {
-                CurrentManager.User.Sex = "male";
-            }
-
-            if (rb_Female.IsChecked == true)
-            {
-                CurrentManager.User.Sex = "female";
-            }
-
-            if (rb_Other.IsChecked == true)
-            {
-                CurrentManager.User.Sex = "other";
-            }
-
-            foreach (CheckBox element in SettingOptions)
-            {
-                if (element.IsChecked == true)
-                {
-                    if (!CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
-                    {
-                        CurrentManager.User.Preferences.Add(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
-                    }
-                }
-
-                if (element.IsChecked == false)
-                {
-                    if (CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
-                    {
-                        CurrentManager.User.Preferences.Remove(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
-                    }
-                }
-            }
-
-            CurrentManager.SaveUser();
-            CurrentManager.User.CalculateIndex();
-            CurrentManager.SaveUser();
-            tB_UserName.Text = CurrentManager.User.UserName;
-        }
-        #endregion
-
-        #endregion
-
-
-        // ================= UI EVENTS =================
-        #region UI Event functions
-
-        #region Panel Show/Close events
-
-        /// <summary>
-        /// Shows/ Hides full recipe view and populates the UI.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_ShowRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            ShowOrCloseFullRecipeView();
-        }
-
-
-        /// <summary>
-        /// Opens full fridge view for the fridge. Function called by the "Show Fridge" button and the close button.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_Showfridge_Click(object sender, RoutedEventArgs e)
-        {
-            ShowOrCloseFridge();
-        }
-
-
-        /// <summary>
-        /// Opens user settings panel and populates the current active settings.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ShowSettings(object sender, MouseButtonEventArgs e)
-        {
-            ShowSettingsPanel();
-        }
-
-        /// <summary>
-        /// Button for opening the food search/add panel
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenFoodSearch(object sender, RoutedEventArgs e)
-        {
-            OpenCloseFoodSearch();
-        }
-
-        /// <summary>
-        /// Button for closing the food search/add panel.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_CloseClick(object sender, RoutedEventArgs e)
-        {
-            OpenCloseFoodSearch();
-        }
-        #endregion
-
-        #region Button Events
-
-        #region Fridge related
-        private void ShowFoodInfo(object sender, SelectionChangedEventArgs e)
-        {
-            GetAndShowFoodInfo();
-        }
-
-        /// <summary>
-        /// Removes an item from the fridge UI and the user fridge.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_RemoveItem_Click(object sender, RoutedEventArgs e)
-        {
-            RemoveItem();
-        }
-
-        #endregion
-
-        #region Recipe related
-        private void btn_ShowRecipе(object sender, RoutedEventArgs e)
-        {
-            AddRecipeIngredientsToListView();
-            ShowOrCloseFullRecipeView();
-        }
-
-        /// <summary>
-        /// Shows all recipes saved by the user. Function is called on button press
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
-        {
-            ShowSavedRecipePanel();
-        }
-
-
-        private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            SuggestRecipe();
-        }
-
-        private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            tB_RecipeName.FontSize = 24;
-            NumerOfRecipeToSuggest++;
-            SuggestRecipe();
-        }
-
-        private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            tB_RecipeName.FontSize = 24;
-            NumerOfRecipeToSuggest--;
-            SuggestRecipe();
-        }
-
-        private void Btn_CookedRecipes_Click(object sender, RoutedEventArgs e)
-        {
-            ShowCookedRecipes();
-        }
-
-        private void Btn_RecentlyViewed_Click(object sender, RoutedEventArgs e)
-        {
-            ShowRecentlyViewedRecipes();
-        }
-
-        private void Btn_CookedToday_Click(object sender, RoutedEventArgs e)
-        {
-            ShowRecipesCookedToday();
-        }
-
-        private void Btn_SavedRecipes_Click(object sender, RoutedEventArgs e)
-        {
-            ShowAllSavedRecipes();
-        }
-
-        #endregion
-
-        #region User related
-        /// <summary>
-        /// Saves users settings based on the input from the settings panel.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_Save_Click(object sender, RoutedEventArgs e)
-        {
-            SaveUserSettings();
-        }
-        #endregion
-
-        #endregion
-
-        #region Textbox and listbox events
-
-        /// <summary>
-        /// Once the textbox has lost focus the defualt text "Search" appears;
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
-        {
-            tb_Search.Text = "Search";
-        }
-
-        /// <summary>
-        /// Clears the textbox once the user has focused it.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SearchFoodClearTextBox(object sender, RoutedEventArgs e)
-        {
-            tb_Search.Text = null;
-        }
-
-        private void AddClickedItem(object sender, SelectionChangedEventArgs e)
-        {
-            AddClickedFoodItem();
-        }
-
-        /// <summary>
-        /// When the user types in the search box (or changes the text) the listbox for suggested foods is filled with the Foods in the 
-        /// FoodData base that start with the given substring.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            FoodSearchTextChanged();
-        }
-
-        #endregion
-
-        #endregion
-
-        private void CloseSavedRecipesPanel(object sender, MouseButtonEventArgs e)
-        {
-            ShowSavedRecipePanel();
-        }
-
-        private void Btn_RecipeWillBeCooked_Click(object sender, RoutedEventArgs e)
-        {
-            AddToCookedRecipes();
-        }
-
-        private void CookedRecipesTextChanged(object sender, TextChangedEventArgs e)
-        {
-            CookedRecipesSearch();
-        }
-
-        private void SearchCookedRecipesFocused(object sender, RoutedEventArgs e)
-        {
-            tb_SearchCookedRecipes.Text = null;
-        }
-
-        private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
-        {
-            tb_SearchCookedRecipes.Text = "Search";
-        }
-
-        private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
-        {
-            tb_SearchSavedRecipes.Text = "Search";
-        }
-
-        private void SearchSavedRecipesFocused(object sender, RoutedEventArgs e)
-        {
-            tb_SearchSavedRecipes.Text = null;
-        }
-
-        private void SearchSavedRecipesTextChanged(object sender, TextChangedEventArgs e)
-        {
-            SavedRecipesSearch();
-        }
+        CurrentManager.SaveUser();
+        CurrentManager.User.CalculateIndex();
+        CurrentManager.SaveUser();
+        tB_UserName.Text = CurrentManager.User.UserName;
     }
+    #endregion
+
+    #endregion
+
+
+    // ================= UI EVENTS =================
+    #region UI Event functions
+
+    #region Panel Show/Close events
+
+    /// <summary>
+    /// Shows/ Hides full recipe view and populates the UI.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void btn_ShowRecipe_Click(object sender, RoutedEventArgs e)
+    {
+        ShowOrCloseFullRecipeView();
+    }
+
+
+    /// <summary>
+    /// Opens full fridge view for the fridge. Function called by the "Show Fridge" button and the close button.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void btn_Showfridge_Click(object sender, RoutedEventArgs e)
+    {
+        ShowOrCloseFridge();
+    }
+
+
+    /// <summary>
+    /// Opens user settings panel and populates the current active settings.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ShowSettings(object sender, MouseButtonEventArgs e)
+    {
+        ShowSettingsPanel();
+    }
+
+    /// <summary>
+    /// Button for opening the food search/add panel
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OpenFoodSearch(object sender, RoutedEventArgs e)
+    {
+        OpenCloseFoodSearch();
+    }
+
+    /// <summary>
+    /// Button for closing the food search/add panel.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void btn_CloseClick(object sender, RoutedEventArgs e)
+    {
+        OpenCloseFoodSearch();
+    }
+    #endregion
+
+    #region Button Events
+
+    #region Fridge related
+    private void ShowFoodInfo(object sender, SelectionChangedEventArgs e)
+    {
+        GetAndShowFoodInfo();
+    }
+
+    /// <summary>
+    /// Removes an item from the fridge UI and the user fridge.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void btn_RemoveItem_Click(object sender, RoutedEventArgs e)
+    {
+        RemoveItem();
+    }
+
+    #endregion
+
+    #region Recipe related
+    private void btn_ShowRecipе(object sender, RoutedEventArgs e)
+    {
+        AddRecipeIngredientsToListView();
+        ShowOrCloseFullRecipeView();
+    }
+
+    /// <summary>
+    /// Shows all recipes saved by the user. Function is called on button press
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
+    {
+        ShowSavedRecipePanel();
+    }
+
+
+    private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
+    {
+        SuggestRecipe();
+    }
+
+    private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
+    {
+        tB_RecipeName.FontSize = 24;
+        NumerOfRecipeToSuggest++;
+        SuggestRecipe();
+    }
+
+    private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
+    {
+        tB_RecipeName.FontSize = 24;
+        NumerOfRecipeToSuggest--;
+        SuggestRecipe();
+    }
+
+    private void Btn_CookedRecipes_Click(object sender, RoutedEventArgs e)
+    {
+        ShowCookedRecipes();
+    }
+
+    private void Btn_RecentlyViewed_Click(object sender, RoutedEventArgs e)
+    {
+        ShowRecentlyViewedRecipes();
+    }
+
+    private void Btn_CookedToday_Click(object sender, RoutedEventArgs e)
+    {
+        ShowRecipesCookedToday();
+    }
+
+    private void Btn_SavedRecipes_Click(object sender, RoutedEventArgs e)
+    {
+        ShowAllSavedRecipes();
+    }
+
+    #endregion
+
+    #region User related
+    /// <summary>
+    /// Saves users settings based on the input from the settings panel.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void btn_Save_Click(object sender, RoutedEventArgs e)
+    {
+        SaveUserSettings();
+    }
+    #endregion
+
+    #endregion
+
+    #region Textbox and listbox events
+
+    /// <summary>
+    /// Once the textbox has lost focus the defualt text "Search" appears;
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
+    {
+        tb_Search.Text = "Search";
+    }
+
+    /// <summary>
+    /// Clears the textbox once the user has focused it.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void SearchFoodClearTextBox(object sender, RoutedEventArgs e)
+    {
+        tb_Search.Text = null;
+    }
+
+    private void AddClickedItem(object sender, SelectionChangedEventArgs e)
+    {
+        AddClickedFoodItem();
+    }
+
+    /// <summary>
+    /// When the user types in the search box (or changes the text) the listbox for suggested foods is filled with the Foods in the 
+    /// FoodData base that start with the given substring.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        FoodSearchTextChanged();
+    }
+
+    #endregion
+
+    #endregion
+
+    private void CloseSavedRecipesPanel(object sender, MouseButtonEventArgs e)
+    {
+        ShowSavedRecipePanel();
+    }
+
+    private void Btn_RecipeWillBeCooked_Click(object sender, RoutedEventArgs e)
+    {
+        AddToCookedRecipes();
+    }
+
+    private void CookedRecipesTextChanged(object sender, TextChangedEventArgs e)
+    {
+        CookedRecipesSearch();
+    }
+
+    private void SearchCookedRecipesFocused(object sender, RoutedEventArgs e)
+    {
+        tb_SearchCookedRecipes.Text = null;
+    }
+
+    private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
+    {
+        tb_SearchCookedRecipes.Text = "Search";
+    }
+
+    private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
+    {
+        tb_SearchSavedRecipes.Text = "Search";
+    }
+
+    private void SearchSavedRecipesFocused(object sender, RoutedEventArgs e)
+    {
+        tb_SearchSavedRecipes.Text = null;
+    }
+
+    private void SearchSavedRecipesTextChanged(object sender, TextChangedEventArgs e)
+    {
+        SavedRecipesSearch();
+    }
+}
 
 
 }

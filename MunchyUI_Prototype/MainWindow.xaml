@@ -42,27 +42,27 @@
             <TextBlock Height="34" Margin="0,10,0,12" TextWrapping="Wrap" Width="240" TextAlignment="Center" FontFamily="Shrikhand" FontSize="26" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" Foreground="#FF223843"><Run Text="Recent Foods"/><LineBreak/><Run/></TextBlock>
             <TextBlock x:Name="tB_UserName" Margin="80,4,117,29" TextWrapping="Wrap" Text="Nikola" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" Grid.Column="2" Foreground="#FFFCFFFC" MouseDown="ShowSettings"/>
             <TextBlock x:Name="tB_RecipeName" Height="48" Margin="0,0,0,63" TextWrapping="Wrap" Text="Chicken Dinner" Width="418" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="2" Grid.Row="2" Foreground="#FF223843" Grid.RowSpan="3"/>
-            <Ellipse Height="76" Margin="27,41,0,191" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Ellipse x:Name="Img_FrontRecentlyViewed_1" Height="76" Margin="27,41,0,191" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="Images/c700x420.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <Ellipse Height="76" Margin="153,41,0,191" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Ellipse x:Name="Img_FrontRecentlyViewed_2" Height="76" Margin="153,41,0,191" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="Images/chickenDinner.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <Ellipse Height="80" Margin="85,117,0,111" Width="79" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Ellipse x:Name="Img_FrontRecentlyViewed_3" Height="80" Margin="85,117,0,111" Width="79" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="Images/cake.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <Ellipse Height="78" Margin="153,191,0,39" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Ellipse x:Name="Img_FrontRecentlyViewed_5" Height="78" Margin="153,191,0,39" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="Images/psta.jpg"/>
                 </Ellipse.Fill>
             </Ellipse>
-            <Ellipse Height="78" Margin="27,191,0,39" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
+            <Ellipse x:Name="Img_FrontRecentlyViewed_4" Height="78" Margin="27,191,0,39" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="Images/compost-cookies-31-800.jpg"/>
                 </Ellipse.Fill>
@@ -201,12 +201,12 @@
                 </Grid>
                 <Button x:Name="Btn_SavedRecipes" Content="Saved Recipes" HorizontalAlignment="Left" Height="53" Margin="62,360,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_SavedRecipes_Click"/>
                 <Grid x:Name="P_RecenltlyViewedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="316" Background="#19FFFFFF" Visibility="Hidden">
-                    <Ellipse x:Name="Img_RecenlyViewed_1" Height="118" VerticalAlignment="Top" Margin="10,7,188,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_2" Height="118" VerticalAlignment="Top" Margin="188,10,10,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_4" Height="118" VerticalAlignment="Top" Margin="188,152,10,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_3" Height="118" VerticalAlignment="Top" Margin="10,152,188,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_5" Height="118" VerticalAlignment="Top" Margin="10,285,188,0"/>
-                    <Ellipse x:Name="Img_RecenlyViewed_6" Height="118" VerticalAlignment="Top" Margin="188,285,10,0"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_1" Height="118" VerticalAlignment="Top" Margin="10,7,188,0"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_2" Height="118" VerticalAlignment="Top" Margin="188,10,10,0"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_4" Height="118" VerticalAlignment="Top" Margin="188,152,10,0"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_3" Height="118" VerticalAlignment="Top" Margin="10,152,188,0"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_5" Height="118" VerticalAlignment="Top" Margin="10,285,188,0"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_6" Height="118" VerticalAlignment="Top" Margin="188,285,10,0"/>
                 </Grid>
                 <Grid x:Name="P_CookedTodayRecipes" HorizontalAlignment="Left" Height="409" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF" Visibility="Hidden">
                     <Ellipse Fill="#FFF4F4F5" Height="163" VerticalAlignment="Top" Margin="69,40,76,0"/>
