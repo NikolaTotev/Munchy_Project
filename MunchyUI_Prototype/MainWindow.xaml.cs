@@ -21,19 +21,20 @@ namespace MunchyUI_Prototype
     /// </summary>
     public partial class MainWindow : Window
     {
+        static string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         //Save File Locations
-        string UserFile = @"  C:\Users\Nikola\AppData\Roaming\MunchyUSER5.json";
-        string DefaultUserFile = @"  C:\Users\Nikola\AppData\Roaming\Munchy\DEFAULT_USER.json";
+        string UserFile =  AppDataFolder +"\\Munchy"+"\\MunchyUSER5.json";
+        string DefaultUserFile =  AppDataFolder + "\\Munchy" + "\\DEFAULT_USER.json";
 
-        string UserFridgeFile = @"  C:\Users\Nikola\AppData\Roaming\Munchy\USER_F.json";
-        string DefaultFridgeFile = @"  C:\Users\Nikola\AppData\Roaming\Munchy\DEFAULT_FRIDGE.json";
+        string UserFridgeFile =  AppDataFolder + "\\Munchy" + "\\USER_F.json";
+        string DefaultFridgeFile =  AppDataFolder + "\\Munchy" + "\\DEFAULT_FRIDGE.json";
 
-        string FoodDefFile = @"  C:\Users\Nikola\AppData\Roaming\Munchy\FoodData.json";
-        string RecipeDatabase = @"  C:\Users\Nikola\AppData\Roaming\Munchy\Recipes.json";
+        string FoodDefFile =  AppDataFolder + "\\Munchy" + "\\FoodData.json";
+        string RecipeDatabase =  AppDataFolder + "\\Munchy" + "\\Recipes.json";
 
-        string RecipeSaveFile = @"  C:\Users\Nikola\AppData\Roaming\Munchy\RecipeSavesFile.json";
-        string DefaultSaver = @"  C:\Users\Nikola\AppData\Roaming\Munchy\DefaultSaverFile.json";
+        string RecipeSaveFile =  AppDataFolder + "\\Munchy" + "\\RecipeSavesFile.json";
+        string DefaultSaver =  AppDataFolder + "\\Munchy" + "\\DefaultSaverFile.json";
 
 
         //Variables for the summary of the fridge.
