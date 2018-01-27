@@ -112,12 +112,7 @@ namespace Nikola.Munchy.MunchyAPI
             UserTemplate RetrievedUser;
             if (!File.Exists(UserFile))
             {
-                using (StreamReader file = File.OpenText(DefaultUserFile))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    RetrievedUser = (UserTemplate)serializer.Deserialize(file, typeof(UserTemplate));
-                    return RetrievedUser;
-                }
+                SaveUser();               
             }
 
             using (StreamReader file = File.OpenText(UserFile))
@@ -128,8 +123,7 @@ namespace Nikola.Munchy.MunchyAPI
             }
 
         }
-
-
+                
         /// <summary>
         /// Creates a new FridgeTemplate instance and assigns it to the UserTemplate instance frige. 
         /// The "FridgeTemplate" class handles its own serialization/deserialization. 
@@ -140,28 +134,8 @@ namespace Nikola.Munchy.MunchyAPI
             UsersFridge = new FridgeTemplate(UserFridgeFile, DefaultFridgeFile);
             UserToUse.UserFridge = UsersFridge;
         }
-
-        /// <summary>
-        /// Function is used to create brand new user. This function should be called by the UI part of the project when it detects 
-        /// that the "User" that the "ProgramManager" has is equal to "null". This function takes in user input in the form of the 
-        /// given arguments it takes.
-        /// </summary>
-        /// <param name="Name"></param>
-        /// <param name="Sex"></param>
-        /// <param name="Age"></param>
-        public void CreateUser(string UserName, string UserSex, int UserAge)
-        {
-            UserTemplate newUser = new UserTemplate(this)
-            {
-                UserName = UserName,
-                Sex = UserSex,
-                Age = UserAge
-            };
-
-            InitFridge(newUser);
-            User = newUser;
-        }
-
+        
+        
         public void SaveUser()
         {
             using (StreamWriter file = File.CreateText(UserFile))

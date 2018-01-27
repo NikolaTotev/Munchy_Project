@@ -19,6 +19,7 @@ namespace Nikola.Munchy.MunchyAPI
             SavedFilePath = FilePathToUse;
             DefaultPath = DefaultFile;
             UsersFoods = UsersFridge();
+            SaveFridge();
         }
 
         /// <summary>
@@ -97,12 +98,9 @@ namespace Nikola.Munchy.MunchyAPI
         {
             if (!File.Exists(SavedFilePath))
             {
-                using (StreamReader file = File.OpenText(DefaultPath))
-                {
-                    JsonSerializer serializer = new JsonSerializer();
-                    Dictionary<string, FoodDef> LoadedDictionary = (Dictionary<string, FoodDef>)serializer.Deserialize(file, typeof(Dictionary<string, FoodDef>));
-                    return LoadedDictionary;
-                }
+                Dictionary<string, FoodDef> LoadedDictionary = new Dictionary<string, FoodDef>();
+                SaveFridge();
+                return LoadedDictionary;
             }
 
             using (StreamReader file = File.OpenText(SavedFilePath))

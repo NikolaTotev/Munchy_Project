@@ -44,15 +44,8 @@ namespace Nikola.Munchy.MunchyTester
             Assert.IsTrue(TestManager.RecipieManag.UserIndex == TestManager.User.CompatabilityIndex);
             Assert.IsTrue(TestManager.FoodManag.Foods.Count != 0);
 
-            if (TestManager.User.UserName == null)
-            {
-                TestManager.CreateUser("Nikola", "Male", 17);
-            }
+          
 
-            Assert.IsTrue(TestManager.User.UserName == "Nikola");
-            Assert.IsTrue(TestManager.User.Sex == "Male");
-            Assert.IsTrue(TestManager.User.Age == 17);
-            Assert.IsTrue(TestManager.User.UserFridge.UsersFoods.Count == 1);
             
             foreach (string tag in TestPreferences)
             {

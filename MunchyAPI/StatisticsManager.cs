@@ -12,9 +12,9 @@ namespace Nikola.Munchy.MunchyAPI
         int WeeklyCalories { get; set; }
         int MonthlyCalories { get; set; }
         int AnualCalories { get; set; }
-
         int TotalRecipesCooked { get; set; }
-
+        int AverageDailyCalories { get; set; }
+        int AverageMonthtlyCalories { get; set; }
         public void AddToCalorieStatistics(int AmountToAdd)
         {
             DailyCalories += AmountToAdd;
