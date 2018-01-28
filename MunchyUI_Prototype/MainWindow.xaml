@@ -189,7 +189,7 @@
                 </Grid>
                 <Button Content="Search" HorizontalAlignment="Left" Height="46" Margin="303,443,0,0" VerticalAlignment="Top" Width="151" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="OpenFoodSearch"/>
             </Grid>
-            <Grid x:Name="p_SavedRecipes" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Visible">
+            <Grid x:Name="p_SavedRecipes" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Hidden">
                 <TextBlock x:Name="tB_SavedRecipesPanelTitle" Height="60" TextWrapping="Wrap" Text="Saved Recipes" VerticalAlignment="Top" Margin="241,10,231,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <Button x:Name="Btn_CookedRecipes" Content="Cooked Recipes" HorizontalAlignment="Left" Height="53" Margin="62,150,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedRecipes_Click"/>
                 <Button x:Name="Btn_RecentlyViewed" Content="Recently Viewed" HorizontalAlignment="Left" Height="53" Margin="62,259,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_RecentlyViewed_Click"/>
