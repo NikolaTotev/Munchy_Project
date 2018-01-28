@@ -17,13 +17,14 @@ namespace Nikola.Munchy.MunchyAPI
         string UserFridgeFile;
         string DefaultFridgeFile;
         string RecipeSaverSaveFile;
-        string DefaultSaverSaveFile;
+        string StatisticsSaveFile;
 
         public FridgeTemplate UsersFridge;
         public RecipeManager RecipieManag;
         public FoodManager FoodManag;
-        public UserTemplate User { get; set; }
+        public UserTemplate User;
         public RecipeSaver UserRecipeSaves;
+        public StatisticsManager StatManager;
 
         public List<string> CompatabilityMap = new List<string>
             {
@@ -38,7 +39,7 @@ namespace Nikola.Munchy.MunchyAPI
                 "Soy"
             };
 
-        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser, string RecipieDatabase, string FoodItemsDatabase, string RecipeSaveFile, string DefaultSaverFile)
+        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser, string RecipieDatabase, string FoodItemsDatabase, string RecipeSaveFile, string StatisticsSavePath)
         {
             FoodItemsFile = FoodItemsDatabase;
             RecipiesFile = RecipieDatabase;
@@ -52,18 +53,24 @@ namespace Nikola.Munchy.MunchyAPI
             DefaultFridgeFile = DefaultFridge;
 
             RecipeSaverSaveFile = RecipeSaveFile;
-            DefaultSaverSaveFile = DefaultSaverFile;
+            StatisticsSaveFile = StatisticsSavePath;
 
             User = new UserTemplate(this);
             User = GetUser();
             User.CurrentManager = this;
             InitFridge(User);
 
-            UserRecipeSaves = new RecipeSaver(RecipeSaverSaveFile);  
+            
+            UserRecipeSaves = new RecipeSaver(RecipeSaverSaveFile);
+            
             UserRecipeSaves = GetRecipeSaver();
             UserRecipeSaves.SaveLocation = RecipeSaverSaveFile;
             UserRecipeSaves.SaveRecipeSaver();
-            
+
+            StatManager = new StatisticsManager(StatisticsSaveFile);
+            StatManager.SaveLocation = StatisticsSaveFile;
+            StatManager.SaveStatistics();
+
             RecipieManag = new RecipeManager(RecipiesFile, this);
 
         }
@@ -78,20 +85,7 @@ namespace Nikola.Munchy.MunchyAPI
             RecipeSaver RetrivedSaver;
             if (!File.Exists(RecipeSaverSaveFile))
             {
-                if (File.Exists(DefaultSaverSaveFile))
-                {
-                    using (StreamReader file = File.OpenText(DefaultSaverSaveFile))
-                    {
-                        JsonSerializer serializer = new JsonSerializer();
-                        RetrivedSaver = (RecipeSaver)serializer.Deserialize(file, typeof(RecipeSaver));
-                        return RetrivedSaver;
-                    }
-                }
-                else
-                {
-                    UserRecipeSaves.SaveRecipeSaver();
-                    UserRecipeSaves.SaveLocation = RecipeSaverSaveFile;
-                }
+                UserRecipeSaves.SaveRecipeSaver();
             }
 
             using (StreamReader file = File.OpenText(RecipeSaverSaveFile))
@@ -100,6 +94,24 @@ namespace Nikola.Munchy.MunchyAPI
                 RetrivedSaver = (RecipeSaver)serializer.Deserialize(file, typeof(RecipeSaver));
                 return RetrivedSaver;
             }
+        }
+
+        private StatisticsManager GetStatisticManager()
+        {
+            StatisticsManager RetrivedManager;
+
+            if (!File.Exists(StatisticsSaveFile))
+            {
+                StatManager.SaveStatistics();
+            }
+
+            using (StreamReader file = File.OpenText(StatisticsSaveFile))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                RetrivedManager = (StatisticsManager)serializer.Deserialize(file, typeof(StatisticsManager));
+                return RetrivedManager;
+            }
+
         }
 
         /// <summary>
@@ -112,7 +124,7 @@ namespace Nikola.Munchy.MunchyAPI
             UserTemplate RetrievedUser;
             if (!File.Exists(UserFile))
             {
-                SaveUser();               
+                SaveUser();
             }
 
             using (StreamReader file = File.OpenText(UserFile))
@@ -123,7 +135,7 @@ namespace Nikola.Munchy.MunchyAPI
             }
 
         }
-                
+
         /// <summary>
         /// Creates a new FridgeTemplate instance and assigns it to the UserTemplate instance frige. 
         /// The "FridgeTemplate" class handles its own serialization/deserialization. 
@@ -134,8 +146,8 @@ namespace Nikola.Munchy.MunchyAPI
             UsersFridge = new FridgeTemplate(UserFridgeFile, DefaultFridgeFile);
             UserToUse.UserFridge = UsersFridge;
         }
-        
-        
+
+
         public void SaveUser()
         {
             using (StreamWriter file = File.CreateText(UserFile))

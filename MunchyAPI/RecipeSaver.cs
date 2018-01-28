@@ -31,14 +31,14 @@ namespace Nikola.Munchy.MunchyAPI
 
         public void SaveRecipeSaver()
         {
-            
-            using (StreamWriter file = File.CreateText(SaveLocation)) 
+
+            using (StreamWriter file = File.CreateText(SaveLocation))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, this);
             }
-        }       
+        }
     }
 
-   
+
 }

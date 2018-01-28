@@ -34,7 +34,7 @@ namespace MunchyUI_Prototype
         string RecipeDatabase = AppDataFolder + "\\Munchy" + "\\Recipes.json";
 
         string RecipeSaveFile = AppDataFolder + "\\Munchy" + "\\RecipeSavesFile.json";
-        string DefaultSaver = AppDataFolder + "\\Munchy" + "\\DefaultSaverFile.json";
+        string StatSavePath = AppDataFolder + "\\Munchy" + "\\StatSavePath.json";
 
 
         //Variables for the summary of the fridge.
@@ -98,7 +98,7 @@ namespace MunchyUI_Prototype
                 MessageBox.Show("It seems like your use file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes.");
             }
 
-            CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, DefaultSaver);
+            CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, StatSavePath);
             SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
             RecentlyViewedRecipeImages = new ImageBrush[] { RecentRecipe_1, RecentRecipe_2, RecentRecipe_3, RecentRecipe_4, RecentRecipe_5, RecentRecipe_6 };
             RecipeIngredientList = new List<FoodDef>();
@@ -193,6 +193,8 @@ namespace MunchyUI_Prototype
                         SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
                         Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
                     }
+                    CurrentManager.StatManager.TotalRecipesSeen++;
+                    CurrentManager.StatManager.SaveStatistics();
                 }
                 else
                 {
@@ -230,6 +232,8 @@ namespace MunchyUI_Prototype
                         SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
                         Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
                     }
+                    CurrentManager.StatManager.TotalRecipesSeen++;
+                    CurrentManager.StatManager.SaveStatistics();
                 }
                 else
                 {
@@ -266,6 +270,8 @@ namespace MunchyUI_Prototype
                         SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
                         Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
                     }
+                    CurrentManager.StatManager.TotalRecipesSeen++;
+                    CurrentManager.StatManager.SaveStatistics();
                 }
                 else
                 {
@@ -281,6 +287,7 @@ namespace MunchyUI_Prototype
             CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.Name.ToLower());
             CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name.ToLower());
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+            CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
         }
 
         private void SavedRecipesSearch()
@@ -435,6 +442,22 @@ namespace MunchyUI_Prototype
                 p_SavedRecipes.Visibility = Visibility.Hidden;
             }
             ShowAllSavedRecipes();
+            CurrentManager.StatManager.CalculateAverageSums();
+            tB_TotalCalories.Text = CurrentManager.StatManager.TotalCaloriesConsumed.ToString();
+            tB_TotalRecipesCooked.Text = CurrentManager.StatManager.TotalRecipesCooked.ToString();
+            tB_TotalRecipeSeen.Text = CurrentManager.StatManager.TotalRecipesSeen.ToString();
+
+            if (CurrentManager.StatManager.AverageDailyCalories != 0)
+                tB_AverageDailyCalories.Text = CurrentManager.StatManager.AverageDailyCalories.ToString();
+            else
+                tB_AverageDailyCalories.Text = "No Data";
+
+
+            if (CurrentManager.StatManager.AverageMonthtlyCalories != 0)
+                tB_AverageMontlyCalories.Text = CurrentManager.StatManager.AverageMonthtlyCalories.ToString();
+            else
+                tB_AverageMontlyCalories.Text = "No Data";
+
 
         }
         #endregion

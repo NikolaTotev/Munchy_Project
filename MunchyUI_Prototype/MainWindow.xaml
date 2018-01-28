@@ -224,11 +224,16 @@
                 </Rectangle>
                 <TextBlock x:Name="Warning_Label" HorizontalAlignment="Left" Height="61" Margin="627,444,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" FontFamily="Roboto Black" FontSize="14" Foreground="#FFFE5F55" TextAlignment="Center"/>
                 <TextBlock x:Name="tB_SavedRecipesPanelTitle_Copy" Height="42" TextWrapping="Wrap" Text="Statistics" VerticalAlignment="Top" Margin="632,60,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_SavedRecipesPanelTitle_Copy1" Height="42" TextWrapping="Wrap" Text="Total Calories Consumed" VerticalAlignment="Top" Margin="632,151,142,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_SavedRecipesPanelTitle_Copy2" Height="42" TextWrapping="Wrap" Text="Average Daily Calories" VerticalAlignment="Top" Margin="632,205,142,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_SavedRecipesPanelTitle_Copy3" Height="42" TextWrapping="Wrap" Text="Recipes Cooked" VerticalAlignment="Top" Margin="632,262,142,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_SavedRecipesPanelTitle_Copy4" Height="42" TextWrapping="Wrap" Text="Recipes seen" VerticalAlignment="Top" Margin="632,304,142,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_SavedRecipesPanelTitle_Copy5" Height="42" TextWrapping="Wrap" Text="Average monthly calories" VerticalAlignment="Top" Margin="632,351,133,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="t_TotalCalories" Height="42" TextWrapping="Wrap" Text="Total Calories Consumed" VerticalAlignment="Top" Margin="632,151,142,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="t_AverageDailyCalories" Height="42" TextWrapping="Wrap" Text="Average Daily Calories" VerticalAlignment="Top" Margin="632,205,142,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="t_RecipesCooked" Height="42" TextWrapping="Wrap" Text="Recipes Cooked" VerticalAlignment="Top" Margin="636,325,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="t_TotalRecipesSeen" Height="42" TextWrapping="Wrap" Text="Recipes seen" VerticalAlignment="Top" Margin="636,378,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="t_AverageMonthlyCalories" Height="42" TextWrapping="Wrap" Text="Average monthly calories" VerticalAlignment="Top" Margin="627,268,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_TotalCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="762,150,12,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_AverageDailyCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="762,205,12,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_AverageMontlyCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="765,268,0,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_TotalRecipesCooked" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="771,325,3,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_TotalRecipeSeen" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="771,378,3,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
             </Grid>
 
         </Grid>
