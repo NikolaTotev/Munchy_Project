@@ -132,10 +132,14 @@ namespace MunchyUI_Prototype
         // Opens or closes the full recipe view.
         private void ShowOrCloseFullRecipeView()
         {
+            
             if (p_FullRecipeView.Visibility == Visibility.Hidden)
-            {
-                RecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
-                img_RecipeImage.Fill = RecipeImage;
+            {               
+                if (File.Exists(SuggestedRecipe.ImageFile))
+                {
+                    RecipeImage.ImageSource = new BitmapImage(new Uri(SuggestedRecipe.ImageFile, UriKind.Relative));
+                    img_RecipeImage.Fill = RecipeImage;
+                }
                 p_FullRecipeView.Visibility = Visibility.Visible;
             }
             else
@@ -149,16 +153,19 @@ namespace MunchyUI_Prototype
         private void AddRecipeIngredientsToListView()
         {
             RecipeIngredientList.Clear();
-            foreach (string ingredient in SuggestedRecipe.Ingredients)
+            if (SuggestedRecipe.Ingredients != null && SuggestedRecipe.Ingredients.Count > 0)
             {
-                RecipeIngredientList.Add(new FoodDef() { Name = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.Ingredients.IndexOf(ingredient)] });
-            }
+                foreach (string ingredient in SuggestedRecipe.Ingredients)
+                {
+                    RecipeIngredientList.Add(new FoodDef() { Name = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.Ingredients.IndexOf(ingredient)] });
+                }
 
-            lv_Ingredients.ItemsSource = RecipeIngredientList;
-            lv_Ingredients.Items.Refresh();
-            tB_Directions.Text = SuggestedRecipe.Directions.ToString();
-            tB_RecipeTitle.Text = SuggestedRecipe.Name.ToString();
-            tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
+                lv_Ingredients.ItemsSource = RecipeIngredientList;
+                lv_Ingredients.Items.Refresh();
+                tB_Directions.Text = SuggestedRecipe.Directions.ToString();
+                tB_RecipeTitle.Text = SuggestedRecipe.Name.ToString();
+                tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
+            }           
         }
 
 
@@ -402,12 +409,15 @@ namespace MunchyUI_Prototype
                 {
                     if (i <= 6 && CurrentManager.RecipieManag.Recipies.ContainsKey(CurrentManager.UserRecipeSaves.RecentlyViewed[i]))
                     {
-                        RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile, UriKind.Relative));
-                        RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
-                        if (i <= 4)
+                        if (File.Exists(CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile))
                         {
-                            FrontPageRecentlyViewedImages[i].Fill = RecentlyViewedRecipeImages[i];
-                        }
+                            RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile, UriKind.Relative));
+                            RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
+                            if (i <= 4)
+                            {
+                                FrontPageRecentlyViewedImages[i].Fill = RecentlyViewedRecipeImages[i];
+                            }
+                        }                       
                     }
                     else
                     {
