@@ -9,7 +9,7 @@
         " Height="541" Width="622" MinWidth="900" MinHeight="550">
     <Viewbox>
         <Grid x:Name="MainPanel" ShowGridLines="False" UseLayoutRounding="True" MinWidth="400" MinHeight="350" ScrollViewer.CanContentScroll="True" VerticalAlignment="Center" HorizontalAlignment="Center" Height="682" Width="1171" Background="White">
-            <Grid x:Name="P_RecipeTool" HorizontalAlignment="Left" Height="682" Grid.RowSpan="2" VerticalAlignment="Top" Width="1171" Background="#FF3DA5D9" Visibility="Visible">
+            <Grid x:Name="P_RecipeTool" HorizontalAlignment="Left" Height="682" Grid.RowSpan="2" VerticalAlignment="Top" Width="1171" Background="#FF3DA5D9" Visibility="Hidden">
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="461,91,0,0" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Width="253" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"/>
                 <TextBox HorizontalAlignment="Left" Height="35" Margin="461,127,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253" FontFamily="Roboto" TextAlignment="Center" FontSize="22"/>
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="47,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"><Run Text="Ingredients"/><LineBreak/><Run/></TextBlock>
@@ -27,7 +27,7 @@
             </Grid>
 
 
-            <Grid x:Name="P_FoodTool" Background="#FFBBE5ED" HorizontalAlignment="Left" Height="682" Grid.RowSpan="2" Visibility="Hidden" VerticalAlignment="Top" Width="1171">
+            <Grid x:Name="P_FoodTool" Background="#FFBBE5ED" HorizontalAlignment="Left" Height="682" Grid.RowSpan="2" Visibility="Visible" VerticalAlignment="Top" Width="1171">
                 <TextBlock x:Name="l_FoodName" HorizontalAlignment="Left" Height="37" Margin="486,103,0,0" TextWrapping="Wrap" Text="Food Item Name" VerticalAlignment="Top" Width="189" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358"/>
                 <TextBox x:Name="tb_InputFoodName" HorizontalAlignment="Left" Height="37" Margin="463,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" BorderBrush="{x:Null}" Foreground="#FF555358" FontFamily="Roboto" FontSize="22" TextAlignment="Center" TextChanged="TextBox_TextChanged"/>
                 <TextBlock x:Name="l_FoodName_Copy" HorizontalAlignment="Left" Height="37" Margin="321,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358" TextAlignment="Center"><Run Text="Calories"/><LineBreak/><Run/></TextBlock>
@@ -45,7 +45,7 @@
                 <TextBox x:Name="tb_SodiumInput" HorizontalAlignment="Left" Height="37" Margin="740,397,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="116" BorderBrush="{x:Null}" Foreground="#FF555358" FontFamily="Roboto" FontSize="22" TextAlignment="Center" TextChanged="TextBox_TextChanged"/>
                 <TextBox x:Name="tb_InputFoodName_Copy6" HorizontalAlignment="Left" Height="37" Margin="495,498,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" BorderBrush="{x:Null}" Foreground="#FF555358" FontFamily="Roboto" FontSize="22" TextAlignment="Center" TextChanged="TextBox_TextChanged"/>
                 <TextBlock x:Name="l_FoodName_Copy7" HorizontalAlignment="Left" Height="37" Margin="490,456,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="195" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358" Text="Unit Of Measure" TextAlignment="Center"/>
-                <Button x:Name="Btn_SaveFoodItem" Content="Save " HorizontalAlignment="Left" Height="61" Margin="495,559,0,0" VerticalAlignment="Top" Width="192" FontFamily="Fugaz One" FontSize="36" Background="#FF2364AA" BorderBrush="{x:Null}" Foreground="White"/>
+                <Button x:Name="Btn_SaveFoodItem" Content="Save " HorizontalAlignment="Left" Height="61" Margin="495,559,0,0" VerticalAlignment="Top" Width="192" FontFamily="Fugaz One" FontSize="36" Background="#FF2364AA" BorderBrush="{x:Null}" Foreground="White" Click="Btn_SaveFoodItem_Click"/>
                 <TextBlock x:Name="L_WarningLabel" HorizontalAlignment="Left" Height="37" Margin="230,627,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="740" FontFamily="Roboto Black" FontSize="24" Foreground="#FFFF6B6B" TextAlignment="Center"/>
             </Grid>
             <Grid Height="60" VerticalAlignment="Top" Background="#FF555358" ClipToBounds="True" Margin="0,0,-1,0">
