@@ -27,7 +27,7 @@ namespace Nikola.Munchy.MunchyAPI
         // All compatable recipes that the user has the ingredients for.
         public List<string> RecipesWithFridgeFoods = new List<string>();
 
-        public IDictionary<string, RecipeDef> Recipies;
+        public Dictionary<string, RecipeDef> Recipies;
         public Dictionary<string, FoodDef> FridgeItems;
 
         List<RecipeDef> RecipiesToShow;
@@ -48,7 +48,7 @@ namespace Nikola.Munchy.MunchyAPI
         /// Returns a dictionary based on a specified JSON file. 
         /// </summary>
         /// <returns></returns>
-        public IDictionary<string, RecipeDef> GetRecipies()
+        public Dictionary<string, RecipeDef> GetRecipies()
         {
             // Checks if given file exists.
             if (!File.Exists(RecipeDatabaseFile))
@@ -69,6 +69,7 @@ namespace Nikola.Munchy.MunchyAPI
 
         }
 
+        
 
         /// <summary>
         /// Sorts recipies using Bit Comparison. Sorts recipes based on: Appropriate based on user settings, 
