@@ -22,21 +22,21 @@ namespace MunchyUI_Prototype
     public partial class MainWindow : Window
     {
         static string LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        static string AppDataFolder = LocalAppDataPath + "\\Munchy";
-        static string ImageFolderPath = AppDataFolder + "\\Images\\";
+        static string ProgramFolder = LocalAppDataPath + "\\Munchy";
+        static string ImageFolderPath = ProgramFolder + "\\Images\\";
 
         //Save File Locations
-        string UserFile = AppDataFolder + "\\USER5.json";
-        string DefaultUserFile = AppDataFolder + "\\DEFAULT_USER.json";
+        string UserFile = ProgramFolder + "\\USER5.json";
+        string DefaultUserFile = ProgramFolder + "\\DEFAULT_USER.json";
 
-        string UserFridgeFile = AppDataFolder + "\\USER_F.json";
-        string DefaultFridgeFile = AppDataFolder + "\\DEFAULT_FRIDGE.json";
+        string UserFridgeFile = ProgramFolder + "\\USER_F.json";
+        string DefaultFridgeFile = ProgramFolder + "\\DEFAULT_FRIDGE.json";
 
-        string FoodDefFile = AppDataFolder + "\\FoodData.json";
-        string RecipeDatabase = AppDataFolder + "\\Recipes.json";
+        string FoodDefFile = ProgramFolder + "\\FoodData.json";
+        string RecipeDatabase = ProgramFolder + "\\Recipes.json";
 
-        string RecipeSaveFile = AppDataFolder + "\\RecipeSavesFile.json";
-        string StatSavePath = AppDataFolder + "\\StatSavePath.json";
+        string RecipeSaveFile = ProgramFolder + "\\RecipeSavesFile.json";
+        string StatSavePath = ProgramFolder + "\\StatSavePath.json";
 
 
         //Variables for the summary of the fridge.
@@ -87,7 +87,7 @@ namespace MunchyUI_Prototype
 
             if (!File.Exists(FoodDefFile) || !File.Exists(RecipeDatabase))
             {
-                MessageBox.Show("ERROR 404 : You are missing files required for the programs operation. Please vist == GITHUB URL == for potential fixes.");
+                MessageBox.Show("ERROR FAR404 : You are missing files required for the programs operation. Please vist == GITHUB URL == for potential fixes.");
                 Close();
                 return;
             }
