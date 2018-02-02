@@ -47,6 +47,8 @@ namespace MunchyUI_Prototype
         int SugarSum = 0;
         int SodiumSum = 0;
 
+        int DailyCalories = 0;
+
         int NumerOfRecipeToSuggest = 0;
         // A list of checkboxes that are used for saving the users settings and preferences
         List<CheckBox> SettingOptions;
@@ -108,6 +110,11 @@ namespace MunchyUI_Prototype
             PopulateFridgeSummary();
             SuggestRecipe();
             SetRecentlyViewedImages();
+
+            CurrentManager.StatManager.DailyReset();
+            DailyCalories = CurrentManager.StatManager.DailyCalories;
+            L_DailyCalories.Text = DailyCalories.ToString();
+
 
         }
 
@@ -253,8 +260,11 @@ namespace MunchyUI_Prototype
             CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name.ToLower());
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
+            CurrentManager.StatManager.DailyReset();
+            DailyCalories = CurrentManager.StatManager.DailyCalories;
+            L_DailyCalories.Text = DailyCalories.ToString();
         }
-         
+
         private void AddToSavedReicpe()
         {
             CurrentManager.UserRecipeSaves.SavedRecipes.Add(SuggestedRecipe.Name.ToLower());

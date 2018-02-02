@@ -8,7 +8,7 @@ using System.IO;
 
 namespace Nikola.Munchy.MunchyAPI
 {
-   public class StatisticsManager
+    public class StatisticsManager
     {
         public int TotalRecipesCooked { get; set; }
         public int TotalRecipesSeen { get; set; }
@@ -53,6 +53,7 @@ namespace Nikola.Munchy.MunchyAPI
             AnualCalories += AmountToAdd;
             TotalRecipesCooked++;
             SaveStatistics();
+            DailyReset();
         }
 
         public void SaveStatistics()
@@ -62,6 +63,14 @@ namespace Nikola.Munchy.MunchyAPI
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, this);
+            }
+        }
+
+        public void DailyReset()
+        {
+            if (DateTime.Now.Day > PreviousDay)
+            {
+                DailyCalories = 0;
             }
         }
 
@@ -92,7 +101,7 @@ namespace Nikola.Munchy.MunchyAPI
 
         public void CalculateAverageSums()
         {
-            if(TotalDaysUsingProgram > 0)
+            if (TotalDaysUsingProgram > 0)
             {
                 AverageDailyCalories = TotalCaloriesConsumed / TotalDaysUsingProgram;
             }
@@ -100,7 +109,7 @@ namespace Nikola.Munchy.MunchyAPI
             {
                 AverageMonthtlyCalories = 0;
             }
-            
+
             if (TotalMonthsUsingProgram > 0)
             {
                 AverageMonthtlyCalories = TotalCaloriesConsumed / TotalMonthsUsingProgram;
