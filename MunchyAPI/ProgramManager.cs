@@ -28,15 +28,15 @@ namespace Nikola.Munchy.MunchyAPI
 
         public List<string> CompatabilityMap = new List<string>
             {
-                "IsVegan",
-                "IsVegetarian",
-                "IsDiabetic",
-                "Eggs",
-                "Dairy",
-                "Fish",
-                "Nuts",
-                "Gluten",
-                "Soy"
+                "isvegan",
+                "isvegetarian",
+                "isdiabetic",
+                "eggs",
+                "dairy",
+                "fish",
+                "nuts",
+                "gluten",
+                "soy"
             };
 
         public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser, string RecipieDatabase, string FoodItemsDatabase, string RecipeSaveFile, string StatisticsSavePath)

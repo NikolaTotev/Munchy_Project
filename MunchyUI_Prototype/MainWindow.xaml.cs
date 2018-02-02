@@ -183,7 +183,7 @@ namespace MunchyUI_Prototype
                 CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.Name);
             }
 
-            if (File.Exists(SuggestedRecipe.ImageFile))
+            if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
             {
                 SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
                 Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;

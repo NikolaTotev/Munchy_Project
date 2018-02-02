@@ -31,11 +31,18 @@ namespace FoodAndRecipeCreationTool
 
         Dictionary<string, FoodDef> FoodList;
         Dictionary<string, RecipeDef> RecipeList;
+
+        List<string> Ingredients = new List<string>();
+        List<float> Amounts = new List<float>();
+        List<string> TimeTags = new List<string>();
+        List<string> PreferenceTags = new List<string>();
         public MainWindow()
         {
             InitializeComponent();
             FoodList = GetFoodList();
             RecipeList = GetRecipies();
+            SaveRecipeList();
+            SaveFoodList();
         }
 
         /// <summary>
@@ -44,11 +51,13 @@ namespace FoodAndRecipeCreationTool
         /// <returns></returns>
         public Dictionary<string, FoodDef> GetFoodList()
         {
+            Dictionary<string, FoodDef> ReturnedFoodList;
             // Throws Exception when the given file path doesn't exist or can't be accessed.
             if (!File.Exists(FoodData))
             {
                 MessageBox.Show("ERROR F404 : FoodList file is corrupt or doesn't exist. Please visit == GITHUB LINK == for potential Fixes");
-                return FoodList = new Dictionary<string, FoodDef>();
+                ReturnedFoodList = new Dictionary<string, FoodDef>();
+                return ReturnedFoodList;
             }
 
 
@@ -66,7 +75,10 @@ namespace FoodAndRecipeCreationTool
             // Checks if given file exists.
             if (!File.Exists(RecipeDatabase))
             {
+                Dictionary<string, RecipeDef> ReturnedDataBase;
                 MessageBox.Show("ERROR R404 : RecipeList file is corrupt or doesn't exist. Please visit == GITHUB LINK == for potential Fixes");
+                ReturnedDataBase = new Dictionary<string, RecipeDef>();
+                return ReturnedDataBase;
             }
 
             // Using stream reader a the JSON file is opened.
@@ -97,6 +109,14 @@ namespace FoodAndRecipeCreationTool
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, RecipeList);
             }
+            Ingredients.Clear();
+            Amounts.Clear();
+            TimeTags.Clear();
+            PreferenceTags.Clear();
+            IngredientListbox.Items.Clear();
+            AmountListbox.Items.Clear();
+            TimeTagListbox.Items.Clear();
+            PreferenceTagListbox.Items.Clear();
         }
 
 
@@ -139,20 +159,154 @@ namespace FoodAndRecipeCreationTool
         private void Btn_SaveFoodItem_Click(object sender, RoutedEventArgs e)
         {
             FoodDef NewFoodItem = new FoodDef();
-            NewFoodItem.Name = tb_InputFoodName.Text;
-            NewFoodItem.Calories = int.Parse(tb_CalorieInput.Text);
-            NewFoodItem.Protein =  int.Parse(tb_ProteinInput.Text);
-            NewFoodItem.Fat = int.Parse(tb_FatInput.Text);
-            NewFoodItem.Carbs = int.Parse(tb_CarbInput.Text);
-            NewFoodItem.Sugars = int.Parse(tb_SugarInput.Text);
-            NewFoodItem.Sodium = int.Parse(tb_SodiumInput.Text);
-            NewFoodItem.UOM = tb_UOMInput.Text;
+            if (!string.IsNullOrWhiteSpace(tb_InputFoodName.Text))
+                NewFoodItem.Name = tb_InputFoodName.Text.ToLower();
+
+            if (!string.IsNullOrWhiteSpace(tb_CalorieInput.Text))
+                NewFoodItem.Calories = int.Parse(tb_CalorieInput.Text);
+
+            if (!string.IsNullOrWhiteSpace(tb_ProteinInput.Text))
+                NewFoodItem.Protein = int.Parse(tb_ProteinInput.Text);
+
+            if (!string.IsNullOrWhiteSpace(tb_FatInput.Text))
+                NewFoodItem.Fat = int.Parse(tb_FatInput.Text);
+
+            if (!string.IsNullOrWhiteSpace(tb_CarbInput.Text))
+                NewFoodItem.Carbs = int.Parse(tb_CarbInput.Text);
+
+            if (!string.IsNullOrWhiteSpace(tb_SugarInput.Text))
+                NewFoodItem.Sugars = int.Parse(tb_SugarInput.Text);
+
+            if (!string.IsNullOrWhiteSpace(tb_SodiumInput.Text))
+                NewFoodItem.Sodium = int.Parse(tb_SodiumInput.Text);
+
+            if (!string.IsNullOrWhiteSpace(tb_UOMInput.Text))
+                NewFoodItem.UOM = tb_UOMInput.Text;
+
+            if (!FoodList.ContainsKey(NewFoodItem.Name.ToLower()))
+                FoodList.Add(NewFoodItem.Name.ToLower(), NewFoodItem);
+
+            SaveFoodList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             RecipeDef NewRecipeDef = new RecipeDef();
 
+            if (Amounts != null && Amounts.Count > 0 && Amounts.Count == Ingredients.Count)
+                NewRecipeDef.Amounts = Amounts;
+
+            if (Ingredients != null && Ingredients.Count > 0 && Amounts.Count == Ingredients.Count)
+                NewRecipeDef.Ingredients = Ingredients;
+
+            if (!string.IsNullOrWhiteSpace(tb_RecipeNameInput.Text))
+                NewRecipeDef.Name = tb_RecipeNameInput.Text.ToLower();
+
+            if (TimeTags != null && TimeTags.Count > 0)
+                NewRecipeDef.TimeTags = TimeTags;
+
+            if (PreferenceTags != null)
+                NewRecipeDef.UserTags = PreferenceTags;
+
+            if (!string.IsNullOrWhiteSpace(tb_ImageNameInput.Text))
+                NewRecipeDef.ImageFile = tb_ImageNameInput.Text + ".jpg";
+
+            if (!string.IsNullOrWhiteSpace(tb_DescriptionInput.Text))
+                NewRecipeDef.Directions = tb_DescriptionInput.Text;
+
+            if (int.TryParse(tb_CalorieInput.Text, out int n) && !string.IsNullOrWhiteSpace(tb_CalorieInput.Text))
+                NewRecipeDef.Calories = int.Parse(tb_CalorieInput.Text);
+
+            if (!string.IsNullOrWhiteSpace(tb_TimeToCook.Text))
+                NewRecipeDef.TimeToCook = tb_TimeToCook.Text;
+
+            if (!RecipeList.ContainsKey(NewRecipeDef.Name.ToLower()))
+            {
+                RecipeList.Add(NewRecipeDef.Name.ToLower(), NewRecipeDef);
+                L_WarningLabel_2.Text = "Recipe succesfully added!";
+            }
+            else
+                L_WarningLabel_2.Text = "Recipe already exists in the recipe list";
+
+            SaveRecipeList();
+            tb_TimeToCook.Clear();
+            tb_RecipeNameInput.Clear();
+            tb_RecipeCalorieInput.Clear();
+
+        }
+
+        private void Btn_AddPreferenceTag_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(tb_UserPreferenceTagsInput.Text))
+            {
+                string TagToAdd = tb_UserPreferenceTagsInput.Text;
+                PreferenceTagListbox.Items.Add(TagToAdd);
+                PreferenceTags.Add(TagToAdd.ToLower());
+            }
+            else
+            {
+                L_WarningLabel_2.Text = "Please input a tag first!";
+            }
+            tb_UserPreferenceTagsInput.Clear();
+
+        }
+
+        private void Btn_AddIngredient_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(tb_IngredientInput.Text))
+            {
+                string TagToAdd = tb_IngredientInput.Text;
+                IngredientListbox.Items.Add(TagToAdd);
+                Ingredients.Add(TagToAdd.ToLower());
+            }
+            else
+            {
+                L_WarningLabel_2.Text = "You can't cook with an ingredient you don't know!";
+            }
+
+            if (!string.IsNullOrWhiteSpace(tb_AmountInput.Text))
+            {
+                if (int.TryParse(tb_AmountInput.Text, out int n))
+                {
+                    string AmountToAdd = tb_AmountInput.Text;
+                    AmountListbox.Items.Add(AmountToAdd);
+                    Amounts.Add(float.Parse(AmountToAdd));
+                }
+                else
+                {
+                    L_WarningLabel_2.Text = "The amount must have a numerical value";
+                }
+            }
+            else
+            {
+                L_WarningLabel_2.Text = "You need amounts for ingredients!";
+            }
+            tb_AmountInput.Clear();
+            tb_IngredientInput.Clear();
+
+        }
+
+        private void Btn_AddTimeTag_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(tb_TimeTagInput.Text))
+            {
+                if (tb_TimeTagInput.Text == "breakfast" || tb_TimeTagInput.Text == "lunch" || tb_TimeTagInput.Text == "dinner")
+                {
+                    string TagToAdd = tb_TimeTagInput.Text;
+                    TimeTagListbox.Items.Add(TagToAdd);
+                    TimeTags.Add(TagToAdd.ToLower());
+                }
+                else
+                {
+                    L_WarningLabel_2.Text = "Invalid Tag, please stick to the tags (breakfast, lunch and dinner)";
+                }
+
+            }
+            else
+            {
+                L_WarningLabel_2.Text = "Please input a time tag first e.g. (breakfast, lunch, dinner)";
+            }
+            tb_TimeTagInput.Clear();
         }
     }
 }
