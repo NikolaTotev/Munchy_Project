@@ -47,15 +47,17 @@ namespace MunchyUI_Prototype
         int SugarSum = 0;
         int SodiumSum = 0;
 
+        int DailyCalories = 0;
+
         int NumerOfRecipeToSuggest = 0;
         // A list of checkboxes that are used for saving the users settings and preferences
         List<CheckBox> SettingOptions;
+
+        // This list is used for populating the Ingredients ListView in the UI.
         List<FoodDef> RecipeIngredientList;
 
         TextBlock[] SummaryTextBlocks;
         int[] SummaryValues;
-
-        // This list is used for populating the Ingredients ListView in the UI.
 
         RecipeDef SuggestedRecipe = new RecipeDef();
         ProgramManager CurrentManager;
@@ -87,7 +89,7 @@ namespace MunchyUI_Prototype
 
             if (!File.Exists(FoodDefFile) || !File.Exists(RecipeDatabase))
             {
-                MessageBox.Show("ERROR 404 : You are missing files required for the programs operation. Please vist == GITHUB URL == for potential fixes.");
+                MessageBox.Show("ERROR FAR404 : You are missing files required for the programs operation. Please vist == GITHUB URL == for potential fixes.");
                 Close();
                 return;
             }
@@ -103,25 +105,32 @@ namespace MunchyUI_Prototype
             CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, StatSavePath);
             SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
             RecentlyViewedRecipeImages = new ImageBrush[] { RecentRecipe_1, RecentRecipe_2, RecentRecipe_3, RecentRecipe_4, RecentRecipe_5, RecentRecipe_6 };
+            RecentlyViewedRecipesImages = new Ellipse[] { Img_RecentlyViewed_1, Img_RecentlyViewed_2, Img_RecentlyViewed_3, Img_RecentlyViewed_4, Img_RecentlyViewed_5, Img_RecentlyViewed_6 };
+            FrontPageRecentlyViewedImages = new Ellipse[] { Img_FrontRecentlyViewed_1, Img_FrontRecentlyViewed_2, Img_FrontRecentlyViewed_3, Img_FrontRecentlyViewed_4, Img_FrontRecentlyViewed_5 };
             RecipeIngredientList = new List<FoodDef>();
             InitialFridgeUISetup();
             PopulateFridgeSummary();
             SuggestRecipe();
             SetRecentlyViewedImages();
 
+            CurrentManager.StatManager.DailyReset();
+            DailyCalories = CurrentManager.StatManager.DailyCalories;
+            L_DailyCalories.Text = DailyCalories.ToString();
+
+
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
         private void InitialFridgeUISetup()
         {
-            if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
+            if (CurrentManager.User.UserFridge.UsersFoods != null && CurrentManager.User.UserFridge.UsersFoods.Count > 0)
             {
                 foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
                 {
                     lb_FoodList.Items.Add(element.Key);
 
                     if (lb_Fridge.Items.Count < 10)
-                        lb_Fridge.Items.Add(element.Key);
+                        lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
                 }
             }
         }
@@ -134,10 +143,18 @@ namespace MunchyUI_Prototype
         // Opens or closes the full recipe view.
         private void ShowOrCloseFullRecipeView()
         {
+
             if (p_FullRecipeView.Visibility == Visibility.Hidden)
             {
-                RecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath+SuggestedRecipe.ImageFile, UriKind.Relative));
-                img_RecipeImage.Fill = RecipeImage;
+                if (File.Exists(SuggestedRecipe.ImageFile))
+                {
+                    RecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
+                    img_RecipeImage.Fill = RecipeImage;
+                }
+                else
+                {
+                    img_RecipeImage.Fill = null;
+                }
                 p_FullRecipeView.Visibility = Visibility.Visible;
             }
             else
@@ -151,18 +168,20 @@ namespace MunchyUI_Prototype
         private void AddRecipeIngredientsToListView()
         {
             RecipeIngredientList.Clear();
-            foreach (string ingredient in SuggestedRecipe.Ingredients)
+            if (SuggestedRecipe.Ingredients != null && SuggestedRecipe.Ingredients.Count > 0)
             {
-                RecipeIngredientList.Add(new FoodDef() { Name = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.Ingredients.IndexOf(ingredient)] });
+                foreach (string ingredient in SuggestedRecipe.Ingredients)
+                {
+                    RecipeIngredientList.Add(new FoodDef() { Name = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.Ingredients.IndexOf(ingredient)] });
+                }
+
+                lv_Ingredients.ItemsSource = RecipeIngredientList;
+                lv_Ingredients.Items.Refresh();
+                tB_Directions.Text = SuggestedRecipe.Directions.ToString();
+                tB_RecipeTitle.Text = SuggestedRecipe.Name.ToString();
+                tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
             }
-
-            lv_Ingredients.ItemsSource = RecipeIngredientList;
-            lv_Ingredients.Items.Refresh();
-            tB_Directions.Text = SuggestedRecipe.Directions.ToString();
-            tB_RecipeTitle.Text = SuggestedRecipe.Name.ToString();
-            tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
         }
-
 
         private void ManageSuggestedRecipe(RecipeDef InputRecipe)
         {
@@ -258,6 +277,9 @@ namespace MunchyUI_Prototype
             CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name.ToLower());
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
+            CurrentManager.StatManager.DailyReset();
+            DailyCalories = CurrentManager.StatManager.DailyCalories;
+            L_DailyCalories.Text = DailyCalories.ToString();
         }
 
         private void AddToSavedReicpe()
@@ -312,9 +334,7 @@ namespace MunchyUI_Prototype
                 lb_ListOfCookedRecipes.Items.Clear();
             }
         }
-
         #endregion
-
 
         #region UI Show/Hide functions
         private void ShowOrCloseFridge()
@@ -370,18 +390,18 @@ namespace MunchyUI_Prototype
         {
             if (CurrentManager.UserRecipeSaves.RecentlyViewed.Count > 0)
             {
-                RecentlyViewedRecipesImages = new Ellipse[] { Img_RecentlyViewed_1, Img_RecentlyViewed_2, Img_RecentlyViewed_3, Img_RecentlyViewed_4, Img_RecentlyViewed_5, Img_RecentlyViewed_6 };
-                FrontPageRecentlyViewedImages = new Ellipse[] { Img_FrontRecentlyViewed_1, Img_FrontRecentlyViewed_2, Img_FrontRecentlyViewed_3, Img_FrontRecentlyViewed_4, Img_FrontRecentlyViewed_5 };
-
                 for (int i = 0; i < CurrentManager.UserRecipeSaves.RecentlyViewed.Count; i++)
                 {
                     if (i <= 6 && CurrentManager.RecipieManag.Recipies.ContainsKey(CurrentManager.UserRecipeSaves.RecentlyViewed[i]))
                     {
-                        RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile, UriKind.Relative));
-                        RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
-                        if (i <= 4)
+                        if (File.Exists(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile))
                         {
-                            FrontPageRecentlyViewedImages[i].Fill = RecentlyViewedRecipeImages[i];
+                            RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile, UriKind.Relative));
+                            RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
+                            if (i <= 4)
+                            {
+                                FrontPageRecentlyViewedImages[i].Fill = RecentlyViewedRecipeImages[i];
+                            }
                         }
                     }
                     else
@@ -400,11 +420,8 @@ namespace MunchyUI_Prototype
             P_RecenltlyViewedRecipes.Visibility = Visibility.Visible;
             P_SavedRecipesSearch.Visibility = Visibility.Hidden;
             P_CookedRecipes.Visibility = Visibility.Hidden;
-
             SetRecentlyViewedImages();
         }
-
-
 
         private void ShowSavedRecipePanel()
         {
@@ -416,6 +433,7 @@ namespace MunchyUI_Prototype
             {
                 p_SavedRecipes.Visibility = Visibility.Hidden;
             }
+
             ShowAllSavedRecipes();
             CurrentManager.StatManager.CalculateAverageSums();
             tB_TotalCalories.Text = CurrentManager.StatManager.TotalCaloriesConsumed.ToString();
@@ -432,8 +450,6 @@ namespace MunchyUI_Prototype
                 tB_AverageMontlyCalories.Text = CurrentManager.StatManager.AverageMonthtlyCalories.ToString();
             else
                 tB_AverageMontlyCalories.Text = "No Data";
-
-
         }
         #endregion
 
@@ -587,13 +603,9 @@ namespace MunchyUI_Prototype
                 foreach (CheckBox element in SettingOptions)
                 {
                     if (CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
-                    {
                         element.IsChecked = true;
-                    }
                     else
-                    {
                         element.IsChecked = false;
-                    }
                 }
             }
             else
@@ -604,13 +616,11 @@ namespace MunchyUI_Prototype
             }
 
             if (p_Settings.Visibility == Visibility.Hidden)
-            {
                 p_Settings.Visibility = Visibility.Visible;
-            }
+
             else
-            {
                 p_Settings.Visibility = Visibility.Hidden;
-            }
+
         }
 
         private void SaveUserSettings()
