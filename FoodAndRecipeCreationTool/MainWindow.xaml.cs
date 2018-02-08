@@ -29,13 +29,28 @@ namespace FoodAndRecipeCreationTool
         string FoodData = ProgramFolder + "\\FoodData.json";
         string RecipeDatabase = ProgramFolder + "\\Recipes.json";
 
+        List<CheckBox> SettingOptions;
+
         Dictionary<string, FoodDef> FoodList;
         Dictionary<string, RecipeDef> RecipeList;
 
         List<string> Ingredients = new List<string>();
         List<float> Amounts = new List<float>();
-        List<string> TimeTags = new List<string>();
-        List<string> PreferenceTags = new List<string>();
+        List<string> Preferences = new List<string>();
+
+        public List<string> CompatabilityMap = new List<string>
+            {
+                "isvegan",
+                "isvegetarian",
+                "isdiabetic",
+                "eggs",
+                "dairy",
+                "fish",
+                "nuts",
+                "gluten",
+                "soy"
+            };
+
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +58,7 @@ namespace FoodAndRecipeCreationTool
             RecipeList = GetRecipies();
             SaveRecipeList();
             SaveFoodList();
+            SettingOptions = new List<CheckBox> { CB_IsVegan, CB_IsVegetarian, CB_IsDiabetic, CB_Eggs, CB_Dairy, CB_Fish, CB_Nuts, CB_Gluten, CB_Soy };
         }
 
         /// <summary>
@@ -111,12 +127,8 @@ namespace FoodAndRecipeCreationTool
             }
             Ingredients.Clear();
             Amounts.Clear();
-            TimeTags.Clear();
-            PreferenceTags.Clear();
             IngredientListbox.Items.Clear();
             AmountListbox.Items.Clear();
-            TimeTagListbox.Items.Clear();
-            PreferenceTagListbox.Items.Clear();
         }
 
 
@@ -202,11 +214,6 @@ namespace FoodAndRecipeCreationTool
             if (!string.IsNullOrWhiteSpace(tb_RecipeNameInput.Text))
                 NewRecipeDef.Name = tb_RecipeNameInput.Text.ToLower();
 
-            if (TimeTags != null && TimeTags.Count > 0)
-                NewRecipeDef.TimeTags = TimeTags;
-
-            if (PreferenceTags != null)
-                NewRecipeDef.UserTags = PreferenceTags;
 
             if (!string.IsNullOrWhiteSpace(tb_ImageNameInput.Text))
                 NewRecipeDef.ImageFile = tb_ImageNameInput.Text + ".jpg";
@@ -214,8 +221,8 @@ namespace FoodAndRecipeCreationTool
             if (!string.IsNullOrWhiteSpace(tb_DescriptionInput.Text))
                 NewRecipeDef.Directions = tb_DescriptionInput.Text;
 
-            if (int.TryParse(tb_CalorieInput.Text, out int n) && !string.IsNullOrWhiteSpace(tb_CalorieInput.Text))
-                NewRecipeDef.Calories = int.Parse(tb_CalorieInput.Text);
+            if (int.TryParse(tb_RecipeCalorieInput.Text, out int n) && !string.IsNullOrWhiteSpace(tb_RecipeCalorieInput.Text))
+                NewRecipeDef.Calories = int.Parse(tb_RecipeCalorieInput.Text);
 
             if (!string.IsNullOrWhiteSpace(tb_TimeToCook.Text))
                 NewRecipeDef.TimeToCook = tb_TimeToCook.Text;
@@ -228,26 +235,26 @@ namespace FoodAndRecipeCreationTool
             else
                 L_WarningLabel_2.Text = "Recipe already exists in the recipe list";
 
+
+            foreach (CheckBox element in SettingOptions)
+            {
+                if (element.IsChecked == true)
+                {
+                    if (!Preferences.Contains(CompatabilityMap[SettingOptions.IndexOf(element)]))
+                    {
+                       Preferences.Add(CompatabilityMap[SettingOptions.IndexOf(element)]);
+                    }
+                }              
+            }
+
+            if (Preferences != null)
+            {
+                NewRecipeDef.UserTags = Preferences;
+            }
             SaveRecipeList();
             tb_TimeToCook.Clear();
             tb_RecipeNameInput.Clear();
             tb_RecipeCalorieInput.Clear();
-
-        }
-
-        private void Btn_AddPreferenceTag_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(tb_UserPreferenceTagsInput.Text))
-            {
-                string TagToAdd = tb_UserPreferenceTagsInput.Text;
-                PreferenceTagListbox.Items.Add(TagToAdd);
-                PreferenceTags.Add(TagToAdd.ToLower());
-            }
-            else
-            {
-                L_WarningLabel_2.Text = "Please input a tag first!";
-            }
-            tb_UserPreferenceTagsInput.Clear();
 
         }
 
@@ -284,29 +291,6 @@ namespace FoodAndRecipeCreationTool
             tb_AmountInput.Clear();
             tb_IngredientInput.Clear();
 
-        }
-
-        private void Btn_AddTimeTag_Click(object sender, RoutedEventArgs e)
-        {
-            if (!string.IsNullOrWhiteSpace(tb_TimeTagInput.Text))
-            {
-                if (tb_TimeTagInput.Text == "breakfast" || tb_TimeTagInput.Text == "lunch" || tb_TimeTagInput.Text == "dinner")
-                {
-                    string TagToAdd = tb_TimeTagInput.Text;
-                    TimeTagListbox.Items.Add(TagToAdd);
-                    TimeTags.Add(TagToAdd.ToLower());
-                }
-                else
-                {
-                    L_WarningLabel_2.Text = "Invalid Tag, please stick to the tags (breakfast, lunch and dinner)";
-                }
-
-            }
-            else
-            {
-                L_WarningLabel_2.Text = "Please input a time tag first e.g. (breakfast, lunch, dinner)";
-            }
-            tb_TimeTagInput.Clear();
         }
     }
 }

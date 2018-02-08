@@ -104,7 +104,7 @@
                 <RadioButton x:Name="rb_Other" Content="Other" HorizontalAlignment="Left" Height="23" Margin="658,119,0,0" VerticalAlignment="Top" Width="109" FontFamily="Roboto Light" FontSize="22" Background="White" Foreground="#FFFCFFFC"/>
 
             </Grid>
-            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="484" Margin="27,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="857" Background="#F2223843" Visibility="Visible">
+            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="484" Margin="27,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="857" Background="#F2223843" Visibility="Hidden">
                 <TextBlock x:Name="tB_RecipeTitle" Height="58" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="292,4,262,0" FontFamily="Shrikhand" FontSize="36" TextAlignment="Center" Foreground="#FFFCFFFC"/>
                 <Ellipse x:Name="img_RecipeImage" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="65" Margin="241,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.5,0.5"/>
                 <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="104,71,0,0" TextWrapping="Wrap" Text="Ingredients" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.058,0.561"/>
