@@ -59,4 +59,15 @@
     <sys:String x:Key="FoodInfoTB">Food Info</sys:String>
     <sys:String x:Key="FoodsTB">Foods</sys:String>
 
+    <!--Saved Recipes Panel-->
+    <sys:String x:Key="CookedRecipeBTN">CookedRecipes</sys:String>
+    <sys:String x:Key="RecentlyViewedBTN">Recently Viewed</sys:String>
+    <sys:String x:Key="SavedBTN">Saved Recipes</sys:String>
+    <sys:String x:Key="StatsTB">Statistics</sys:String>
+    <sys:String x:Key="TotalCaloriesTB">Total Calories Consumed</sys:String>
+    <sys:String x:Key="AverageDailyCaloriesTB">Average Daily Calories</sys:String>
+    <sys:String x:Key="AverageMonthlyCaloriesTB">Average Monthly Calories</sys:String>
+    <sys:String x:Key="RecipesCookedTB">Recipes Cooked</sys:String>
+    <sys:String x:Key="RecipesSeenTB">Recipes Seen</sys:String>
+
 </ResourceDictionary>
