@@ -116,8 +116,7 @@ namespace MunchyUI_Prototype
             CurrentManager.StatManager.DailyReset();
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
-
-
+            Localizer.SetDefaultLanguage(this);
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
@@ -917,6 +916,12 @@ namespace MunchyUI_Prototype
         private void BTN_AddToSavedRecipes_Click(object sender, RoutedEventArgs e)
         {
             AddToSavedReicpe();
+        }
+
+        private void ChangeLanguage(object sender, RoutedEventArgs e)
+        {
+            string LocaleCode = (string)((Button)sender).Tag;
+            Localizer.SwitchLanguage(this, LocaleCode);
         }
     }
 

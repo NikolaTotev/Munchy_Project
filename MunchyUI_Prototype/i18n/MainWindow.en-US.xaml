@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <!-- ENGLISH RESOURCE FILE -->
+    
+    <!--Front Page-->
+    <sys:String x:Key="ResourceDictionaryName">Loc-en-US</sys:String>
+    <sys:String x:Key="FavouriteRecipesTextBlock">Favourite Recipes</sys:String>
+    <sys:String x:Key="FridgeTextBlock">Fridge</sys:String>
+    <sys:String x:Key="CaloriesTextBlock">Calories</sys:String>
+    <sys:String x:Key="SuggestRecipeButton">Suggest Recipe</sys:String>
+    <sys:String x:Key="SeeAllFavouriteRecipesButton">See All</sys:String>
+    <sys:String x:Key="ShowRecipeButton">Show Recipe</sys:String>
+    <sys:String x:Key="ShowFridgeButton">Show Fridge</sys:String>
+    <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
+    
+    <!--Settings Panel-->
+    <sys:String x:Key="SettingsTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="SexTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="FoodPrefTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="HealthIssuesTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="AllergiesTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="UserNameTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="AgeTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="WeightTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="VegetarianCB">Diet Balance</sys:String>
+    <sys:String x:Key="VeganCB">Diet Balance</sys:String>
+    <sys:String x:Key="DiabeticCB">Diet Balance</sys:String>
+    <sys:String x:Key="NutsCB">Diet Balance</sys:String>
+    <sys:String x:Key="SoyCB">Diet Balance</sys:String>
+    <sys:String x:Key="GlutenCB">Diet Balance</sys:String>
+    <sys:String x:Key="DairyCB">Diet Balance</sys:String>
+    <sys:String x:Key="FishCB">Diet Balance</sys:String>
+    <sys:String x:Key="EggsCB">Diet Balance</sys:String>
+    <sys:String x:Key="SaveSettingsBUtton">Diet Balance</sys:String>
+    <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
+
+
+</ResourceDictionary>
