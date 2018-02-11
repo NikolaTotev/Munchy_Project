@@ -145,7 +145,7 @@ namespace MunchyUI_Prototype
 
             if (p_FullRecipeView.Visibility == Visibility.Hidden)
             {
-                if (File.Exists(SuggestedRecipe.ImageFile))
+                if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
                 {
                     RecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
                     img_RecipeImage.Fill = RecipeImage;
@@ -227,7 +227,7 @@ namespace MunchyUI_Prototype
                     tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
                 }
             }
-       
+
             if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
             {
                 if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
@@ -274,7 +274,7 @@ namespace MunchyUI_Prototype
             CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.Name.ToLower());
             CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.Name.ToLower());
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-            CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);                   
+            CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
         }

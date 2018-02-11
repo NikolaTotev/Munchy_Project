@@ -16,27 +16,47 @@
     <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
     
     <!--Settings Panel-->
-    <sys:String x:Key="SettingsTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="SexTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="FoodPrefTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="HealthIssuesTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="AllergiesTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="UserNameTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="AgeTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="WeightTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="VegetarianCB">Diet Balance</sys:String>
-    <sys:String x:Key="VeganCB">Diet Balance</sys:String>
-    <sys:String x:Key="DiabeticCB">Diet Balance</sys:String>
-    <sys:String x:Key="NutsCB">Diet Balance</sys:String>
-    <sys:String x:Key="SoyCB">Diet Balance</sys:String>
-    <sys:String x:Key="GlutenCB">Diet Balance</sys:String>
-    <sys:String x:Key="DairyCB">Diet Balance</sys:String>
-    <sys:String x:Key="FishCB">Diet Balance</sys:String>
-    <sys:String x:Key="EggsCB">Diet Balance</sys:String>
-    <sys:String x:Key="SaveSettingsBUtton">Diet Balance</sys:String>
-    <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
-    <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="SettingsTextBlock">Settings</sys:String>
+    <sys:String x:Key="SexTextBlock">Sex</sys:String>
+    <sys:String x:Key="FoodPrefTextBlock">Food Preferences</sys:String>
+    <sys:String x:Key="HealthIssuesTextBlock">Health Issues</sys:String>
+    <sys:String x:Key="AllergiesTextBlock">Allergies</sys:String>
+    <sys:String x:Key="UserNameTextBlock">Name</sys:String>
+    <sys:String x:Key="AgeTextBlock">Age</sys:String>
+    <sys:String x:Key="WeightTextBlock">Weight</sys:String>
+    <sys:String x:Key="VegetarianCB">I'm Vegetarian</sys:String>
+    <sys:String x:Key="VeganCB">I'm Vegan</sys:String>
+    <sys:String x:Key="DiabeticCB">I'm Diabetic</sys:String>
+    <sys:String x:Key="NutsCB">Nuts</sys:String>
+    <sys:String x:Key="SoyCB">Soy</sys:String>
+    <sys:String x:Key="GlutenCB">Gluten</sys:String>
+    <sys:String x:Key="DairyCB">Dairy</sys:String>
+    <sys:String x:Key="FishCB">Fish</sys:String>
+    <sys:String x:Key="EggsCB">Eggs</sys:String>
+    <sys:String x:Key="SaveSettingsButton">Save</sys:String>
+    <sys:String x:Key="MaleRB">Male</sys:String>
+    <sys:String x:Key="FemaleRB">Female</sys:String>
+    <sys:String x:Key="OtherCB">Other</sys:String>
 
+    <!--Full Recipe View Panel-->
+    <sys:String x:Key="TimeToCookTextBlock">Time to cook</sys:String>
+    <sys:String x:Key="IngredientsTextBlock">Ingredients</sys:String>
+    <sys:String x:Key="DirectionsTextBlock">Directions</sys:String>
+    <sys:String x:Key="CookItButton">I'll Cook It!</sys:String>
+    <sys:String x:Key="SaveRecipeButton">Save</sys:String>
+
+    <!--Fridge Panel-->
+    <sys:String x:Key="CaloriesTB">Calories</sys:String>
+    <sys:String x:Key="ProteinTB">Protein</sys:String>
+    <sys:String x:Key="FatTB">Fat</sys:String>
+    <sys:String x:Key="CarbsTB">Carbs</sys:String>
+    <sys:String x:Key="SugarTB">Sugar</sys:String>
+    <sys:String x:Key="SodiumTB">Sodium</sys:String>
+    <sys:String x:Key="SearchButton">Search</sys:String>
+    <sys:String x:Key="RemoveButton">Remove</sys:String>
+    <sys:String x:Key="CloseAddFoodButton">Close</sys:String>
+    <sys:String x:Key="SummaryTB">Summary</sys:String>
+    <sys:String x:Key="FoodInfoTB">Food Info</sys:String>
+    <sys:String x:Key="FoodsTB">Foods</sys:String>
 
 </ResourceDictionary>
