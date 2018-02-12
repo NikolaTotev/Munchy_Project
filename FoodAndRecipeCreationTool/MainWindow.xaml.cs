@@ -172,7 +172,7 @@ namespace FoodAndRecipeCreationTool
         {
             FoodDef NewFoodItem = new FoodDef();
             if (!string.IsNullOrWhiteSpace(tb_InputFoodName.Text))
-                NewFoodItem.Name = tb_InputFoodName.Text.ToLower();
+                NewFoodItem.USName = tb_InputFoodName.Text.ToLower();
 
             if (!string.IsNullOrWhiteSpace(tb_CalorieInput.Text))
                 NewFoodItem.Calories = int.Parse(tb_CalorieInput.Text);
@@ -195,8 +195,8 @@ namespace FoodAndRecipeCreationTool
             if (!string.IsNullOrWhiteSpace(tb_UOMInput.Text))
                 NewFoodItem.UOM = tb_UOMInput.Text;
 
-            if (!FoodList.ContainsKey(NewFoodItem.Name.ToLower()))
-                FoodList.Add(NewFoodItem.Name.ToLower(), NewFoodItem);
+            if (!FoodList.ContainsKey(NewFoodItem.USName.ToLower()))
+                FoodList.Add(NewFoodItem.USName.ToLower(), NewFoodItem);
 
             SaveFoodList();
         }
@@ -209,17 +209,17 @@ namespace FoodAndRecipeCreationTool
                 NewRecipeDef.Amounts = Amounts;
 
             if (Ingredients != null && Ingredients.Count > 0 && Amounts.Count == Ingredients.Count)
-                NewRecipeDef.Ingredients = Ingredients;
+                NewRecipeDef.USIngredients = Ingredients;
 
             if (!string.IsNullOrWhiteSpace(tb_RecipeNameInput.Text))
-                NewRecipeDef.Name = tb_RecipeNameInput.Text.ToLower();
+                NewRecipeDef.USName = tb_RecipeNameInput.Text.ToLower();
 
 
             if (!string.IsNullOrWhiteSpace(tb_ImageNameInput.Text))
                 NewRecipeDef.ImageFile = tb_ImageNameInput.Text + ".jpg";
 
             if (!string.IsNullOrWhiteSpace(tb_DescriptionInput.Text))
-                NewRecipeDef.Directions = tb_DescriptionInput.Text;
+                NewRecipeDef.USDirections = tb_DescriptionInput.Text;
 
             if (int.TryParse(tb_RecipeCalorieInput.Text, out int n) && !string.IsNullOrWhiteSpace(tb_RecipeCalorieInput.Text))
                 NewRecipeDef.Calories = int.Parse(tb_RecipeCalorieInput.Text);
@@ -227,9 +227,9 @@ namespace FoodAndRecipeCreationTool
             if (!string.IsNullOrWhiteSpace(tb_TimeToCook.Text))
                 NewRecipeDef.TimeToCook = tb_TimeToCook.Text;
 
-            if (!RecipeList.ContainsKey(NewRecipeDef.Name.ToLower()))
+            if (!RecipeList.ContainsKey(NewRecipeDef.USName.ToLower()))
             {
-                RecipeList.Add(NewRecipeDef.Name.ToLower(), NewRecipeDef);
+                RecipeList.Add(NewRecipeDef.USName.ToLower(), NewRecipeDef);
                 L_WarningLabel_2.Text = "Recipe succesfully added!";
             }
             else

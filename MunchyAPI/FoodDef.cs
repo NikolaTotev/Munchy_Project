@@ -8,8 +8,8 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public class FoodDef
     {
-        public string Name { get; set; }
-
+        public string USName { get; set; }
+        public string BGName { get; set; }
         public int Calories { get; set; }
         public int Protein { get; set; }
         public int Fat { get; set; }

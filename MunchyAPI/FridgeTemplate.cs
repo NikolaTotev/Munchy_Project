@@ -28,7 +28,7 @@ namespace Nikola.Munchy.MunchyAPI
         /// <param name="ItemToAdd"></param>
         public void AddToFridge(FoodDef ItemToAdd)
         {
-            UsersFoods.Add(ItemToAdd.Name, ItemToAdd);
+            UsersFoods.Add(ItemToAdd.USName, ItemToAdd);
             SaveFridge();
         }
 

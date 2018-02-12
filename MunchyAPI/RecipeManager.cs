@@ -106,7 +106,7 @@ namespace Nikola.Munchy.MunchyAPI
                             Dinner.Add(item.Key);
                         }
 
-                        foreach (string food in item.Value.Ingredients)
+                        foreach (string food in item.Value.USIngredients)
                         {
                             if (FridgeItems.ContainsKey(food))
                             {
@@ -142,7 +142,7 @@ namespace Nikola.Munchy.MunchyAPI
                         Dinner.Add(item.Key);
                     }
 
-                    foreach (string food in item.Value.Ingredients)
+                    foreach (string food in item.Value.USIngredients)
                     {
                         if (FridgeItems.ContainsKey(food))
                         {

@@ -9,10 +9,13 @@ namespace Nikola.Munchy.MunchyAPI
     public class RecipeDef
     {
         public string TypeOfFood { get; set; }
-        public string Name { get; set; }
-        public string Directions { get; set; }
+        public string USName { get; set; }
+        public string BGName { get; set; }
+        public string USDirections { get; set; }
+        public string BGDirections { get; set; }
         public string TimeToCook { get; set; }
-        public List<string> Ingredients { get; set; }
+        public List<string> USIngredients { get; set; }
+        public List<string> BGIngredients { get; set; }
         public List<float> Amounts { get; set; }
         public List<string> TimeTags { get; set; }
         public List<string> UserTags { get; set; }
