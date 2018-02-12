@@ -18,6 +18,6 @@ namespace Nikola.Munchy.MunchyAPI
         public int Sodium { get; set; }
         public float Amount { get; set; }
         public string UOM { get; set; }
-        public string ImageFileName { get; set; }
+        public string ImageFileName { get; set; }        
     }
 }

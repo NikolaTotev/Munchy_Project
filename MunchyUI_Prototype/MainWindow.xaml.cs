@@ -89,6 +89,9 @@ namespace MunchyUI_Prototype
         {
             InitializeComponent();
 
+            bgBG = false;
+            enUS = true;
+
             if (!File.Exists(FoodDefFile) || !File.Exists(RecipeDatabase))
             {
                 MessageBox.Show("ERROR FAR404 : You are missing files required for the programs operation. Please vist == GITHUB URL == for potential fixes.");
@@ -119,6 +122,7 @@ namespace MunchyUI_Prototype
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
             Localizer.SetDefaultLanguage(this);
+            
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
@@ -169,253 +173,157 @@ namespace MunchyUI_Prototype
         private void AddRecipeIngredientsToListView()
         {
             RecipeIngredientList.Clear();
-            if (enUS == true)
-            {
-                if (SuggestedRecipe.USIngredients != null && SuggestedRecipe.USIngredients.Count > 0)
-                {
-                    foreach (string ingredient in SuggestedRecipe.USIngredients)
-                    {
-                        RecipeIngredientList.Add(new FoodDef() { USName = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.USIngredients.IndexOf(ingredient)] });
-                    }
 
-                    lv_Ingredients.ItemsSource = RecipeIngredientList;
-                    lv_Ingredients.Items.Refresh();
-                    tB_Directions.Text = SuggestedRecipe.USDirections.ToString();
-                    tB_RecipeTitle.Text = SuggestedRecipe.USName.ToString();
-                    tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
-                }
-            }
-            if (bgBG == true)
+            if (SuggestedRecipe.USIngredients != null && SuggestedRecipe.USIngredients.Count > 0)
             {
-                if (SuggestedRecipe.USIngredients != null && SuggestedRecipe.USIngredients.Count > 0)
+                foreach (string ingredient in SuggestedRecipe.USIngredients)
                 {
-                    foreach (string ingredient in SuggestedRecipe.USIngredients)
-                    {
-                        RecipeIngredientList.Add(new FoodDef() { BGName = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.USIngredients.IndexOf(ingredient)] });
-                    }
-
-                    lv_Ingredients.ItemsSource = RecipeIngredientList;
-                    lv_Ingredients.Items.Refresh();
-                    tB_Directions.Text = SuggestedRecipe.BGDirections.ToString();
-                    tB_RecipeTitle.Text = SuggestedRecipe.BGName.ToString();
-                    tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
+                    RecipeIngredientList.Add(new FoodDef() { USName = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.USIngredients.IndexOf(ingredient)] });
                 }
+
+                lv_Ingredients.ItemsSource = RecipeIngredientList;
+                lv_Ingredients.Items.Refresh();
+                tB_Directions.Text = SuggestedRecipe.USDirections.ToString();
+                tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).ToString();
+                tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
             }
 
         }
 
         private void ManageSuggestedRecipe(RecipeDef InputRecipe)
         {
-            if (enUS == true)
+
+            if (CurrentManager.UserRecipeSaves.USRecentlyViewed.Count < 6 && CurrentManager.UserRecipeSaves.BGRecentlyViewed.Count < 6)
             {
-                if (CurrentManager.UserRecipeSaves.RecentlyViewed.Count < 6 && !CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.USName))
-                {
-                    CurrentManager.UserRecipeSaves.RecentlyViewed.Add(SuggestedRecipe.USName);
-                    CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-                }
-                else if (!CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.USName))
-                {
-                    CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
-                    CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.USName);
-                }
+                if (!CurrentManager.UserRecipeSaves.USRecentlyViewed.Contains(SuggestedRecipe.USName))
+                    CurrentManager.UserRecipeSaves.USRecentlyViewed.Add(SuggestedRecipe.USName);
 
-                if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
-                {
-                    SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
-                    Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
-                }
-                else
-                {
-                    Img_SuggestedRecipeImage.Fill = null;
-                }
+                if (!CurrentManager.UserRecipeSaves.BGRecentlyViewed.Contains(SuggestedRecipe.BGName.ToLower()))
+                    CurrentManager.UserRecipeSaves.BGRecentlyViewed.Add(SuggestedRecipe.BGName.ToLower());
 
-                CurrentManager.StatManager.TotalRecipesSeen++;
-                CurrentManager.StatManager.SaveStatistics();
+                CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
 
-            if (bgBG == true)
+            else
             {
-                if (CurrentManager.UserRecipeSaves.RecentlyViewed.Count < 6 && !CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.BGName))
+                if (!CurrentManager.UserRecipeSaves.USRecentlyViewed.Contains(SuggestedRecipe.USName.ToLower()))
                 {
-                    CurrentManager.UserRecipeSaves.RecentlyViewed.Add(SuggestedRecipe.BGName);
-                    CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-                }
-                else if (!CurrentManager.UserRecipeSaves.RecentlyViewed.Contains(SuggestedRecipe.BGName))
-                {
-                    CurrentManager.UserRecipeSaves.RecentlyViewed.RemoveAt(5);
-                    CurrentManager.UserRecipeSaves.RecentlyViewed.Insert(0, SuggestedRecipe.BGName);
+                    CurrentManager.UserRecipeSaves.USRecentlyViewed.RemoveAt(5);
+                    CurrentManager.UserRecipeSaves.USRecentlyViewed.Insert(0, SuggestedRecipe.USName.ToLower());
                 }
 
-                if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
+                if (!CurrentManager.UserRecipeSaves.BGRecentlyViewed.Contains(SuggestedRecipe.BGName.ToLower()))
                 {
-                    SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
-                    Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
+                    CurrentManager.UserRecipeSaves.BGRecentlyViewed.RemoveAt(5);
+                    CurrentManager.UserRecipeSaves.BGRecentlyViewed.Insert(0, SuggestedRecipe.BGName.ToLower());
                 }
-                else
-                {
-                    Img_SuggestedRecipeImage.Fill = null;
-                }
-
-                CurrentManager.StatManager.TotalRecipesSeen++;
-                CurrentManager.StatManager.SaveStatistics();
+                CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
+
+            if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
+            {
+                SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
+                Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
+            }
+            else
+            {
+                Img_SuggestedRecipeImage.Fill = null;
+            }
+
+            CurrentManager.StatManager.TotalRecipesSeen++;
+            CurrentManager.StatManager.SaveStatistics();
 
         }
 
         // Suggests a recipe based on the time of day. Recipe sorting is handled in the back end.
         private void SuggestRecipe()
         {
-            if (enUS == true)
+
+            if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
             {
-                if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
+                if (CurrentManager.RecipieManag.Breakfast.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count && NumerOfRecipeToSuggest >= 0)
                 {
-                    if (CurrentManager.RecipieManag.Breakfast.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count && NumerOfRecipeToSuggest >= 0)
-                    {
-                        SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
-                        tB_RecipeName.Text = SuggestedRecipe.USName;
-                        ManageSuggestedRecipe(SuggestedRecipe);
-                    }
-                    else
-                    {
-                        tB_RecipeName.Text = null;
-                        tB_RecipeName.FontSize = 18;
-                        tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
-                    }
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe);
+                    ManageSuggestedRecipe(SuggestedRecipe);
                 }
-
-                if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
-                {
-                    if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
-                    {
-                        SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
-                        tB_RecipeName.Text = SuggestedRecipe.USName;
-                        ManageSuggestedRecipe(SuggestedRecipe);
-                    }
-                    else
-                    {
-                        tB_RecipeName.Text = null;
-                        tB_RecipeName.FontSize = 18;
-                        tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
-                    }
-                }
-
-                if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
-                {
-                    if (CurrentManager.RecipieManag.Dinner.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count && NumerOfRecipeToSuggest >= 0)
-                    {
-                        SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
-                        tB_RecipeName.Text = SuggestedRecipe.USName;
-                        ManageSuggestedRecipe(SuggestedRecipe);
-                    }
-                    else
-                    {
-                        tB_RecipeName.Text = null;
-                        tB_RecipeName.FontSize = 18;
-                        tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
-                    }
-                }
-
-                if (DateTime.Now.Hour < 7 && DateTime.Now.Hour <= 24)
+                else
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = "It's too late for you to eat! Wait till the morning.";
+                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
                 }
-                CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
 
-            if (bgBG == true)
+            if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
             {
-                if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
+                if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
                 {
-                    if (CurrentManager.RecipieManag.Breakfast.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count && NumerOfRecipeToSuggest >= 0)
-                    {
-                        SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
-                        tB_RecipeName.Text = SuggestedRecipe.USName;
-                        ManageSuggestedRecipe(SuggestedRecipe);
-                    }
-                    else
-                    {
-                        tB_RecipeName.Text = null;
-                        tB_RecipeName.FontSize = 18;
-                        tB_RecipeName.Text = "Извинете не успяхме да намерим подходяща рецепте. Опитайте ръчно търсене.";
-                    }
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe);
+                    ManageSuggestedRecipe(SuggestedRecipe);
                 }
-
-                if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
-                {
-                    if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
-                    {
-                        SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
-                        tB_RecipeName.Text = SuggestedRecipe.USName;
-                        ManageSuggestedRecipe(SuggestedRecipe);
-                    }
-                    else
-                    {
-                        tB_RecipeName.Text = null;
-                        tB_RecipeName.FontSize = 18;
-                        tB_RecipeName.Text = "Извинете не успяхме да намерим подходяща рецепте. Опитайте ръчно търсене.";
-                    }
-                }
-
-                if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
-                {
-                    if (CurrentManager.RecipieManag.Dinner.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count && NumerOfRecipeToSuggest >= 0)
-                    {
-                        SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
-                        tB_RecipeName.Text = SuggestedRecipe.USName;
-                        ManageSuggestedRecipe(SuggestedRecipe);
-                    }
-                    else
-                    {
-                        tB_RecipeName.Text = null;
-                        tB_RecipeName.FontSize = 18;
-                        tB_RecipeName.Text = "Извинете не успяхме да намерим подходяща рецепте. Опитайте ръчно търсене.";
-                    }
-                }
-
-                if (DateTime.Now.Hour < 7 && DateTime.Now.Hour <= 24)
+                else
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = "Много е късно да ядете! Изчакайте до сутринта.";
+                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
                 }
-                CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
+
+            if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
+            {
+                if (CurrentManager.RecipieManag.Dinner.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count && NumerOfRecipeToSuggest >= 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe);
+                    ManageSuggestedRecipe(SuggestedRecipe);
+                }
+                else
+                {
+                    tB_RecipeName.Text = null;
+                    tB_RecipeName.FontSize = 18;
+                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
+                }
+            }
+
+            if (DateTime.Now.Hour < 7 && DateTime.Now.Hour <= 24)
+            {
+                tB_RecipeName.Text = null;
+                tB_RecipeName.FontSize = 18;
+                tB_RecipeName.Text = "It's too late for you to eat! Wait till the morning.";
+            }
+            CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+
         }
 
         private void AddToCookedRecipes()
         {
-            if (enUS == true)
-            {
-                CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.USName.ToLower());
-                CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.USName.ToLower());
-                CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-                CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
-                DailyCalories = CurrentManager.StatManager.DailyCalories;
-                L_DailyCalories.Text = DailyCalories.ToString();
-            }
+            if (!CurrentManager.UserRecipeSaves.USCookedRecipes.Contains(SuggestedRecipe.USName.ToLower()))
+                CurrentManager.UserRecipeSaves.USCookedRecipes.Add(SuggestedRecipe.USName.ToLower());
 
-            if (bgBG)
-            {
-                CurrentManager.UserRecipeSaves.CookedRecipes.Add(SuggestedRecipe.BGName.ToLower());
-                CurrentManager.UserRecipeSaves.CookedToday.Add(SuggestedRecipe.BGName.ToLower());
-                CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-                CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
-                DailyCalories = CurrentManager.StatManager.DailyCalories;
-                L_DailyCalories.Text = DailyCalories.ToString();
-            }
+            //CurrentManager.UserRecipeSaves.USCookedToday.Add(SuggestedRecipe.USName.ToLower());
+
+            if (!CurrentManager.UserRecipeSaves.BGCookedRecipes.Contains(SuggestedRecipe.BGName.ToLower()))
+                CurrentManager.UserRecipeSaves.BGCookedRecipes.Add(SuggestedRecipe.BGName.ToLower());
+
+
+            // CurrentManager.UserRecipeSaves.BGCookedToday.Add(SuggestedRecipe.BGName.ToLower());
+
+            CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+            CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
+            DailyCalories = CurrentManager.StatManager.DailyCalories;
+            L_DailyCalories.Text = DailyCalories.ToString();
 
         }
 
         private void AddToSavedReicpe()
         {
-            if (enUS == true)
-                CurrentManager.UserRecipeSaves.SavedRecipes.Add(SuggestedRecipe.USName.ToLower());
+            if (!CurrentManager.UserRecipeSaves.USSavedRecipes.Contains(SuggestedRecipe.USName.ToLower()))
+                CurrentManager.UserRecipeSaves.USSavedRecipes.Add(SuggestedRecipe.USName.ToLower());
 
-            if(bgBG == true)
-                CurrentManager.UserRecipeSaves.SavedRecipes.Add(SuggestedRecipe.BGName.ToLower());
-
+            if (!CurrentManager.UserRecipeSaves.BGSavedRecipes.Contains(SuggestedRecipe.BGName.ToLower()))
+                CurrentManager.UserRecipeSaves.BGSavedRecipes.Add(SuggestedRecipe.BGName.ToLower());
 
         }
 
@@ -428,7 +336,7 @@ namespace MunchyUI_Prototype
                     string SearchedSavedRecipe = tb_SearchSavedRecipes.Text;
                     string LowerCase = SearchedSavedRecipe.ToLower();
 
-                    foreach (string Recipe in CurrentManager.UserRecipeSaves.SavedRecipes)
+                    foreach (string Recipe in GetSavedRecipesList())
                     {
                         if (Recipe.StartsWith(LowerCase) && !lb_SavedRecipesList.Items.Contains((Recipe.First().ToString().ToUpper() + Recipe.Substring(1))))
                         {
@@ -452,7 +360,7 @@ namespace MunchyUI_Prototype
                     string SearchedRecipe = tb_SearchCookedRecipes.Text;
                     string LowerCase = SearchedRecipe.ToLower();
 
-                    foreach (string Recipe in CurrentManager.UserRecipeSaves.CookedRecipes)
+                    foreach (string Recipe in GetCookedRecipeList())
                     {
                         if (Recipe.StartsWith(LowerCase) && !lb_ListOfCookedRecipes.Items.Contains((Recipe.First().ToString().ToUpper() + Recipe.Substring(1))))
                         {
@@ -520,15 +428,15 @@ namespace MunchyUI_Prototype
 
         private void SetRecentlyViewedImages()
         {
-            if (CurrentManager.UserRecipeSaves.RecentlyViewed.Count > 0)
+            if (CurrentManager.UserRecipeSaves.USRecentlyViewed.Count > 0)
             {
-                for (int i = 0; i < CurrentManager.UserRecipeSaves.RecentlyViewed.Count; i++)
+                for (int i = 0; i < CurrentManager.UserRecipeSaves.USRecentlyViewed.Count; i++)
                 {
-                    if (i <= 6 && CurrentManager.RecipieManag.Recipies.ContainsKey(CurrentManager.UserRecipeSaves.RecentlyViewed[i]))
+                    if (i <= 6 && CurrentManager.RecipieManag.Recipies.ContainsKey(CurrentManager.UserRecipeSaves.USRecentlyViewed[i]))
                     {
-                        if (File.Exists(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile))
+                        if (File.Exists(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile))
                         {
-                            RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.RecentlyViewed[i]].ImageFile, UriKind.Relative));
+                            RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile, UriKind.Relative));
                             RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
                             if (i <= 4)
                             {
@@ -908,6 +816,7 @@ namespace MunchyUI_Prototype
         private void btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
         {
             ShowSavedRecipePanel();
+            SetRecentlyViewedImages();
         }
 
 
@@ -921,6 +830,7 @@ namespace MunchyUI_Prototype
             tB_RecipeName.FontSize = 24;
             NumerOfRecipeToSuggest++;
             SuggestRecipe();
+            SetRecentlyViewedImages();
         }
 
         private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
@@ -938,6 +848,7 @@ namespace MunchyUI_Prototype
         private void Btn_RecentlyViewed_Click(object sender, RoutedEventArgs e)
         {
             ShowRecentlyViewedRecipes();
+            SetRecentlyViewedImages();
         }
 
         private void Btn_CookedToday_Click(object sender, RoutedEventArgs e)
@@ -1057,7 +968,7 @@ namespace MunchyUI_Prototype
         {
             string LocaleCode = (string)((Button)sender).Tag;
             Localizer.SwitchLanguage(this, LocaleCode);
-            if (LocaleCode == "bg-bgBG")
+            if (LocaleCode == "bg-BG")
             {
                 bgBG = true;
                 enUS = false;
@@ -1068,6 +979,105 @@ namespace MunchyUI_Prototype
                 enUS = true;
                 bgBG = false;
             }
+        }
+
+        private List<string> GetSavedRecipesList()
+        {
+            List<string> ListToUse;
+            if (enUS == true)
+            {
+                ListToUse = CurrentManager.UserRecipeSaves.USSavedRecipes;
+            }
+            else
+            {
+                ListToUse = new List<string>();
+            }
+
+            if (bgBG == true)
+            {
+                ListToUse = CurrentManager.UserRecipeSaves.BGSavedRecipes;
+            }
+            else
+            {
+                ListToUse = new List<string>();
+            }
+
+            return ListToUse;
+        }
+
+        private List<string> GetRecentlyViewedList()
+        {
+            List<string> ListToUse;
+            if (enUS == true)
+            {
+                ListToUse = CurrentManager.UserRecipeSaves.USRecentlyViewed;
+            }
+            else
+            {
+                ListToUse = new List<string>();
+            }
+
+            if (bgBG == true)
+            {
+                ListToUse = CurrentManager.UserRecipeSaves.BGRecentlyViewed;
+            }
+            else
+            {
+                ListToUse = new List<string>();
+            }
+
+            return ListToUse;
+        }
+
+        private List<string> GetCookedRecipeList()
+        {
+            List<string> ListToUse;
+
+            if (enUS == true)
+            {
+                ListToUse = CurrentManager.UserRecipeSaves.USCookedRecipes;
+            }
+            else
+            {
+                ListToUse = new List<string>();
+            }
+
+            if (bgBG == true)
+            {
+                ListToUse = CurrentManager.UserRecipeSaves.BGCookedRecipes;
+            }
+            else
+            {
+                ListToUse = new List<string>();
+            }
+
+            return ListToUse;
+        }
+
+
+        private string GetSuggestedRecipeName(RecipeDef Recipe)
+        {
+            string RecipeName = "RecipeName";
+
+            if (enUS == true || bgBG == true)
+            {
+                if (enUS == true)
+                {
+                    RecipeName = Recipe.USName;
+                }
+
+
+                if (bgBG == true)
+                {
+                    RecipeName = Recipe.BGName;
+                }
+            }
+            else
+            {
+                RecipeName = "Error TE303";
+            }                       
+          
+            return RecipeName;
         }
     }
 }

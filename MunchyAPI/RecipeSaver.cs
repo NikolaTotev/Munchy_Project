@@ -10,10 +10,15 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public class RecipeSaver
     {
-        public List<string> SavedRecipes;
-        public List<string> CookedRecipes;
-        public List<string> RecentlyViewed;
-        public List<string> CookedToday;
+        public List<string> USSavedRecipes;
+        public List<string> USCookedRecipes;
+        public List<string> USRecentlyViewed;
+        public List<string> USCookedToday;
+
+        public List<string> BGSavedRecipes;
+        public List<string> BGCookedRecipes;
+        public List<string> BGRecentlyViewed;
+        public List<string> BGCookedToday;
 
         [NonSerialized]
         public string SaveLocation;
@@ -23,10 +28,10 @@ namespace Nikola.Munchy.MunchyAPI
         public RecipeSaver(string SavePath)
         {
             SaveLocation = SavePath;
-            SavedRecipes = new List<string>();
-            CookedRecipes = new List<string>();
-            RecentlyViewed = new List<string>();
-            CookedToday = new List<string>();
+            USSavedRecipes = new List<string>();
+            USCookedRecipes = new List<string>();
+            USRecentlyViewed = new List<string>();
+            USCookedToday = new List<string>();
         }
 
         public void SaveRecipeSaver()
