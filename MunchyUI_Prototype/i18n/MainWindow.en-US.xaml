@@ -70,4 +70,7 @@
     <sys:String x:Key="RecipesCookedTB">Recipes Cooked</sys:String>
     <sys:String x:Key="RecipesSeenTB">Recipes Seen</sys:String>
 
+    <sys:String x:Key="IngredientListIngredients">Ingredients</sys:String>
+    <sys:String x:Key="IngredientListAmounts">Amounts</sys:String>
+
 </ResourceDictionary>

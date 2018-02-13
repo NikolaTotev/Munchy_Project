@@ -69,5 +69,8 @@
     <sys:String x:Key="AverageMonthlyCaloriesTB">Средни Месечни Калории</sys:String>
     <sys:String x:Key="RecipesCookedTB">Сготвени Рецепти</sys:String>
     <sys:String x:Key="RecipesSeenTB">Видяни рецепти</sys:String>
-    
+
+    <sys:String x:Key="IngredientListIngredients">Съставки</sys:String>
+    <sys:String x:Key="IngredientListAmounts">Количество</sys:String>
+
 </ResourceDictionary>

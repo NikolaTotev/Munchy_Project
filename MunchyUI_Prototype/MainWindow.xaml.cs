@@ -122,7 +122,7 @@ namespace MunchyUI_Prototype
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
             Localizer.SetDefaultLanguage(this);
-            
+
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
@@ -174,18 +174,18 @@ namespace MunchyUI_Prototype
         {
             RecipeIngredientList.Clear();
 
-            if (SuggestedRecipe.USIngredients != null && SuggestedRecipe.USIngredients.Count > 0)
+            if (GetIngredientList(SuggestedRecipe) != null && GetIngredientList(SuggestedRecipe).Count > 0)
             {
-                foreach (string ingredient in SuggestedRecipe.USIngredients)
+                foreach (string ingredient in GetIngredientList(SuggestedRecipe))
                 {
-                    RecipeIngredientList.Add(new FoodDef() { USName = ingredient, Amount = SuggestedRecipe.Amounts[SuggestedRecipe.USIngredients.IndexOf(ingredient)] });
+                    RecipeIngredientList.Add(new FoodDef() { USName = ingredient, Amount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)] });
                 }
 
                 lv_Ingredients.ItemsSource = RecipeIngredientList;
                 lv_Ingredients.Items.Refresh();
-                tB_Directions.Text = SuggestedRecipe.USDirections.ToString();
+                tB_Directions.Text = GetDirections(SuggestedRecipe);
                 tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).ToString();
-                tB_TimeToCook.Text = SuggestedRecipe.TimeToCook.ToString();
+                tB_TimeToCookAmount.Text = SuggestedRecipe.TimeToCook.ToString();
             }
 
         }
@@ -979,23 +979,26 @@ namespace MunchyUI_Prototype
                 enUS = true;
                 bgBG = false;
             }
+
+            AddRecipeIngredientsToListView();
         }
 
         private List<string> GetSavedRecipesList()
         {
-            List<string> ListToUse;
-            if (enUS == true)
-            {
-                ListToUse = CurrentManager.UserRecipeSaves.USSavedRecipes;
-            }
-            else
-            {
-                ListToUse = new List<string>();
-            }
+            List<string> ListToUse = new List<string>();
 
-            if (bgBG == true)
+            if (enUS == true || bgBG == true)
             {
-                ListToUse = CurrentManager.UserRecipeSaves.BGSavedRecipes;
+                if (enUS == true)
+                {
+                    ListToUse = CurrentManager.UserRecipeSaves.USSavedRecipes;
+                }
+
+
+                if (bgBG == true)
+                {
+                    ListToUse = CurrentManager.UserRecipeSaves.BGSavedRecipes;
+                }
             }
             else
             {
@@ -1007,44 +1010,96 @@ namespace MunchyUI_Prototype
 
         private List<string> GetRecentlyViewedList()
         {
-            List<string> ListToUse;
-            if (enUS == true)
+            List<string> ListToUse = new List<string>();
+
+            if (enUS == true || bgBG == true)
             {
-                ListToUse = CurrentManager.UserRecipeSaves.USRecentlyViewed;
+                if (enUS == true)
+                {
+                    ListToUse = CurrentManager.UserRecipeSaves.USRecentlyViewed;
+                }
+
+
+                if (bgBG == true)
+                {
+                    ListToUse = CurrentManager.UserRecipeSaves.BGRecentlyViewed;
+                }
+            }
+
+            else
+            {
+                ListToUse = new List<string>();
+            }
+            return ListToUse;
+        }
+
+        private string GetDirections(RecipeDef Recipe)
+        {
+            string RecipeName = "RecipeName";
+
+            if (enUS == true || bgBG == true)
+            {
+                if (enUS == true)
+                {
+                    RecipeName = Recipe.USDirections;
+                }
+
+
+                if (bgBG == true)
+                {
+                    RecipeName = Recipe.BGDirections;
+                }
+            }
+            else
+            {
+                RecipeName = "Error TE303";
+            }
+
+            return RecipeName;
+        }
+
+        private List<string> GetIngredientList(RecipeDef Recipe)
+        {
+            List<string> ListToUse = new List<string>();
+
+            if (enUS == true || bgBG == true)
+            {
+                if (enUS == true)
+                {
+                    ListToUse = Recipe.USIngredients;
+                }
+
+                if (bgBG == true)
+                {
+                    ListToUse = ListToUse = Recipe.BGIngredients;
+                }
             }
             else
             {
                 ListToUse = new List<string>();
             }
 
-            if (bgBG == true)
-            {
-                ListToUse = CurrentManager.UserRecipeSaves.BGRecentlyViewed;
-            }
-            else
-            {
-                ListToUse = new List<string>();
-            }
 
             return ListToUse;
+
         }
 
         private List<string> GetCookedRecipeList()
         {
-            List<string> ListToUse;
+            List<string> ListToUse = new List<string>();
 
-            if (enUS == true)
+            if (enUS == true || bgBG == true)
             {
-                ListToUse = CurrentManager.UserRecipeSaves.USCookedRecipes;
-            }
-            else
-            {
-                ListToUse = new List<string>();
-            }
+                if (enUS == true)
+                {
+                    ListToUse = CurrentManager.UserRecipeSaves.USCookedRecipes;
+                }
 
-            if (bgBG == true)
-            {
-                ListToUse = CurrentManager.UserRecipeSaves.BGCookedRecipes;
+
+                if (bgBG == true)
+                {
+                    ListToUse = CurrentManager.UserRecipeSaves.BGCookedRecipes;
+                }
             }
             else
             {
@@ -1075,8 +1130,8 @@ namespace MunchyUI_Prototype
             else
             {
                 RecipeName = "Error TE303";
-            }                       
-          
+            }
+
             return RecipeName;
         }
     }
