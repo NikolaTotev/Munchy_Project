@@ -10,7 +10,12 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public class FridgeTemplate
     {
-        public Dictionary<string, FoodDef> UsersFoods { get; set; }
+
+        
+        public Dictionary<string, FoodDef> BGUserFoods { get; set; }
+
+        public Dictionary<string, FoodDef> USUsersFoods { get; set; }
+
         public string SavedFilePath;
         public string DefaultPath;
 
@@ -18,8 +23,20 @@ namespace Nikola.Munchy.MunchyAPI
         {
             SavedFilePath = FilePathToUse;
             DefaultPath = DefaultFile;
-            UsersFoods = UsersFridge();
+            USUsersFoods = UsersFridge();          
             SaveFridge();
+
+            BGUserFoods = new Dictionary<string, FoodDef>();
+            RefreshBGList();
+        }
+
+        public void RefreshBGList()
+        {
+            BGUserFoods.Clear();
+            foreach (KeyValuePair<string, FoodDef> element in USUsersFoods)
+            {
+                BGUserFoods.Add(element.Value.BGName, element.Value);
+            }
         }
 
         /// <summary>
@@ -28,7 +45,8 @@ namespace Nikola.Munchy.MunchyAPI
         /// <param name="ItemToAdd"></param>
         public void AddToFridge(FoodDef ItemToAdd)
         {
-            UsersFoods.Add(ItemToAdd.USName, ItemToAdd);
+            USUsersFoods.Add(ItemToAdd.USName, ItemToAdd);
+            RefreshBGList(); RefreshBGList();
             SaveFridge();
         }
 
@@ -38,7 +56,8 @@ namespace Nikola.Munchy.MunchyAPI
         /// <param name="ItemToRemove"></param>
         public void RemoveFromFridge(string ItemToRemove)
         {
-            UsersFoods.Remove(ItemToRemove);
+            USUsersFoods.Remove(ItemToRemove);
+            RefreshBGList();
             SaveFridge();
         }
 
@@ -54,13 +73,13 @@ namespace Nikola.Munchy.MunchyAPI
             for (int i = 0; i < foods.Length; i++)
             {
                 // First the function checks if the dictonary contains the item.
-                if (!UsersFoods.ContainsKey(foods[i]))
+                if (!USUsersFoods.ContainsKey(foods[i]))
                 {
                     return false;
                 }
 
                 // Then it gets the "FoodItem" that corresponds to the tag that was just checked.
-                UsersFoods.TryGetValue(foods[i], out FoodDef FoodItem);
+                USUsersFoods.TryGetValue(foods[i], out FoodDef FoodItem);
 
                 // From the FoodItem it checks if there is the proper amount.
                 if (FoodItem.Amount < amounts[i])
@@ -81,10 +100,10 @@ namespace Nikola.Munchy.MunchyAPI
         public void ModifyFoodItemAmount(string FoodItemToChange, float AmountToChange)
         {
             if (AmountToChange != 0)
-                UsersFoods[FoodItemToChange].Amount = AmountToChange;
+                USUsersFoods[FoodItemToChange].Amount = AmountToChange;
 
             if (AmountToChange == 0)
-                UsersFoods.Remove(FoodItemToChange);
+                USUsersFoods.Remove(FoodItemToChange);
 
             SaveFridge();
         }
@@ -119,7 +138,7 @@ namespace Nikola.Munchy.MunchyAPI
             using (StreamWriter file = File.CreateText(SavedFilePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, UsersFoods);
+                serializer.Serialize(file, USUsersFoods);
             }
         }
 
@@ -128,7 +147,7 @@ namespace Nikola.Munchy.MunchyAPI
         /// </summary>
         public void ClearFridge()
         {
-            UsersFoods.Clear();
+            USUsersFoods.Clear();
         }
     }
 }

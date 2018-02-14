@@ -79,7 +79,7 @@ namespace MunchyUI_Prototype
         ImageBrush[] RecentlyViewedRecipeImages;
         Ellipse[] RecentlyViewedRecipesImages;
         Ellipse[] FrontPageRecentlyViewedImages;
-
+        RadioButton[] AmountRadioButtons;
         // ================= UI LOGIC =================
         #region UI Logic
 
@@ -112,6 +112,7 @@ namespace MunchyUI_Prototype
             RecentlyViewedRecipeImages = new ImageBrush[] { RecentRecipe_1, RecentRecipe_2, RecentRecipe_3, RecentRecipe_4, RecentRecipe_5, RecentRecipe_6 };
             RecentlyViewedRecipesImages = new Ellipse[] { Img_RecentlyViewed_1, Img_RecentlyViewed_2, Img_RecentlyViewed_3, Img_RecentlyViewed_4, Img_RecentlyViewed_5, Img_RecentlyViewed_6 };
             FrontPageRecentlyViewedImages = new Ellipse[] { Img_FrontRecentlyViewed_1, Img_FrontRecentlyViewed_2, Img_FrontRecentlyViewed_3, Img_FrontRecentlyViewed_4, Img_FrontRecentlyViewed_5 };
+            AmountRadioButtons = new RadioButton[] { Cb_SuggestedAmount_1, Cb_SuggestedAmount_2, Cb_SuggestedAmount_3, Cb_SuggestedAmount_4 };
             RecipeIngredientList = new List<FoodDef>();
             InitialFridgeUISetup();
             PopulateFridgeSummary();
@@ -128,9 +129,9 @@ namespace MunchyUI_Prototype
         // Handles initial Setup of the fridge UI. Called only on program start.
         private void InitialFridgeUISetup()
         {
-            if (CurrentManager.User.UserFridge.UsersFoods != null && CurrentManager.User.UserFridge.UsersFoods.Count > 0)
+            if (CurrentManager.User.UserFridge.USUsersFoods != null && CurrentManager.User.UserFridge.USUsersFoods.Count > 0)
             {
-                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
                 {
                     lb_FoodList.Items.Add(element.Key);
 
@@ -397,6 +398,11 @@ namespace MunchyUI_Prototype
                 p_AddFoodItemPanel.Visibility = Visibility.Visible;
             else
                 p_AddFoodItemPanel.Visibility = Visibility.Hidden;
+
+            if (P_AddFoodAmount.Visibility == Visibility.Hidden)
+                P_AddFoodAmount.Visibility = Visibility.Visible;
+            else
+                P_AddFoodAmount.Visibility = Visibility.Hidden;
         }
 
         private void ShowCookedRecipes()
@@ -526,24 +532,80 @@ namespace MunchyUI_Prototype
             }
         }
 
+        private void TranslateFridge()
+        {
+            lb_FoodList.Items.Clear();
+            foreach (KeyValuePair<string, FoodDef> item in CurrentManager.UsersFridge.USUsersFoods)
+            {
+                if (enUS == true)
+                    lb_FoodList.Items.Add(item.Value.USName);
+
+                if(bgBG == true)
+                    lb_FoodList.Items.Add(item.Value.BGName);
+            }
+        }
+
+        private void AddFoodItem()
+        {
+            FoodDef ItemToAdd = CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()];
+            foreach (RadioButton element in AmountRadioButtons)
+            {
+                if (element.IsChecked == true)
+                {
+                    ItemToAdd.Amount = (float)(element.Content);
+                }
+
+            }
+
+            if (ItemToAdd.Amount == 0)
+            {
+                L_FoodAmountWarning.Text = "Please Select an amount to add!";
+            }
+            if (!CurrentManager.User.UserFridge.USUsersFoods.ContainsKey(ItemToAdd.USName))
+            {
+                CurrentManager.User.UserFridge.AddToFridge(ItemToAdd);
+
+                if (enUS == true)
+                    lb_FoodList.Items.Add((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].USName));
+
+                if (bgBG == true)
+                    lb_FoodList.Items.Add((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].BGName));
+
+                CurrentManager.UsersFridge.SaveFridge();
+                l_SearchInfo.Text = "Item added!";
+
+
+                PopulateFridgeSummary();
+            }
+            else
+            {
+                l_SearchInfo.Text = "Don't worry! You already have this.";
+            }
+
+        }
+
         // Function is called once the user clicks on an item in the listbox of suggested foods. The item is added into the user fridge UI
         // the FoodDef is added into the user's fridge and the users fridge is saved.
-        private void AddClickedFoodItem()
+        private void ConfigureClickedItem()
         {
+
             if (lB_SuggestedFoods.SelectedItem != null)
             {
-                if (!CurrentManager.User.UserFridge.UsersFoods.ContainsKey((lB_SuggestedFoods.SelectedItem.ToString())))
+
+                if (P_AddFoodAmount.Visibility == Visibility.Hidden)
                 {
-                    CurrentManager.User.UserFridge.AddToFridge((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()]));
-                    lb_FoodList.Items.Add((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].USName));
-                    CurrentManager.UsersFridge.SaveFridge();
-                    l_SearchInfo.Text = "Item added!";
+                    P_AddFoodAmount.Visibility = Visibility.Visible;
                 }
-                else
+
+                TB_AddedFoodNameItem.Text = lB_SuggestedFoods.SelectedItem.ToString().First().ToString().ToUpper() + lB_SuggestedFoods.SelectedItem.ToString().Substring(1);
+
+                foreach (RadioButton checkBox in AmountRadioButtons)
                 {
-                    l_SearchInfo.Text = "Don't worry! You already have this.";
+                    checkBox.Content = CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].SuggestedAmounts[Array.IndexOf(AmountRadioButtons, checkBox)];
                 }
-                PopulateFridgeSummary();
+
+
+                Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].UOM;
             }
         }
 
@@ -556,7 +618,7 @@ namespace MunchyUI_Prototype
                 lb_FoodList.Items.Clear();
                 CurrentManager.User.UserFridge.SaveFridge();
 
-                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
                 {
                     lb_FoodList.Items.Add(element.Key);
                 }
@@ -575,9 +637,9 @@ namespace MunchyUI_Prototype
             CarbSum = 0;
             SugarSum = 0;
             SodiumSum = 0;
-            if (CurrentManager.User.UserFridge.UsersFoods.Count > 0)
+            if (CurrentManager.User.UserFridge.USUsersFoods.Count > 0)
             {
-                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.UsersFoods)
+                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
                 {
                     CalorieSum += element.Value.Calories;
                     ProteinSum += element.Value.Protein;
@@ -768,6 +830,7 @@ namespace MunchyUI_Prototype
         private void OpenFoodSearch(object sender, RoutedEventArgs e)
         {
             OpenCloseFoodSearch();
+
         }
 
         /// <summary>
@@ -901,7 +964,7 @@ namespace MunchyUI_Prototype
 
         private void AddClickedItem(object sender, SelectionChangedEventArgs e)
         {
-            AddClickedFoodItem();
+            ConfigureClickedItem();
         }
 
         /// <summary>
@@ -981,6 +1044,7 @@ namespace MunchyUI_Prototype
             }
 
             AddRecipeIngredientsToListView();
+            TranslateFridge();
         }
 
         private List<string> GetSavedRecipesList()
@@ -1133,6 +1197,11 @@ namespace MunchyUI_Prototype
             }
 
             return RecipeName;
+        }
+
+        private void AddFoodItemClick(object sender, RoutedEventArgs e)
+        {
+            AddFoodItem();
         }
     }
 }

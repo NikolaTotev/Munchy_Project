@@ -40,7 +40,7 @@ namespace Nikola.Munchy.MunchyAPI
             CurrentManager = Manager;
             UserIndex = Manager.User.CompatabilityIndex;
             Recipies = GetRecipies();
-            FridgeItems = Manager.UsersFridge.UsersFoods;
+            FridgeItems = Manager.UsersFridge.USUsersFoods;
             SortRecipes();
         }
 

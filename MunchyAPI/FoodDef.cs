@@ -19,5 +19,6 @@ namespace Nikola.Munchy.MunchyAPI
         public float Amount { get; set; }
         public string UOM { get; set; }
         public string ImageFileName { get; set; }        
+        public List<float> SuggestedAmounts { get; set; }
     }
 }
