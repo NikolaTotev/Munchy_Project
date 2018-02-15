@@ -55,6 +55,9 @@ namespace MunchyUI_Prototype
         // A list of checkboxes that are used for saving the users settings and preferences
         List<CheckBox> SettingOptions;
 
+        List<string> ItemsInFoodSearch = new List<string>();
+        List<string> ItemsFoodList = new List<string>();
+
         // This list is used for populating the Ingredients ListView in the UI.
         List<FoodDef> RecipeIngredientList;
 
@@ -124,6 +127,8 @@ namespace MunchyUI_Prototype
             L_DailyCalories.Text = DailyCalories.ToString();
             Localizer.SetDefaultLanguage(this);
 
+           
+
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
@@ -133,7 +138,7 @@ namespace MunchyUI_Prototype
             {
                 RefreshFridge();
                 foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
-                {
+                {                   
                     if (lb_Fridge.Items.Count < 10)
                         lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
                 }
@@ -315,6 +320,7 @@ namespace MunchyUI_Prototype
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
             CurrentManager.UsersFridge.ModifyFoodItemAmount(SuggestedRecipe.USIngredients, SuggestedRecipe.Amounts);
+            RefreshFridge();
         }
 
         private void AddToSavedReicpe()
@@ -518,16 +524,31 @@ namespace MunchyUI_Prototype
 
                     foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
                     {
-                        if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key))
+                        if (enUS == true)
                         {
-                            lB_SuggestedFoods.Items.Add(element.Key);
+                            if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key))
+                            {
+                                lB_SuggestedFoods.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
+                                ItemsInFoodSearch.Add(element.Value.USName);
+                            }
                         }
+
+                        if (bgBG == true)
+                        {
+                            if (element.Value.BGName.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Value.BGName))
+                            {
+                                lB_SuggestedFoods.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString());
+                                ItemsInFoodSearch.Add(element.Value.USName);
+                            }
+                        }
+
                     }
                 }
             }
             else
             {
                 lB_SuggestedFoods.Items.Clear();
+                ItemsInFoodSearch.Clear();
                 l_SearchInfo.Text = "Type to search for an item";
             }
         }
@@ -535,11 +556,12 @@ namespace MunchyUI_Prototype
         private void RefreshFridge()
         {
             lb_FoodList.Items.Clear();
-
+            ItemsFoodList.Clear();
             foreach (KeyValuePair<string, FoodDef> ItemToAdd in CurrentManager.UsersFridge.USUsersFoods)
             {
                 if (!lb_FoodList.Items.Contains(ItemToAdd.Value.USName) || !lb_FoodList.Items.Contains(ItemToAdd.Value.BGName))
                 {
+                    ItemsFoodList.Add(ItemToAdd.Value.USName);
                     if (enUS == true)
                         lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.USName.First().ToString().ToUpper() + ItemToAdd.Value.USName.Substring(1), Amount = ItemToAdd.Value.Amount });
 
@@ -558,7 +580,9 @@ namespace MunchyUI_Prototype
 
         private void AddFoodItem()
         {
-            FoodDef ItemToAdd = CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()];
+
+            FoodDef ItemToAdd = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
+
             foreach (RadioButton element in AmountRadioButtons)
             {
                 if (element.IsChecked == true)
@@ -610,11 +634,9 @@ namespace MunchyUI_Prototype
 
         }
 
-        // Function is called once the user clicks on an item in the listbox of suggested foods. The item is added into the user fridge UI
-        // the FoodDef is added into the user's fridge and the users fridge is saved.
+        // Opens food item configuration panel and loads suggested amounts to add to the fridge.
         private void ConfigureClickedItem()
         {
-
             if (lB_SuggestedFoods.SelectedItem != null)
             {
 
@@ -627,24 +649,19 @@ namespace MunchyUI_Prototype
 
                 foreach (RadioButton checkBox in AmountRadioButtons)
                 {
-                    checkBox.Content = CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].SuggestedAmounts[Array.IndexOf(AmountRadioButtons, checkBox)];
+                    checkBox.Content = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts[Array.IndexOf(AmountRadioButtons, checkBox)];
                 }
 
-
-                Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].UOM;
+                Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].UOM;
             }
         }
 
-        private void ExtractItemToRemoveName(string Name)
-        {
-
-        }
         private void RemoveItem()
         {
 
             if (lb_FoodList.SelectedItem != null)
             {
-                FoodDef ItemToRemove = (FoodDef)lb_FoodList.SelectedItem;
+                FoodDef ItemToRemove = (FoodDef)CurrentManager.FoodManag.Foods[ItemsFoodList[lb_FoodList.SelectedIndex]];
                 CurrentManager.User.UserFridge.RemoveFromFridge(ItemToRemove.USName.ToLower());
                 lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
                 lb_FoodList.Items.Clear();
