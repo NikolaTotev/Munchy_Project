@@ -144,17 +144,17 @@
                 <RadioButton x:Name="rb_Other" Content="{DynamicResource ResourceKey=OtherCB}" HorizontalAlignment="Left" Height="23" Margin="523,207,0,0" VerticalAlignment="Top" Width="109" FontFamily="Roboto Light" FontSize="22" Background="White" Foreground="#FF5E6973"/>
 
             </Grid>
-            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="484" Margin="27,30,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="857" Background="#F2223843" Visibility="Hidden">
-                <TextBlock x:Name="tB_RecipeTitle" Height="58" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="292,4,262,0" FontFamily="Shrikhand" FontSize="36" TextAlignment="Center" Foreground="#FFFCFFFC"/>
-                <Ellipse x:Name="img_RecipeImage" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="65" Margin="241,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.5,0.5"/>
-                <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="104,71,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=IngredientsTextBlock}" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center" RenderTransformOrigin="0.058,0.561"/>
-                <TextBlock x:Name="tB_DirectionsTitle" HorizontalAlignment="Left" Height="30" Margin="531,76,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=DirectionsTextBlock}" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <Rectangle x:Name="btn_CloseRecipeView" HorizontalAlignment="Left" Height="40" Margin="813,0,0,0" Stroke="Black" VerticalAlignment="Top" Width="44" MouseUp="btn_ShowRecipe_Click">
+            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="537" Margin="0,-1,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3">
+                <TextBlock x:Name="tB_RecipeTitle" Height="58" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="292,10,262,0" FontFamily="Shrikhand" FontSize="36" TextAlignment="Center" Foreground="#FF5E6973"/>
+                <Ellipse x:Name="img_RecipeImage" HorizontalAlignment="Left" Height="65" Margin="254,10,0,0" Stroke="#FF5E6973" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.5,0.5"/>
+                <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="97,103,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=IngredientsTextBlock}" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center" RenderTransformOrigin="0.058,0.561"/>
+                <TextBlock x:Name="tB_DirectionsTitle" HorizontalAlignment="Left" Height="30" Margin="559,108,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=DirectionsTextBlock}" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <Rectangle x:Name="btn_CloseRecipeView" HorizontalAlignment="Left" Height="40" Margin="870,10,0,0" VerticalAlignment="Top" Width="44" MouseUp="btn_ShowRecipe_Click">
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="Images/8934.png"/>
+                        <ImageBrush ImageSource="Images/ic_close_black_512dp_2x.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
-                <ListView x:Name="lv_Ingredients" HorizontalAlignment="Left" Height="319" Margin="19,106,0,0" VerticalAlignment="Top" Width="300" FontFamily="Roboto Medium" FontSize="16" Background="#19FFFFFF" BorderBrush="{x:Null}" Foreground="#FFFCFFFC">
+                <ListView x:Name="lv_Ingredients" HorizontalAlignment="Left" Height="319" Margin="12,138,0,0" VerticalAlignment="Top" Width="300" FontFamily="Roboto Medium" FontSize="16" Background="White" BorderBrush="#FF5E6973" Foreground="#FF5E6973">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="{DynamicResource ResourceKey=IngredientListIngredients}" Width="150"  DisplayMemberBinding="{Binding USName}"/>
@@ -162,7 +162,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <TextBlock x:Name="tB_Directions" HorizontalAlignment="Left" Height="313" Margin="335,112,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="495" FontFamily="Roboto Medium" FontSize="14" Foreground="#FFFCFFFC" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Background="#19FFFFFF">
+                <TextBlock x:Name="tB_Directions" HorizontalAlignment="Left" Height="317.134" Margin="318.426,140.016,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="594.444" FontFamily="Roboto Medium" FontSize="14" Foreground="#FF5E6973" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Background="#19FFFFFF" UseLayoutRounding="False" d:LayoutRounding="Auto">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -172,10 +172,10 @@
                         </TransformGroup>
                     </TextBlock.RenderTransform>
                 </TextBlock>
-                <TextBlock x:Name="tB_TimeToCook" HorizontalAlignment="Left" Height="42" Margin="311,50,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=TimeToCookTextBlock}" VerticalAlignment="Top" Width="148" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_TimeToCookAmount" HorizontalAlignment="Left" Height="30" Margin="469,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" FontFamily="Roboto Medium" FontSize="18" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                <Button x:Name="Btn_RecipeWillBeCooked" Content="{DynamicResource ResourceKey=CookItButton}" HorizontalAlignment="Left" Height="41" Margin="311,433,0,0" VerticalAlignment="Top" Width="148" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="22" Click="Btn_RecipeWillBeCooked_Click"/>
-                <Button x:Name="BTN_AddToSavedRecipes" Content="{DynamicResource ResourceKey=SaveRecipeButton}" HorizontalAlignment="Left" Height="41" Margin="469,433,0,0" VerticalAlignment="Top" Width="144" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="BTN_AddToSavedRecipes_Click"/>
+                <TextBlock x:Name="tB_TimeToCook" HorizontalAlignment="Left" Height="42" Margin="336,51,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=TimeToCookTextBlock}" VerticalAlignment="Top" Width="148" FontFamily="Roboto Black" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_TimeToCookAmount" HorizontalAlignment="Left" Height="30" Margin="489,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="125" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <Button x:Name="Btn_RecipeWillBeCooked" Content="{DynamicResource ResourceKey=CookItButton}" HorizontalAlignment="Left" Height="41" Margin="322,476,0,0" VerticalAlignment="Top" Width="148" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontFamily="Roboto Black" FontSize="22" Click="Btn_RecipeWillBeCooked_Click"/>
+                <Button x:Name="BTN_AddToSavedRecipes" Content="{DynamicResource ResourceKey=SaveRecipeButton}" HorizontalAlignment="Left" Height="41" Margin="480,476,0,0" VerticalAlignment="Top" Width="144" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontFamily="Roboto Black" FontSize="24" Click="BTN_AddToSavedRecipes_Click"/>
             </Grid>
             <Grid x:Name="p_UserFoods" Grid.ColumnSpan="5" HorizontalAlignment="Left" Height="537" Grid.RowSpan="5" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Margin="0,-1,0,0" Visibility="Hidden">
                 <TextBlock x:Name="SummaryTB" HorizontalAlignment="Left" Height="30" Margin="47,62,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=SummaryTB}" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
