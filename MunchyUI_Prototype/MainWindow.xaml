@@ -144,8 +144,7 @@
                 <Button x:Name="Btn_RecipeWillBeCooked" Content="{DynamicResource ResourceKey=CookItButton}" HorizontalAlignment="Left" Height="41" Margin="311,433,0,0" VerticalAlignment="Top" Width="148" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="22" Click="Btn_RecipeWillBeCooked_Click"/>
                 <Button x:Name="BTN_AddToSavedRecipes" Content="{DynamicResource ResourceKey=SaveRecipeButton}" HorizontalAlignment="Left" Height="41" Margin="469,433,0,0" VerticalAlignment="Top" Width="144" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="BTN_AddToSavedRecipes_Click"/>
             </Grid>
-            <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Visible">
-                <ListBox x:Name="lb_FoodList" HorizontalAlignment="Left" Height="360" Margin="293,62,0,0" VerticalAlignment="Top" Width="323" Background="#FFC1CAD6" FontFamily="Roboto Medium" FontSize="18" SelectionChanged="ShowFoodInfo"/>
+            <Grid x:Name="p_UserFoods" Grid.ColumnSpan="4" HorizontalAlignment="Left" Height="515" Margin="10,11,0,0" Grid.RowSpan="5" VerticalAlignment="Top" Width="904" Background="#F2223843" Visibility="Hidden">
                 <TextBlock x:Name="SummaryTB" HorizontalAlignment="Left" Height="30" Margin="47,62,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=SummaryTB}" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <TextBlock HorizontalAlignment="Left" Height="30" Margin="683,62,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=FoodInfoTB}" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                 <TextBlock HorizontalAlignment="Left" Height="30" Margin="-1,97,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=CaloriesTB}" VerticalAlignment="Top" Width="142" FontFamily="Roboto Light" FontSize="22" Foreground="#FFFCFFFC" TextAlignment="Center"/>
@@ -189,14 +188,22 @@
                 </Rectangle>
                 <Button x:Name="btn_RemoveItem" Content="{DynamicResource ResourceKey=RemoveButton}" HorizontalAlignment="Left" Height="46" Margin="459,443,0,0" VerticalAlignment="Top" Width="157" Background="#FFFE5F55" FontFamily="Roboto Black" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="24" Click="btn_RemoveItem_Click"/>
                 <TextBlock x:Name ="FoodsTitle" HorizontalAlignment="Left" Height="46" Margin="324,11,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=FoodsTB}" VerticalAlignment="Top" Width="249" FontFamily="Shrikhand" TextAlignment="Center" FontSize="36" Foreground="#FFFCFFFC"/>
-                <Grid x:Name="p_AddFoodItemPanel" HorizontalAlignment="Left" Height="455" Margin="21,34,0,0" VerticalAlignment="Top" Width="249" Background="#FFFCFFFC" Visibility="Visible">
+                <Grid x:Name="p_AddFoodItemPanel" HorizontalAlignment="Left" Height="455" Margin="21,34,0,0" VerticalAlignment="Top" Width="249" Background="#FFFCFFFC" Visibility="Hidden">
                     <TextBox x:Name="tb_Search" Height="33" TextWrapping="Wrap" VerticalAlignment="Top" Margin="4,5,5,0" TextAlignment="Center" FontFamily="Roboto Black" FontSize="16" Foreground="#FF223843" BorderBrush="{x:Null}" Background="#FFC1CAD6" TextChanged="OnTextChanged" Text="Search" GotFocus="SearchFoodClearTextBox" LostFocus="FoodSearchLostFocus"/>
                     <ListBox x:Name="lB_SuggestedFoods" HorizontalAlignment="Left" Height="329" Margin="4,43,0,0" VerticalAlignment="Top" Width="240" SelectionChanged="AddClickedItem"/>
                     <TextBlock x:Name="l_SearchInfo" HorizontalAlignment="Left" Height="29" Margin="10,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="229" Foreground="#FF2D424D" FontFamily="Roboto Light" FontSize="14" TextAlignment="Center"><Run Text="Type to search for foods to add"/><LineBreak/><Run Text="."/></TextBlock>
                     <Button x:Name="btn_Close" Content="{DynamicResource ResourceKey=CloseAddFoodButton}" Margin="64,414,71,8" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="16" Click="btn_CloseClick"/>
                 </Grid>
                 <Button Content="{DynamicResource ResourceKey=SearchButton}" HorizontalAlignment="Left" Height="46" Margin="303,443,0,0" VerticalAlignment="Top" Width="151" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="24" Click="OpenFoodSearch"/>
-                <Grid x:Name="P_AddFoodAmount" HorizontalAlignment="Left" Height="455" Margin="270,34,0,0" VerticalAlignment="Top" Width="276" Background="White">
+                <ListView x:Name="lb_FoodList" HorizontalAlignment="Left" Height="373" Margin="308,66,0,0" VerticalAlignment="Top" Width="304">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="{DynamicResource ResourceKey=IngredientListIngredients}" Width="150"  DisplayMemberBinding="{Binding USName}"/>
+                            <GridViewColumn Header="{DynamicResource ResourceKey=IngredientListAmounts}" Width="150" DisplayMemberBinding="{Binding Amount}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Grid x:Name="P_AddFoodAmount" HorizontalAlignment="Left" Height="455" Margin="270,34,0,0" VerticalAlignment="Top" Width="276" Background="White" Visibility="Hidden">
                     <TextBlock x:Name="TB_AddedFoodNameItem" HorizontalAlignment="Left" Height="42" Margin="29,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" FontFamily="Roboto Medium" FontSize="20" TextAlignment="Center"/>
                     <Button Content="Add Food" HorizontalAlignment="Left" Height="32" Margin="79,413,0,0" VerticalAlignment="Top" Width="112" Click="AddFoodItemClick"/>
                     <TextBox x:Name="Tb_CustomAmount" HorizontalAlignment="Left" Height="28" Margin="45,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" FontSize="14" TextAlignment="Center"/>

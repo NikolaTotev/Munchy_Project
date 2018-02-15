@@ -131,10 +131,9 @@ namespace MunchyUI_Prototype
         {
             if (CurrentManager.User.UserFridge.USUsersFoods != null && CurrentManager.User.UserFridge.USUsersFoods.Count > 0)
             {
+                RefreshFridge();
                 foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
                 {
-                    lb_FoodList.Items.Add(element.Key);
-
                     if (lb_Fridge.Items.Count < 10)
                         lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
                 }
@@ -389,6 +388,7 @@ namespace MunchyUI_Prototype
                 p_UserFoods.Visibility = Visibility.Hidden;
             }
 
+            RefreshFridge();
         }
 
         // Function that handles opening and closing the search/add panel.
@@ -532,17 +532,28 @@ namespace MunchyUI_Prototype
             }
         }
 
+        private void RefreshFridge()
+        {
+            lb_FoodList.Items.Clear();
+
+            foreach (KeyValuePair<string, FoodDef> ItemToAdd in CurrentManager.UsersFridge.USUsersFoods)
+            {
+                if (!lb_FoodList.Items.Contains(ItemToAdd.Value.USName) || !lb_FoodList.Items.Contains(ItemToAdd.Value.BGName))
+                {
+                    if (enUS == true)
+                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.USName.First().ToString().ToUpper() + ItemToAdd.Value.USName.Substring(1), Amount = ItemToAdd.Value.Amount });
+
+                    if (bgBG == true)
+                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.BGName.First().ToString().ToUpper() + ItemToAdd.Value.BGName.Substring(1), Amount = ItemToAdd.Value.Amount });
+                }
+            }
+        }
+
         private void TranslateFridge()
         {
             lb_FoodList.Items.Clear();
-            foreach (KeyValuePair<string, FoodDef> item in CurrentManager.UsersFridge.USUsersFoods)
-            {
-                if (enUS == true)
-                    lb_FoodList.Items.Add(item.Value.USName);
 
-                if(bgBG == true)
-                    lb_FoodList.Items.Add(item.Value.BGName);
-            }
+            RefreshFridge();
         }
 
         private void AddFoodItem()
@@ -557,19 +568,25 @@ namespace MunchyUI_Prototype
 
             }
 
-            if (ItemToAdd.Amount == 0)
+            if (ItemToAdd.Amount == 0 && string.IsNullOrWhiteSpace(Tb_CustomAmount.Text))
             {
-                L_FoodAmountWarning.Text = "Please Select an amount to add!";
+                ItemToAdd.Amount = float.Parse(Tb_CustomAmount.Text);
             }
+            else
+            {
+                L_FoodAmountWarning.Text = "Please add a food amount!";
+            }
+
+
             if (!CurrentManager.User.UserFridge.USUsersFoods.ContainsKey(ItemToAdd.USName))
             {
                 CurrentManager.User.UserFridge.AddToFridge(ItemToAdd);
 
                 if (enUS == true)
-                    lb_FoodList.Items.Add((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].USName));
+                    lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.USName, Amount = ItemToAdd.Amount });
 
                 if (bgBG == true)
-                    lb_FoodList.Items.Add((CurrentManager.FoodManag.Foods[lB_SuggestedFoods.SelectedItem.ToString()].BGName));
+                    lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.BGName, Amount = ItemToAdd.Amount });
 
                 CurrentManager.UsersFridge.SaveFridge();
                 l_SearchInfo.Text = "Item added!";
@@ -580,6 +597,15 @@ namespace MunchyUI_Prototype
             else
             {
                 l_SearchInfo.Text = "Don't worry! You already have this.";
+            }
+
+            foreach (RadioButton element in AmountRadioButtons)
+            {
+                if (element.IsChecked == true)
+                {
+                    element.IsChecked = false;
+                }
+
             }
 
         }
@@ -609,19 +635,21 @@ namespace MunchyUI_Prototype
             }
         }
 
+        private void ExtractItemToRemoveName(string Name)
+        {
+
+        }
         private void RemoveItem()
         {
+
             if (lb_FoodList.SelectedItem != null)
             {
-                CurrentManager.User.UserFridge.RemoveFromFridge(lb_FoodList.SelectedItem.ToString());
+                FoodDef ItemToRemove = (FoodDef)lb_FoodList.SelectedItem;
+                CurrentManager.User.UserFridge.RemoveFromFridge(ItemToRemove.USName.ToLower());
                 lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
                 lb_FoodList.Items.Clear();
                 CurrentManager.User.UserFridge.SaveFridge();
-
-                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
-                {
-                    lb_FoodList.Items.Add(element.Key);
-                }
+                RefreshFridge();
                 PopulateFridgeSummary();
             }
         }
