@@ -314,7 +314,7 @@ namespace MunchyUI_Prototype
             CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
-
+            CurrentManager.UsersFridge.ModifyFoodItemAmount(SuggestedRecipe.USIngredients, SuggestedRecipe.Amounts);
         }
 
         private void AddToSavedReicpe()
@@ -568,7 +568,7 @@ namespace MunchyUI_Prototype
 
             }
 
-            if (ItemToAdd.Amount == 0 && string.IsNullOrWhiteSpace(Tb_CustomAmount.Text))
+            if (ItemToAdd.Amount == 0 && !string.IsNullOrWhiteSpace(Tb_CustomAmount.Text))
             {
                 ItemToAdd.Amount = float.Parse(Tb_CustomAmount.Text);
             }

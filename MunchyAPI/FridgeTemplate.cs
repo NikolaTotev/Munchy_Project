@@ -11,7 +11,7 @@ namespace Nikola.Munchy.MunchyAPI
     public class FridgeTemplate
     {
 
-        
+
         public Dictionary<string, FoodDef> BGUserFoods { get; set; }
 
         public Dictionary<string, FoodDef> USUsersFoods { get; set; }
@@ -23,7 +23,7 @@ namespace Nikola.Munchy.MunchyAPI
         {
             SavedFilePath = FilePathToUse;
             DefaultPath = DefaultFile;
-            USUsersFoods = UsersFridge();          
+            USUsersFoods = UsersFridge();
             SaveFridge();
 
             BGUserFoods = new Dictionary<string, FoodDef>();
@@ -97,14 +97,18 @@ namespace Nikola.Munchy.MunchyAPI
         /// </summary>
         /// <param name="FoodItemToChange"></param>
         /// <param name="AmountToChange"></param>
-        public void ModifyFoodItemAmount(string FoodItemToChange, float AmountToChange)
+        public void ModifyFoodItemAmount(List<string> FoodItemsToChange, List<float> AmountsToChange)
         {
-            if (AmountToChange != 0)
-                USUsersFoods[FoodItemToChange].Amount = AmountToChange;
-
-            if (AmountToChange == 0)
-                USUsersFoods.Remove(FoodItemToChange);
-
+            for (int i = 0; i < FoodItemsToChange.Count; i++)
+            {
+                foreach (KeyValuePair<string, FoodDef> element in USUsersFoods)
+                {
+                    if (element.Value.USName.ToLower() == FoodItemsToChange[i].ToLower() && element.Value.Amount - AmountsToChange[i] >= 0)
+                    {
+                        element.Value.Amount -= AmountsToChange[i];
+                    }
+                }
+            }
             SaveFridge();
         }
 
