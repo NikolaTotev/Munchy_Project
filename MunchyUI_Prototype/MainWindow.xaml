@@ -154,7 +154,7 @@
 
             <Rectangle x:Name="Rect_UNameBackground" Fill="#FFF24333" Margin="85,-1,0,26" Grid.Column="3" OpacityMask="#FFF24333"/>
 
-            <Ellipse x:Name="Img_SuggestedRecipeImage" Height="298" Margin="50,5,58,5" Width="310" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">
+            <Ellipse x:Name="Img_SuggestedRecipeImage" Height="298" Margin="50,6,58,4" Width="310" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="Images/chickenDinner.jpg"/>
                 </Ellipse.Fill>
