@@ -382,35 +382,8 @@ namespace MunchyUI_Prototype
         }
         #endregion
 
-        #region UI Show/Hide functions
-        private void ShowOrCloseFridge()
-        {
-            if (p_UserFoods.Visibility == Visibility.Hidden)
-            {
-                p_UserFoods.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                p_UserFoods.Visibility = Visibility.Hidden;
-            }
-
-            RefreshFridge();
-        }
-
-        // Function that handles opening and closing the search/add panel.
-        private void OpenCloseFoodSearch()
-        {
-            if (p_AddFoodItemPanel.Visibility == Visibility.Hidden)
-                p_AddFoodItemPanel.Visibility = Visibility.Visible;
-            else
-                p_AddFoodItemPanel.Visibility = Visibility.Hidden;
-
-            if (P_AddFoodAmount.Visibility == Visibility.Hidden)
-                P_AddFoodAmount.Visibility = Visibility.Visible;
-            else
-                P_AddFoodAmount.Visibility = Visibility.Hidden;
-        }
-
+        #region UI Show/Hide functions      
+      
         private void ShowCookedRecipes()
         {
             tB_SavedRecipesPanelTitle.Text = "Cooked Recipes";
@@ -524,9 +497,9 @@ namespace MunchyUI_Prototype
 
                     foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
                     {
-                        if (enUS == true)
+                       if (enUS == true)
                         {
-                            if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key))
+                            if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
                             {
                                 lB_SuggestedFoods.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
                                 ItemsInFoodSearch.Add(element.Value.USName);
@@ -535,7 +508,7 @@ namespace MunchyUI_Prototype
 
                         if (bgBG == true)
                         {
-                            if (element.Value.BGName.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Value.BGName))
+                            if (element.Value.BGName.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString()))
                             {
                                 lB_SuggestedFoods.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString());
                                 ItemsInFoodSearch.Add(element.Value.USName);
@@ -638,13 +611,7 @@ namespace MunchyUI_Prototype
         private void ConfigureClickedItem()
         {
             if (lB_SuggestedFoods.SelectedItem != null)
-            {
-
-                if (P_AddFoodAmount.Visibility == Visibility.Hidden)
-                {
-                    P_AddFoodAmount.Visibility = Visibility.Visible;
-                }
-
+            {               
                 TB_AddedFoodNameItem.Text = lB_SuggestedFoods.SelectedItem.ToString().First().ToString().ToUpper() + lB_SuggestedFoods.SelectedItem.ToString().Substring(1);
 
                 foreach (RadioButton checkBox in AmountRadioButtons)
@@ -853,7 +820,7 @@ namespace MunchyUI_Prototype
         /// <param name="e"></param>
         private void btn_Showfridge_Click(object sender, RoutedEventArgs e)
         {
-            ShowOrCloseFridge();
+            RefreshFridge();
         }
 
 
@@ -874,7 +841,6 @@ namespace MunchyUI_Prototype
         /// <param name="e"></param>
         private void OpenFoodSearch(object sender, RoutedEventArgs e)
         {
-            OpenCloseFoodSearch();
 
         }
 
@@ -885,7 +851,6 @@ namespace MunchyUI_Prototype
         /// <param name="e"></param>
         private void btn_CloseClick(object sender, RoutedEventArgs e)
         {
-            OpenCloseFoodSearch();
         }
         #endregion
 
