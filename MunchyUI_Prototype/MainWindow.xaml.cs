@@ -65,7 +65,7 @@ namespace MunchyUI_Prototype
         int[] SummaryValues;
 
         RecipeDef SuggestedRecipe = new RecipeDef();
-        ProgramManager CurrentManager;
+        ProgramManager CurrentManager;        
 
         // RecipeImage handles the recipe image on the full recipe view aswell as the recipe view on the main menu.
         ImageBrush RecipeImage = new ImageBrush();
@@ -247,7 +247,7 @@ namespace MunchyUI_Prototype
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
                 }
             }
 
@@ -263,7 +263,7 @@ namespace MunchyUI_Prototype
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
                 }
             }
 
@@ -279,7 +279,7 @@ namespace MunchyUI_Prototype
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = "Sorry we ran out of suitable recipes for you. Try a manual search.";
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
                 }
             }
 
@@ -287,7 +287,7 @@ namespace MunchyUI_Prototype
             {
                 tB_RecipeName.Text = null;
                 tB_RecipeName.FontSize = 18;
-                tB_RecipeName.Text = "It's too late for you to eat! Wait till the morning.";
+                tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(enUS, bgBG);
             }
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
 
@@ -473,7 +473,7 @@ namespace MunchyUI_Prototype
                 //Makes sure that text is not the keyword "Search"
                 if (tb_Search.Text != "Search")
                 {
-                    l_SearchInfo.Text = "Click on an item to add it";
+                    l_SearchInfo.Text = TranslatorCore.GetClickToAddFoodMessage(enUS, bgBG);
                     string searchedWord = tb_Search.Text;
                     string ToLower = searchedWord.ToLower();
 
@@ -504,7 +504,7 @@ namespace MunchyUI_Prototype
             {
                 lB_SuggestedFoods.Items.Clear();
                 ItemsInFoodSearch.Clear();
-                l_SearchInfo.Text = "Type to search for an item";
+                l_SearchInfo.Text = TranslatorCore.GetTypeForFoodPrompt(enUS, bgBG);
             }
         }
 
@@ -550,12 +550,12 @@ namespace MunchyUI_Prototype
             if (ItemToAdd.Amount == 0 && !string.IsNullOrWhiteSpace(Tb_CustomAmount.Text))
             {
                 ItemToAdd.Amount = float.Parse(Tb_CustomAmount.Text);
+                L_FoodAmountWarning.Text = null; 
             }
             else
             {
-                L_FoodAmountWarning.Text = "Please add a food amount!";
+                L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(enUS, bgBG);
             }
-
 
             if (!CurrentManager.User.UserFridge.USUsersFoods.ContainsKey(ItemToAdd.USName))
             {
@@ -584,9 +584,7 @@ namespace MunchyUI_Prototype
                 {
                     element.IsChecked = false;
                 }
-
             }
-
         }
 
         // Opens food item configuration panel and loads suggested amounts to add to the fridge.
