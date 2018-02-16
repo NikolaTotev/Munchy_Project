@@ -65,6 +65,11 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\ic_close_white_512dp_2x.png" />
+    <Resource Include="Images\bgBGBtnImg.jpg" />
+    <Resource Include="Images\enUSBtnImg.jpg" />
+    <Resource Include="Images\ic_settings_white_48dp_2x.png" />
+    <Resource Include="Images\ic_settings_black_48dp_2x.png" />
     <Resource Include="Images\ic_close_black_512dp_2x.png" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

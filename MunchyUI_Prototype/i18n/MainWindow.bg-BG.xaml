@@ -9,7 +9,8 @@
     <sys:String x:Key="FavouriteRecipesTextBlock">Любими Рецепти</sys:String>
     <sys:String x:Key="FridgeTextBlock">Хладилник</sys:String>
     <sys:String x:Key="CaloriesTextBlock">Калории</sys:String>
-    <sys:String x:Key="SuggestRecipeButton">Предложи Рецепта</sys:String>
+    <sys:String x:Key="SuggestRecipeButton">Намери Рецепта</sys:String>
+    <sys:String x:Key="DiscoverRecipesButton">Открии</sys:String>
     <sys:String x:Key="SeeAllFavouriteRecipesButton">Виж всички</sys:String>
     <sys:String x:Key="ShowRecipeButton">Покажи Рецепта</sys:String>
     <sys:String x:Key="ShowFridgeButton">Отвори Хладилник</sys:String>

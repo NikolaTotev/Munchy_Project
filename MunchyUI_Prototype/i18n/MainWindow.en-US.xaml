@@ -9,7 +9,8 @@
     <sys:String x:Key="FavouriteRecipesTextBlock">Favourite Recipes</sys:String>
     <sys:String x:Key="FridgeTextBlock">Fridge</sys:String>
     <sys:String x:Key="CaloriesTextBlock">Calories</sys:String>
-    <sys:String x:Key="SuggestRecipeButton">Suggest Recipe</sys:String>
+    <sys:String x:Key="SuggestRecipeButton">Find Recipe</sys:String>
+    <sys:String x:Key="DiscoverRecipesButton">Discover</sys:String>
     <sys:String x:Key="SeeAllFavouriteRecipesButton">See All</sys:String>
     <sys:String x:Key="ShowRecipeButton">Show Recipe</sys:String>
     <sys:String x:Key="ShowFridgeButton">Show Fridge</sys:String>

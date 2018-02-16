@@ -762,11 +762,11 @@ namespace MunchyUI_Prototype
                 tb_WeightInput.Text = null;
             }
 
-            if (p_Settings.Visibility == Visibility.Hidden)
-                p_Settings.Visibility = Visibility.Visible;
+            //if (p_Settings.Visibility == Visibility.Hidden)
+            //    p_Settings.Visibility = Visibility.Visible;
 
-            else
-                p_Settings.Visibility = Visibility.Hidden;
+            //else
+            //    p_Settings.Visibility = Visibility.Hidden;
 
         }
 
@@ -1247,6 +1247,11 @@ namespace MunchyUI_Prototype
         private void AddFoodItemClick(object sender, RoutedEventArgs e)
         {
             AddFoodItem();
+        }
+
+        private void Btn_DiscoverClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
