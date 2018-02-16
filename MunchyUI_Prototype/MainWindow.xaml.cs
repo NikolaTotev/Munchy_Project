@@ -127,7 +127,7 @@ namespace MunchyUI_Prototype
             L_DailyCalories.Text = DailyCalories.ToString();
             Localizer.SetDefaultLanguage(this);
 
-           
+
 
         }
 
@@ -138,7 +138,7 @@ namespace MunchyUI_Prototype
             {
                 RefreshFridge();
                 foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
-                {                   
+                {
                     if (lb_Fridge.Items.Count < 10)
                         lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
                 }
@@ -153,23 +153,14 @@ namespace MunchyUI_Prototype
         // Opens or closes the full recipe view.
         private void ShowOrCloseFullRecipeView()
         {
-
-            if (p_FullRecipeView.Visibility == Visibility.Hidden)
+            if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
             {
-                if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
-                {
-                    RecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
-                    img_RecipeImage.Fill = RecipeImage;
-                }
-                else
-                {
-                    img_RecipeImage.Fill = null;
-                }
-                p_FullRecipeView.Visibility = Visibility.Visible;
+                RecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
+                img_RecipeImage.Fill = RecipeImage;
             }
             else
             {
-                p_FullRecipeView.Visibility = Visibility.Hidden;
+                img_RecipeImage.Fill = null;
             }
         }
 
@@ -383,7 +374,7 @@ namespace MunchyUI_Prototype
         #endregion
 
         #region UI Show/Hide functions      
-      
+
         private void ShowCookedRecipes()
         {
             tB_SavedRecipesPanelTitle.Text = "Cooked Recipes";
@@ -450,15 +441,6 @@ namespace MunchyUI_Prototype
 
         private void ShowSavedRecipePanel()
         {
-            if (p_SavedRecipes.Visibility == Visibility.Hidden)
-            {
-                p_SavedRecipes.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                p_SavedRecipes.Visibility = Visibility.Hidden;
-            }
-
             ShowAllSavedRecipes();
             CurrentManager.StatManager.CalculateAverageSums();
             tB_TotalCalories.Text = CurrentManager.StatManager.TotalCaloriesConsumed.ToString();
@@ -497,7 +479,7 @@ namespace MunchyUI_Prototype
 
                     foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
                     {
-                       if (enUS == true)
+                        if (enUS == true)
                         {
                             if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
                             {
@@ -611,7 +593,7 @@ namespace MunchyUI_Prototype
         private void ConfigureClickedItem()
         {
             if (lB_SuggestedFoods.SelectedItem != null)
-            {               
+            {
                 TB_AddedFoodNameItem.Text = lB_SuggestedFoods.SelectedItem.ToString().First().ToString().ToUpper() + lB_SuggestedFoods.SelectedItem.ToString().Substring(1);
 
                 foreach (RadioButton checkBox in AmountRadioButtons)

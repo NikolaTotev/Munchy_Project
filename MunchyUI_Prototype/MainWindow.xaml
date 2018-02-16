@@ -323,11 +323,96 @@
                     <EasingDoubleKeyFrame KeyTime="0:0:2.6" Value="1.002"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
+            <Storyboard x:Key="ShowFullRecipeView">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="p_FullRecipeView">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="p_FullRecipeView">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-546"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="CloseFullRecipeView">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="p_FullRecipeView">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="-546.333"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="8.667"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="p_FullRecipeView">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="ShowSavedRecipePanel">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="p_SavedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="p_SavedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="935.998"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Btn_CookedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="268.5"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Btn_RecentlyViewed">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="268.5"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Btn_SavedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="265.5"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_CookedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_RecentlyViewed">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_SavedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="CloseSavedRecipePanel">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="p_SavedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="936"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-7.5"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Btn_CookedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="273"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Btn_RecentlyViewed">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="273"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Btn_SavedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="273"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_CookedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_RecentlyViewed">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_SavedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="p_SavedRecipes">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
         </ResourceDictionary>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="btn_CloseSettings">
-            <BeginStoryboard Storyboard="{StaticResource SettingsCloseOpacityUP}"/>
+            <BeginStoryboard x:Name="SettingsCloseOpacityUP_BeginStoryboard" Storyboard="{StaticResource SettingsCloseOpacityUP}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="btn_CloseSettings">
             <BeginStoryboard Storyboard="{StaticResource SettingsCloseOpacityDOWN}"/>
@@ -361,6 +446,22 @@
         </EventTrigger>
         <EventTrigger RoutedEvent="FrameworkElement.Loaded" SourceName="Btn_SearchFoods">
             <BeginStoryboard Storyboard="{StaticResource OpenFoodAmountPanel}"/>
+            <BeginStoryboard x:Name="ShowFullRecipeView_BeginStoryboard" Storyboard="{StaticResource ShowFullRecipeView}"/>
+            <BeginStoryboard x:Name="CloseFullRecipeView_BeginStoryboard" Storyboard="{StaticResource CloseFullRecipeView}"/>
+            <BeginStoryboard x:Name="ShowSavedRecipePanel_BeginStoryboard" Storyboard="{StaticResource ShowSavedRecipePanel}"/>
+            <BeginStoryboard x:Name="CloseSavedRecipePanel_BeginStoryboard" Storyboard="{StaticResource CloseSavedRecipePanel}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btn_ShowRecipe">
+            <BeginStoryboard x:Name="ShowFullRecipeView_BeginStoryboard1" Storyboard="{StaticResource ShowFullRecipeView}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="btn_CloseRecipeView">
+            <BeginStoryboard x:Name="SettingsCloseOpacityUP_BeginStoryboard1" Storyboard="{StaticResource CloseFullRecipeView}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseDown" SourceName="Btn_CloseSavedRecipePanel">
+            <BeginStoryboard x:Name="ShowSavedRecipePanel_BeginStoryboard1" Storyboard="{StaticResource CloseSavedRecipePanel}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btn_SeeAllSavedRecipes">
+            <BeginStoryboard x:Name="ShowSavedRecipePanel_BeginStoryboard2" Storyboard="{StaticResource ShowSavedRecipePanel}"/>
         </EventTrigger>
     </Window.Triggers>
     <Viewbox>
@@ -495,7 +596,15 @@
                 <RadioButton x:Name="rb_Other" Content="{DynamicResource ResourceKey=OtherCB}" HorizontalAlignment="Left" Height="23" Margin="523,207,0,0" VerticalAlignment="Top" Width="109" FontFamily="Roboto Light" FontSize="22" Background="White" Foreground="#FF5E6973"/>
 
             </Grid>
-            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="6" HorizontalAlignment="Left" Height="537" Margin="0,77,0,-546" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Grid.Row="4">
+            <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="6" HorizontalAlignment="Left" Height="537" Margin="0,77,0,-546" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Grid.Row="4" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
                 <TextBlock x:Name="tB_RecipeTitle" Height="58" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="292,10,262,0" FontFamily="Shrikhand" FontSize="36" TextAlignment="Center" Foreground="#FF5E6973"/>
                 <Ellipse x:Name="img_RecipeImage" HorizontalAlignment="Left" Height="65" Margin="254,10,0,0" Stroke="#FF5E6973" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.5,0.5"/>
                 <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="97,103,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=IngredientsTextBlock}" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center" RenderTransformOrigin="0.058,0.561"/>
@@ -626,18 +735,53 @@
                     <Button x:Name="btn_Close" Content="{DynamicResource ResourceKey=CloseAddFoodButton}" Margin="84,414,85,10" Background="#FFF8F5F4" BorderBrush="{x:Null}" Foreground="#FFF24333" FontFamily="Roboto Black" FontSize="16" Click="btn_CloseClick"/>
                 </Grid>
             </Grid>
-            <Grid x:Name="p_SavedRecipes" Grid.ColumnSpan="6" HorizontalAlignment="Left" Height="537" Grid.RowSpan="5" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Margin="0,-1,0,0" Visibility="Hidden">
+            <Grid x:Name="p_SavedRecipes" HorizontalAlignment="Left" Height="537" Grid.RowSpan="5" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Margin="-936,-1,0,0" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
                 <TextBlock x:Name="tB_SavedRecipesPanelTitle" Height="60" TextWrapping="Wrap" Text="Saved Recipes" VerticalAlignment="Top" Margin="306,10,311,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <Button x:Name="Btn_CookedRecipes" Content="{DynamicResource ResourceKey=CookedRecipeBTN}" HorizontalAlignment="Left" Height="53" Margin="62,150,0,0" VerticalAlignment="Top" Width="181" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedRecipes_Click"/>
-                <Button x:Name="Btn_RecentlyViewed" Content="{DynamicResource ResourceKey=RecentlyViewedBTN}" HorizontalAlignment="Left" Height="53" Margin="62,259,0,0" VerticalAlignment="Top" Width="181" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_RecentlyViewed_Click"/>
+                <Button x:Name="Btn_CookedRecipes" Content="{DynamicResource ResourceKey=CookedRecipeBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,150,0,0" VerticalAlignment="Top" Width="181" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedRecipes_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button x:Name="Btn_RecentlyViewed" Content="{DynamicResource ResourceKey=RecentlyViewedBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,257,0,0" VerticalAlignment="Top" Width="181" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_RecentlyViewed_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
                 <Button x:Name="Btn_CookedToday" Content="Cooked Today" HorizontalAlignment="Left" Height="53" Margin="62,294,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedToday_Click" Visibility="Hidden"/>
-                <Grid x:Name="P_SavedRecipesSearch" HorizontalAlignment="Left" Height="433" Margin="306,57,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden" >
+                <Grid x:Name="P_SavedRecipesSearch" HorizontalAlignment="Left" Height="433" Margin="297,65,0,0" VerticalAlignment="Top" Width="307" >
                     <ListBox x:Name="lb_SavedRecipesList" HorizontalAlignment="Left" Height="364" VerticalAlignment="Top" Width="285" Margin="11,59,0,0" FontSize="20" Foreground="#FF5E6973" BorderBrush="#FF5E6973" FontFamily="Roboto Black"/>
-                    <TextBox x:Name="tb_SearchSavedRecipes" HorizontalAlignment="Left" Height="32" Margin="11,10,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="285" TextAlignment="Center" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" SelectionBrush="#B2FE5F55" LostFocus="SavedRecipeSearchLostFocus" GotFocus="SearchSavedRecipesFocused" TextChanged="SearchSavedRecipesTextChanged" BorderBrush="#FF5E6973"/>
+                    <TextBox x:Name="tb_SearchSavedRecipes" HorizontalAlignment="Left" Height="32" Margin="11,19,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="285" TextAlignment="Center" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" SelectionBrush="#B2FE5F55" LostFocus="SavedRecipeSearchLostFocus" GotFocus="SearchSavedRecipesFocused" TextChanged="SearchSavedRecipesTextChanged" BorderBrush="#FF5E6973"/>
 
                 </Grid>
-                <Button x:Name="Btn_SavedRecipes" Content="{DynamicResource ResourceKey=SavedBTN}" HorizontalAlignment="Left" Height="53" Margin="62,360,0,0" VerticalAlignment="Top" Width="181" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_SavedRecipes_Click"/>
-                <Grid x:Name="P_RecenltlyViewedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden">
+                <Button x:Name="Btn_SavedRecipes" Content="{DynamicResource ResourceKey=SavedBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,360,0,0" VerticalAlignment="Top" Width="181" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_SavedRecipes_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Grid x:Name="P_RecenltlyViewedRecipes" HorizontalAlignment="Left" Height="420" Margin="297,85,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden">
                     <Ellipse x:Name="Img_RecentlyViewed_1" Height="118" VerticalAlignment="Top" Margin="10,7,179,0" Stroke="#FF5E6973"/>
                     <Ellipse x:Name="Img_RecentlyViewed_2" Height="118" VerticalAlignment="Top" Margin="180,10,10,0" Stroke="#FF5E6973"/>
                     <Ellipse x:Name="Img_RecentlyViewed_4" Height="118" VerticalAlignment="Top" Margin="180,152,10,0" Stroke="#FF5E6973"/>
@@ -650,11 +794,11 @@
                     <TextBlock x:Name="tB_CookedTodayRecipeName" Height="60" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="0,235,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                     <Button Content="Revisit recipe" HorizontalAlignment="Left" Height="50" Margin="57,314,0,0" VerticalAlignment="Top" Width="191" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="White" FontFamily="Roboto Black" FontSize="24"/>
                 </Grid>
-                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="306,70,0,0" VerticalAlignment="Top" Width="307">
-                    <TextBox x:Name="tb_SearchCookedRecipes" Height="30" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,10,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="#FF5E6973" Foreground="#FF5E6973" TextAlignment="Center" FontSize="22" TextChanged="CookedRecipesTextChanged" GotFocus="SearchCookedRecipesFocused" LostFocus="SearchCookedRecipesLostFocus"/>
-                    <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="365" Margin="10,45,0,0" VerticalAlignment="Top" Width="287" FontSize="20" FontFamily="Roboto Black" BorderBrush="#FF5E6973" Foreground="#FF5E6973"/>
+                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="298,74,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden">
+                    <TextBox x:Name="tb_SearchCookedRecipes" Height="32" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,12,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="#FF5E6973" Foreground="#FF5E6973" TextAlignment="Center" FontSize="22" TextChanged="CookedRecipesTextChanged" GotFocus="SearchCookedRecipesFocused" LostFocus="SearchCookedRecipesLostFocus" Width="285"/>
+                    <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="364" Margin="10,50,0,0" VerticalAlignment="Top" Width="285" FontSize="20" FontFamily="Roboto Black" BorderBrush="#FF5E6973" Foreground="#FF5E6973"/>
                 </Grid>
-                <Rectangle HorizontalAlignment="Left" Height="45" Margin="865,10,0,0" VerticalAlignment="Top" Width="49" MouseUp="CloseSavedRecipesPanel">
+                <Rectangle x:Name="Btn_CloseSavedRecipePanel" HorizontalAlignment="Left" Height="45" Margin="865,10,0,0" VerticalAlignment="Top" Width="49" MouseUp="CloseSavedRecipesPanel">
                     <Rectangle.Fill>
                         <ImageBrush ImageSource="Images/ic_close_black_512dp_2x.png"/>
                     </Rectangle.Fill>
