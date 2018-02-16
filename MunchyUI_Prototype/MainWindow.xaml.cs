@@ -496,7 +496,6 @@ namespace MunchyUI_Prototype
                                 ItemsInFoodSearch.Add(element.Value.USName);
                             }
                         }
-
                     }
                 }
             }
@@ -535,7 +534,6 @@ namespace MunchyUI_Prototype
 
         private void AddFoodItem()
         {
-
             FoodDef ItemToAdd = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
 
             foreach (RadioButton element in AmountRadioButtons)
@@ -544,15 +542,16 @@ namespace MunchyUI_Prototype
                 {
                     ItemToAdd.Amount = (float)(element.Content);
                 }
-
             }
 
+            // Add check if tb input number.
             if (ItemToAdd.Amount == 0 && !string.IsNullOrWhiteSpace(Tb_CustomAmount.Text))
             {
                 ItemToAdd.Amount = float.Parse(Tb_CustomAmount.Text);
                 L_FoodAmountWarning.Text = null; 
             }
-            else
+           
+            if(ItemToAdd.Amount == 0)
             {
                 L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(enUS, bgBG);
             }
@@ -568,14 +567,14 @@ namespace MunchyUI_Prototype
                     lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.BGName, Amount = ItemToAdd.Amount });
 
                 CurrentManager.UsersFridge.SaveFridge();
-                l_SearchInfo.Text = "Item added!";
+                l_SearchInfo.Text = TranslatorCore.ItemAddedMessage(enUS, bgBG);
 
 
                 PopulateFridgeSummary();
             }
             else
             {
-                l_SearchInfo.Text = "Don't worry! You already have this.";
+                l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(enUS, bgBG);
             }
 
             foreach (RadioButton element in AmountRadioButtons)

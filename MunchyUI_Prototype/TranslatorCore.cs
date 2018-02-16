@@ -72,5 +72,31 @@ namespace MunchyUI_Prototype
 
             return MessageToReturn;
         }
+
+        public static string ItemAddedMessage (bool enUS, bool bgBG)
+        {
+            string MessageToReturn = "SuggestedRecipeMSG";
+
+            if (enUS)
+                MessageToReturn = "Item added!";
+
+            if (bgBG)
+                MessageToReturn = "Продукта добавен!";
+
+            return MessageToReturn;
+        }
+
+        public static string ItemAlreadyInFridgeMessage(bool enUS, bool bgBG)
+        {
+            string MessageToReturn = "SuggestedRecipeMSG";
+
+            if (enUS)
+                MessageToReturn = "Item already in fridge.";
+
+            if (bgBG)
+                MessageToReturn = "Продукта вече е в хладилника.";
+
+            return MessageToReturn;
+        }
     }
 }
