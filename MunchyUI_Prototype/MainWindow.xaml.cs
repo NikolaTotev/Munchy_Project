@@ -938,7 +938,7 @@ namespace MunchyUI_Prototype
         /// <param name="e"></param>
         private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_Search.Text = "Search";
+            tb_Search.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
         }
 
         /// <summary>
@@ -993,12 +993,12 @@ namespace MunchyUI_Prototype
 
         private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_SearchCookedRecipes.Text = "Search";
+            tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
         }
 
         private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_SearchSavedRecipes.Text = "Search";
+            tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
         }
 
         private void SearchSavedRecipesFocused(object sender, RoutedEventArgs e)

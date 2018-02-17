@@ -98,5 +98,18 @@ namespace MunchyUI_Prototype
 
             return MessageToReturn;
         }
+
+        public static string GetTextboxDefaultText(bool enUS, bool bgBG)
+        {
+            string MessageToReturn = "SuggestedRecipeMSG";
+
+            if (enUS)
+                MessageToReturn = "Search";
+
+            if (bgBG)
+                MessageToReturn = "Търси";
+
+            return MessageToReturn;
+        }
     }
 }
