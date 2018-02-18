@@ -408,11 +408,83 @@
                     <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
+            <Storyboard x:Key="FridgeCloseOpacityUP">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="btn_CloseFoods">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="FridgeCloseOpacityDOWN">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="btn_CloseFoods">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.5"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="FullRecipeCloseOpacityUP">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="btn_CloseRecipeView">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="FullRecipeCloseOpacityDOWN">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="btn_CloseRecipeView">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.5"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="LangPanelCloseOpacityUP">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_CloseLangSettings">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="LangPanelCloseOpacityDOWN">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_CloseLangSettings">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.5"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="SaveRecipePanelCloseOpacityUP">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_CloseSavedRecipePanel">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="0.5"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Key="SaveRecipePanelCloseOpacityDOWN">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Btn_CloseSavedRecipePanel">
+                    <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0.5"/>
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
         </ResourceDictionary>
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="btn_CloseSettings">
             <BeginStoryboard x:Name="SettingsCloseOpacityUP_BeginStoryboard" Storyboard="{StaticResource SettingsCloseOpacityUP}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="btn_CloseRecipeView">
+            <BeginStoryboard x:Name="FullRecipeCloseOpacityUP_BeginStoryboard" Storyboard="{StaticResource FullRecipeCloseOpacityUP}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="btn_CloseRecipeView">
+            <BeginStoryboard x:Name="FullRecipeCloseOpacityDOWN_BeginStoryboard" Storyboard="{StaticResource FullRecipeCloseOpacityDOWN}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="Btn_CloseLangSettings">
+            <BeginStoryboard x:Name="LangPanelCloseOpacityUP_BeginStoryboard" Storyboard="{StaticResource LangPanelCloseOpacityUP}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="Btn_CloseLangSettings">
+            <BeginStoryboard x:Name="LangPanelCloseOpacityDOWN_BeginStoryboard" Storyboard="{StaticResource LangPanelCloseOpacityDOWN}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="Btn_CloseSavedRecipePanel">
+            <BeginStoryboard x:Name="LangPanelCloseOpacityUP_BeginStoryboard2" Storyboard="{StaticResource SaveRecipePanelCloseOpacityUP}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="Btn_CloseSavedRecipePanel">
+            <BeginStoryboard x:Name="SaveRecipePanelCloseOpacityDOWN_BeginStoryboard" Storyboard="{StaticResource SaveRecipePanelCloseOpacityDOWN}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="btn_CloseFoods">
+            <BeginStoryboard x:Name="FridgeCloseOpacityUP_BeginStoryboard" Storyboard="{StaticResource FridgeCloseOpacityUP}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="btn_CloseFoods">
+            <BeginStoryboard x:Name="FridgeCloseOpacityDOWN_BeginStoryboard" Storyboard="{StaticResource FridgeCloseOpacityDOWN}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="btn_CloseSettings">
             <BeginStoryboard Storyboard="{StaticResource SettingsCloseOpacityDOWN}"/>
@@ -450,6 +522,14 @@
             <BeginStoryboard x:Name="CloseFullRecipeView_BeginStoryboard" Storyboard="{StaticResource CloseFullRecipeView}"/>
             <BeginStoryboard x:Name="ShowSavedRecipePanel_BeginStoryboard" Storyboard="{StaticResource ShowSavedRecipePanel}"/>
             <BeginStoryboard x:Name="CloseSavedRecipePanel_BeginStoryboard" Storyboard="{StaticResource CloseSavedRecipePanel}"/>
+            <BeginStoryboard x:Name="FridgeCloseOpacityUP_BeginStoryboard1" Storyboard="{StaticResource FridgeCloseOpacityUP}"/>
+            <BeginStoryboard x:Name="FridgeCloseOpacityDOWN_BeginStoryboard1" Storyboard="{StaticResource FridgeCloseOpacityDOWN}"/>
+            <BeginStoryboard x:Name="FullRecipeCloseOpacityUP_BeginStoryboard1" Storyboard="{StaticResource FullRecipeCloseOpacityUP}"/>
+            <BeginStoryboard x:Name="FullRecipeCloseOpacityDOWN_BeginStoryboard1" Storyboard="{StaticResource FullRecipeCloseOpacityDOWN}"/>
+            <BeginStoryboard x:Name="LangPanelCloseOpacityUP_BeginStoryboard1" Storyboard="{StaticResource LangPanelCloseOpacityUP}"/>
+            <BeginStoryboard x:Name="LangPanelCloseOpacityDOWN_BeginStoryboard1" Storyboard="{StaticResource LangPanelCloseOpacityDOWN}"/>
+            <BeginStoryboard x:Name="SaveRecipePanelCloseOpacityUP_BeginStoryboard" Storyboard="{StaticResource SaveRecipePanelCloseOpacityUP}"/>
+            <BeginStoryboard x:Name="SaveRecipePanelCloseOpacityDOWN_BeginStoryboard1" Storyboard="{StaticResource SaveRecipePanelCloseOpacityDOWN}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btn_ShowRecipe">
             <BeginStoryboard x:Name="ShowFullRecipeView_BeginStoryboard1" Storyboard="{StaticResource ShowFullRecipeView}"/>
@@ -484,31 +564,11 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="294" Margin="15,12,0,0" Grid.Row="2" VerticalAlignment="Top" Width="246">
-                <Ellipse x:Name="Img_FrontRecentlyViewed_5" Height="78" Margin="153,173,0,19" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="Images/psta.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Ellipse x:Name="Img_FrontRecentlyViewed_4" Height="78" Margin="10,173,0,19" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="Images/compost-cookies-31-800.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Ellipse x:Name="Img_FrontRecentlyViewed_3" Height="80" Margin="84,88,0,102" Width="79" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="Images/cake.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Ellipse x:Name="Img_FrontRecentlyViewed_2" Height="76" Margin="153,12,0,182" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="Images/chickenDinner.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
-                <Ellipse x:Name="Img_FrontRecentlyViewed_1" Height="76" Margin="10,12,0,182" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <Ellipse.Fill>
-                        <ImageBrush ImageSource="Images/c700x420.jpg"/>
-                    </Ellipse.Fill>
-                </Ellipse>
+                <Ellipse x:Name="Img_FrontRecentlyViewed_5" Height="78" Margin="153,173,0,19" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="White"/>
+                <Ellipse x:Name="Img_FrontRecentlyViewed_4" Height="78" Margin="10,173,0,19" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="White"/>
+                <Ellipse x:Name="Img_FrontRecentlyViewed_3" Height="80" Margin="84,88,0,102" Width="79" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="White"/>
+                <Ellipse x:Name="Img_FrontRecentlyViewed_2" Height="76" Margin="153,12,0,182" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="White"/>
+                <Ellipse x:Name="Img_FrontRecentlyViewed_1" Height="76" Margin="10,12,0,182" Width="77" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center" Fill="White"/>
             </Grid>
 
             <Ellipse Grid.Column="3" Fill="#FFF24333" HorizontalAlignment="Left" Height="29" Margin="197,25,0,0" VerticalAlignment="Top" Width="30"/>
@@ -522,7 +582,7 @@
                 </Ellipse.Fill>
             </Ellipse>
 
-            <Button x:Name="Btn_Discover" Content="{DynamicResource ResourceKey=DiscoverRecipesButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="171" Grid.Column="3" Margin="222,10,0,0" Grid.Row="1" Height="36" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="18" FontFamily="Roboto Black" Click="Btn_DiscoverClick" Background="#FFF24333" OpacityMask="#FFF24333" Grid.ColumnSpan="2"/>
+            <Button x:Name="Btn_Discover" Content="{DynamicResource ResourceKey=DiscoverRecipesButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="171" Grid.Column="3" Margin="222,10,0,0" Grid.Row="1" Height="36" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="18" FontFamily="Roboto Black" Click="Btn_DiscoverClick" Background="#FFF24333" OpacityMask="#FFF24333" Grid.ColumnSpan="2" ToolTip="Feature coming soon!"/>
 
             <Button x:Name="Btn_ShowPreviousRecipe" Content="&lt;" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="84,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="45" Click="Btn_ShowPreviousRecipe_Click" FontSize="22" FontFamily="Roboto Black" Background="{x:Null}" BorderBrush="{x:Null}"/>
 
@@ -530,11 +590,7 @@
 
             <Rectangle x:Name="Rect_UNameBackground" Fill="#FFF24333" Margin="85,-1,0,26" Grid.Column="3" OpacityMask="#FFF24333"/>
 
-            <Ellipse x:Name="Img_SuggestedRecipeImage" Height="298" Margin="50,6,58,4" Width="310" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2">
-                <Ellipse.Fill>
-                    <ImageBrush ImageSource="Images/chickenDinner.jpg"/>
-                </Ellipse.Fill>
-            </Ellipse>
+            <Ellipse x:Name="Img_SuggestedRecipeImage" Height="298" Margin="50,6,58,4" Width="310" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" Grid.ColumnSpan="2" Fill="White"/>
             <TextBlock x:Name="TB_Calories" TextWrapping="Wrap" Margin="31,9,0,0" Height="26" Width="173" FontFamily="Roboto Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Foreground="#FF5E6973" TextAlignment="Center" Grid.ColumnSpan="2"><Run Text="{DynamicResource ResourceKey=CaloriesTextBlock}"/><LineBreak/><Run/></TextBlock>
             <TextBlock  x:Name="TB_DietBalance"  TextWrapping="Wrap" Margin="0,11,10,29" Width="220" FontFamily="Roboto Black" FontSize="20" Text="{DynamicResource ResourceKey=DietBalanceTextBlock}" HorizontalAlignment="Right" Grid.Column="5" Foreground="#FF5E6973" TextAlignment="Center"/>
             <TextBlock x:Name="L_DailyCalories" Height="25" Margin="78,39,0,0" TextWrapping="Wrap" Text="1500" Width="81" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="22" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1" Foreground="#FF5E6973" Grid.ColumnSpan="2"/>
@@ -544,7 +600,7 @@
             <TextBlock x:Name="tB_UserName" Margin="100,3,13,26" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" Grid.Column="3" Foreground="#FFFCFFFC" MouseDown="ShowSettings" ToolTip="{DynamicResource ResourceKey=OpenSettingsToolTip}"><Run Text="Nikola"/></TextBlock>
             <TextBlock x:Name="tB_RecipeName" Height="48" Margin="4,0,236,63" TextWrapping="Wrap" Text="Chicken Dinner" Width="418" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" Foreground="#FF5E6973" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
             <Button x:Name="btn_SeeAllSavedRecipes" Content="{DynamicResource ResourceKey=SeeAllFavouriteRecipesButton}" Height="38" Margin="55,0,0,67" Width="153" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Click="Btn_SeeAllSavedRecipes_Click" Background="#FFF24333" Grid.ColumnSpan="2" ToolTip="{DynamicResource ResourceKey=BTNShowRecentlyViewedToolTip}"/>
-            <ListBox x:Name="lb_Fridge" Height="288" Margin="0,10,22,10" Width="181" Background="White" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="2" FontSize="22" FontFamily="Roboto Black" Foreground="#FF223843" BorderBrush="#FF5E6973" ToolTip="{DynamicResource ResourceKey= FridgeToolTip}"/>
+            <ListBox x:Name="lb_Fridge" Height="288" Margin="0,10,22,10" Width="181" Background="White" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="2" FontSize="18" FontFamily="Roboto" Foreground="#FF223843" BorderBrush="#FF5E6973" ToolTip="{DynamicResource ResourceKey= FridgeToolTip}"/>
             <Button x:Name="Btn_SuggestRecipe_Click" Content="{DynamicResource ResourceKey=SuggestRecipeButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="171" Grid.Column="3" Margin="23,10,0,0" Grid.Row="1" Height="36" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="18" FontFamily="Roboto Black" Click="Btn_FindRecipe_Click" Background="#FFF24333" OpacityMask="#FFF24333" ToolTip="{DynamicResource ResourceKey=BTNFindRecipeToolTip}"/>
             <Button x:Name="btn_ShowRecipe" Content="{DynamicResource ResourceKey=ShowRecipeButton}" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="130,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="168" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="18" Click="Btn_ShowRecipе" Background="#FFF24333" ToolTip="{DynamicResource ResourceKey=BTNShowRecipeToolTip}"/>
             <Button x:Name="btn_Showfridge" Content="{DynamicResource ResourceKey=ShowFridgeButton}" Grid.Column="5" HorizontalAlignment="Left" Height="38" Margin="37,1,0,0" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Top" Width="181" BorderBrush="{x:Null}" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" Click="Btn_Showfridge_Click" Background="#FFF24333" ToolTip="{DynamicResource ResourceKey=BTNShowFridgeToolTip}"/>
@@ -567,7 +623,7 @@
                         </TransformGroup>
                     </Rectangle.RenderTransform>
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="Images/ic_close_black_512dp_2x.png"/>
+                        <ImageBrush ImageSource="ic_navigate_before_black_48dp_2x.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <TextBlock x:Name="tB_SettingsTitle" HorizontalAlignment="Left" Height="61" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=SettingsTextBlock}" VerticalAlignment="Top" Width="551" FontSize="48" FontFamily="Shrikhand" TextAlignment="Center" Foreground="#FF5E6973" Margin="199,0,0,0"/>
@@ -595,8 +651,8 @@
                 <RadioButton x:Name="rb_Female" Content="{DynamicResource ResourceKey=FemaleRB}" HorizontalAlignment="Left" Height="23" Margin="632,213,0,0" VerticalAlignment="Top" Width="102" FontFamily="Roboto Light" FontSize="22" Background="White" Foreground="#FF5E6973"/>
                 <RadioButton x:Name="rb_Other" Content="{DynamicResource ResourceKey=OtherCB}" HorizontalAlignment="Left" Height="23" Margin="739,213,0,0" VerticalAlignment="Top" Width="109" FontFamily="Roboto Light" FontSize="22" Background="White" Foreground="#FF5E6973"/>
                 <TextBlock x:Name="Tb_LanguagePref" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=LanguagePrefTextBlock}" VerticalAlignment="Top" Width="220" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FF5E6973" Margin="87,159,0,0"/>
-                <CheckBox x:Name="CB_English" Content="{DynamicResource ResourceKey=ENCB}" HorizontalAlignment="Left" Height="30" Margin="75,188,0,0" VerticalAlignment="Top" Width="119" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973"/>
-                <CheckBox x:Name="CB_Bulgarian" Content="{DynamicResource ResourceKey=BGCB}" HorizontalAlignment="Left" Height="30" Margin="199,188,0,0" VerticalAlignment="Top" Width="157" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973"/>
+                <CheckBox x:Name="CB_English" Content="{DynamicResource ResourceKey=ENCB}" HorizontalAlignment="Left" Height="30" Margin="75,188,0,0" VerticalAlignment="Top" Width="119" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" Checked="UncheckBulgarian"/>
+                <CheckBox x:Name="CB_Bulgarian" Content="{DynamicResource ResourceKey=BGCB}" HorizontalAlignment="Left" Height="30" Margin="199,188,0,0" VerticalAlignment="Top" Width="157" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" Checked="UncheckEnglish"/>
 
             </Grid>
             <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="6" HorizontalAlignment="Left" Height="537" Margin="0,77,0,-546" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Grid.Row="4" RenderTransformOrigin="0.5,0.5">
@@ -612,9 +668,9 @@
                 <Ellipse x:Name="img_RecipeImage" HorizontalAlignment="Left" Height="65" Margin="254,10,0,0" Stroke="#FF5E6973" VerticalAlignment="Top" Width="65" RenderTransformOrigin="0.5,0.5"/>
                 <TextBlock x:Name="tB_IngredientsTitle" HorizontalAlignment="Left" Height="30" Margin="97,103,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=IngredientsTextBlock}" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center" RenderTransformOrigin="0.058,0.561"/>
                 <TextBlock x:Name="tB_DirectionsTitle" HorizontalAlignment="Left" Height="30" Margin="559,108,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=DirectionsTextBlock}" VerticalAlignment="Top" Width="125" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <Rectangle x:Name="btn_CloseRecipeView" HorizontalAlignment="Left" Height="40" Margin="870,10,0,0" VerticalAlignment="Top" Width="44" MouseUp="Btn_ShowRecipe_Click">
+                <Rectangle x:Name="btn_CloseRecipeView" HorizontalAlignment="Left" Height="40" Margin="870,10,0,0" VerticalAlignment="Top" Width="44" MouseUp="Btn_ShowRecipe_Click" Opacity="0.5">
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="Images/ic_close_black_512dp_2x.png"/>
+                        <ImageBrush ImageSource="ic_navigate_before_black_48dp_2x.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <ListView x:Name="lv_Ingredients" HorizontalAlignment="Left" Height="319" Margin="12,138,0,0" VerticalAlignment="Top" Width="300" FontFamily="Roboto Medium" FontSize="16" Background="White" BorderBrush="#FF5E6973" Foreground="#FF5E6973">
@@ -694,9 +750,9 @@
                 <TextBlock x:Name="tB_FoodSugar" HorizontalAlignment="Left" Height="30" Margin="776,340.9,0,0" TextWrapping="Wrap" Text="155 g " VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FF5E6973" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
                 <TextBlock x:Name="textBlock12" HorizontalAlignment="Left" Height="30" Margin="628.605,385,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=SodiumTB}" VerticalAlignment="Top" Width="150.913" FontFamily="Roboto Light" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
                 <TextBlock x:Name="tB_FoodSodium" HorizontalAlignment="Left" Height="30" Margin="777,385,0,0" TextWrapping="Wrap" Text="12 g" VerticalAlignment="Top" Width="118" FontFamily="Roboto Thin" FontSize="20" Foreground="#FF5E6973" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
-                <Rectangle x:Name="btn_CloseFoods" HorizontalAlignment="Left" Height="43" Margin="868,10,0,0" VerticalAlignment="Top" Width="46" MouseUp="Btn_Showfridge_Click" Opacity="0.3">
+                <Rectangle x:Name="btn_CloseFoods" HorizontalAlignment="Left" Height="43" Margin="868,10,0,0" VerticalAlignment="Top" Width="46" MouseUp="Btn_Showfridge_Click" Opacity="0.5">
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="Images/ic_close_black_512dp_2x.png"/>
+                        <ImageBrush ImageSource="ic_navigate_before_black_48dp_2x.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <Button x:Name="Btn_RemoveItem" Content="{DynamicResource ResourceKey=RemoveButton}" HorizontalAlignment="Left" Height="39" Margin="455,440,0,0" VerticalAlignment="Top" Width="157" Background="#FFF24333" FontFamily="Roboto Black" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="24" Click="Btn_RemoveItem_Click"/>
@@ -733,7 +789,7 @@
                         <TextBlock x:Name="L_FoodAmountWarning" HorizontalAlignment="Left" Height="35" Margin="45,361,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" TextAlignment="Center" FontFamily="Roboto" Foreground="#FFF7F4F3" FontSize="14"/>
                     </Grid>
                     <TextBox x:Name="tb_Search" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Margin="7,10,8,0" TextAlignment="Center" FontFamily="Roboto Black" FontSize="18" Foreground="#FF5E6973" BorderBrush="#FF5E6973" Background="#FFF7F4F3" TextChanged="OnTextChanged" Text="Search" GotFocus="SearchFoodClearTextBox" LostFocus="FoodSearchLostFocus"/>
-                    <ListBox x:Name="lB_SuggestedFoods" HorizontalAlignment="Left" Height="329" Margin="7,43,0,0" VerticalAlignment="Top" Width="289" SelectionChanged="AddClickedItem" BorderBrush="#FF5E6973" Background="#FFF7F4F3" Foreground="#FF5E6973" FontFamily="Roboto"/>
+                    <ListBox x:Name="lB_SuggestedFoods" HorizontalAlignment="Left" Height="329" Margin="7,43,0,0" VerticalAlignment="Top" Width="289" SelectionChanged="AddClickedItem" BorderBrush="#FF5E6973" Background="#FFF7F4F3" Foreground="#FF5E6973" FontFamily="Roboto" FontSize="16"/>
                     <TextBlock x:Name="l_SearchInfo" HorizontalAlignment="Left" Height="29" Margin="0,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="304" Foreground="#FFF7F4F3" FontFamily="Roboto Light" FontSize="14" TextAlignment="Center"><Run Text="Type to search for foods to add"/><LineBreak/><Run Text="."/></TextBlock>
                     <Button x:Name="btn_Close" Content="{DynamicResource ResourceKey=CloseAddFoodButton}" Margin="84,414,85,10" Background="#FFF8F5F4" BorderBrush="{x:Null}" Foreground="#FFF24333" FontFamily="Roboto Black" FontSize="16"/>
                 </Grid>
@@ -801,9 +857,9 @@
                     <TextBox x:Name="tb_SearchCookedRecipes" Height="32" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,12,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="#FF5E6973" Foreground="#FF5E6973" TextAlignment="Center" FontSize="22" TextChanged="CookedRecipesTextChanged" GotFocus="SearchCookedRecipesFocused" LostFocus="SearchCookedRecipesLostFocus" Width="285"/>
                     <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="364" Margin="10,50,0,0" VerticalAlignment="Top" Width="285" FontSize="20" FontFamily="Roboto Black" BorderBrush="#FF5E6973" Foreground="#FF5E6973"/>
                 </Grid>
-                <Rectangle x:Name="Btn_CloseSavedRecipePanel" HorizontalAlignment="Left" Height="45" Margin="865,10,0,0" VerticalAlignment="Top" Width="49" MouseUp="CloseSavedRecipesPanel">
+                <Rectangle x:Name="Btn_CloseSavedRecipePanel" HorizontalAlignment="Left" Height="45" Margin="865,10,0,0" VerticalAlignment="Top" Width="49" MouseUp="CloseSavedRecipesPanel" Opacity="0.5">
                     <Rectangle.Fill>
-                        <ImageBrush ImageSource="Images/ic_close_black_512dp_2x.png"/>
+                        <ImageBrush ImageSource="ic_navigate_before_black_48dp_2x.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
                 <TextBlock x:Name="Warning_Label" HorizontalAlignment="Left" Height="61" Margin="627,444,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" FontFamily="Roboto Black" FontSize="14" Foreground="#FFF24333" TextAlignment="Center"/>
@@ -824,7 +880,7 @@
                     <ImageBrush ImageSource="Images/ic_settings_black_48dp_2x.png"/>
                 </Button.Background>
             </Button>
-            <Grid x:Name="grid" HorizontalAlignment="Left" Height="53" Margin="-179,3,0,0" VerticalAlignment="Top" Width="174" Background="#FFF24333" RenderTransformOrigin="0.5,0.5">
+            <Grid x:Name="grid" HorizontalAlignment="Left" Height="53" Margin="-185,3,0,0" VerticalAlignment="Top" Width="174" Background="#FFF24333" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -833,19 +889,19 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Grid.RenderTransform>
-                <Button Content="" Height="26" Margin="23,13,112,0" VerticalAlignment="Top" Click="ChangeLanguage" Tag="en-US" BorderBrush="{x:Null}">
+                <Button x:Name="Btn_ChangeToUS" Content="" Height="26" Margin="23,13,112,0" VerticalAlignment="Top" Click="ChangeLanguage" Tag="en-US" BorderBrush="{x:Null}" ToolTip="{DynamicResource ResourceKey=USButtonToolTip}">
                     <Button.Background>
                         <ImageBrush ImageSource="Images/enUSBtnImg.jpg"/>
                     </Button.Background>
                 </Button>
-                <Button Content="" HorizontalAlignment="Left" Height="25" Margin="91,14,0,0" VerticalAlignment="Top" Width="39" Click="ChangeLanguage" Tag="bg-BG" BorderBrush="{x:Null}">
+                <Button x:Name="Btn_ChangeToBG" Content="" HorizontalAlignment="Left" Height="25" Margin="91,14,0,0" VerticalAlignment="Top" Width="39" Click="ChangeLanguage" Tag="bg-BG" BorderBrush="{x:Null}" ToolTip="{DynamicResource ResourceKey=BGButtonToolTip}">
                     <Button.Background>
                         <ImageBrush ImageSource="Images/bgBGBtnImg.jpg"/>
                     </Button.Background>
                 </Button>
-                <Button x:Name="Btn_CloseLangSettings" Content="" HorizontalAlignment="Left" Height="25" Margin="142,13,0,0" VerticalAlignment="Top" Width="27" BorderBrush="{x:Null}">
+                <Button x:Name="Btn_CloseLangSettings" Content="" HorizontalAlignment="Left" Height="25" Margin="142,13,0,0" VerticalAlignment="Top" Width="27" BorderBrush="{x:Null}" Opacity="0.5">
                     <Button.Background>
-                        <ImageBrush ImageSource="Images/ic_close_white_512dp_2x.png"/>
+                        <ImageBrush ImageSource="Images/ic_navigate_before_white_48dp_2x.png"/>
                     </Button.Background>
                 </Button>
             </Grid>

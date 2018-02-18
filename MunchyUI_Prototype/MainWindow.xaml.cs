@@ -110,8 +110,10 @@ namespace MunchyUI
             if (CurrentManager.User.LanguagePref == "BG")
             {
                 bgBG = true;
-                enUS = true;
-            }          
+                enUS = false;
+                Localizer.SwitchLanguage(this, "bg-BG");
+
+            }
 
             SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
             RecentlyViewedRecipeImages = new ImageBrush[] { RecentRecipe_1, RecentRecipe_2, RecentRecipe_3, RecentRecipe_4, RecentRecipe_5, RecentRecipe_6 };
@@ -138,7 +140,7 @@ namespace MunchyUI
                 RefreshFridge();
                 foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
                 {
-                    if (lb_Fridge.Items.Count < 10)
+                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
                         lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
                 }
             }
@@ -178,7 +180,7 @@ namespace MunchyUI
                 lv_Ingredients.ItemsSource = RecipeIngredientList;
                 lv_Ingredients.Items.Refresh();
                 tB_Directions.Text = GetDirections(SuggestedRecipe);
-                tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).ToString();
+                tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
                 tB_TimeToCookAmount.Text = SuggestedRecipe.TimeToCook.ToString();
             }
 
@@ -238,7 +240,7 @@ namespace MunchyUI
                 if (CurrentManager.RecipieManag.Breakfast.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count && NumerOfRecipeToSuggest >= 0)
                 {
                     SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe);
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
                     ManageSuggestedRecipe(SuggestedRecipe);
                 }
                 else
@@ -254,7 +256,7 @@ namespace MunchyUI
                 if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
                 {
                     SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe);
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
                     ManageSuggestedRecipe(SuggestedRecipe);
                 }
                 else
@@ -270,7 +272,7 @@ namespace MunchyUI
                 if (CurrentManager.RecipieManag.Dinner.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count && NumerOfRecipeToSuggest >= 0)
                 {
                     SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe);
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
                     ManageSuggestedRecipe(SuggestedRecipe);
                 }
                 else
@@ -462,6 +464,26 @@ namespace MunchyUI
 
         #region Adding/Removing food items
 
+        private void RefreshFrontPageFride()
+        {
+            lb_Fridge.Items.Clear();
+            foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
+            {
+                if (enUS)
+                {
+                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
+                        lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
+                }
+
+                if (bgBG)
+                {
+                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1)))
+                        lb_Fridge.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1));
+                }
+                
+            }
+        }
+
         // Called when the text in the textbox for searching for foods is changed
         private void FoodSearchTextChanged()
         {
@@ -523,6 +545,7 @@ namespace MunchyUI
                 }
             }
             lb_FoodList.Items.Refresh();
+            RefreshFrontPageFride();
         }
 
         private void TranslateFridge()
@@ -701,6 +724,12 @@ namespace MunchyUI
                     else
                         element.IsChecked = false;
                 }
+                
+                    if (CurrentManager.User.LanguagePref == "BG")
+                        CB_Bulgarian.IsChecked = true;
+
+                    if (CurrentManager.User.LanguagePref == "US")
+                        CB_English.IsChecked = true;                              
             }
             else
             {
@@ -742,10 +771,23 @@ namespace MunchyUI
                 CurrentManager.User.Sex = "other";
 
             if (CB_English.IsChecked == true)
-                CurrentManager.User.LanguagePref = "BG";
+                CurrentManager.User.LanguagePref = "US";
 
             if (CB_Bulgarian.IsChecked == true)
+            {
+                bgBG = true;
+                enUS = false;
+                CurrentManager.User.LanguagePref = "BG";
+                Localizer.SwitchLanguage(this, "bg-BG");
+            }
+
+            if (CB_English.IsChecked == true)
+            {
+                bgBG = false;
+                enUS = true;
                 CurrentManager.User.LanguagePref = "US";
+                Localizer.SwitchLanguage(this, "en-US");
+            }
 
             foreach (CheckBox element in SettingOptions)
             {
@@ -1191,6 +1233,16 @@ namespace MunchyUI
         private void Btn_Showfridge_Click(object sender, MouseButtonEventArgs e)
         {
 
+        }
+
+        private void UncheckEnglish(object sender, RoutedEventArgs e)
+        {
+            CB_English.IsChecked = false;
+        }
+
+        private void UncheckBulgarian(object sender, RoutedEventArgs e)
+        {
+            CB_Bulgarian.IsChecked = false;
         }
     }
 }

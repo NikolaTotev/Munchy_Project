@@ -66,6 +66,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\ic_navigate_before_white_48dp_2x.png" />
+    <Resource Include="Images\ic_arrow_back_black_48dp_2x.png" />
+    <Resource Include="ic_navigate_before_black_48dp_2x.png" />
+    <Resource Include="Images\ic_navigate_next_black_48dp_2x.png" />
     <Resource Include="Images\ic_close_white_512dp_2x.png" />
     <Resource Include="Images\bgBGBtnImg.jpg" />
     <Resource Include="Images\enUSBtnImg.jpg" />

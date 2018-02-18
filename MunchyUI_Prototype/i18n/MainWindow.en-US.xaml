@@ -87,11 +87,6 @@
     <sys:String x:Key="BGButtonToolTip">Click to change language to Bulgarian.</sys:String>
     <sys:String x:Key="USButtonToolTip">Click to change language to English.</sys:String>
     <sys:String x:Key="LangSettingsToolTip">Click to change language.</sys:String>
-
-
-
-
-
-
+    <sys:String x:Key="Discover feature">Feature coming soon!</sys:String>
 
 </ResourceDictionary>

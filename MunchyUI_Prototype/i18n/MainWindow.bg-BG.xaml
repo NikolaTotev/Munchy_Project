@@ -79,4 +79,14 @@
     <sys:String x:Key="IngredientListAmounts">Количество</sys:String>
 
     <sys:String x:Key="FridgeToolTip">Тук ще намерите храните които скоро сте добавили.</sys:String>
+    <sys:String x:Key="BTNShowFridgeToolTip">Натиснете тук за да отворите хладилника.</sys:String>
+    <sys:String x:Key="BTNShowRecipeToolTip">Натиснете тук за да отворите рецептата.</sys:String>
+    <sys:String x:Key="BTNShowRecentlyViewedToolTip">Натиснете тук за да видите кои рецепти сте запазили.</sys:String>
+    <sys:String x:Key="OpenSettingsToolTip">Натиснете тук за да отворите настройките за профила ви.</sys:String>
+    <sys:String x:Key="BTNFindRecipeToolTip">Натиснете тук за да освежите списъка с рецепти.</sys:String>
+    <sys:String x:Key="BGButtonToolTip">Натиснете тук за да смените езика на Български.</sys:String>
+    <sys:String x:Key="USButtonToolTip">Натиснете тук за да смените езика на Английски.</sys:String>
+    <sys:String x:Key="LangSettingsToolTip">Смяна на езика.</sys:String>
+    <sys:String x:Key="Discover feature">Тази функционалност ще дойде скоро!</sys:String>
+
 </ResourceDictionary>
