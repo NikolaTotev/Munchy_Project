@@ -28,18 +28,18 @@ namespace Nikola.Munchy.MunchyTester
             List<string> TestPreferences = new List<string> { "IsVegetarian" };
             List<string> FoodsToAdd = new List<string> { "butter", "chicken",  "carrot", "onion", "pepper", "salt", "tomato", "rice noodle", "egg", "cheese",  "oil", "lentil", "squash" };
             
-            ProgramManager TestManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, DefaultSaver);
+            ProgramManager TestManager = new ProgramManager(UserFile, UserFridgeFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, DefaultSaver);
 
             Assert.IsTrue(TestManager.User.UserName == null);
-            Assert.IsTrue(TestManager.User.UserFridge.UsersFoods.Count == 1);
-            Assert.IsTrue(TestManager.User.UserFridge.UsersFoods.ContainsKey("milk"));
+            Assert.IsTrue(TestManager.User.UserFridge.USUsersFoods.Count == 1);
+            Assert.IsTrue(TestManager.User.UserFridge.USUsersFoods.ContainsKey("milk"));
             Assert.IsTrue(TestManager.User.CompatabilityIndex == 0);
             Assert.IsTrue(TestManager.RecipieManag.Breakfast.Count == 2);
             Assert.IsTrue(TestManager.RecipieManag.Lunch.Count == 7);
             Assert.IsTrue(TestManager.RecipieManag.Dinner.Count == 7);
             Assert.IsTrue(TestManager.RecipieManag.CompatableRecipes.Count == 0);
             Assert.IsTrue(TestManager.RecipieManag.Recipies.Count == 7);
-            Assert.IsTrue(TestManager.RecipieManag.FridgeItems.Count == TestManager.User.UserFridge.UsersFoods.Count);
+            Assert.IsTrue(TestManager.RecipieManag.FridgeItems.Count == TestManager.User.UserFridge.USUsersFoods.Count);
             Assert.IsTrue(TestManager.RecipieManag.RecipeDatabaseFile == RecipeDatabase);
             Assert.IsTrue(TestManager.RecipieManag.UserIndex == TestManager.User.CompatabilityIndex);
             Assert.IsTrue(TestManager.FoodManag.Foods.Count != 0);
@@ -74,7 +74,7 @@ namespace Nikola.Munchy.MunchyTester
             Assert.IsTrue(File.Exists(UserFile));
             Assert.IsFalse(TestManager.User.CompatabilityIndex == 0);
 
-            Assert.IsTrue(TestManager.User.UserFridge.UsersFoods.Count == FoodsToAdd.Count + 1);
+            Assert.IsTrue(TestManager.User.UserFridge.USUsersFoods.Count == FoodsToAdd.Count + 1);
 
             TestManager.RecipieManag.SortRecipes();
 
@@ -103,18 +103,18 @@ namespace Nikola.Munchy.MunchyTester
             List<string> TestPreferences = new List<string> { "IsVegetarian" };
             List<string> FoodsToAdd = new List<string> { "butter", "chicken", "carrot", "onion", "pepper", "salt", "tomato", "rice noodle", "egg", "cheese", "oil", "lentil", "squash" };
 
-            ProgramManager TestManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, DefaultSaver);
+            ProgramManager TestManager = new ProgramManager(UserFile, UserFridgeFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, DefaultSaver);
 
             Assert.IsTrue(TestManager.User.UserName == "Nikola");
-            Assert.IsTrue(TestManager.User.UserFridge.UsersFoods.Count == FoodsToAdd.Count + 1);
-            Assert.IsTrue(TestManager.User.UserFridge.UsersFoods.ContainsKey("egg"));
+            Assert.IsTrue(TestManager.User.UserFridge.USUsersFoods.Count == FoodsToAdd.Count + 1);
+            Assert.IsTrue(TestManager.User.UserFridge.USUsersFoods.ContainsKey("egg"));
             Assert.IsTrue(TestManager.User.CompatabilityIndex == 2);
             Assert.IsTrue(TestManager.RecipieManag.Breakfast.Count == 2);
             Assert.IsTrue(TestManager.RecipieManag.Lunch.Count == 4);
             Assert.IsTrue(TestManager.RecipieManag.Dinner.Count == 4);
             Assert.IsTrue(TestManager.RecipieManag.CompatableRecipes.Count == 4);
             Assert.IsTrue(TestManager.RecipieManag.Recipies.Count == 7);
-            Assert.IsTrue(TestManager.RecipieManag.FridgeItems.Count == TestManager.User.UserFridge.UsersFoods.Count);
+            Assert.IsTrue(TestManager.RecipieManag.FridgeItems.Count == TestManager.User.UserFridge.USUsersFoods.Count);
             Assert.IsTrue(TestManager.RecipieManag.RecipeDatabaseFile == RecipeDatabase);
             Assert.IsTrue(TestManager.RecipieManag.UserIndex == TestManager.User.CompatabilityIndex);
             Assert.IsTrue(TestManager.FoodManag.Foods.Count != 0);
@@ -140,13 +140,13 @@ namespace Nikola.Munchy.MunchyTester
             List<string> TestPreferences = new List<string> { "IsVegetarian" };
             List<string> FoodsToAdd = new List<string> { "butter", "chicken", "carrot", "onion", "pepper", "salt", "tomato", "rice noodle", "egg", "cheese", "oil", "lentil", "squash" };
 
-            ProgramManager TestManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, DefaultSaver);
+            ProgramManager TestManager = new ProgramManager(UserFile, UserFridgeFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, DefaultSaver);
 
            
-            Assert.IsTrue(TestManager.UserRecipeSaves.SavedRecipes.Count ==0);
-            Assert.IsTrue(TestManager.UserRecipeSaves.CookedToday.Count == 0);
-            Assert.IsTrue(TestManager.UserRecipeSaves.CookedRecipes.Count ==0);
-            Assert.IsTrue(TestManager.UserRecipeSaves.RecentlyViewed.Count == 0);
+            Assert.IsTrue(TestManager.UserRecipeSaves.USSavedRecipes.Count ==0);
+            Assert.IsTrue(TestManager.UserRecipeSaves.USCookedToday.Count == 0);
+            Assert.IsTrue(TestManager.UserRecipeSaves.USCookedRecipes.Count ==0);
+            Assert.IsTrue(TestManager.UserRecipeSaves.USRecentlyViewed.Count == 0);
 
 
         }

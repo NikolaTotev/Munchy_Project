@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MunchyUI_Prototype.Properties
+namespace MunchyUI.Properties
 {
 
 

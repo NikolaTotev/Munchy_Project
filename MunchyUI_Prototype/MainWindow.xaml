@@ -1,9 +1,9 @@
-﻿<Window x:Name="window" x:Class="MunchyUI_Prototype.MainWindow"
+﻿<Window x:Name="window" x:Class="MunchyUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MunchyUI_Prototype"
+        xmlns:local="clr-namespace:MunchyUI"
         mc:Ignorable="d"
         Title="Munchy" Height="550" Width="900" WindowStartupLocation="CenterScreen" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" MinWidth="900" MinHeight="550" Background="#FFF7F4F3">
     <Window.Resources>
@@ -544,7 +544,7 @@
             <TextBlock x:Name="tB_UserName" Margin="100,3,13,26" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" Grid.Column="3" Foreground="#FFFCFFFC" MouseDown="ShowSettings"><Run Text="Nikola"/></TextBlock>
             <TextBlock x:Name="tB_RecipeName" Height="48" Margin="4,0,236,63" TextWrapping="Wrap" Text="Chicken Dinner" Width="418" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" Foreground="#FF5E6973" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
             <Button x:Name="btn_SeeAllSavedRecipes" Content="{DynamicResource ResourceKey=SeeAllFavouriteRecipesButton}" Height="38" Margin="55,0,0,67" Width="153" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Click="Btn_SeeAllSavedRecipes_Click" Background="#FFF24333" Grid.ColumnSpan="2"/>
-            <ListBox x:Name="lb_Fridge" Height="288" Margin="0,10,22,10" Width="181" Background="White" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="2" FontSize="22" FontFamily="Roboto Black" Foreground="#FF223843" BorderBrush="#FF5E6973"/>
+            <ListBox x:Name="lb_Fridge" Height="288" Margin="0,10,22,10" Width="181" Background="White" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="2" FontSize="22" FontFamily="Roboto Black" Foreground="#FF223843" BorderBrush="#FF5E6973" ToolTip="What the hell is this for??"/>
             <Button x:Name="Btn_SuggestRecipe_Click" Content="{DynamicResource ResourceKey=SuggestRecipeButton}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="171" Grid.Column="3" Margin="23,10,0,0" Grid.Row="1" Height="36" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="18" FontFamily="Roboto Black" Click="Btn_FindRecipe_Click" Background="#FFF24333" OpacityMask="#FFF24333"/>
             <Button x:Name="btn_ShowRecipe" Content="{DynamicResource ResourceKey=ShowRecipeButton}" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="130,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="168" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontFamily="Roboto Black" FontSize="18" Click="Btn_ShowRecipе" Background="#FFF24333"/>
             <Button x:Name="btn_Showfridge" Content="{DynamicResource ResourceKey=ShowFridgeButton}" Grid.Column="5" HorizontalAlignment="Left" Height="38" Margin="37,1,0,0" Grid.Row="3" Grid.RowSpan="2" VerticalAlignment="Top" Width="181" BorderBrush="{x:Null}" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" Click="Btn_Showfridge_Click" Background="#FFF24333"/>

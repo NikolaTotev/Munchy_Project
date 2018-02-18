@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Nikola.Munchy.MunchyAPI;
 using System.IO;
-namespace MunchyUI_Prototype
+namespace MunchyUI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

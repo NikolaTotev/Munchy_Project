@@ -9,7 +9,7 @@ using System.IO;
 using System.Windows;
 using System.Threading;
 
-namespace MunchyUI_Prototype
+namespace MunchyUI
 {
     public static class Localizer
     {
