@@ -19,6 +19,7 @@
     <!--Settings Panel-->
     <sys:String x:Key="SettingsTextBlock">Settings</sys:String>
     <sys:String x:Key="SexTextBlock">Sex</sys:String>
+    <sys:String x:Key="LanguagePrefTextBlock">Language</sys:String>
     <sys:String x:Key="FoodPrefTextBlock">Food Preferences</sys:String>
     <sys:String x:Key="HealthIssuesTextBlock">Health Issues</sys:String>
     <sys:String x:Key="AllergiesTextBlock">Allergies</sys:String>
@@ -38,6 +39,8 @@
     <sys:String x:Key="MaleRB">Male</sys:String>
     <sys:String x:Key="FemaleRB">Female</sys:String>
     <sys:String x:Key="OtherCB">Other</sys:String>
+    <sys:String x:Key="ENCB">English</sys:String>
+    <sys:String x:Key="BGCB">Български</sys:String>
 
     <!--Full Recipe View Panel-->
     <sys:String x:Key="TimeToCookTextBlock">Time to cook</sys:String>

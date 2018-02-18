@@ -19,6 +19,7 @@
     <!--Settings Panel-->
     <sys:String x:Key="SettingsTextBlock">Настройки</sys:String>
     <sys:String x:Key="SexTextBlock">Пол</sys:String>
+    <sys:String x:Key="LanguagePrefTextBlock">Език</sys:String>
     <sys:String x:Key="FoodPrefTextBlock">Предпочитания</sys:String>
     <sys:String x:Key="HealthIssuesTextBlock">Здравословни Проблеми</sys:String>
     <sys:String x:Key="AllergiesTextBlock">Алергии</sys:String>
@@ -38,6 +39,9 @@
     <sys:String x:Key="MaleRB">Мъж</sys:String>
     <sys:String x:Key="FemaleRB">Жена</sys:String>
     <sys:String x:Key="OtherCB">Друг</sys:String>
+    <sys:String x:Key="ENCB">English</sys:String>
+    <sys:String x:Key="BGCB">Български</sys:String>
+
 
     <!--Full Recipe View Panel-->
     <sys:String x:Key="TimeToCookTextBlock">Време за готвене</sys:String>

@@ -30,8 +30,6 @@ namespace Nikola.Munchy.MunchyAPI
         public Dictionary<string, RecipeDef> Recipies;
         public Dictionary<string, FoodDef> FridgeItems;
 
-        List<RecipeDef> RecipiesToShow;
-
         ProgramManager CurrentManager;
 
         public RecipeManager(string DatabaseToUse, ProgramManager Manager)

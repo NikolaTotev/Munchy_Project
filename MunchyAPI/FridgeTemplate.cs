@@ -19,10 +19,9 @@ namespace Nikola.Munchy.MunchyAPI
         public string SavedFilePath;
         public string DefaultPath;
 
-        public FridgeTemplate(string FilePathToUse, string DefaultFile)
+        public FridgeTemplate(string FilePathToUse)
         {
             SavedFilePath = FilePathToUse;
-            DefaultPath = DefaultFile;
             USUsersFoods = UsersFridge();
             SaveFridge();
 
@@ -106,9 +105,18 @@ namespace Nikola.Munchy.MunchyAPI
                     if (element.Value.USName.ToLower() == FoodItemsToChange[i].ToLower() && element.Value.Amount - AmountsToChange[i] >= 0)
                     {
                         element.Value.Amount -= AmountsToChange[i];
-                    }
+                    }                                                       
                 }
             }
+
+            for (int i = 0; i < USUsersFoods.Count; i++)
+            {
+                if(USUsersFoods.ElementAt(i).Value.Amount == 0)
+                {
+                    USUsersFoods.Remove(USUsersFoods.ElementAt(i).Key);
+                }
+            }
+            
             SaveFridge();
         }
 

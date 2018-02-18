@@ -10,12 +10,10 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public class ProgramManager
     {
-        public string UserFile;
-        string DefaultUserFile;
+        string UserFile;
         string FoodItemsFile;
         string RecipiesFile;
         string UserFridgeFile;
-        string DefaultFridgeFile;
         string RecipeSaverSaveFile;
         string StatisticsSaveFile;
 
@@ -39,18 +37,11 @@ namespace Nikola.Munchy.MunchyAPI
                 "soy"
             };
 
-        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string DefaultFridge, string DefaultUser, string RecipieDatabase, string FoodItemsDatabase, string RecipeSaveFile, string StatisticsSavePath)
+        public ProgramManager(string UserFileSave, string UserFridgeFileSave, string RecipieDatabase, string FoodItemsDatabase, string RecipeSaveFile, string StatisticsSavePath)
         {
-            FoodItemsFile = FoodItemsDatabase;
-            RecipiesFile = RecipieDatabase;
-
-            FoodManag = new FoodManager(FoodItemsFile);
-
             UserFile = UserFileSave;
-            DefaultUserFile = DefaultUser;
 
             UserFridgeFile = UserFridgeFileSave;
-            DefaultFridgeFile = DefaultFridge;
 
             RecipeSaverSaveFile = RecipeSaveFile;
             StatisticsSaveFile = StatisticsSavePath;
@@ -60,19 +51,24 @@ namespace Nikola.Munchy.MunchyAPI
             User.CurrentManager = this;
             InitFridge(User);
 
-            
+            FoodItemsFile = FoodItemsDatabase;
+            RecipiesFile = RecipieDatabase;
+
+            FoodManag = new FoodManager(FoodItemsFile);
+
             UserRecipeSaves = new RecipeSaver(RecipeSaverSaveFile);
-            
+
             UserRecipeSaves = GetRecipeSaver();
             UserRecipeSaves.SaveLocation = RecipeSaverSaveFile;
             UserRecipeSaves.SaveRecipeSaver();
 
-            StatManager = new StatisticsManager(StatisticsSaveFile);
-            StatManager.SaveLocation = StatisticsSaveFile;
+            StatManager = new StatisticsManager(StatisticsSaveFile)
+            {
+                SaveLocation = StatisticsSaveFile
+            };
             StatManager.SaveStatistics();
 
             RecipieManag = new RecipeManager(RecipiesFile, this);
-
         }
 
         /// <summary>
@@ -111,7 +107,6 @@ namespace Nikola.Munchy.MunchyAPI
                 RetrivedManager = (StatisticsManager)serializer.Deserialize(file, typeof(StatisticsManager));
                 return RetrivedManager;
             }
-
         }
 
         /// <summary>
@@ -133,7 +128,6 @@ namespace Nikola.Munchy.MunchyAPI
                 RetrievedUser = (UserTemplate)serializer.Deserialize(file, typeof(UserTemplate));
                 return RetrievedUser;
             }
-
         }
 
         /// <summary>
@@ -143,10 +137,9 @@ namespace Nikola.Munchy.MunchyAPI
         /// <param name="UserToUse"></param>
         public void InitFridge(UserTemplate UserToUse)
         {
-            UsersFridge = new FridgeTemplate(UserFridgeFile, DefaultFridgeFile);
+            UsersFridge = new FridgeTemplate(UserFridgeFile);
             UserToUse.UserFridge = UsersFridge;
         }
-
 
         public void SaveUser()
         {

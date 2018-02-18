@@ -32,6 +32,11 @@ namespace Nikola.Munchy.MunchyAPI
             USCookedRecipes = new List<string>();
             USRecentlyViewed = new List<string>();
             USCookedToday = new List<string>();
+
+            BGSavedRecipes = new List<string>();
+            BGCookedRecipes = new List<string>();
+            BGRecentlyViewed = new List<string>();
+            BGCookedToday = new List<string>();
         }
 
         public void SaveRecipeSaver()

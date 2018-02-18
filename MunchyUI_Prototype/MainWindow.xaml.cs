@@ -26,11 +26,9 @@ namespace MunchyUI_Prototype
         static string ImageFolderPath = ProgramFolder + "\\Images\\";
 
         //Save File Locations
-        string UserFile = ProgramFolder + "\\USER5.json";
-        string DefaultUserFile = ProgramFolder + "\\DEFAULT_USER.json";
+        string UserFile = ProgramFolder + "\\USER.json";
 
-        string UserFridgeFile = ProgramFolder + "\\USER_F.json";
-        string DefaultFridgeFile = ProgramFolder + "\\DEFAULT_FRIDGE.json";
+        string UserFridgeFile = ProgramFolder + "\\USER_FRIDGE.json";
 
         string FoodDefFile = ProgramFolder + "\\FoodData.json";
         string RecipeDatabase = ProgramFolder + "\\Recipes.json";
@@ -38,8 +36,8 @@ namespace MunchyUI_Prototype
         string RecipeSaveFile = ProgramFolder + "\\RecipeSavesFile.json";
         string StatSavePath = ProgramFolder + "\\StatSavePath.json";
 
-        bool enUS;
-        bool bgBG;
+        bool enUS = true;
+        bool bgBG = false;
 
         //Variables for the summary of the fridge.
         int CalorieSum = 0;
@@ -65,7 +63,7 @@ namespace MunchyUI_Prototype
         int[] SummaryValues;
 
         RecipeDef SuggestedRecipe = new RecipeDef();
-        ProgramManager CurrentManager;        
+        ProgramManager CurrentManager;
 
         // RecipeImage handles the recipe image on the full recipe view aswell as the recipe view on the main menu.
         ImageBrush RecipeImage = new ImageBrush();
@@ -91,13 +89,10 @@ namespace MunchyUI_Prototype
         public MainWindow()
         {
             InitializeComponent();
-
-            bgBG = false;
-            enUS = true;
-
+                                    
             if (!File.Exists(FoodDefFile) || !File.Exists(RecipeDatabase))
             {
-                MessageBox.Show("ERROR FAR404 : You are missing files required for the programs operation. Please vist == GITHUB URL == for potential fixes.");
+                MessageBox.Show("EN: ERROR : You are missing files required for the programs operation. Please vist == GITHUB URL == for potential fixes." + "\n" + "\n" + " BG: Грешка! : Липсват файлове нужни за функционирането на програмата.Моля посетете == GITHUB URL == за насоки да поправите грешката.");
                 Close();
                 return;
             }
@@ -106,11 +101,18 @@ namespace MunchyUI_Prototype
 
             if (!File.Exists(UserFile))
             {
-                ShowSettingsPanel();
-                MessageBox.Show("It seems like your use file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes.");
+                
+                MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");
             }
 
-            CurrentManager = new ProgramManager(UserFile, UserFridgeFile, DefaultFridgeFile, DefaultUserFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, StatSavePath);
+            CurrentManager = new ProgramManager(UserFile, UserFridgeFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, StatSavePath);
+
+            if (CurrentManager.User.LanguagePref == "BG")
+            {
+                bgBG = true;
+                enUS = true;
+            }          
+
             SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
             RecentlyViewedRecipeImages = new ImageBrush[] { RecentRecipe_1, RecentRecipe_2, RecentRecipe_3, RecentRecipe_4, RecentRecipe_5, RecentRecipe_6 };
             RecentlyViewedRecipesImages = new Ellipse[] { Img_RecentlyViewed_1, Img_RecentlyViewed_2, Img_RecentlyViewed_3, Img_RecentlyViewed_4, Img_RecentlyViewed_5, Img_RecentlyViewed_6 };
@@ -126,9 +128,6 @@ namespace MunchyUI_Prototype
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
             Localizer.SetDefaultLanguage(this);
-
-
-
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
@@ -144,7 +143,6 @@ namespace MunchyUI_Prototype
                 }
             }
         }
-
         #endregion
 
 
@@ -328,7 +326,7 @@ namespace MunchyUI_Prototype
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchSavedRecipes.Text))
             {
-                if (tb_SearchSavedRecipes.Text != "Search")
+                if (tb_SearchSavedRecipes.Text != TranslatorCore.GetTextboxDefaultText(enUS, bgBG))
                 {
                     string SearchedSavedRecipe = tb_SearchSavedRecipes.Text;
                     string LowerCase = SearchedSavedRecipe.ToLower();
@@ -352,7 +350,7 @@ namespace MunchyUI_Prototype
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchCookedRecipes.Text))
             {
-                if (tb_SearchCookedRecipes.Text != "Search")
+                if (tb_SearchCookedRecipes.Text != TranslatorCore.GetTextboxDefaultText(enUS, bgBG))
                 {
                     string SearchedRecipe = tb_SearchCookedRecipes.Text;
                     string LowerCase = SearchedRecipe.ToLower();
@@ -471,7 +469,7 @@ namespace MunchyUI_Prototype
             if (!string.IsNullOrWhiteSpace(tb_Search.Text))
             {
                 //Makes sure that text is not the keyword "Search"
-                if (tb_Search.Text != "Search")
+                if (tb_Search.Text != TranslatorCore.GetTextboxDefaultText(enUS, bgBG))
                 {
                     l_SearchInfo.Text = TranslatorCore.GetClickToAddFoodMessage(enUS, bgBG);
                     string searchedWord = tb_Search.Text;
@@ -513,9 +511,10 @@ namespace MunchyUI_Prototype
             ItemsFoodList.Clear();
             foreach (KeyValuePair<string, FoodDef> ItemToAdd in CurrentManager.UsersFridge.USUsersFoods)
             {
+                ItemsFoodList.Add(ItemToAdd.Key.ToLower());
+
                 if (!lb_FoodList.Items.Contains(ItemToAdd.Value.USName) || !lb_FoodList.Items.Contains(ItemToAdd.Value.BGName))
                 {
-                    ItemsFoodList.Add(ItemToAdd.Value.USName);
                     if (enUS == true)
                         lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.USName.First().ToString().ToUpper() + ItemToAdd.Value.USName.Substring(1), Amount = ItemToAdd.Value.Amount });
 
@@ -523,6 +522,7 @@ namespace MunchyUI_Prototype
                         lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.BGName.First().ToString().ToUpper() + ItemToAdd.Value.BGName.Substring(1), Amount = ItemToAdd.Value.Amount });
                 }
             }
+            lb_FoodList.Items.Refresh();
         }
 
         private void TranslateFridge()
@@ -548,10 +548,10 @@ namespace MunchyUI_Prototype
             if (ItemToAdd.Amount == 0 && !string.IsNullOrWhiteSpace(Tb_CustomAmount.Text))
             {
                 ItemToAdd.Amount = float.Parse(Tb_CustomAmount.Text);
-                L_FoodAmountWarning.Text = null; 
+                L_FoodAmountWarning.Text = null;
             }
-           
-            if(ItemToAdd.Amount == 0)
+
+            if (ItemToAdd.Amount == 0)
             {
                 L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(enUS, bgBG);
             }
@@ -561,7 +561,7 @@ namespace MunchyUI_Prototype
                 CurrentManager.User.UserFridge.AddToFridge(ItemToAdd);
 
                 if (enUS == true)
-                    lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.USName, Amount = ItemToAdd.Amount });
+                    lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.USName.First().ToString().ToUpper() + ItemToAdd.USName.ToString().Substring(1), Amount = ItemToAdd.Amount });
 
                 if (bgBG == true)
                     lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.BGName, Amount = ItemToAdd.Amount });
@@ -569,7 +569,7 @@ namespace MunchyUI_Prototype
                 CurrentManager.UsersFridge.SaveFridge();
                 l_SearchInfo.Text = TranslatorCore.ItemAddedMessage(enUS, bgBG);
 
-
+                RefreshFridge();
                 PopulateFridgeSummary();
             }
             else
@@ -577,6 +577,7 @@ namespace MunchyUI_Prototype
                 l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(enUS, bgBG);
             }
 
+            Tb_CustomAmount.Clear();
             foreach (RadioButton element in AmountRadioButtons)
             {
                 if (element.IsChecked == true)
@@ -607,7 +608,7 @@ namespace MunchyUI_Prototype
 
             if (lb_FoodList.SelectedItem != null)
             {
-                FoodDef ItemToRemove = (FoodDef)CurrentManager.FoodManag.Foods[ItemsFoodList[lb_FoodList.SelectedIndex]];
+                FoodDef ItemToRemove = (FoodDef)CurrentManager.FoodManag.Foods[ItemsFoodList[lb_FoodList.SelectedIndex].ToLower()];
                 CurrentManager.User.UserFridge.RemoveFromFridge(ItemToRemove.USName.ToLower());
                 lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
                 lb_FoodList.Items.Clear();
@@ -718,12 +719,11 @@ namespace MunchyUI_Prototype
 
         private void SaveUserSettings()
         {
-            int parsedValue;
             if (!string.IsNullOrWhiteSpace(tb_NameInput.Text) && !string.IsNullOrWhiteSpace(tb_AgeInput.Text) && !string.IsNullOrWhiteSpace(tb_WeightInput.Text))
             {
                 CurrentManager.User.UserName = tb_NameInput.Text;
 
-                if (int.TryParse(tb_AgeInput.Text, out parsedValue))
+                if (int.TryParse(tb_AgeInput.Text, out int parsedValue))
                     CurrentManager.User.Age = int.Parse(tb_AgeInput.Text);
                 else MessageBox.Show("Age is a number value!");
 
@@ -733,19 +733,19 @@ namespace MunchyUI_Prototype
             }
 
             if (rb_Male.IsChecked == true)
-            {
                 CurrentManager.User.Sex = "male";
-            }
 
             if (rb_Female.IsChecked == true)
-            {
                 CurrentManager.User.Sex = "female";
-            }
 
             if (rb_Other.IsChecked == true)
-            {
                 CurrentManager.User.Sex = "other";
-            }
+
+            if (CB_English.IsChecked == true)
+                CurrentManager.User.LanguagePref = "BG";
+
+            if (CB_Bulgarian.IsChecked == true)
+                CurrentManager.User.LanguagePref = "US";
 
             foreach (CheckBox element in SettingOptions)
             {
@@ -786,7 +786,7 @@ namespace MunchyUI_Prototype
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_ShowRecipe_Click(object sender, RoutedEventArgs e)
+        private void Btn_ShowRecipe_Click(object sender, RoutedEventArgs e)
         {
             ShowOrCloseFullRecipeView();
         }
@@ -797,7 +797,7 @@ namespace MunchyUI_Prototype
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_Showfridge_Click(object sender, RoutedEventArgs e)
+        private void Btn_Showfridge_Click(object sender, RoutedEventArgs e)
         {
             RefreshFridge();
         }
@@ -822,15 +822,6 @@ namespace MunchyUI_Prototype
         {
 
         }
-
-        /// <summary>
-        /// Button for closing the food search/add panel.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_CloseClick(object sender, RoutedEventArgs e)
-        {
-        }
         #endregion
 
         #region Button Events
@@ -846,7 +837,7 @@ namespace MunchyUI_Prototype
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_RemoveItem_Click(object sender, RoutedEventArgs e)
+        private void Btn_RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             RemoveItem();
         }
@@ -854,7 +845,7 @@ namespace MunchyUI_Prototype
         #endregion
 
         #region Recipe related
-        private void btn_ShowRecipе(object sender, RoutedEventArgs e)
+        private void Btn_ShowRecipе(object sender, RoutedEventArgs e)
         {
             AddRecipeIngredientsToListView();
             ShowOrCloseFullRecipeView();
@@ -865,18 +856,12 @@ namespace MunchyUI_Prototype
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
+        private void Btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
         {
             ShowSavedRecipePanel();
             SetRecentlyViewedImages();
         }
-
-
-        private void btn_SuggestRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            SuggestRecipe();
-        }
-
+                       
         private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
         {
             tB_RecipeName.FontSize = 24;
@@ -921,7 +906,7 @@ namespace MunchyUI_Prototype
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_Save_Click(object sender, RoutedEventArgs e)
+        private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
             SaveUserSettings();
         }
@@ -1194,6 +1179,16 @@ namespace MunchyUI_Prototype
         }
 
         private void Btn_DiscoverClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Btn_FindRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            SuggestRecipe();
+        }
+
+        private void Btn_Showfridge_Click(object sender, MouseButtonEventArgs e)
         {
 
         }
