@@ -78,4 +78,5 @@
     <sys:String x:Key="IngredientListIngredients">Съставки</sys:String>
     <sys:String x:Key="IngredientListAmounts">Количество</sys:String>
 
+    <sys:String x:Key="FridgeToolTip">Тук ще намерите храните които скоро сте добавили.</sys:String>
 </ResourceDictionary>

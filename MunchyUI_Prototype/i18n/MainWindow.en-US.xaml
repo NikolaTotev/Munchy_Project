@@ -77,4 +77,21 @@
     <sys:String x:Key="IngredientListIngredients">Ingredients</sys:String>
     <sys:String x:Key="IngredientListAmounts">Amounts</sys:String>
 
+    <!--Tool tips-->
+    <sys:String x:Key="FridgeToolTip">Here you will see recently added foods.</sys:String>
+    <sys:String x:Key="BTNShowFridgeToolTip">Click here to open fridge.</sys:String>
+    <sys:String x:Key="BTNShowRecipeToolTip">Click here to see how to cook recipe.</sys:String>
+    <sys:String x:Key="BTNShowRecentlyViewedToolTip">Click here to see saved and recently viewed recipes.</sys:String>
+    <sys:String x:Key="OpenSettingsToolTip">Click to open your account settings.</sys:String>
+    <sys:String x:Key="BTNFindRecipeToolTip">Click to refresh suggested recipes.</sys:String>
+    <sys:String x:Key="BGButtonToolTip">Click to change language to Bulgarian.</sys:String>
+    <sys:String x:Key="USButtonToolTip">Click to change language to English.</sys:String>
+    <sys:String x:Key="LangSettingsToolTip">Click to change language.</sys:String>
+
+
+
+
+
+
+
 </ResourceDictionary>

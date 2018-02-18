@@ -127,7 +127,7 @@ namespace MunchyUI
             CurrentManager.StatManager.DailyReset();
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
-            Localizer.SetDefaultLanguage(this);
+            Localizer.SetDefaultLanguage(this);            
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
