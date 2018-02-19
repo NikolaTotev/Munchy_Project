@@ -112,13 +112,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E7D3090BB3453DFC96B89D54A62CC8C4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_646DF6049B04D98106C0D921603DFF6D"
+        "OwnerKey" = "8:_6B70BF0F55294E9CA2CB1466922B697E"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -130,7 +124,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6B70BF0F55294E9CA2CB1466922B697E"
+        "OwnerKey" = "8:_646DF6049B04D98106C0D921603DFF6D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E7D3090BB3453DFC96B89D54A62CC8C4"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -279,6 +279,11 @@
             "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_646DF6049B04D98106C0D921603DFF6D"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
@@ -345,6 +350,11 @@
             "AssemblyAsmDisplayName" = "8:MunchyAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
+                    "_AAD0C2BBCC729E1F856B0D0620F236D6"
+                    {
+                    "Name" = "8:MunchyAPI.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:MunchyAPI.dll"
             "TargetName" = "8:"
@@ -451,6 +461,11 @@
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
+                    "_E7D3090BB3453DFC96B89D54A62CC8C4"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
                 }
             "SourcePath" = "8:System.Net.Http.dll"
             "TargetName" = "8:"
@@ -599,19 +614,19 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Munchy"
-        "ProductCode" = "8:{671AE3C7-46EE-44C9-BB78-CE3F68173E95}"
-        "PackageCode" = "8:{20A1B2D6-B88E-4C03-A0B5-3DB0FF42B2C5}"
+        "ProductCode" = "8:{E009DCC9-1936-46E1-BCE6-2170C158468C}"
+        "PackageCode" = "8:{155C1B2E-2A73-424A-8D96-1C963E52FABC}"
         "UpgradeCode" = "8:{3F958ECF-93CC-4B96-ACBF-9A5AB13186DF}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.0-A"
         "Manufacturer" = "8:CaliforniumSoftware"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:MunchySetup"
+        "Title" = "8:Munchy"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Nikola Totev 2018"
         "Keywords" = "8:"

@@ -89,10 +89,11 @@ namespace MunchyUI
         public MainWindow()
         {
             InitializeComponent();
-                                    
+
             if (!File.Exists(FoodDefFile) || !File.Exists(RecipeDatabase))
             {
-                MessageBox.Show("EN: ERROR : You are missing files required for the programs operation. Please vist == GITHUB URL == for potential fixes." + "\n" + "\n" + " BG: Грешка! : Липсват файлове нужни за функционирането на програмата.Моля посетете == GITHUB URL == за насоки да поправите грешката.");
+                MessageBox.Show("EN: The program seems to have encountered an error Press OK to open the support page and look for the following code : Error Code: ERR-RFM " + "\n" + "\n" + " BG: Грешка! : Липсват файлове нужни за функционирането на програмата.Моля посетете https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting за насоки да поправите грешката.");
+                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
                 Close();
                 return;
             }
@@ -161,6 +162,8 @@ namespace MunchyUI
             else
             {
                 img_RecipeImage.Fill = null;
+                MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
+                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
             }
         }
 
@@ -224,6 +227,8 @@ namespace MunchyUI
             else
             {
                 Img_SuggestedRecipeImage.Fill = null;
+                MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
+                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
             }
 
             CurrentManager.StatManager.TotalRecipesSeen++;
@@ -418,6 +423,11 @@ namespace MunchyUI
                             {
                                 FrontPageRecentlyViewedImages[i].Fill = RecentlyViewedRecipeImages[i];
                             }
+                        }
+                        else
+                        {
+                            MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
+                            System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
                         }
                     }
                     else
@@ -1132,7 +1142,9 @@ namespace MunchyUI
             }
             else
             {
-                RecipeName = "Error TE303";
+                MessageBox.Show("EN: Error Code : ERR-RFC : There seems to be a corrupted file. Please click Ok to open the support page. ");
+                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
+                RecipeName = "Error Code: ERR-RFC";
             }
 
             return RecipeName;
