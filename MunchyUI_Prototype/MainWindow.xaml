@@ -586,7 +586,7 @@
 
             <Button x:Name="Btn_ShowPreviousRecipe" Content="&lt;" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="84,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="45" Click="Btn_ShowPreviousRecipe_Click" FontSize="22" FontFamily="Roboto Black" Background="{x:Null}" BorderBrush="{x:Null}"/>
 
-            <Button x:Name="Btn_ShowNextRecipe" Content="&gt;" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="297,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="39" Click="Btn_ShowNextRecipe_Click" FontFamily="Roboto Black" FontSize="22" Background="{x:Null}" BorderBrush="{x:Null}" Grid.ColumnSpan="2"/>
+            <Button x:Name="Btn_ShowNextRecipe" Content="&gt;" Grid.Column="3" HorizontalAlignment="Left" Height="36" Margin="297,10,0,0" Grid.Row="4" VerticalAlignment="Top" Width="39" Click="Btn_ShowNextRecipe_Click" FontFamily="Roboto Black" FontSize="22" Background="{x:Null}" BorderBrush="{x:Null}" Grid.ColumnSpan="2" ToolTip="Click to see next recipe"/>
 
             <Rectangle x:Name="Rect_UNameBackground" Fill="#FFF24333" Margin="85,-1,0,26" Grid.Column="3" OpacityMask="#FFF24333"/>
 

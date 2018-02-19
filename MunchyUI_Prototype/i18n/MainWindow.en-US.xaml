@@ -15,7 +15,9 @@
     <sys:String x:Key="ShowRecipeButton">Show Recipe</sys:String>
     <sys:String x:Key="ShowFridgeButton">Show Fridge</sys:String>
     <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
-    
+    <sys:String x:Key="PreviousRecipeBTN">Previous recipe</sys:String>
+    <sys:String x:Key="NextRecipeBTN">Next recipe</sys:String>
+
     <!--Settings Panel-->
     <sys:String x:Key="SettingsTextBlock">Settings</sys:String>
     <sys:String x:Key="SexTextBlock">Sex</sys:String>
