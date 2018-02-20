@@ -21,7 +21,7 @@ namespace Nikola.Munchy.MunchyAPI
         public List<string> UserTags { get; set; }
         public string ImageFile { get; set; }
         public int RecipeIndex { get; set; }
-        public int Calories { get; set; }
+        public int Calories { get; set; }         
        
     }
 }

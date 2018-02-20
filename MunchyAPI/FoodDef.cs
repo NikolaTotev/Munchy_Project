@@ -17,7 +17,8 @@ namespace Nikola.Munchy.MunchyAPI
         public int Sugars { get; set; }
         public int Sodium { get; set; }
         public float Amount { get; set; }
-        public string UOM { get; set; }
+        public string USUOM { get; set; }
+        public string BGUOM { get; set; }
         public string ImageFileName { get; set; }        
         public List<float> SuggestedAmounts { get; set; }
     }
