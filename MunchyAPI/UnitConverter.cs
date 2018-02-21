@@ -13,14 +13,19 @@ namespace Nikola.Munchy.MunchyAPI
         public static float GetMass(string FoodName, float FoodAmount, string Unit, FoodManager foodManager)
         {
             float Mass = 0;
+            
             if (Unit != "ml")
             {
                 float FoodDensity = foodManager.Foods[FoodName].FoodDensity;
                 float VolumeToUse = StandardUnits[Unit];
                 Mass = FoodAmount * (VolumeToUse * FoodDensity);
             }
-            else if (Unit == "ml")
+
+            if (Unit == "ml")
                 Mass = FoodAmount * StandardUnits[Unit];
+            
+            if(Unit == "Count")
+                Mass = FoodAmount;
 
             return Mass;
         }

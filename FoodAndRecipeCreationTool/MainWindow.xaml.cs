@@ -65,7 +65,7 @@ namespace FoodAndRecipeCreationTool
             SaveRecipeList();
             SaveFoodList();
             SettingOptions = new List<CheckBox> { CB_IsVegan, CB_IsVegetarian, CB_IsDiabetic, CB_Eggs, CB_Dairy, CB_Fish, CB_Nuts, CB_Gluten, CB_Soy };
-            Units = new List<RadioButton> { RB_Cup, RB_Tbsp, RB_Tsp };
+            Units = new List<RadioButton> { RB_Cup, RB_Tbsp, RB_Tsp, RB_count, RB_Ml };
         }
 
         /// <summary>
@@ -220,6 +220,12 @@ namespace FoodAndRecipeCreationTool
             {
                 if (!string.IsNullOrWhiteSpace(tb_SodiumInput.Text))
                     NewFoodItem.Sodium = float.Parse(tb_SodiumInput.Text);
+            }
+
+            if (float.TryParse(Tb_DesityInput.Text, out float parsedValue6))
+            {
+                if (!string.IsNullOrWhiteSpace(tb_SodiumInput.Text))
+                    NewFoodItem.FoodDensity = float.Parse(Tb_DesityInput.Text);
             }
 
             if (!string.IsNullOrWhiteSpace(US_UOMInput.Text))
