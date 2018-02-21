@@ -10,12 +10,12 @@ namespace Nikola.Munchy.MunchyAPI
     {
         public string USName { get; set; }
         public string BGName { get; set; }
-        public int Calories { get; set; }
-        public int Protein { get; set; }
-        public int Fat { get; set; }
-        public int Carbs { get; set; }
-        public int Sugars { get; set; }
-        public int Sodium { get; set; }
+        public float Calories { get; set; }
+        public float Protein { get; set; }
+        public float Fat { get; set; }
+        public float Carbs { get; set; }
+        public float Sugars { get; set; }
+        public float Sodium { get; set; }
         public float Amount { get; set; }
         public string USUOM { get; set; }
         public string BGUOM { get; set; }

@@ -183,22 +183,22 @@ namespace FoodAndRecipeCreationTool
                 NewFoodItem.BGName = BG_FoodName.Text.ToLower();
 
             if (!string.IsNullOrWhiteSpace(tb_CalorieInput.Text))
-                NewFoodItem.Calories = int.Parse(tb_CalorieInput.Text);
+                NewFoodItem.Calories = float.Parse(tb_CalorieInput.Text);
 
             if (!string.IsNullOrWhiteSpace(tb_ProteinInput.Text))
-                NewFoodItem.Protein = int.Parse(tb_ProteinInput.Text);
+                NewFoodItem.Protein = float.Parse(tb_ProteinInput.Text);
 
             if (!string.IsNullOrWhiteSpace(tb_FatInput.Text))
-                NewFoodItem.Fat = int.Parse(tb_FatInput.Text);
+                NewFoodItem.Fat = float.Parse(tb_FatInput.Text);
 
             if (!string.IsNullOrWhiteSpace(tb_CarbInput.Text))
-                NewFoodItem.Carbs = int.Parse(tb_CarbInput.Text);
+                NewFoodItem.Carbs = float.Parse(tb_CarbInput.Text);
 
             if (!string.IsNullOrWhiteSpace(tb_SugarInput.Text))
-                NewFoodItem.Sugars = int.Parse(tb_SugarInput.Text);
+                NewFoodItem.Sugars = float.Parse(tb_SugarInput.Text);
 
             if (!string.IsNullOrWhiteSpace(tb_SodiumInput.Text))
-                NewFoodItem.Sodium = int.Parse(tb_SodiumInput.Text);
+                NewFoodItem.Sodium = float.Parse(tb_SodiumInput.Text);
 
             if (!string.IsNullOrWhiteSpace(US_UOMInput.Text))
                 NewFoodItem.USUOM = US_UOMInput.Text;
@@ -208,11 +208,26 @@ namespace FoodAndRecipeCreationTool
 
             if (SuggestedAmounts != null && SuggestedAmounts.Count > 0)
                 NewFoodItem.SuggestedAmounts = SuggestedAmounts;
-                
-            if (!FoodList.ContainsKey(NewFoodItem.USName.ToLower()))
-                FoodList.Add(NewFoodItem.USName.ToLower(), NewFoodItem);
 
+            if (NewFoodItem.USName != null)
+            {
+                if (!FoodList.ContainsKey(NewFoodItem.USName.ToLower()))
+                    FoodList.Add(NewFoodItem.USName.ToLower(), NewFoodItem);
+            }
             SaveFoodList();
+
+            BG_UOMInput.Clear();
+            US_UOMInput.Clear();
+            tb_CalorieInput.Clear();
+            tb_CarbInput.Clear();
+            tb_FatInput.Clear();
+            tb_ProteinInput.Clear();
+            tb_SodiumInput.Clear();
+            tb_SugarInput.Clear();
+            US_FoodName.Clear();
+            Lb_SuggestedAmounts.Items.Clear();
+            SuggestedAmounts.Clear();
+            BG_FoodName.Clear();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -53,7 +53,7 @@
             </Grid>
 
 
-            <Grid x:Name="P_FoodTool" Background="#FFBBE5ED" HorizontalAlignment="Left" Height="1165" Visibility="Hidden" VerticalAlignment="Top" Width="1171" Margin="0,-210,0,-273">
+            <Grid x:Name="P_FoodTool" Background="#FFBBE5ED" HorizontalAlignment="Left" Height="1165" Visibility="Visible" VerticalAlignment="Top" Width="1171" Margin="0,-210,0,-273">
                 <TextBlock x:Name="l_FoodName" HorizontalAlignment="Left" Height="37" Margin="305,101,0,0" TextWrapping="Wrap" Text="US Name" VerticalAlignment="Top" Width="189" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358" TextAlignment="Center"/>
                 <TextBox x:Name="US_FoodName" HorizontalAlignment="Left" Height="37" Margin="282,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" BorderBrush="{x:Null}" Foreground="#FF555358" FontFamily="Roboto" FontSize="22" TextAlignment="Center" TextChanged="TextBox_TextChanged"/>
                 <TextBlock x:Name="l_FoodName_Copy" HorizontalAlignment="Left" Height="37" Margin="321,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358" TextAlignment="Center"><Run Text="Calories"/><LineBreak/><Run/></TextBlock>

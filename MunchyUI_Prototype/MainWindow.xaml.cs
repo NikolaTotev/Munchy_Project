@@ -40,12 +40,12 @@ namespace MunchyUI
         bool bgBG = false;
 
         //Variables for the summary of the fridge.
-        int CalorieSum = 0;
-        int ProteinSum = 0;
-        int FatSum = 0;
-        int CarbSum = 0;
-        int SugarSum = 0;
-        int SodiumSum = 0;
+        float CalorieSum = 0;
+        float ProteinSum = 0;
+        float FatSum = 0;
+        float CarbSum = 0;
+        float SugarSum = 0;
+        float SodiumSum = 0;
 
         int DailyCalories = 0;
 
@@ -60,7 +60,7 @@ namespace MunchyUI
         List<FoodDef> RecipeIngredientList;
 
         TextBlock[] SummaryTextBlocks;
-        int[] SummaryValues;
+        float[] SummaryValues;
 
         RecipeDef SuggestedRecipe = new RecipeDef();
         ProgramManager CurrentManager;
@@ -673,7 +673,7 @@ namespace MunchyUI
                     SugarSum += element.Value.Sugars;
                     SodiumSum += element.Value.Sodium;
                 }
-                SummaryValues = new int[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
+                SummaryValues = new float[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
                 for (int i = 0; i < SummaryTextBlocks.Length; i++)
                 {
                     SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
@@ -681,7 +681,7 @@ namespace MunchyUI
             }
             else
             {
-                SummaryValues = new int[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
+                SummaryValues = new float[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
                 for (int i = 0; i < SummaryTextBlocks.Length; i++)
                 {
                     SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
