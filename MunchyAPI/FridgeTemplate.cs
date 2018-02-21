@@ -96,15 +96,17 @@ namespace Nikola.Munchy.MunchyAPI
         /// </summary>
         /// <param name="FoodItemToChange"></param>
         /// <param name="AmountToChange"></param>
-        public void ModifyFoodItemAmount(List<string> FoodItemsToChange, List<float> AmountsToChange)
+        public void ModifyFoodItemAmount(List<string> FoodItemsToChange, List<float> AmountsToChange, List<string>Units, FoodManager foodManager)
         {
             for (int i = 0; i < FoodItemsToChange.Count; i++)
             {
+                float AmountToRemove = UnitConverter.GetMass(FoodItemsToChange[i], AmountsToChange[i], Units[i], foodManager);
+
                 foreach (KeyValuePair<string, FoodDef> element in USUsersFoods)
                 {
-                    if (element.Value.USName.ToLower() == FoodItemsToChange[i].ToLower() && element.Value.Amount - AmountsToChange[i] >= 0)
+                    if (element.Value.USName.ToLower() == FoodItemsToChange[i].ToLower() && element.Value.Amount - AmountToRemove >= 0)
                     {
-                        element.Value.Amount -= AmountsToChange[i];
+                        element.Value.Amount -= AmountToRemove;
                     }                                                       
                 }
             }

@@ -30,12 +30,14 @@ namespace FoodAndRecipeCreationTool
         string RecipeDatabase = ProgramFolder + "\\Recipes.json";
 
         List<CheckBox> SettingOptions;
+        List<RadioButton> Units;
 
         Dictionary<string, FoodDef> FoodList;
         Dictionary<string, RecipeDef> RecipeList;
 
         List<string> USIngredients = new List<string>();
         List<string> BGIngredients = new List<string>();
+        List<string> UnitsToAdd = new List<string>();
 
         List<float> SuggestedAmounts = new List<float>();
 
@@ -63,6 +65,7 @@ namespace FoodAndRecipeCreationTool
             SaveRecipeList();
             SaveFoodList();
             SettingOptions = new List<CheckBox> { CB_IsVegan, CB_IsVegetarian, CB_IsDiabetic, CB_Eggs, CB_Dairy, CB_Fish, CB_Nuts, CB_Gluten, CB_Soy };
+            Units = new List<RadioButton> { RB_Cup, RB_Tbsp, RB_Tsp };
         }
 
         /// <summary>
@@ -182,23 +185,42 @@ namespace FoodAndRecipeCreationTool
             if (!string.IsNullOrWhiteSpace(BG_FoodName.Text))
                 NewFoodItem.BGName = BG_FoodName.Text.ToLower();
 
-            if (!string.IsNullOrWhiteSpace(tb_CalorieInput.Text))
-                NewFoodItem.Calories = float.Parse(tb_CalorieInput.Text);
+            if (float.TryParse(tb_CalorieInput.Text, out float parsedValue))
+            {
+                if (!string.IsNullOrWhiteSpace(tb_CalorieInput.Text))
+                    NewFoodItem.Calories = float.Parse(tb_CalorieInput.Text);
+            }
 
-            if (!string.IsNullOrWhiteSpace(tb_ProteinInput.Text))
-                NewFoodItem.Protein = float.Parse(tb_ProteinInput.Text);
+            if (float.TryParse(tb_ProteinInput.Text, out float parsedValue1))
+            {
+                if (!string.IsNullOrWhiteSpace(tb_ProteinInput.Text))
+                    NewFoodItem.Protein = float.Parse(tb_ProteinInput.Text);
+            }
 
-            if (!string.IsNullOrWhiteSpace(tb_FatInput.Text))
-                NewFoodItem.Fat = float.Parse(tb_FatInput.Text);
+            if (float.TryParse(tb_FatInput.Text, out float parsedValue2))
+            {
+                if (!string.IsNullOrWhiteSpace(tb_FatInput.Text))
+                    NewFoodItem.Fat = float.Parse(tb_FatInput.Text);
+            }
 
-            if (!string.IsNullOrWhiteSpace(tb_CarbInput.Text))
-                NewFoodItem.Carbs = float.Parse(tb_CarbInput.Text);
+            if (float.TryParse(tb_CarbInput.Text, out float parsedValue3))
+            {
+                if (!string.IsNullOrWhiteSpace(tb_CarbInput.Text))
+                    NewFoodItem.Carbs = float.Parse(tb_CarbInput.Text);
+            }
 
-            if (!string.IsNullOrWhiteSpace(tb_SugarInput.Text))
-                NewFoodItem.Sugars = float.Parse(tb_SugarInput.Text);
 
-            if (!string.IsNullOrWhiteSpace(tb_SodiumInput.Text))
-                NewFoodItem.Sodium = float.Parse(tb_SodiumInput.Text);
+            if (float.TryParse(tb_SugarInput.Text, out float parsedValue4))
+            {
+                if (!string.IsNullOrWhiteSpace(tb_SugarInput.Text))
+                    NewFoodItem.Sugars = float.Parse(tb_SugarInput.Text);
+            }
+
+            if (float.TryParse(tb_SodiumInput.Text, out float parsedValue5))
+            {
+                if (!string.IsNullOrWhiteSpace(tb_SodiumInput.Text))
+                    NewFoodItem.Sodium = float.Parse(tb_SodiumInput.Text);
+            }
 
             if (!string.IsNullOrWhiteSpace(US_UOMInput.Text))
                 NewFoodItem.USUOM = US_UOMInput.Text;
@@ -208,6 +230,7 @@ namespace FoodAndRecipeCreationTool
 
             if (SuggestedAmounts != null && SuggestedAmounts.Count > 0)
                 NewFoodItem.SuggestedAmounts = SuggestedAmounts;
+
 
             if (NewFoodItem.USName != null)
             {
@@ -233,7 +256,8 @@ namespace FoodAndRecipeCreationTool
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             RecipeDef NewRecipeDef = new RecipeDef();
-            NewRecipeDef.TimeTags = new List<string>();         
+            NewRecipeDef.TimeTags = new List<string>();
+            NewRecipeDef.Units = new List<string>();
 
             if (Amounts != null && Amounts.Count > 0 && Amounts.Count == USIngredients.Count)
                 NewRecipeDef.Amounts = Amounts;
@@ -266,6 +290,11 @@ namespace FoodAndRecipeCreationTool
             if (!string.IsNullOrWhiteSpace(tb_TimeToCook.Text))
                 NewRecipeDef.TimeToCook = tb_TimeToCook.Text;
 
+            
+
+            if (UnitsToAdd.Count > 0)
+                NewRecipeDef.Units = UnitsToAdd;
+
             foreach (CheckBox element in SettingOptions)
             {
                 if (element.IsChecked == true)
@@ -274,6 +303,7 @@ namespace FoodAndRecipeCreationTool
                     {
                         Preferences.Add(CompatabilityMap[SettingOptions.IndexOf(element)]);
                     }
+                    element.IsChecked = false;
                 }
             }
 
@@ -319,6 +349,15 @@ namespace FoodAndRecipeCreationTool
 
         private void Btn_AddIngredient_Click(object sender, RoutedEventArgs e)
         {
+            foreach (RadioButton element in Units)
+            {
+                if (element.IsChecked == true)
+                {
+                    UnitsToAdd.Add(element.Content.ToString());
+                }
+                element.IsChecked = false;
+            }
+
             if (!string.IsNullOrWhiteSpace(US_IngredientInput.Text) && !string.IsNullOrWhiteSpace(BG_IngredientInput.Text))
             {
                 string USIngrToAdd = US_IngredientInput.Text;
@@ -335,7 +374,7 @@ namespace FoodAndRecipeCreationTool
 
             if (!string.IsNullOrWhiteSpace(tb_AmountInput.Text))
             {
-                if (int.TryParse(tb_AmountInput.Text, out int n))
+                if (float.TryParse(tb_AmountInput.Text, out float n))
                 {
                     string AmountToAdd = tb_AmountInput.Text;
                     AmountListbox.Items.Add(AmountToAdd);

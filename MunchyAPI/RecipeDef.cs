@@ -19,6 +19,7 @@ namespace Nikola.Munchy.MunchyAPI
         public List<float> Amounts { get; set; }
         public List<string> TimeTags { get; set; }
         public List<string> UserTags { get; set; }
+        public List <string> Units { get; set; }
         public string ImageFile { get; set; }
         public int RecipeIndex { get; set; }
         public int Calories { get; set; }         

@@ -19,6 +19,8 @@ namespace Nikola.Munchy.MunchyAPI
         public float Amount { get; set; }
         public string USUOM { get; set; }
         public string BGUOM { get; set; }
+        public float FoodDensity { get; set; }
+        public string IngrAmount { get; set; }
         public string ImageFileName { get; set; }        
         public List<float> SuggestedAmounts { get; set; }
     }

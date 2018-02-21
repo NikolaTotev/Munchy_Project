@@ -677,7 +677,7 @@
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="{DynamicResource ResourceKey=IngredientListIngredients}" Width="150"  DisplayMemberBinding="{Binding USName}"/>
-                            <GridViewColumn Header="{DynamicResource ResourceKey=IngredientListAmounts}" Width="150" DisplayMemberBinding="{Binding Amount}"/>
+                            <GridViewColumn Header="{DynamicResource ResourceKey=IngredientListAmounts}" Width="150" DisplayMemberBinding="{Binding IngrAmount}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

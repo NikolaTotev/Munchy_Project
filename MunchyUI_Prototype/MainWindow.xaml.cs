@@ -177,7 +177,7 @@ namespace MunchyUI
             {
                 foreach (string ingredient in GetIngredientList(SuggestedRecipe))
                 {
-                    RecipeIngredientList.Add(new FoodDef() { USName = ingredient, Amount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)] });
+                    RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + SuggestedRecipe.Units[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() });
                 }
 
                 lv_Ingredients.ItemsSource = RecipeIngredientList;
@@ -315,7 +315,7 @@ namespace MunchyUI
             CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
-            CurrentManager.UsersFridge.ModifyFoodItemAmount(SuggestedRecipe.USIngredients, SuggestedRecipe.Amounts);
+            CurrentManager.UsersFridge.ModifyFoodItemAmount(SuggestedRecipe.USIngredients, SuggestedRecipe.Amounts, SuggestedRecipe.Units, CurrentManager.FoodManag);
             RefreshFridge();
         }
 
