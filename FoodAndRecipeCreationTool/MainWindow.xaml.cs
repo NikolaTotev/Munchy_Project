@@ -265,6 +265,14 @@ namespace FoodAndRecipeCreationTool
             NewRecipeDef.TimeTags = new List<string>();
             NewRecipeDef.Units = new List<string>();
 
+            if (!string.IsNullOrWhiteSpace(BG_NameInput.Text))
+                NewRecipeDef.BGName = BG_NameInput.Text.ToLower();
+
+            if (!string.IsNullOrWhiteSpace(US_NameInput.Text))
+                NewRecipeDef.USName = US_NameInput.Text.ToLower();
+
+
+
             if (Amounts != null && Amounts.Count > 0 && Amounts.Count == USIngredients.Count)
                 NewRecipeDef.Amounts = Amounts;
 
@@ -273,13 +281,6 @@ namespace FoodAndRecipeCreationTool
 
             if (BGIngredients != null && BGIngredients.Count > 0 && Amounts.Count == BGIngredients.Count)
                 NewRecipeDef.BGIngredients = BGIngredients;
-
-            if (!string.IsNullOrWhiteSpace(BG_NameInput.Text))
-                NewRecipeDef.BGName = BG_NameInput.Text.ToLower();
-
-            if (!string.IsNullOrWhiteSpace(US_NameInput.Text))
-                NewRecipeDef.USName = US_NameInput.Text.ToLower();
-
 
             if (!string.IsNullOrWhiteSpace(tb_ImageNameInput.Text))
                 NewRecipeDef.ImageFile = tb_ImageNameInput.Text + ".jpg";
@@ -296,7 +297,7 @@ namespace FoodAndRecipeCreationTool
             if (!string.IsNullOrWhiteSpace(tb_TimeToCook.Text))
                 NewRecipeDef.TimeToCook = tb_TimeToCook.Text;
 
-            
+
 
             if (UnitsToAdd.Count > 0)
                 NewRecipeDef.Units = UnitsToAdd;
@@ -346,11 +347,17 @@ namespace FoodAndRecipeCreationTool
             }
 
             SaveRecipeList();
+            RecipeList.Clear();
+            RecipeList = GetRecipies();
             tb_TimeToCook.Clear();
             US_NameInput.Clear();
             BG_NameInput.Clear();
             tb_RecipeCalorieInput.Clear();
-
+            BG_IngredientList.Items.Clear();
+            BGIngredients = new List<string>();
+            USIngredients = new List<string>();
+            NewRecipeDef.USIngredients = new List<string>();
+            NewRecipeDef.BGIngredients = new List<string>();
         }
 
         private void Btn_AddIngredient_Click(object sender, RoutedEventArgs e)
