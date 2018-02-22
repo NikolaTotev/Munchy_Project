@@ -194,7 +194,7 @@ namespace MunchyUI
                 tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
                 tB_TimeToCookAmount.Text = SuggestedRecipe.TimeToCook.ToString();
             }
-           
+
 
         }
 
@@ -576,7 +576,12 @@ namespace MunchyUI
 
         private void AddFoodItem()
         {
-            FoodDef ItemToAdd = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
+            FoodDef ItemToAdd = new FoodDef();
+            if (lB_SuggestedFoods.SelectedIndex > 0)
+            {
+                ItemToAdd = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
+            }
+            
 
             foreach (RadioButton element in AmountRadioButtons)
             {
@@ -598,26 +603,30 @@ namespace MunchyUI
                 L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(enUS, bgBG);
             }
 
-            if (!CurrentManager.User.UserFridge.USUsersFoods.ContainsKey(ItemToAdd.USName))
+            if(ItemToAdd.USName != null)
             {
-                CurrentManager.User.UserFridge.AddToFridge(ItemToAdd);
+                if (!CurrentManager.User.UserFridge.USUsersFoods.ContainsKey(ItemToAdd.USName))
+                {
+                    CurrentManager.User.UserFridge.AddToFridge(ItemToAdd);
 
-                if (enUS == true)
-                    lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.USName.First().ToString().ToUpper() + ItemToAdd.USName.ToString().Substring(1), Amount = ItemToAdd.Amount });
+                    if (enUS == true)
+                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.USName.First().ToString().ToUpper() + ItemToAdd.USName.ToString().Substring(1), Amount = ItemToAdd.Amount });
 
-                if (bgBG == true)
-                    lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.BGName, Amount = ItemToAdd.Amount });
+                    if (bgBG == true)
+                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.BGName, Amount = ItemToAdd.Amount });
 
-                CurrentManager.UsersFridge.SaveFridge();
-                l_SearchInfo.Text = TranslatorCore.ItemAddedMessage(enUS, bgBG);
+                    CurrentManager.UsersFridge.SaveFridge();
+                    l_SearchInfo.Text = TranslatorCore.ItemAddedMessage(enUS, bgBG);
 
-                RefreshFridge();
-                PopulateFridgeSummary();
+                    RefreshFridge();
+                    PopulateFridgeSummary();
+                }
+                else
+                {
+                    l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(enUS, bgBG);
+                }
             }
-            else
-            {
-                l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(enUS, bgBG);
-            }
+           
 
             Tb_CustomAmount.Clear();
             foreach (RadioButton element in AmountRadioButtons)
