@@ -37,7 +37,7 @@ namespace MunchyUI
         string RecipeSaveFile = ProgramFolder + "\\RecipeSavesFile.json";
         string StatSavePath = ProgramFolder + "\\StatSavePath.json";
 
-        //Booleans for determining what language to use in runtime. 
+        //Booleans for determining what language to use in runtime. English is the default language.
         bool enUS = true;
         bool bgBG = false;
 
@@ -72,7 +72,7 @@ namespace MunchyUI
 
         // This list is used for populating the Ingredients ListView in the UI.
         List<FoodDef> RecipeIngredientList;
-      
+
         //This is the RecipeDef item that is used to store the user is supposed to see. It is updated everytime the user  wants to go to the next recipe
         // in the sugggested recipe list.
         RecipeDef SuggestedRecipe = new RecipeDef();
@@ -102,9 +102,11 @@ namespace MunchyUI
 
         //This elipse array stores the elipses on the front page.
         Ellipse[] FrontPageRecentlyViewedImages;
-        
+
         //These RadioButtons are used for setting the amounts of the fooditems the user adds.
         RadioButton[] AmountRadioButtons;
+
+
         // ================= UI LOGIC =================
         #region UI Logic
 
@@ -114,6 +116,8 @@ namespace MunchyUI
         {
             InitializeComponent();
 
+            //Checks if FoodDefFile and RecipeDatabase exist, if they dont a message box is shown and the user is redirected to the Support page.
+            //This prevents operation errors down the line. These two files are critical for the operation of the program.
             if (!File.Exists(FoodDefFile) || !File.Exists(RecipeDatabase))
             {
                 MessageBox.Show("EN: The program seems to have encountered an error Press OK to open the support page and look for the following code : Error Code: ERR-RFM " + "\n" + "\n" + " BG: Грешка! : Липсват файлове нужни за функционирането на програмата.Моля посетете https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting за насоки да поправите грешката.");
@@ -122,24 +126,31 @@ namespace MunchyUI
                 return;
             }
 
-            SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
-
+            //Checks if the UserFile exists. If it doesn't this suggests that this is the first time the user is using the program and therefore he is prompted to
+            //enter his information. The information is used to suggest recipes.
             if (!File.Exists(UserFile))
             {
-
                 MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");
             }
 
+            //Intitially sets the default language.
+            Localizer.SetDefaultLanguage(this);
+
             CurrentManager = new ProgramManager(UserFile, UserFridgeFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, StatSavePath);
 
+            //Sets the users name.
+            if (CurrentManager.User.UserName != null)
+                tB_UserName.Text = CurrentManager.User.UserName;
+
+            //Gets the language that the user has saved. It does not check if it is english as english is the default for the program.
             if (CurrentManager.User.LanguagePref == "BG")
             {
                 bgBG = true;
                 enUS = false;
                 Localizer.SwitchLanguage(this, "bg-BG");
-
             }
 
+            SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
             SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
             RecentlyViewedRecipeImages = new ImageBrush[] { RecentRecipe_1, RecentRecipe_2, RecentRecipe_3, RecentRecipe_4, RecentRecipe_5, RecentRecipe_6 };
             RecentlyViewedRecipesImages = new Ellipse[] { Img_RecentlyViewed_1, Img_RecentlyViewed_2, Img_RecentlyViewed_3, Img_RecentlyViewed_4, Img_RecentlyViewed_5, Img_RecentlyViewed_6 };
@@ -150,15 +161,13 @@ namespace MunchyUI
             PopulateFridgeSummary();
             SuggestRecipe();
             SetRecentlyViewedImages();
-            tB_UserName.Text = CurrentManager.User.UserName;
 
             CurrentManager.StatManager.DailyReset();
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
-            Localizer.SetDefaultLanguage(this);
         }
 
-        // Handles initial Setup of the fridge UI. Called only on program start.
+        //On start populates the fridge on the main page with 10 items from the UserFridge.
         private void InitialFridgeUISetup()
         {
             if (CurrentManager.User.UserFridge.USUsersFoods != null && CurrentManager.User.UserFridge.USUsersFoods.Count > 0)
@@ -176,55 +185,76 @@ namespace MunchyUI
 
         #region Recipe related functions
 
-        // Opens or closes the full recipe view.
-        private void ShowOrCloseFullRecipeView()
+        #region Hanlding browsing recipes.
+        //Algorithm responsible for suggesting a recipe based on time of day. It uses only compatable recipes that are sorted into lists of 
+        // breakfast, lunch and dinner by the RecipeManager. (NOTE) It uses ONLY compatable recipes.
+        private void SuggestRecipe()
         {
-            if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
+            //Breakfast.
+            if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
             {
-                RecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
-                img_RecipeImage.Fill = RecipeImage;
-            }
-            else
-            {
-                img_RecipeImage.Fill = null;
-                MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
-                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
-            }
-        }
-
-        // Adds recipe information to the full recipe view. 
-        // Function is called when the recipe view is opened, or when a new recipe is suggested.
-        private void AddRecipeIngredientsToListView()
-        {
-            RecipeIngredientList.Clear();
-
-            if (GetIngredientList(SuggestedRecipe) != null && GetIngredientList(SuggestedRecipe).Count > 0)
-            {
-                foreach (string ingredient in GetIngredientList(SuggestedRecipe))
+                if (CurrentManager.RecipieManag.Breakfast.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count && NumerOfRecipeToSuggest >= 0)
                 {
-                    if (GetIngredientList(SuggestedRecipe).Count == SuggestedRecipe.Units.Count)
-                        RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + SuggestedRecipe.Units[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() });
-                    else
-                    {
-                        MessageBox.Show("You seem to have a probelem with the Recipe File. Press OK to open the support page.");
-                        System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
-                        break;
-                    }
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
+                    ManageSuggestedRecipe(SuggestedRecipe);
                 }
-
-                lv_Ingredients.ItemsSource = RecipeIngredientList;
-                lv_Ingredients.Items.Refresh();
-                tB_Directions.Text = GetDirections(SuggestedRecipe);
-                tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
-                tB_TimeToCookAmount.Text = SuggestedRecipe.TimeToCook.ToString();
+                else
+                {
+                    tB_RecipeName.Text = null;
+                    tB_RecipeName.FontSize = 18;
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                }
             }
 
+            //Lunch.
+            if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
+            {
+                if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
+                    ManageSuggestedRecipe(SuggestedRecipe);
+                }
+                else
+                {
+                    tB_RecipeName.Text = null;
+                    tB_RecipeName.FontSize = 18;
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                }
+            }
 
+            //Dinner.
+            if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
+            {
+                if (CurrentManager.RecipieManag.Dinner.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count && NumerOfRecipeToSuggest >= 0)
+                {
+                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
+                    ManageSuggestedRecipe(SuggestedRecipe);
+                }
+                else
+                {
+                    tB_RecipeName.Text = null;
+                    tB_RecipeName.FontSize = 18;
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                }
+            }
+
+            //No eating time.
+            if (DateTime.Now.Hour < 7 && DateTime.Now.Hour <= 24)
+            {
+                tB_RecipeName.Text = null;
+                tB_RecipeName.FontSize = 18;
+                tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(enUS, bgBG);
+            }
+
+            CurrentManager.UserRecipeSaves.SaveRecipeSaver();
         }
 
+        //Handles the suggested recipe. Updates the recently viewed list and adds the recipe to it, handles images of recently viewed recipes.
         private void ManageSuggestedRecipe(RecipeDef InputRecipe)
         {
-
             if (CurrentManager.UserRecipeSaves.USRecentlyViewed.Count < 6 && CurrentManager.UserRecipeSaves.BGRecentlyViewed.Count < 6)
             {
                 if (!CurrentManager.UserRecipeSaves.USRecentlyViewed.Contains(SuggestedRecipe.USName))
@@ -235,7 +265,6 @@ namespace MunchyUI
 
                 CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
-
             else
             {
                 if (!CurrentManager.UserRecipeSaves.USRecentlyViewed.Contains(SuggestedRecipe.USName.ToLower()))
@@ -266,83 +295,59 @@ namespace MunchyUI
 
             CurrentManager.StatManager.TotalRecipesSeen++;
             CurrentManager.StatManager.SaveStatistics();
-
         }
 
-        // Suggests a recipe based on the time of day. Recipe sorting is handled in the back end.
-        private void SuggestRecipe()
+        //Sets up the initial FullRecipe view. Called when the "Show Recipe" button is pressed.
+        private void SetupFullRecipeViewImg()
         {
-
-            if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
+            if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
             {
-                if (CurrentManager.RecipieManag.Breakfast.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count && NumerOfRecipeToSuggest >= 0)
-                {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
-                    ManageSuggestedRecipe(SuggestedRecipe);
-                }
-                else
-                {
-                    tB_RecipeName.Text = null;
-                    tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
-                }
+                RecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
+                img_RecipeImage.Fill = RecipeImage;
             }
-
-            if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
+            else
             {
-                if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
-                {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
-                    ManageSuggestedRecipe(SuggestedRecipe);
-                }
-                else
-                {
-                    tB_RecipeName.Text = null;
-                    tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
-                }
+                img_RecipeImage.Fill = null;
+                MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
+                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
             }
-
-            if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
-            {
-                if (CurrentManager.RecipieManag.Dinner.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count && NumerOfRecipeToSuggest >= 0)
-                {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
-                    ManageSuggestedRecipe(SuggestedRecipe);
-                }
-                else
-                {
-                    tB_RecipeName.Text = null;
-                    tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
-                }
-            }
-
-            if (DateTime.Now.Hour < 7 && DateTime.Now.Hour <= 24)
-            {
-                tB_RecipeName.Text = null;
-                tB_RecipeName.FontSize = 18;
-                tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(enUS, bgBG);
-            }
-            CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-
         }
 
+        //Adds information about the recipe to the FullRecipeView panel.
+        private void AddInformationToFullRecipeView()
+        {
+            RecipeIngredientList.Clear();
+
+            if (GetIngredientList(SuggestedRecipe) != null && GetIngredientList(SuggestedRecipe).Count > 0)
+            {
+                foreach (string ingredient in GetIngredientList(SuggestedRecipe))
+                {
+                    if (GetIngredientList(SuggestedRecipe).Count == SuggestedRecipe.Units.Count)
+                        RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + SuggestedRecipe.Units[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() });
+                    else
+                    {
+                        MessageBox.Show("You seem to have a probelem with the Recipe File. Press OK to open the support page.");
+                        System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
+                        break;
+                    }
+                }
+
+                lv_Ingredients.ItemsSource = RecipeIngredientList;
+                lv_Ingredients.Items.Refresh();
+                tB_Directions.Text = GetDirections(SuggestedRecipe);
+                tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
+                tB_TimeToCookAmount.Text = SuggestedRecipe.TimeToCook.ToString();
+            }
+        }
+
+        //Handles adding the suggested to the CookedRecipes list. A recipe is added only when the user pressed the "I'll Cook It" Button.
         private void AddToCookedRecipes()
         {
             if (!CurrentManager.UserRecipeSaves.USCookedRecipes.Contains(SuggestedRecipe.USName.ToLower()))
                 CurrentManager.UserRecipeSaves.USCookedRecipes.Add(SuggestedRecipe.USName.ToLower());
 
-            //CurrentManager.UserRecipeSaves.USCookedToday.Add(SuggestedRecipe.USName.ToLower());
-
             if (!CurrentManager.UserRecipeSaves.BGCookedRecipes.Contains(SuggestedRecipe.BGName.ToLower()))
                 CurrentManager.UserRecipeSaves.BGCookedRecipes.Add(SuggestedRecipe.BGName.ToLower());
-
-
-            // CurrentManager.UserRecipeSaves.BGCookedToday.Add(SuggestedRecipe.BGName.ToLower());
 
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
@@ -352,6 +357,7 @@ namespace MunchyUI
             RefreshFridge();
         }
 
+        //Handles adding the suggested recipe to saved recipes. A recipe is saved only when the user pressed the "Save" button.
         private void AddToSavedReicpe()
         {
             if (!CurrentManager.UserRecipeSaves.USSavedRecipes.Contains(SuggestedRecipe.USName.ToLower()))
@@ -359,9 +365,11 @@ namespace MunchyUI
 
             if (!CurrentManager.UserRecipeSaves.BGSavedRecipes.Contains(SuggestedRecipe.BGName.ToLower()))
                 CurrentManager.UserRecipeSaves.BGSavedRecipes.Add(SuggestedRecipe.BGName.ToLower());
-
         }
+        #endregion
 
+        #region Handling searching.
+        //Handles searching in the SavedRecipe list.
         private void SavedRecipesSearch()
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchSavedRecipes.Text))
@@ -386,6 +394,7 @@ namespace MunchyUI
             }
         }
 
+        //Handles searching in the CookedRecipe list
         private void CookedRecipesSearch()
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchCookedRecipes.Text))
@@ -411,8 +420,11 @@ namespace MunchyUI
         }
         #endregion
 
+        #endregion
+
         #region UI Show/Hide functions      
 
+        //Opens panel for searching in cooked recipes.
         private void ShowCookedRecipes()
         {
             tB_SavedRecipesPanelTitle.Text = "Cooked Recipes";
@@ -422,24 +434,18 @@ namespace MunchyUI
             P_CookedRecipes.Visibility = Visibility.Visible;
         }
 
-        private void ShowRecipesCookedToday()
+        //Opens panel to see recently viewed recipes.
+        private void ShowRecentlyViewedRecipes()
         {
-            tB_SavedRecipesPanelTitle.Text = "Cooked Today";
-            P_CookedTodayRecipes.Visibility = Visibility.Visible;
-            P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
+            tB_SavedRecipesPanelTitle.Text = "Recently Viewed";
+            P_CookedTodayRecipes.Visibility = Visibility.Hidden;
+            P_RecenltlyViewedRecipes.Visibility = Visibility.Visible;
             P_SavedRecipesSearch.Visibility = Visibility.Hidden;
             P_CookedRecipes.Visibility = Visibility.Hidden;
+            SetRecentlyViewedImages();
         }
 
-        private void ShowAllSavedRecipes()
-        {
-            tB_SavedRecipesPanelTitle.Text = "Saved Recipes";
-            P_CookedTodayRecipes.Visibility = Visibility.Hidden;
-            P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
-            P_SavedRecipesSearch.Visibility = Visibility.Visible;
-            P_CookedRecipes.Visibility = Visibility.Hidden;
-        }
-
+        //Handles showing the user what recipes he has recently viewed. This is done by showing images.(Tool tips will be added showing the name of the recipe)
         private void SetRecentlyViewedImages()
         {
             if (CurrentManager.UserRecipeSaves.USRecentlyViewed.Count > 0)
@@ -472,17 +478,29 @@ namespace MunchyUI
             }
         }
 
-        private void ShowRecentlyViewedRecipes()
+        //Opens panel for searching in saved recipes.
+        private void ShowAllSavedRecipes()
         {
-            tB_SavedRecipesPanelTitle.Text = "Recently Viewed";
+            tB_SavedRecipesPanelTitle.Text = "Saved Recipes";
             P_CookedTodayRecipes.Visibility = Visibility.Hidden;
-            P_RecenltlyViewedRecipes.Visibility = Visibility.Visible;
-            P_SavedRecipesSearch.Visibility = Visibility.Hidden;
+            P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
+            P_SavedRecipesSearch.Visibility = Visibility.Visible;
             P_CookedRecipes.Visibility = Visibility.Hidden;
-            SetRecentlyViewedImages();
         }
 
-        private void ShowSavedRecipePanel()
+        /// Function will be used at a late date.
+        private void ShowRecipesCookedToday()
+        {
+            //  tB_SavedRecipesPanelTitle.Text = "Cooked Today";
+            //  P_CookedTodayRecipes.Visibility = Visibility.Visible;
+            //  P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
+            //  P_SavedRecipesSearch.Visibility = Visibility.Hidden;
+            //  P_CookedRecipes.Visibility = Visibility.Hidden;
+        }
+    
+        
+        //Configures and refreshes the content on the SavedRecipe pannel. Fucntion is called when the use presses the "Show All" button on the main menu
+        private void ConfigureSavedRecipesPanel()
         {
             ShowAllSavedRecipes();
             CurrentManager.StatManager.CalculateAverageSums();
@@ -501,6 +519,7 @@ namespace MunchyUI
             else
                 tB_AverageMontlyCalories.Text = "No Data";
         }
+
         #endregion
 
         #region Fridge related functions
@@ -884,7 +903,7 @@ namespace MunchyUI
         /// <param name="e"></param>
         private void Btn_ShowRecipe_Click(object sender, RoutedEventArgs e)
         {
-            ShowOrCloseFullRecipeView();
+            SetupFullRecipeViewImg();
         }
 
 
@@ -943,8 +962,8 @@ namespace MunchyUI
         #region Recipe related
         private void Btn_ShowRecipе(object sender, RoutedEventArgs e)
         {
-            AddRecipeIngredientsToListView();
-            ShowOrCloseFullRecipeView();
+            AddInformationToFullRecipeView();
+            SetupFullRecipeViewImg();
         }
 
         /// <summary>
@@ -954,7 +973,7 @@ namespace MunchyUI
         /// <param name="e"></param>
         private void Btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
         {
-            ShowSavedRecipePanel();
+            ConfigureSavedRecipesPanel();
             SetRecentlyViewedImages();
         }
 
@@ -1054,7 +1073,7 @@ namespace MunchyUI
 
         private void CloseSavedRecipesPanel(object sender, MouseButtonEventArgs e)
         {
-            ShowSavedRecipePanel();
+            ConfigureSavedRecipesPanel();
         }
 
         private void Btn_RecipeWillBeCooked_Click(object sender, RoutedEventArgs e)
@@ -1115,7 +1134,7 @@ namespace MunchyUI
                 tB_RecipeName.Text = SuggestedRecipe.USName;
             }
 
-            AddRecipeIngredientsToListView();
+            AddInformationToFullRecipeView();
             TranslateFridge();
         }
 
