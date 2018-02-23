@@ -26,7 +26,7 @@
             <Storyboard x:Key="OpenLangSettings">
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="grid">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="184"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="276"/>
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="grid">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -50,7 +50,7 @@
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="p_Settings">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="559.5"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="589.5"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
             <Storyboard x:Key="CloseSettings">
@@ -70,7 +70,7 @@
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="p_UserFoods">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-929.877"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-1016.385"/>
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="p_UserFoods">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
@@ -330,7 +330,7 @@
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="p_FullRecipeView">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-546"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-599"/>
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
             <Storyboard x:Key="CloseFullRecipeView">
@@ -350,7 +350,7 @@
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="p_SavedRecipes">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="935.998"/>
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="987.998"/>
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Btn_CookedRecipes">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
@@ -594,10 +594,10 @@
             <TextBlock x:Name="TB_Calories" TextWrapping="Wrap" Margin="31,9,0,0" Height="26" Width="173" FontFamily="Roboto Black" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Foreground="#FF5E6973" TextAlignment="Center" Grid.ColumnSpan="2"><Run Text="{DynamicResource ResourceKey=CaloriesTextBlock}"/><LineBreak/><Run/></TextBlock>
             <TextBlock  x:Name="TB_DietBalance"  TextWrapping="Wrap" Margin="0,11,10,29" Width="220" FontFamily="Roboto Black" FontSize="20" Text="{DynamicResource ResourceKey=DietBalanceTextBlock}" HorizontalAlignment="Right" Grid.Column="5" Foreground="#FF5E6973" TextAlignment="Center"/>
             <TextBlock x:Name="L_DailyCalories" Height="25" Margin="78,39,0,0" TextWrapping="Wrap" Text="1500" Width="81" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="22" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1" Foreground="#FF5E6973" Grid.ColumnSpan="2"/>
-            <TextBlock x:Name="TB_DietBalanceValue" Height="25" Margin="0,41,80,0" TextWrapping="Wrap" Text="Good" Width="81" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="22" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="5" Foreground="#FF5E6973"/>
+            <TextBlock x:Name="TB_DietBalanceValue" Height="25" Margin="0,41,80,0" TextWrapping="Wrap" Text="Coming Soon!" Width="81" TextAlignment="Center" FontFamily="Roboto" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="5" Foreground="#FF5E6973"/>
             <TextBlock x:Name="TB_FavouriteRecipes" Height="41" Margin="13,23,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=FavouriteRecipesTextBlock}" Width="246" TextAlignment="Center" FontFamily="Roboto Black" FontSize="26" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Foreground="#FF5E6973" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
             <TextBlock x:Name="Fridge" Height="41" Margin="0,22,-1,301" TextWrapping="Wrap" Width="240" TextAlignment="Center" FontFamily="Roboto Black" FontSize="26" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="1" Foreground="#FF5E6973" Grid.RowSpan="2" Grid.ColumnSpan="2"><Run Text="{DynamicResource ResourceKey=FridgeTextBlock}"/><LineBreak/><Run/></TextBlock>
-            <TextBlock x:Name="tB_UserName" Margin="100,3,13,26" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" Grid.Column="3" Foreground="#FFFCFFFC" MouseDown="ShowSettings" ToolTip="{DynamicResource ResourceKey=OpenSettingsToolTip}"><Run Text="Nikola"/></TextBlock>
+            <TextBlock x:Name="tB_UserName" Margin="100,3,13,26" TextWrapping="Wrap" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" Grid.Column="3" Foreground="#FFFCFFFC" MouseDown="ShowSettings" ToolTip="{DynamicResource ResourceKey=OpenSettingsToolTip}"/>
             <TextBlock x:Name="tB_RecipeName" Height="48" Margin="4,0,236,63" TextWrapping="Wrap" Text="Chicken Dinner" Width="418" TextAlignment="Center" FontFamily="Shrikhand" FontSize="24" VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.Column="3" Grid.Row="2" Foreground="#FF5E6973" Grid.RowSpan="3" Grid.ColumnSpan="3"/>
             <Button x:Name="btn_SeeAllSavedRecipes" Content="{DynamicResource ResourceKey=SeeAllFavouriteRecipesButton}" Height="38" Margin="55,0,0,67" Width="153" FontFamily="Roboto Black" FontSize="18" Foreground="#FFFCFFFC" BorderBrush="{x:Null}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2" Click="Btn_SeeAllSavedRecipes_Click" Background="#FFF24333" Grid.ColumnSpan="2" ToolTip="{DynamicResource ResourceKey=BTNShowRecentlyViewedToolTip}"/>
             <ListBox x:Name="lb_Fridge" Height="288" Margin="0,10,22,10" Width="181" Background="White" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="5" Grid.Row="2" FontSize="18" FontFamily="Roboto" Foreground="#FF223843" BorderBrush="#FF5E6973" ToolTip="{DynamicResource ResourceKey= FridgeToolTip}"/>
@@ -673,7 +673,7 @@
                         <ImageBrush ImageSource="ic_navigate_before_black_48dp_2x.png"/>
                     </Rectangle.Fill>
                 </Rectangle>
-                <ListView x:Name="lv_Ingredients" HorizontalAlignment="Left" Height="319" Margin="12,138,0,0" VerticalAlignment="Top" Width="300" FontFamily="Roboto Medium" FontSize="16" Background="White" BorderBrush="#FF5E6973" Foreground="#FF5E6973">
+                <ListView x:Name="lv_Ingredients" HorizontalAlignment="Left" Height="319" Margin="12,138,0,0" VerticalAlignment="Top" Width="300" FontFamily="Roboto Medium" FontSize="18" Background="White" BorderBrush="#FF5E6973" Foreground="#FF5E6973">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="{DynamicResource ResourceKey=IngredientListIngredients}" Width="150"  DisplayMemberBinding="{Binding USName}"/>
@@ -681,7 +681,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <TextBlock x:Name="tB_Directions" HorizontalAlignment="Left" Height="317.134" Margin="318.426,140.016,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="594.444" FontFamily="Roboto Medium" FontSize="14" Foreground="#FF5E6973" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Background="#19FFFFFF" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <TextBlock x:Name="tB_Directions" HorizontalAlignment="Left" Height="317.134" Margin="318.426,140.016,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="594.444" FontFamily="Roboto Medium" FontSize="16" Foreground="#FF5E6973" RenderTransformOrigin="0.5,0.5" TextAlignment="Center" Background="#19FFFFFF" UseLayoutRounding="False" d:LayoutRounding="Auto">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -705,7 +705,7 @@
                         <TranslateTransform/>
                     </TransformGroup>
                 </Grid.RenderTransform>
-                <ListView x:Name="lb_FoodList" HorizontalAlignment="Left" Height="351" Margin="308,66,0,0" VerticalAlignment="Top" Width="304" Foreground="#FF5E6973" BorderBrush="#FF5E6973" FontFamily="Roboto" FontSize="16">
+                <ListView x:Name="lb_FoodList" HorizontalAlignment="Left" Height="351" Margin="308,66,0,0" VerticalAlignment="Top" Width="304" Foreground="#FF5E6973" BorderBrush="#FF5E6973" FontFamily="Roboto Medium" FontSize="18">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="{DynamicResource ResourceKey=IngredientListIngredients}" Width="150"  DisplayMemberBinding="{Binding USName}"/>
@@ -789,7 +789,7 @@
                         <TextBlock x:Name="L_FoodAmountWarning" HorizontalAlignment="Left" Height="35" Margin="45,361,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" TextAlignment="Center" FontFamily="Roboto" Foreground="#FFF7F4F3" FontSize="14"/>
                     </Grid>
                     <TextBox x:Name="tb_Search" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Margin="7,10,8,0" TextAlignment="Center" FontFamily="Roboto Black" FontSize="18" Foreground="#FF5E6973" BorderBrush="#FF5E6973" Background="#FFF7F4F3" TextChanged="OnTextChanged" Text="Search" GotFocus="SearchFoodClearTextBox" LostFocus="FoodSearchLostFocus"/>
-                    <ListBox x:Name="lB_SuggestedFoods" HorizontalAlignment="Left" Height="329" Margin="7,43,0,0" VerticalAlignment="Top" Width="289" SelectionChanged="AddClickedItem" BorderBrush="#FF5E6973" Background="#FFF7F4F3" Foreground="#FF5E6973" FontFamily="Roboto" FontSize="16"/>
+                    <ListBox x:Name="lB_SuggestedFoods" HorizontalAlignment="Left" Height="329" Margin="7,43,0,0" VerticalAlignment="Top" Width="289" SelectionChanged="AddClickedItem" BorderBrush="#FF5E6973" Background="#FFF7F4F3" Foreground="#FF5E6973" FontFamily="Roboto Medium" FontSize="18"/>
                     <TextBlock x:Name="l_SearchInfo" HorizontalAlignment="Left" Height="29" Margin="0,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="304" Foreground="#FFF7F4F3" FontFamily="Roboto Light" FontSize="14" TextAlignment="Center"><Run Text="Type to search for foods to add"/><LineBreak/><Run Text="."/></TextBlock>
                     <Button x:Name="btn_Close" Content="{DynamicResource ResourceKey=CloseAddFoodButton}" Margin="84,414,85,10" Background="#FFF8F5F4" BorderBrush="{x:Null}" Foreground="#FFF24333" FontFamily="Roboto Black" FontSize="16"/>
                 </Grid>

@@ -102,7 +102,7 @@ namespace MunchyUI
 
             if (!File.Exists(UserFile))
             {
-                
+
                 MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");
             }
 
@@ -126,11 +126,12 @@ namespace MunchyUI
             PopulateFridgeSummary();
             SuggestRecipe();
             SetRecentlyViewedImages();
+            tB_UserName.Text = CurrentManager.User.UserName;
 
             CurrentManager.StatManager.DailyReset();
             DailyCalories = CurrentManager.StatManager.DailyCalories;
             L_DailyCalories.Text = DailyCalories.ToString();
-            Localizer.SetDefaultLanguage(this);            
+            Localizer.SetDefaultLanguage(this);
         }
 
         // Handles initial Setup of the fridge UI. Called only on program start.
@@ -177,7 +178,14 @@ namespace MunchyUI
             {
                 foreach (string ingredient in GetIngredientList(SuggestedRecipe))
                 {
-                    RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + SuggestedRecipe.Units[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() });
+                    if (GetIngredientList(SuggestedRecipe).Count == SuggestedRecipe.Units.Count)
+                        RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + SuggestedRecipe.Units[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() });
+                    else
+                    {
+                        MessageBox.Show("You seem to have a probelem with the Recipe File. Press OK to open the support page.");
+                        System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
+                        break;
+                    }
                 }
 
                 lv_Ingredients.ItemsSource = RecipeIngredientList;
@@ -186,6 +194,7 @@ namespace MunchyUI
                 tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
                 tB_TimeToCookAmount.Text = SuggestedRecipe.TimeToCook.ToString();
             }
+           
 
         }
 
@@ -490,7 +499,7 @@ namespace MunchyUI
                     if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1)))
                         lb_Fridge.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1));
                 }
-                
+
             }
         }
 
@@ -632,7 +641,11 @@ namespace MunchyUI
                     checkBox.Content = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts[Array.IndexOf(AmountRadioButtons, checkBox)];
                 }
 
-                Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].USUOM;
+                if (enUS)
+                    Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].USUOM;
+
+                if (bgBG)
+                    Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].BGUOM;
             }
         }
 
@@ -734,12 +747,12 @@ namespace MunchyUI
                     else
                         element.IsChecked = false;
                 }
-                
-                    if (CurrentManager.User.LanguagePref == "BG")
-                        CB_Bulgarian.IsChecked = true;
 
-                    if (CurrentManager.User.LanguagePref == "US")
-                        CB_English.IsChecked = true;                              
+                if (CurrentManager.User.LanguagePref == "BG")
+                    CB_Bulgarian.IsChecked = true;
+
+                if (CurrentManager.User.LanguagePref == "US")
+                    CB_English.IsChecked = true;
             }
             else
             {
@@ -913,7 +926,7 @@ namespace MunchyUI
             ShowSavedRecipePanel();
             SetRecentlyViewedImages();
         }
-                       
+
         private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
         {
             tB_RecipeName.FontSize = 24;
@@ -1061,12 +1074,14 @@ namespace MunchyUI
             {
                 bgBG = true;
                 enUS = false;
+                tB_RecipeName.Text = SuggestedRecipe.BGName;
             }
 
             if (LocaleCode == "en-US")
             {
                 enUS = true;
                 bgBG = false;
+                tB_RecipeName.Text = SuggestedRecipe.USName;
             }
 
             AddRecipeIngredientsToListView();

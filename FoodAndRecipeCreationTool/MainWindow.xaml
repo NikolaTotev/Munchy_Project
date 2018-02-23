@@ -9,7 +9,7 @@
         " Height="962.2" Width="622" MinWidth="900" MinHeight="550" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Viewbox>
         <Grid x:Name="MainPanel" ShowGridLines="False" UseLayoutRounding="True" MinWidth="400" MinHeight="350" ScrollViewer.CanContentScroll="True" VerticalAlignment="Center" HorizontalAlignment="Center" Height="682" Width="1171" Background="White">
-            <Grid x:Name="P_RecipeTool" HorizontalAlignment="Left" Height="1207" VerticalAlignment="Top" Width="1169" Background="#FF3DA5D9" Visibility="Visible" Margin="0,-252,0,-273">
+            <Grid x:Name="P_RecipeTool" HorizontalAlignment="Left" Height="1207" VerticalAlignment="Top" Width="1169" Background="#FF3DA5D9" Visibility="Hidden" Margin="0,-252,0,-273">
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="40,69,0,0" TextWrapping="Wrap" Text="US Recipe Name" VerticalAlignment="Top" Width="253" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"/>
                 <TextBox x:Name="US_NameInput" HorizontalAlignment="Left" Height="35" Margin="40,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253" FontFamily="Roboto" TextAlignment="Center" FontSize="22" SpellCheck.IsEnabled="True"/>
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="23,166,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"><Run Text=" "/><Run Text="US Ingredient"/></TextBlock>
@@ -58,7 +58,7 @@
             </Grid>
 
 
-            <Grid x:Name="P_FoodTool" Background="#FFBBE5ED" HorizontalAlignment="Left" Height="1165" Visibility="Hidden" VerticalAlignment="Top" Width="1171" Margin="0,-210,0,-273">
+            <Grid x:Name="P_FoodTool" Background="#FFBBE5ED" HorizontalAlignment="Left" Height="1165" Visibility="Visible" VerticalAlignment="Top" Width="1171" Margin="0,-210,0,-273">
                 <TextBlock x:Name="l_FoodName" HorizontalAlignment="Left" Height="37" Margin="309,20,0,0" TextWrapping="Wrap" Text="US Name" VerticalAlignment="Top" Width="189" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358" TextAlignment="Center"/>
                 <TextBox x:Name="US_FoodName" HorizontalAlignment="Left" Height="37" Margin="286,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" BorderBrush="{x:Null}" Foreground="#FF555358" FontFamily="Roboto" FontSize="22" TextAlignment="Center" TextChanged="TextBox_TextChanged"/>
                 <TextBlock x:Name="l_FoodName_Copy" HorizontalAlignment="Left" Height="37" Margin="321,244,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358" TextAlignment="Center"><Run Text="Calories"/><LineBreak/><Run/></TextBlock>
