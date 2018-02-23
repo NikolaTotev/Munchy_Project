@@ -783,7 +783,8 @@ namespace MunchyUI
 
 
         #region User settings functions
-        private void ShowSettingsPanel()
+        //Updates information on the UsersSettings panel
+        private void UpdateSettingPanel()
         {
             if (File.Exists(UserFile))
             {
@@ -820,6 +821,7 @@ namespace MunchyUI
 
         }
 
+        //Handles saving the user settings. All values on the settings panel are set to the corresponding properties of the User class in the CurrentManager.
         private void SaveUserSettings()
         {
             if (!string.IsNullOrWhiteSpace(tb_NameInput.Text) && !string.IsNullOrWhiteSpace(tb_AgeInput.Text) && !string.IsNullOrWhiteSpace(tb_WeightInput.Text))
@@ -926,7 +928,7 @@ namespace MunchyUI
         /// <param name="e"></param>
         private void ShowSettings(object sender, MouseButtonEventArgs e)
         {
-            ShowSettingsPanel();
+            UpdateSettingPanel();
         }
 
         /// <summary>
