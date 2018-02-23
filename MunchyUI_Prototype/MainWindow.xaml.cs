@@ -581,7 +581,7 @@ namespace MunchyUI
             {
                 ItemToAdd = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
             }
-            
+
 
             foreach (RadioButton element in AmountRadioButtons)
             {
@@ -603,7 +603,7 @@ namespace MunchyUI
                 L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(enUS, bgBG);
             }
 
-            if(ItemToAdd.USName != null)
+            if (ItemToAdd.USName != null)
             {
                 if (!CurrentManager.User.UserFridge.USUsersFoods.ContainsKey(ItemToAdd.USName))
                 {
@@ -626,8 +626,6 @@ namespace MunchyUI
                     l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(enUS, bgBG);
                 }
             }
-           
-
             Tb_CustomAmount.Clear();
             foreach (RadioButton element in AmountRadioButtons)
             {
