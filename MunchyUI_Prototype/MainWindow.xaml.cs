@@ -21,11 +21,12 @@ namespace MunchyUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Getting user applicaitondata folder.
         static string LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         static string ProgramFolder = LocalAppDataPath + "\\Munchy";
         static string ImageFolderPath = ProgramFolder + "\\Images\\";
 
-        //Save File Locations
+        //Data File Locations
         string UserFile = ProgramFolder + "\\USER.json";
 
         string UserFridgeFile = ProgramFolder + "\\USER_FRIDGE.json";
@@ -36,10 +37,11 @@ namespace MunchyUI
         string RecipeSaveFile = ProgramFolder + "\\RecipeSavesFile.json";
         string StatSavePath = ProgramFolder + "\\StatSavePath.json";
 
+        //Booleans for determining what language to use in runtime. 
         bool enUS = true;
         bool bgBG = false;
 
-        //Variables for the summary of the fridge.
+        //Variables that are used to display the fridge summary.
         float CalorieSum = 0;
         float ProteinSum = 0;
         float FatSum = 0;
@@ -47,29 +49,44 @@ namespace MunchyUI
         float SugarSum = 0;
         float SodiumSum = 0;
 
+        //This textblock array is used to store all the summary textboxes. This enables easy population of said textboxes.
+        TextBlock[] SummaryTextBlocks;
+
+        //This float array stores the values mentioned above. It allows for fast population of the Textblock array
+        float[] SummaryValues;
+
+        //Integer that keeps track of daily calories the user has consumed.
         int DailyCalories = 0;
 
+        //Integer that keeps track of what recipe the user is on. This integer is responsible for browsing through the suggested recipe list.
         int NumerOfRecipeToSuggest = 0;
-        // A list of checkboxes that are used for saving the users settings and preferences
+
+        //A list of checkboxes that are used for saving the users settings and preferences
         List<CheckBox> SettingOptions;
 
+        //This list is used to keep track of the elements in the SuggestedFoods listbox.
         List<string> ItemsInFoodSearch = new List<string>();
+
+        //This list is used to keep track of the elements in the users fridge.
         List<string> ItemsFoodList = new List<string>();
 
         // This list is used for populating the Ingredients ListView in the UI.
         List<FoodDef> RecipeIngredientList;
-
-        TextBlock[] SummaryTextBlocks;
-        float[] SummaryValues;
-
+      
+        //This is the RecipeDef item that is used to store the user is supposed to see. It is updated everytime the user  wants to go to the next recipe
+        // in the sugggested recipe list.
         RecipeDef SuggestedRecipe = new RecipeDef();
+
+        //This is the main brain of the application. It is the interface between the UI and back end.
         ProgramManager CurrentManager;
 
-        // RecipeImage handles the recipe image on the full recipe view aswell as the recipe view on the main menu.
+        //RecipeImage handles image of the ful recipe view.
         ImageBrush RecipeImage = new ImageBrush();
+
+        //SuggestedRecipeImage handles showing the image of the recipe on the front page.
         ImageBrush SuggestedRecipeImage = new ImageBrush();
 
-
+        //These brushes are used for loading recently viewed recipes. Each is assigned to a different elipse on the UI.
         ImageBrush RecentRecipe_1 = new ImageBrush();
         ImageBrush RecentRecipe_2 = new ImageBrush();
         ImageBrush RecentRecipe_3 = new ImageBrush();
@@ -77,9 +94,16 @@ namespace MunchyUI
         ImageBrush RecentRecipe_5 = new ImageBrush();
         ImageBrush RecentRecipe_6 = new ImageBrush();
 
+        //This imagebrush array stores the RecentRecipe brushes.
         ImageBrush[] RecentlyViewedRecipeImages;
+
+        //This Elipse array stores the elipses on the "SavedRecipes" panel.
         Ellipse[] RecentlyViewedRecipesImages;
+
+        //This elipse array stores the elipses on the front page.
         Ellipse[] FrontPageRecentlyViewedImages;
+        
+        //These RadioButtons are used for setting the amounts of the fooditems the user adds.
         RadioButton[] AmountRadioButtons;
         // ================= UI LOGIC =================
         #region UI Logic
