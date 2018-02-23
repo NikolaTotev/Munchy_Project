@@ -183,7 +183,6 @@ namespace MunchyUI
         #endregion
 
         #region Recipe related functions
-
         #region Hanlding browsing recipes.
         //Algorithm responsible for suggesting a recipe based on time of day. It uses only compatable recipes that are sorted into lists of 
         // breakfast, lunch and dinner by the RecipeManager. (NOTE) It uses ONLY compatable recipes.
@@ -418,10 +417,9 @@ namespace MunchyUI
             }
         }
         #endregion
-
         #endregion
 
-        #region UI Show/Hide functions      
+        #region Panel related functions      
         //Configures and refreshes the content on the SavedRecipe pannel. Fucntion is called when the use presses the "Show All" button on the main menu
         private void ConfigureSavedRecipesPanel()
         {
@@ -475,9 +473,11 @@ namespace MunchyUI
                         if (File.Exists(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile))
                         {
                             RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile, UriKind.Relative));
+                            RecentlyViewedRecipesImages[i].ToolTip = GetRecentlyViewedList()[i];
                             RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
                             if (i <= 4)
                             {
+                                FrontPageRecentlyViewedImages[i].ToolTip = GetRecentlyViewedList()[i];
                                 FrontPageRecentlyViewedImages[i].Fill = RecentlyViewedRecipeImages[i];
                             }
                         }
@@ -519,7 +519,6 @@ namespace MunchyUI
 
 
         #region Fridge related functions
-
         #region Searching and Adding/Removing food items
         //Handles searching for fooditems. Function is called when the text in the FoodSearch textbox is changed
         private void SearchFoodItems()
@@ -778,7 +777,6 @@ namespace MunchyUI
             }
         }
         #endregion
-
         #endregion
 
 
@@ -890,38 +888,18 @@ namespace MunchyUI
             tB_UserName.Text = CurrentManager.User.UserName;
         }
         #endregion
-
         #endregion
 
 
         // ================= UI EVENTS =================
         #region UI Event functions
-
-        #region Panel Show/Close events
-        //Updates full recipe view.
-        private void Btn_ShowRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            SetupFullRecipeViewImg();
-        }
-
-        
-
-        //Updates setting panel information on panel show.
-        private void ShowSettings(object sender, MouseButtonEventArgs e)
-        {
-            UpdateSettingPanel();
-        }
-        #endregion
-
-       
-
         #region Fridge related
         //Called on foodlist selection changed. Handles showing fooditem info.
         private void ShowFoodInfo(object sender, SelectionChangedEventArgs e)
         {
             GetAndShowFoodInfo();
         }
-    
+
         //Removes Item from fridge.
         private void Btn_RemoveItem_Click(object sender, RoutedEventArgs e)
         {
@@ -957,9 +935,27 @@ namespace MunchyUI
         {
             SearchFoodItems();
         }
+
+        //Adds the configured food item to the fridge.
+        private void AddFoodItemClick(object sender, RoutedEventArgs e)
+        {
+            AddFoodItem();
+        }
         #endregion
 
         #region Recipe related
+        //Handles discovering of recipes.
+        private void Btn_DiscoverClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //Handles suggesting a recipe.
+        private void Btn_FindRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            SuggestRecipe();
+        }
+
         //Handles opening full recipe view and updating information in it.
         private void Btn_ShowRecipе(object sender, RoutedEventArgs e)
         {
@@ -1022,6 +1018,8 @@ namespace MunchyUI
             AddToCookedRecipes();
         }
 
+        // Cooked Recipes
+
         //Handles searching in the cooked recipes list. Function is called when the text in the textbox for searching in cooked recipes changes.
         private void CookedRecipesTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -1039,6 +1037,32 @@ namespace MunchyUI
         {
             tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
         }
+
+        //Saved Recipes
+
+        //Handles searching in the saved recipes list. Function is called when the text in the textbox for searching in saved recipes changes.
+        private void SearchSavedRecipesTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SavedRecipesSearch();
+        }
+
+        //Clears text when the search saved recipes textbox gets focus.
+        private void SearchSavedRecipesFocused(object sender, RoutedEventArgs e)
+        {
+            tb_SearchSavedRecipes.Text = null;
+        }
+
+        //Resets text when the search saved recipe textbox looses focus. Text is determined by the language that is being used.
+        private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
+        {
+            tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
+        }
+
+        //Handles adding the recipe to the saved recipe list.
+        private void BTN_AddToSavedRecipes_Click(object sender, RoutedEventArgs e)
+        {
+            AddToSavedReicpe();
+        }
         #endregion
 
         #region User related
@@ -1047,37 +1071,29 @@ namespace MunchyUI
         {
             SaveUserSettings();
         }
+
+        //Updates setting panel information on panel show.
+        private void ShowSettings(object sender, MouseButtonEventArgs e)
+        {
+            UpdateSettingPanel();
+        }
+
+        //Allows only english checkbox to be checked.
+        private void UncheckEnglish(object sender, RoutedEventArgs e)
+        {
+            CB_English.IsChecked = false;
+        }
+
+        //Allows only bulgarian checkbox to be checked.
+        private void UncheckBulgarian(object sender, RoutedEventArgs e)
+        {
+            CB_Bulgarian.IsChecked = false;
+        }
+        #endregion
         #endregion
 
-        #endregion
-
-        
-   
-       
-      
-     
-       
-        private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
-        {
-            tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
-        }
-        //Handles searching in the saved recipes list. Function is called when the text in the textbox for searching in saved recipes changes.
-        private void SearchSavedRecipesFocused(object sender, RoutedEventArgs e)
-        {
-            tb_SearchSavedRecipes.Text = null;
-        }
-
-
-        private void SearchSavedRecipesTextChanged(object sender, TextChangedEventArgs e)
-        {
-            SavedRecipesSearch();
-        }
-
-        private void BTN_AddToSavedRecipes_Click(object sender, RoutedEventArgs e)
-        {
-            AddToSavedReicpe();
-        }
-
+        #region Application translation handling
+        //Handles changing languages.
         private void ChangeLanguage(object sender, RoutedEventArgs e)
         {
             string LocaleCode = (string)((Button)sender).Tag;
@@ -1100,6 +1116,7 @@ namespace MunchyUI
             RefreshFridge();
         }
 
+        //Gets appropriate Saved recipe list.
         private List<string> GetSavedRecipesList()
         {
             List<string> ListToUse = new List<string>();
@@ -1110,7 +1127,6 @@ namespace MunchyUI
                 {
                     ListToUse = CurrentManager.UserRecipeSaves.USSavedRecipes;
                 }
-
 
                 if (bgBG == true)
                 {
@@ -1125,6 +1141,7 @@ namespace MunchyUI
             return ListToUse;
         }
 
+        //Gets appropriate list for recently viewed recipes name based on language setting.
         private List<string> GetRecentlyViewedList()
         {
             List<string> ListToUse = new List<string>();
@@ -1135,7 +1152,6 @@ namespace MunchyUI
                 {
                     ListToUse = CurrentManager.UserRecipeSaves.USRecentlyViewed;
                 }
-
 
                 if (bgBG == true)
                 {
@@ -1150,6 +1166,7 @@ namespace MunchyUI
             return ListToUse;
         }
 
+        //Gets approprite directions string based on language setting.
         private string GetDirections(RecipeDef Recipe)
         {
             string RecipeName = "RecipeName";
@@ -1160,7 +1177,6 @@ namespace MunchyUI
                 {
                     RecipeName = Recipe.USDirections;
                 }
-
 
                 if (bgBG == true)
                 {
@@ -1177,6 +1193,7 @@ namespace MunchyUI
             return RecipeName;
         }
 
+        //Gets appropriate igredients list.
         private List<string> GetIngredientList(RecipeDef Recipe)
         {
             List<string> ListToUse = new List<string>();
@@ -1203,6 +1220,7 @@ namespace MunchyUI
 
         }
 
+        //Gets appropriate Cooked recipe list.
         private List<string> GetCookedRecipeList()
         {
             List<string> ListToUse = new List<string>();
@@ -1228,7 +1246,7 @@ namespace MunchyUI
             return ListToUse;
         }
 
-
+        //Gets appropriate Recipe name.
         private string GetSuggestedRecipeName(RecipeDef Recipe)
         {
             string RecipeName = "RecipeName";
@@ -1253,35 +1271,6 @@ namespace MunchyUI
 
             return RecipeName;
         }
-
-        private void AddFoodItemClick(object sender, RoutedEventArgs e)
-        {
-            AddFoodItem();
-        }
-
-        private void Btn_DiscoverClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Btn_FindRecipe_Click(object sender, RoutedEventArgs e)
-        {
-            SuggestRecipe();
-        }
-
-        private void Btn_Showfridge_Click(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void UncheckEnglish(object sender, RoutedEventArgs e)
-        {
-            CB_English.IsChecked = false;
-        }
-
-        private void UncheckBulgarian(object sender, RoutedEventArgs e)
-        {
-            CB_Bulgarian.IsChecked = false;
-        }
+        #endregion
     }
 }
