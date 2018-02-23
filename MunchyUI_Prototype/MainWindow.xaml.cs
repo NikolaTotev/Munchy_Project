@@ -111,7 +111,7 @@ namespace MunchyUI
         #region UI Logic
 
         #region Initialization functions
-
+        //Main window initialization
         public MainWindow()
         {
             InitializeComponent();
@@ -181,7 +181,6 @@ namespace MunchyUI
             }
         }
         #endregion
-
 
         #region Recipe related functions
 
@@ -423,6 +422,25 @@ namespace MunchyUI
         #endregion
 
         #region UI Show/Hide functions      
+        //Configures and refreshes the content on the SavedRecipe pannel. Fucntion is called when the use presses the "Show All" button on the main menu
+        private void ConfigureSavedRecipesPanel()
+        {
+            ShowAllSavedRecipes();
+            CurrentManager.StatManager.CalculateAverageSums();
+            tB_TotalCalories.Text = CurrentManager.StatManager.TotalCaloriesConsumed.ToString();
+            tB_TotalRecipesCooked.Text = CurrentManager.StatManager.TotalRecipesCooked.ToString();
+            tB_TotalRecipeSeen.Text = CurrentManager.StatManager.TotalRecipesSeen.ToString();
+
+            if (CurrentManager.StatManager.AverageDailyCalories != 0)
+                tB_AverageDailyCalories.Text = CurrentManager.StatManager.AverageDailyCalories.ToString();
+            else
+                tB_AverageDailyCalories.Text = "No Data";
+
+            if (CurrentManager.StatManager.AverageMonthtlyCalories != 0)
+                tB_AverageMontlyCalories.Text = CurrentManager.StatManager.AverageMonthtlyCalories.ToString();
+            else
+                tB_AverageMontlyCalories.Text = "No Data";
+        }
 
         //Opens panel for searching in cooked recipes.
         private void ShowCookedRecipes()
@@ -497,66 +515,23 @@ namespace MunchyUI
             //  P_SavedRecipesSearch.Visibility = Visibility.Hidden;
             //  P_CookedRecipes.Visibility = Visibility.Hidden;
         }
-    
-        
-        //Configures and refreshes the content on the SavedRecipe pannel. Fucntion is called when the use presses the "Show All" button on the main menu
-        private void ConfigureSavedRecipesPanel()
-        {
-            ShowAllSavedRecipes();
-            CurrentManager.StatManager.CalculateAverageSums();
-            tB_TotalCalories.Text = CurrentManager.StatManager.TotalCaloriesConsumed.ToString();
-            tB_TotalRecipesCooked.Text = CurrentManager.StatManager.TotalRecipesCooked.ToString();
-            tB_TotalRecipeSeen.Text = CurrentManager.StatManager.TotalRecipesSeen.ToString();
-
-            if (CurrentManager.StatManager.AverageDailyCalories != 0)
-                tB_AverageDailyCalories.Text = CurrentManager.StatManager.AverageDailyCalories.ToString();
-            else
-                tB_AverageDailyCalories.Text = "No Data";
-
-
-            if (CurrentManager.StatManager.AverageMonthtlyCalories != 0)
-                tB_AverageMontlyCalories.Text = CurrentManager.StatManager.AverageMonthtlyCalories.ToString();
-            else
-                tB_AverageMontlyCalories.Text = "No Data";
-        }
-
         #endregion
+
 
         #region Fridge related functions
 
-        #region Adding/Removing food items
-
-        private void RefreshFrontPageFride()
-        {
-            lb_Fridge.Items.Clear();
-            foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
-            {
-                if (enUS)
-                {
-                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
-                        lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
-                }
-
-                if (bgBG)
-                {
-                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1)))
-                        lb_Fridge.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1));
-                }
-
-            }
-        }
-
-        // Called when the text in the textbox for searching for foods is changed
-        private void FoodSearchTextChanged()
+        #region Searching and Adding/Removing food items
+        //Handles searching for fooditems. Function is called when the text in the FoodSearch textbox is changed
+        private void SearchFoodItems()
         {
             // Checks if the search box is null or not.
-            if (!string.IsNullOrWhiteSpace(tb_Search.Text))
+            if (!string.IsNullOrWhiteSpace(tb_FoodSearch.Text))
             {
                 //Makes sure that text is not the keyword "Search"
-                if (tb_Search.Text != TranslatorCore.GetTextboxDefaultText(enUS, bgBG))
+                if (tb_FoodSearch.Text != TranslatorCore.GetTextboxDefaultText(enUS, bgBG))
                 {
                     l_SearchInfo.Text = TranslatorCore.GetClickToAddFoodMessage(enUS, bgBG);
-                    string searchedWord = tb_Search.Text;
+                    string searchedWord = tb_FoodSearch.Text;
                     string ToLower = searchedWord.ToLower();
 
                     foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
@@ -589,42 +564,18 @@ namespace MunchyUI
             }
         }
 
-        private void RefreshFridge()
-        {
-            lb_FoodList.Items.Clear();
-            ItemsFoodList.Clear();
-            foreach (KeyValuePair<string, FoodDef> ItemToAdd in CurrentManager.UsersFridge.USUsersFoods)
-            {
-                ItemsFoodList.Add(ItemToAdd.Key.ToLower());
-
-                if (!lb_FoodList.Items.Contains(ItemToAdd.Value.USName) || !lb_FoodList.Items.Contains(ItemToAdd.Value.BGName))
-                {
-                    if (enUS == true)
-                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.USName.First().ToString().ToUpper() + ItemToAdd.Value.USName.Substring(1), Amount = ItemToAdd.Value.Amount });
-
-                    if (bgBG == true)
-                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.BGName.First().ToString().ToUpper() + ItemToAdd.Value.BGName.Substring(1), Amount = ItemToAdd.Value.Amount });
-                }
-            }
-            lb_FoodList.Items.Refresh();
-            RefreshFrontPageFride();
-        }
-
-        private void TranslateFridge()
-        {
-            lb_FoodList.Items.Clear();
-
-            RefreshFridge();
-        }
-
+        //Handles adding a food item. 
         private void AddFoodItem()
         {
+            //Items in food search has only english values(aka string corresponding to keys in the Foods dictionary) when selecting an element
+            // in the Suggested foods textbox the user selects and "index" of the text box. The element at that index corresponds to and element in the ItemsInFoodSearch
+            // list. The selected index is used to get that element and then that element is used to add the correct item to the user's fridge.
+            // This extra list is required due to the bilingual nature of the application.
             FoodDef ItemToAdd = new FoodDef();
             if (lB_SuggestedFoods.SelectedIndex > 0)
             {
                 ItemToAdd = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
             }
-
 
             foreach (RadioButton element in AmountRadioButtons)
             {
@@ -679,7 +630,71 @@ namespace MunchyUI
             }
         }
 
-        // Opens food item configuration panel and loads suggested amounts to add to the fridge.
+        //Handles removing a food item.
+        private void RemoveItem()
+        {
+            //Removing a food items works the same way as adding an item but in reverse.
+            if (lb_FoodList.SelectedItem != null)
+            {
+                FoodDef ItemToRemove = CurrentManager.FoodManag.Foods[ItemsFoodList[lb_FoodList.SelectedIndex].ToLower()];
+                CurrentManager.User.UserFridge.RemoveFromFridge(ItemToRemove.USName.ToLower());
+                lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
+                lb_FoodList.Items.Clear();
+                CurrentManager.User.UserFridge.SaveFridge();
+                RefreshFridge();
+                PopulateFridgeSummary();
+            }
+        }
+        #endregion
+
+        #region Refreshing and updating.
+        //Refreshes the items in the fride view that is on the front page.
+        private void RefreshFrontPageFride()
+        {
+            lb_Fridge.Items.Clear();
+            foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
+            {
+                if (enUS)
+                {
+                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
+                        lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
+                }
+
+                if (bgBG)
+                {
+                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1)))
+                        lb_Fridge.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1));
+                }
+
+            }
+        }
+
+        //Refreshes the main fridge in the "FridgePanel" This function is called after adding or removing an item or when the language is changed.
+        private void RefreshFridge()
+        {
+            lb_FoodList.Items.Clear();
+            ItemsFoodList.Clear();
+            foreach (KeyValuePair<string, FoodDef> ItemToAdd in CurrentManager.UsersFridge.USUsersFoods)
+            {
+                ItemsFoodList.Add(ItemToAdd.Key.ToLower());
+
+                if (!lb_FoodList.Items.Contains(ItemToAdd.Value.USName) || !lb_FoodList.Items.Contains(ItemToAdd.Value.BGName))
+                {
+                    if (enUS == true)
+                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.USName.First().ToString().ToUpper() + ItemToAdd.Value.USName.Substring(1), Amount = ItemToAdd.Value.Amount });
+
+                    if (bgBG == true)
+                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.BGName.First().ToString().ToUpper() + ItemToAdd.Value.BGName.Substring(1), Amount = ItemToAdd.Value.Amount });
+                }
+            }
+
+            lb_FoodList.Items.Refresh();
+            RefreshFrontPageFride();
+        }
+        #endregion
+
+        #region Configuring item amounts.       
+        //Handles adding an amount to the fooditem the use wants to add.
         private void ConfigureClickedItem()
         {
             if (lB_SuggestedFoods.SelectedItem != null)
@@ -698,25 +713,10 @@ namespace MunchyUI
                     Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].BGUOM;
             }
         }
-
-        private void RemoveItem()
-        {
-
-            if (lb_FoodList.SelectedItem != null)
-            {
-                FoodDef ItemToRemove = (FoodDef)CurrentManager.FoodManag.Foods[ItemsFoodList[lb_FoodList.SelectedIndex].ToLower()];
-                CurrentManager.User.UserFridge.RemoveFromFridge(ItemToRemove.USName.ToLower());
-                lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
-                lb_FoodList.Items.Clear();
-                CurrentManager.User.UserFridge.SaveFridge();
-                RefreshFridge();
-                PopulateFridgeSummary();
-            }
-        }
         #endregion
 
         #region Fridge infromation management
-        // Adds all the elements in the users fridge to the listbox in the UI. Function is called on program start.
+        //Updates the content related to fridge statistics on the FridgePanel
         private void PopulateFridgeSummary()
         {
             CalorieSum = 0;
@@ -752,19 +752,19 @@ namespace MunchyUI
             }
         }
 
-        // When a food item is selected in the listbox. The panel on the right shows the foods nutritional information.
+        //Handles showing the nutritional information about the item the user has selected.
         private void GetAndShowFoodInfo()
         {
             if (lb_FoodList.SelectedItem != null)
             {
-                FoodDef SelectedItem = CurrentManager.FoodManag.Foods[lb_FoodList.SelectedItem.ToString()];
+                FoodDef SelectedItem = CurrentManager.FoodManag.Foods[ItemsFoodList[lb_FoodList.SelectedIndex].ToLower()];
                 tb_FoodName.Text = SelectedItem.USName.First().ToString().ToUpper() + SelectedItem.USName.Substring(1);
                 tb_FoodItemCalorie.Text = SelectedItem.Calories.ToString();
-                tB_FoodProtein.Text = SelectedItem.Protein.ToString();
-                tB_FoodFat.Text = SelectedItem.Fat.ToString();
-                tB_FoodCarbs.Text = SelectedItem.Carbs.ToString();
-                tB_FoodSugar.Text = SelectedItem.Sugars.ToString();
-                tB_FoodSodium.Text = SelectedItem.Sodium.ToString();
+                tB_FoodProtein.Text = SelectedItem.Protein.ToString() + " " + "g";
+                tB_FoodFat.Text = SelectedItem.Fat.ToString() + " " + "g";
+                tB_FoodCarbs.Text = SelectedItem.Carbs.ToString() + " " + "g";
+                tB_FoodSugar.Text = SelectedItem.Sugars.ToString() + " " + "g";
+                tB_FoodSodium.Text = SelectedItem.Sodium.ToString() + " " + "g";
             }
             else
             {
@@ -774,14 +774,15 @@ namespace MunchyUI
                 tB_FoodCarbs.Text = "0";
                 tB_FoodSugar.Text = "0";
                 tB_FoodSodium.Text = "0";
+                tb_FoodName.Text = " ";
             }
         }
         #endregion
 
         #endregion
 
-        #region User settings functions
 
+        #region User settings functions
         private void ShowSettingsPanel()
         {
             if (File.Exists(UserFile))
@@ -1038,7 +1039,7 @@ namespace MunchyUI
         /// <param name="e"></param>
         private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_Search.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
+            tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
         }
 
         /// <summary>
@@ -1048,7 +1049,7 @@ namespace MunchyUI
         /// <param name="e"></param>
         private void SearchFoodClearTextBox(object sender, RoutedEventArgs e)
         {
-            tb_Search.Text = null;
+            tb_FoodSearch.Text = null;
         }
 
         private void AddClickedItem(object sender, SelectionChangedEventArgs e)
@@ -1064,7 +1065,7 @@ namespace MunchyUI
         /// <param name="e"></param>
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            FoodSearchTextChanged();
+            SearchFoodItems();
         }
 
         #endregion
@@ -1135,7 +1136,7 @@ namespace MunchyUI
             }
 
             AddInformationToFullRecipeView();
-            TranslateFridge();
+            RefreshFridge();
         }
 
         private List<string> GetSavedRecipesList()
