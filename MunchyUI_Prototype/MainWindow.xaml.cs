@@ -898,88 +898,83 @@ namespace MunchyUI
         #region UI Event functions
 
         #region Panel Show/Close events
-
-        /// <summary>
-        /// Shows/ Hides full recipe view and populates the UI.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        //Updates full recipe view.
         private void Btn_ShowRecipe_Click(object sender, RoutedEventArgs e)
         {
             SetupFullRecipeViewImg();
         }
 
+        
 
-        /// <summary>
-        /// Opens full fridge view for the fridge. Function called by the "Show Fridge" button and the close button.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Btn_Showfridge_Click(object sender, RoutedEventArgs e)
-        {
-            RefreshFridge();
-        }
-
-
-        /// <summary>
-        /// Opens user settings panel and populates the current active settings.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        //Updates setting panel information on panel show.
         private void ShowSettings(object sender, MouseButtonEventArgs e)
         {
             UpdateSettingPanel();
         }
-
-        /// <summary>
-        /// Button for opening the food search/add panel
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OpenFoodSearch(object sender, RoutedEventArgs e)
-        {
-
-        }
         #endregion
 
-        #region Button Events
+       
 
         #region Fridge related
+        //Called on foodlist selection changed. Handles showing fooditem info.
         private void ShowFoodInfo(object sender, SelectionChangedEventArgs e)
         {
             GetAndShowFoodInfo();
         }
-
-        /// <summary>
-        /// Removes an item from the fridge UI and the user fridge.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+    
+        //Removes Item from fridge.
         private void Btn_RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             RemoveItem();
         }
 
+        //Updates fridge on fridge open.
+        private void Btn_Showfridge_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshFridge();
+        }
+
+        //Changes text of the FoodSearch textbox when it looses focus.
+        private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
+        {
+            tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
+        }
+
+        //Removes "Search" text fomr FoodSearch textbox when it gets focus
+        private void SearchFoodClearTextBox(object sender, RoutedEventArgs e)
+        {
+            tb_FoodSearch.Text = null;
+        }
+
+        //Handles adding items to fridge.
+        private void AddClickedItem(object sender, SelectionChangedEventArgs e)
+        {
+            ConfigureClickedItem();
+        }
+
+        //Handles searching for fooditems. Function called everytime the text in the FoodSearch textbox is chang ed.
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchFoodItems();
+        }
         #endregion
 
         #region Recipe related
+        //Handles opening full recipe view and updating information in it.
         private void Btn_ShowRecipе(object sender, RoutedEventArgs e)
         {
             AddInformationToFullRecipeView();
             SetupFullRecipeViewImg();
         }
 
-        /// <summary>
-        /// Shows all recipes saved by the user. Function is called on button press
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        //Handles opening favourite recipe panel.
         private void Btn_SeeAllSavedRecipes_Click(object sender, RoutedEventArgs e)
         {
             ConfigureSavedRecipesPanel();
             SetRecentlyViewedImages();
         }
 
+        //Handles showing next recipe to the user.
         private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
         {
             tB_RecipeName.FontSize = 24;
@@ -988,6 +983,7 @@ namespace MunchyUI
             SetRecentlyViewedImages();
         }
 
+        //Handles Showing previour recipe  to the user.
         private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
         {
             tB_RecipeName.FontSize = 24;
@@ -995,35 +991,58 @@ namespace MunchyUI
             SuggestRecipe();
         }
 
+        //Handles opening of the Cooked Recipes search panel.
         private void Btn_CookedRecipes_Click(object sender, RoutedEventArgs e)
         {
             ShowCookedRecipes();
         }
 
+        //Handles opening the recently viewed page.
         private void Btn_RecentlyViewed_Click(object sender, RoutedEventArgs e)
         {
             ShowRecentlyViewedRecipes();
             SetRecentlyViewedImages();
         }
 
-        private void Btn_CookedToday_Click(object sender, RoutedEventArgs e)
-        {
-            ShowRecipesCookedToday();
-        }
-
+        //Handles opening Saved Recipes search panel.
         private void Btn_SavedRecipes_Click(object sender, RoutedEventArgs e)
         {
             ShowAllSavedRecipes();
         }
 
+        //Function not in use yet.
+        private void Btn_CookedToday_Click(object sender, RoutedEventArgs e)
+        {
+            //ShowRecipesCookedToday();
+        }
+
+        //Handles adding the recipe to the Cooked Recipes list.
+        private void Btn_RecipeWillBeCooked_Click(object sender, RoutedEventArgs e)
+        {
+            AddToCookedRecipes();
+        }
+
+        //Handles searching in the cooked recipes list. Function is called when the text in the textbox for searching in cooked recipes changes.
+        private void CookedRecipesTextChanged(object sender, TextChangedEventArgs e)
+        {
+            CookedRecipesSearch();
+        }
+
+        //Clears text when the search coooked recipes textbox gets focus.
+        private void SearchCookedRecipesFocused(object sender, RoutedEventArgs e)
+        {
+            tb_SearchCookedRecipes.Text = null;
+        }
+
+        //Resets text when the search cooked recipe textbox looses focus. Text is determined by the language that is being used.
+        private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
+        {
+            tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
+        }
         #endregion
 
         #region User related
-        /// <summary>
-        /// Saves users settings based on the input from the settings panel.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        //Calls function to save user settings
         private void Btn_Save_Click(object sender, RoutedEventArgs e)
         {
             SaveUserSettings();
@@ -1032,82 +1051,22 @@ namespace MunchyUI
 
         #endregion
 
-        #region Textbox and listbox events
-
-        /// <summary>
-        /// Once the textbox has lost focus the defualt text "Search" appears;
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
-        {
-            tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
-        }
-
-        /// <summary>
-        /// Clears the textbox once the user has focused it.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SearchFoodClearTextBox(object sender, RoutedEventArgs e)
-        {
-            tb_FoodSearch.Text = null;
-        }
-
-        private void AddClickedItem(object sender, SelectionChangedEventArgs e)
-        {
-            ConfigureClickedItem();
-        }
-
-        /// <summary>
-        /// When the user types in the search box (or changes the text) the listbox for suggested foods is filled with the Foods in the 
-        /// FoodData base that start with the given substring.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            SearchFoodItems();
-        }
-
-        #endregion
-
-        #endregion
-
-        private void CloseSavedRecipesPanel(object sender, MouseButtonEventArgs e)
-        {
-            ConfigureSavedRecipesPanel();
-        }
-
-        private void Btn_RecipeWillBeCooked_Click(object sender, RoutedEventArgs e)
-        {
-            AddToCookedRecipes();
-        }
-
-        private void CookedRecipesTextChanged(object sender, TextChangedEventArgs e)
-        {
-            CookedRecipesSearch();
-        }
-
-        private void SearchCookedRecipesFocused(object sender, RoutedEventArgs e)
-        {
-            tb_SearchCookedRecipes.Text = null;
-        }
-
-        private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
-        {
-            tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
-        }
-
+        
+   
+       
+      
+     
+       
         private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
         {
             tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
         }
-
+        //Handles searching in the saved recipes list. Function is called when the text in the textbox for searching in saved recipes changes.
         private void SearchSavedRecipesFocused(object sender, RoutedEventArgs e)
         {
             tb_SearchSavedRecipes.Text = null;
         }
+
 
         private void SearchSavedRecipesTextChanged(object sender, TextChangedEventArgs e)
         {

@@ -713,7 +713,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <Button x:Name="Btn_SearchFoods" Content="{DynamicResource ResourceKey=SearchButton}" HorizontalAlignment="Left" Height="39" Margin="308,440,0,0" VerticalAlignment="Top" Width="142" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontFamily="Roboto Black" FontSize="24" Click="OpenFoodSearch"/>
+                <Button x:Name="Btn_SearchFoods" Content="{DynamicResource ResourceKey=SearchButton}" HorizontalAlignment="Left" Height="39" Margin="308,440,0,0" VerticalAlignment="Top" Width="142" Background="#FFF24333" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontFamily="Roboto Black" FontSize="24"/>
                 <TextBlock x:Name="SummaryTB" HorizontalAlignment="Left" Height="30" Margin="47,62,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=SummaryTB}" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
                 <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="30" Margin="679,62,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=FoodInfoTB}" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
                 <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Height="30" Margin="0,132,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=CaloriesTB}" VerticalAlignment="Top" Width="164.017" FontFamily="Roboto Light" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
