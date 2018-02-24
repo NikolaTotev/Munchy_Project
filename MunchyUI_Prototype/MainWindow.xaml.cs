@@ -973,18 +973,24 @@ namespace MunchyUI
         //Handles showing next recipe to the user.
         private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
         {
-            tB_RecipeName.FontSize = 24;
-            NumerOfRecipeToSuggest++;
-            SuggestRecipe();
-            SetRecentlyViewedImages();
+            if (NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count || NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count || NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count)
+            {
+                tB_RecipeName.FontSize = 24;
+                NumerOfRecipeToSuggest++;
+                SuggestRecipe();
+                SetRecentlyViewedImages();
+            }          
         }
 
         //Handles Showing previour recipe  to the user.
         private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
         {
-            tB_RecipeName.FontSize = 24;
-            NumerOfRecipeToSuggest--;
-            SuggestRecipe();
+            if (NumerOfRecipeToSuggest >= 0)
+            {
+                tB_RecipeName.FontSize = 24;
+                NumerOfRecipeToSuggest--;
+                SuggestRecipe();
+            }          
         }
 
         //Handles opening of the Cooked Recipes search panel.
