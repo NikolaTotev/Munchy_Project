@@ -28,7 +28,7 @@
     <sys:String x:Key="UserNameTextBlock">Име</sys:String>
     <sys:String x:Key="AgeTextBlock">Възраст</sys:String>
     <sys:String x:Key="WeightTextBlock">Тегло</sys:String>
-    <sys:String x:Key="VegetarianCB">Вегетериянец</sys:String>
+    <sys:String x:Key="VegetarianCB">Вегетарианец</sys:String>
     <sys:String x:Key="VeganCB">Веган</sys:String>
     <sys:String x:Key="DiabeticCB">Диабетик</sys:String>
     <sys:String x:Key="NutsCB">Ядки</sys:String>

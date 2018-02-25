@@ -16,6 +16,11 @@ using Nikola.Munchy.MunchyAPI;
 using System.IO;
 namespace MunchyUI
 {
+    public enum Languages
+    {
+        English,
+        Bulgarian
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -37,10 +42,8 @@ namespace MunchyUI
         string RecipeSaveFile = System.IO.Path.Combine(ProgramFolder, "RecipeSavesFile.json");
         string StatSavePath = System.IO.Path.Combine(ProgramFolder, "StatSavePath.json");
 
-        //Booleans for determining what language to use in runtime. English is the default language.
-        bool enUS = true;
-        bool bgBG = false;
-
+        //Booleans for determining what language to use in runtime. English is the default language.        
+        Languages ActiveLanguage = Languages.English;
         //Variables that are used to display the fridge summary.
         float CalorieSum = 0;
         float ProteinSum = 0;
@@ -145,8 +148,7 @@ namespace MunchyUI
             //Gets the language that the user has saved. It does not check if it is english as english is the default for the program.
             if (CurrentManager.User.LanguagePref == "BG")
             {
-                bgBG = true;
-                enUS = false;
+                ActiveLanguage = Languages.Bulgarian;
                 Localizer.SwitchLanguage(this, "bg-BG");
             }
 
@@ -176,7 +178,9 @@ namespace MunchyUI
                 foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
                 {
                     if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
+                    {
                         lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
+                    }
                 }
             }
         }
@@ -201,7 +205,7 @@ namespace MunchyUI
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(ActiveLanguage);
                     Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
@@ -219,7 +223,7 @@ namespace MunchyUI
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(ActiveLanguage);
                     Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
@@ -237,7 +241,7 @@ namespace MunchyUI
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(ActiveLanguage);
                     Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
@@ -247,7 +251,7 @@ namespace MunchyUI
             {
                 tB_RecipeName.Text = null;
                 tB_RecipeName.FontSize = 18;
-                tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(enUS, bgBG);
+                tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(ActiveLanguage);
                 Img_SuggestedRecipeImage.Fill = Brushes.White;
             }
 
@@ -255,30 +259,28 @@ namespace MunchyUI
         }
 
         //Handles the suggested recipe. Updates the recently viewed list and adds the recipe to it, handles images of recently viewed recipes.
-        private void ManageSuggestedRecipe(RecipeDef InputRecipe)
+        private void ManageSuggestedRecipe(RecipeDef inputrecipe)
         {
-            if (CurrentManager.UserRecipeSaves.USRecentlyViewed.Count < 6 && CurrentManager.UserRecipeSaves.BGRecentlyViewed.Count < 6)
+            RecipeSaver saver = CurrentManager.UserRecipeSaves;
+           
+            if (saver.USRecentlyViewed.Count < 6 && saver.BGRecentlyViewed.Count < 6)
             {
-                if (!CurrentManager.UserRecipeSaves.USRecentlyViewed.Contains(SuggestedRecipe.USName))
-                    CurrentManager.UserRecipeSaves.USRecentlyViewed.Add(SuggestedRecipe.USName);
-
-                if (!CurrentManager.UserRecipeSaves.BGRecentlyViewed.Contains(SuggestedRecipe.BGName.ToLower()))
-                    CurrentManager.UserRecipeSaves.BGRecentlyViewed.Add(SuggestedRecipe.BGName.ToLower());
-
+                AddToList(saver.USRecentlyViewed, SuggestedRecipe.USName);
+                AddToList(saver.BGRecentlyViewed, SuggestedRecipe.BGName);
                 CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
             else
             {
-                if (!CurrentManager.UserRecipeSaves.USRecentlyViewed.Contains(SuggestedRecipe.USName.ToLower()))
+                if (!saver.USRecentlyViewed.Contains(SuggestedRecipe.USName.ToLower()))
                 {
-                    CurrentManager.UserRecipeSaves.USRecentlyViewed.RemoveAt(5);
-                    CurrentManager.UserRecipeSaves.USRecentlyViewed.Insert(0, SuggestedRecipe.USName.ToLower());
+                    saver.USRecentlyViewed.RemoveAt(5);
+                    saver.USRecentlyViewed.Insert(0, SuggestedRecipe.USName.ToLower());
                 }
 
-                if (!CurrentManager.UserRecipeSaves.BGRecentlyViewed.Contains(SuggestedRecipe.BGName.ToLower()))
+                if (!saver.BGRecentlyViewed.Contains(SuggestedRecipe.BGName.ToLower()))
                 {
-                    CurrentManager.UserRecipeSaves.BGRecentlyViewed.RemoveAt(5);
-                    CurrentManager.UserRecipeSaves.BGRecentlyViewed.Insert(0, SuggestedRecipe.BGName.ToLower());
+                    saver.BGRecentlyViewed.RemoveAt(5);
+                    saver.BGRecentlyViewed.Insert(0, SuggestedRecipe.BGName.ToLower());
                 }
                 CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
@@ -329,7 +331,10 @@ namespace MunchyUI
                 foreach (string ingredient in GetIngredientList(SuggestedRecipe))
                 {
                     if (GetIngredientList(SuggestedRecipe).Count == SuggestedRecipe.Units.Count)
+                    {
                         RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + SuggestedRecipe.Units[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() });
+                    }
+
                     else
                     {
                         MessageBox.Show("You seem to have a probelem with the Recipe File. Press OK to open the support page.");
@@ -349,11 +354,9 @@ namespace MunchyUI
         //Handles adding the suggested to the CookedRecipes list. A recipe is added only when the user pressed the "I'll Cook It" Button.
         private void AddToCookedRecipes()
         {
-            if (!CurrentManager.UserRecipeSaves.USCookedRecipes.Contains(SuggestedRecipe.USName.ToLower()))
-                CurrentManager.UserRecipeSaves.USCookedRecipes.Add(SuggestedRecipe.USName.ToLower());
-
-            if (!CurrentManager.UserRecipeSaves.BGCookedRecipes.Contains(SuggestedRecipe.BGName.ToLower()))
-                CurrentManager.UserRecipeSaves.BGCookedRecipes.Add(SuggestedRecipe.BGName.ToLower());
+            RecipeSaver saver = CurrentManager.UserRecipeSaves;
+            AddToList(saver.USCookedRecipes, SuggestedRecipe.USName);
+            AddToList(saver.BGCookedRecipes, SuggestedRecipe.BGName);
 
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
@@ -366,11 +369,18 @@ namespace MunchyUI
         //Handles adding the suggested recipe to saved recipes. A recipe is saved only when the user pressed the "Save" button.
         private void AddToSavedReicpe()
         {
-            if (!CurrentManager.UserRecipeSaves.USSavedRecipes.Contains(SuggestedRecipe.USName.ToLower()))
-                CurrentManager.UserRecipeSaves.USSavedRecipes.Add(SuggestedRecipe.USName.ToLower());
+            RecipeSaver saver = CurrentManager.UserRecipeSaves;
+            AddToList(saver.USSavedRecipes, SuggestedRecipe.USName.ToString());
+            AddToList(saver.BGSavedRecipes, SuggestedRecipe.BGName.ToString());           
+        }
 
-            if (!CurrentManager.UserRecipeSaves.BGSavedRecipes.Contains(SuggestedRecipe.BGName.ToLower()))
-                CurrentManager.UserRecipeSaves.BGSavedRecipes.Add(SuggestedRecipe.BGName.ToLower());
+        //Handles adding recipes to lists.
+        private void AddToList (List<string> savelist, string recipename)
+        {
+            if (!savelist.Contains(recipename.ToLower()))
+            {
+                savelist.Add(recipename.ToLower());
+            }
         }
         #endregion
 
@@ -380,7 +390,7 @@ namespace MunchyUI
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchSavedRecipes.Text))
             {
-                if (tb_SearchSavedRecipes.Text != TranslatorCore.GetTextboxDefaultText(enUS, bgBG))
+                if (tb_SearchSavedRecipes.Text != TranslatorCore.GetTextboxDefaultText(ActiveLanguage))
                 {
                     string SearchedSavedRecipe = tb_SearchSavedRecipes.Text;
                     string LowerCase = SearchedSavedRecipe.ToLower();
@@ -405,7 +415,7 @@ namespace MunchyUI
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchCookedRecipes.Text))
             {
-                if (tb_SearchCookedRecipes.Text != TranslatorCore.GetTextboxDefaultText(enUS, bgBG))
+                if (tb_SearchCookedRecipes.Text != TranslatorCore.GetTextboxDefaultText(ActiveLanguage))
                 {
                     string SearchedRecipe = tb_SearchCookedRecipes.Text;
                     string LowerCase = SearchedRecipe.ToLower();
@@ -438,14 +448,23 @@ namespace MunchyUI
             tB_TotalRecipeSeen.Text = CurrentManager.StatManager.TotalRecipesSeen.ToString();
 
             if (CurrentManager.StatManager.AverageDailyCalories != 0)
+            {
                 tB_AverageDailyCalories.Text = CurrentManager.StatManager.AverageDailyCalories.ToString();
+            }
             else
-                tB_AverageDailyCalories.Text = "No Data";
+            {
+                tB_AverageDailyCalories.Text = TranslatorCore.GetNoDataLabel(ActiveLanguage);
+            }
 
             if (CurrentManager.StatManager.AverageMonthtlyCalories != 0)
+            {
                 tB_AverageMontlyCalories.Text = CurrentManager.StatManager.AverageMonthtlyCalories.ToString();
+            }
             else
-                tB_AverageMontlyCalories.Text = "No Data";
+            {
+                tB_AverageMontlyCalories.Text = TranslatorCore.GetNoDataLabel(ActiveLanguage);
+            }
+
         }
 
         //Opens panel for searching in cooked recipes.
@@ -535,30 +554,33 @@ namespace MunchyUI
             if (!string.IsNullOrWhiteSpace(tb_FoodSearch.Text))
             {
                 //Makes sure that text is not the keyword "Search"
-                if (tb_FoodSearch.Text != TranslatorCore.GetTextboxDefaultText(enUS, bgBG))
+                if (tb_FoodSearch.Text != TranslatorCore.GetTextboxDefaultText(ActiveLanguage))
                 {
-                    l_SearchInfo.Text = TranslatorCore.GetClickToAddFoodMessage(enUS, bgBG);
+                    l_SearchInfo.Text = TranslatorCore.GetClickToAddFoodMessage(ActiveLanguage);
                     string searchedWord = tb_FoodSearch.Text;
                     string ToLower = searchedWord.ToLower();
 
                     foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
                     {
-                        if (enUS == true)
+                        switch (ActiveLanguage)
                         {
-                            if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
-                            {
-                                lB_SuggestedFoods.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
-                                ItemsInFoodSearch.Add(element.Value.USName);
-                            }
-                        }
+                            case Languages.English:
+                                if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
+                                {
+                                    lB_SuggestedFoods.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
+                                    ItemsInFoodSearch.Add(element.Value.USName);
+                                }
+                                break;
 
-                        if (bgBG == true)
-                        {
-                            if (element.Value.BGName.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString()))
-                            {
-                                lB_SuggestedFoods.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString());
-                                ItemsInFoodSearch.Add(element.Value.USName);
-                            }
+                            case Languages.Bulgarian:
+                                if (element.Value.BGName.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString()))
+                                {
+                                    lB_SuggestedFoods.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString());
+                                    ItemsInFoodSearch.Add(element.Value.USName);
+                                }
+                                break;
+                            default:
+                                break;
                         }
                     }
                 }
@@ -567,7 +589,7 @@ namespace MunchyUI
             {
                 lB_SuggestedFoods.Items.Clear();
                 ItemsInFoodSearch.Clear();
-                l_SearchInfo.Text = TranslatorCore.GetTypeForFoodPrompt(enUS, bgBG);
+                l_SearchInfo.Text = TranslatorCore.GetTypeForFoodPrompt(ActiveLanguage);
             }
         }
 
@@ -601,7 +623,7 @@ namespace MunchyUI
 
             if (ItemToAdd.Amount == 0)
             {
-                L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(enUS, bgBG);
+                L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(ActiveLanguage);
             }
 
             if (ItemToAdd.USName != null)
@@ -610,21 +632,28 @@ namespace MunchyUI
                 {
                     CurrentManager.User.UserFridge.AddToFridge(ItemToAdd);
 
-                    if (enUS == true)
-                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.USName.First().ToString().ToUpper() + ItemToAdd.USName.ToString().Substring(1), Amount = ItemToAdd.Amount });
+                    switch (ActiveLanguage)
+                    {
+                        case Languages.English:
+                            lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.USName.First().ToString().ToUpper() + ItemToAdd.USName.ToString().Substring(1), Amount = ItemToAdd.Amount });
+                            break;
+                        case Languages.Bulgarian:
+                            lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.BGName, Amount = ItemToAdd.Amount });
 
-                    if (bgBG == true)
-                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.BGName, Amount = ItemToAdd.Amount });
+                            break;
+                        default:
+                            break;
+                    }
 
                     CurrentManager.UsersFridge.SaveFridge();
-                    l_SearchInfo.Text = TranslatorCore.ItemAddedMessage(enUS, bgBG);
+                    l_SearchInfo.Text = TranslatorCore.ItemAddedMessage(ActiveLanguage);
 
                     RefreshFridge();
                     PopulateFridgeSummary();
                 }
                 else
                 {
-                    l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(enUS, bgBG);
+                    l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(ActiveLanguage);
                 }
             }
             Tb_CustomAmount.Clear();
@@ -661,18 +690,21 @@ namespace MunchyUI
             lb_Fridge.Items.Clear();
             foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
             {
-                if (enUS)
+                switch (ActiveLanguage)
                 {
-                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
-                        lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
+                    case Languages.English:
+                        if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
+                        {
+                            lb_Fridge.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1));
+                        }
+                        break;
+                    case Languages.Bulgarian:
+                        if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1)))
+                        {
+                            lb_Fridge.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1));
+                        }
+                        break;
                 }
-
-                if (bgBG)
-                {
-                    if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1)))
-                        lb_Fridge.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1));
-                }
-
             }
         }
 
@@ -687,11 +719,16 @@ namespace MunchyUI
 
                 if (!lb_FoodList.Items.Contains(ItemToAdd.Value.USName) || !lb_FoodList.Items.Contains(ItemToAdd.Value.BGName))
                 {
-                    if (enUS == true)
-                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.USName.First().ToString().ToUpper() + ItemToAdd.Value.USName.Substring(1), Amount = ItemToAdd.Value.Amount });
+                    switch (ActiveLanguage)
+                    {
+                        case Languages.English:
+                            lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.USName.First().ToString().ToUpper() + ItemToAdd.Value.USName.Substring(1), Amount = ItemToAdd.Value.Amount });
+                            break;
 
-                    if (bgBG == true)
-                        lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.BGName.First().ToString().ToUpper() + ItemToAdd.Value.BGName.Substring(1), Amount = ItemToAdd.Value.Amount });
+                        case Languages.Bulgarian:
+                            lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.BGName.First().ToString().ToUpper() + ItemToAdd.Value.BGName.Substring(1), Amount = ItemToAdd.Value.Amount });
+                            break;
+                    }
                 }
             }
 
@@ -714,11 +751,17 @@ namespace MunchyUI
                         checkBox.Content = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts[Array.IndexOf(AmountRadioButtons, checkBox)];
                 }
 
-                if (enUS)
-                    Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].USUOM;
+                switch (ActiveLanguage)
+                {
+                    case Languages.English:
+                        Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].USUOM;
 
-                if (bgBG)
-                    Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].BGUOM;
+                        break;
+                    case Languages.Bulgarian:
+                        Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].BGUOM;
+
+                        break;
+                }
             }
         }
         #endregion
@@ -860,16 +903,14 @@ namespace MunchyUI
 
             if (CB_Bulgarian.IsChecked == true)
             {
-                bgBG = true;
-                enUS = false;
+                ActiveLanguage = Languages.Bulgarian;
                 CurrentManager.User.LanguagePref = "BG";
                 Localizer.SwitchLanguage(this, "bg-BG");
             }
 
             if (CB_English.IsChecked == true)
             {
-                bgBG = false;
-                enUS = true;
+                ActiveLanguage = Languages.English;
                 CurrentManager.User.LanguagePref = "US";
                 Localizer.SwitchLanguage(this, "en-US");
             }
@@ -938,7 +979,7 @@ namespace MunchyUI
         //Changes text of the FoodSearch textbox when it looses focus.
         private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
+            tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(ActiveLanguage);
         }
 
         //Removes "Search" text fomr FoodSearch textbox when it gets focus
@@ -1064,7 +1105,7 @@ namespace MunchyUI
         //Resets text when the search cooked recipe textbox looses focus. Text is determined by the language that is being used.
         private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
+            tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(ActiveLanguage);
         }
 
         //Saved Recipes
@@ -1084,7 +1125,7 @@ namespace MunchyUI
         //Resets text when the search saved recipe textbox looses focus. Text is determined by the language that is being used.
         private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(enUS, bgBG);
+            tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(ActiveLanguage);
         }
 
         //Handles adding the recipe to the saved recipe list.
@@ -1129,15 +1170,13 @@ namespace MunchyUI
             Localizer.SwitchLanguage(this, LocaleCode);
             if (LocaleCode == "bg-BG")
             {
-                bgBG = true;
-                enUS = false;
+                ActiveLanguage = Languages.Bulgarian;
                 tB_RecipeName.Text = SuggestedRecipe.BGName;
             }
 
             if (LocaleCode == "en-US")
             {
-                enUS = true;
-                bgBG = false;
+                ActiveLanguage = Languages.English;
                 tB_RecipeName.Text = SuggestedRecipe.USName;
             }
 
@@ -1148,157 +1187,135 @@ namespace MunchyUI
         //Gets appropriate Saved recipe list.
         private List<string> GetSavedRecipesList()
         {
-            List<string> ListToUse = new List<string>();
-
-            if (enUS == true || bgBG == true)
+            switch (ActiveLanguage)
             {
-                if (enUS == true)
-                {
-                    ListToUse = CurrentManager.UserRecipeSaves.USSavedRecipes;
-                }
+                case Languages.English:
 
-                if (bgBG == true)
-                {
-                    ListToUse = CurrentManager.UserRecipeSaves.BGSavedRecipes;
-                }
-            }
-            else
-            {
-                ListToUse = new List<string>();
+                    {
+                        return CurrentManager.UserRecipeSaves.USSavedRecipes;
+                    }
+                case Languages.Bulgarian:
+                    {
+                        return CurrentManager.UserRecipeSaves.BGSavedRecipes;
+                    }
+
+                default:
+                    {
+                        return new List<string>();
+                    }
             }
 
-            return ListToUse;
         }
 
         //Gets appropriate list for recently viewed recipes name based on language setting.
         private List<string> GetRecentlyViewedList()
         {
-            List<string> ListToUse = new List<string>();
-
-            if (enUS == true || bgBG == true)
+            switch (ActiveLanguage)
             {
-                if (enUS == true)
-                {
-                    ListToUse = CurrentManager.UserRecipeSaves.USRecentlyViewed;
-                }
+                case Languages.English:
 
-                if (bgBG == true)
-                {
-                    ListToUse = CurrentManager.UserRecipeSaves.BGRecentlyViewed;
-                }
-            }
+                    {
+                        return CurrentManager.UserRecipeSaves.USRecentlyViewed;
+                    }
+                case Languages.Bulgarian:
+                    {
+                        return CurrentManager.UserRecipeSaves.BGRecentlyViewed;
+                    }
 
-            else
-            {
-                ListToUse = new List<string>();
+                default:
+                    {
+                        return new List<string>();
+                    }
             }
-            return ListToUse;
         }
 
         //Gets approprite directions string based on language setting.
-        private string GetDirections(RecipeDef Recipe)
+        private string GetDirections(RecipeDef recipe)
         {
-            string RecipeName = "RecipeName";
-
-            if (enUS == true || bgBG == true)
+            switch (ActiveLanguage)
             {
-                if (enUS == true)
-                {
-                    RecipeName = Recipe.USDirections;
-                }
+                case Languages.English:
 
-                if (bgBG == true)
-                {
-                    RecipeName = Recipe.BGDirections;
-                }
-            }
-            else
-            {
-                MessageBox.Show("EN: Error Code : ERR-RFC : There seems to be a corrupted file. Please click Ok to open the support page. ");
-                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
-                RecipeName = "Error Code: ERR-RFC";
-            }
+                    {
+                        return recipe.USDirections;
+                    }
+                case Languages.Bulgarian:
+                    {
+                        return recipe.BGDirections;
+                    }
 
-            return RecipeName;
+                default:
+                    {
+                        return " ";
+                    }
+            }
         }
 
         //Gets appropriate igredients list.
-        private List<string> GetIngredientList(RecipeDef Recipe)
+        private List<string> GetIngredientList(RecipeDef recipe)
         {
-            List<string> ListToUse = new List<string>();
-
-            if (enUS == true || bgBG == true)
+            switch (ActiveLanguage)
             {
-                if (enUS == true)
-                {
-                    ListToUse = Recipe.USIngredients;
-                }
+                case Languages.English:
 
-                if (bgBG == true)
-                {
-                    ListToUse = ListToUse = Recipe.BGIngredients;
-                }
+                    {
+                        return recipe.USIngredients;
+                    }
+                case Languages.Bulgarian:
+                    {
+                        return recipe.BGIngredients;
+                    }
+
+                default:
+                    {
+                        return new List<string>();
+                    }
             }
-            else
-            {
-                ListToUse = new List<string>();
-            }
-
-
-            return ListToUse;
 
         }
 
         //Gets appropriate Cooked recipe list.
         private List<string> GetCookedRecipeList()
         {
-            List<string> ListToUse = new List<string>();
-
-            if (enUS == true || bgBG == true)
+            switch (ActiveLanguage)
             {
-                if (enUS == true)
-                {
-                    ListToUse = CurrentManager.UserRecipeSaves.USCookedRecipes;
-                }
+                case Languages.English:
 
+                    {
+                        return CurrentManager.UserRecipeSaves.USCookedRecipes;
+                    }
+                case Languages.Bulgarian:
+                    {
+                        return CurrentManager.UserRecipeSaves.BGCookedRecipes;
+                    }
 
-                if (bgBG == true)
-                {
-                    ListToUse = CurrentManager.UserRecipeSaves.BGCookedRecipes;
-                }
+                default:
+                    {
+                        return new List<string>();
+                    }
             }
-            else
-            {
-                ListToUse = new List<string>();
-            }
-
-            return ListToUse;
         }
 
         //Gets appropriate Recipe name.
-        private string GetSuggestedRecipeName(RecipeDef Recipe)
+        private string GetSuggestedRecipeName(RecipeDef recipe)
         {
-            string RecipeName = "RecipeName";
-
-            if (enUS == true || bgBG == true)
+            switch (ActiveLanguage)
             {
-                if (enUS == true)
-                {
-                    RecipeName = Recipe.USName;
-                }
+                case Languages.English:
 
+                    {
+                        return recipe.USName;
+                    }
+                case Languages.Bulgarian:
+                    {
+                        return recipe.BGName;
+                    }
 
-                if (bgBG == true)
-                {
-                    RecipeName = Recipe.BGName;
-                }
+                default:
+                    {
+                        return " ";
+                    }
             }
-            else
-            {
-                RecipeName = "Error TE303";
-            }
-
-            return RecipeName;
         }
         #endregion
     }

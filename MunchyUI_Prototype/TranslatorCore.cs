@@ -8,108 +8,142 @@ namespace MunchyUI
 {
     public static class TranslatorCore
     {
-        public static string GetSuggestedRecipeInfo(bool enUS, bool bgBG)
+        public static string GetSuggestedRecipeInfo(Languages activeLang)
         {
-            string MessageToReturn = "SuggestedRecipeMSG";
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Sorry we ran out of suitable recipes for you. Try a manual search.";
 
-            if (enUS)
-                MessageToReturn = "Sorry we ran out of suitable recipes for you. Try a manual search.";
+                case Languages.Bulgarian:
+                    return "Извинете, не успяхме да намерим рецепта. Опитайте ръчно търсене.";
 
-            if (bgBG)
-                MessageToReturn = "Извинете, не успяхме да намерим рецепта. Опитайте ръчно търсене.";
+                default:
+                    return "Lang Err";
+            }
 
-            return MessageToReturn;
         }
 
-        public static string GetTooLateToEatMessage(bool enUS, bool bgBG)
+        public static string GetNoDataLabel(Languages activeLang)
         {
-            string MessageToReturn = "SuggestedRecipeMSG";
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "No Data";
 
-            if (enUS)
-                MessageToReturn = "It's too late to eat! Wait until the morning.";
+                case Languages.Bulgarian:
+                    return "Няма данни";
 
-            if (bgBG)
-                MessageToReturn = "Много е късно да ядете! Изчакайте до сутринта.";
+                default:
+                    return "Lang Err";
+            }
 
-            return MessageToReturn;
         }
 
-        public static string GetClickToAddFoodMessage(bool enUS, bool bgBG)
+        public static string GetTooLateToEatMessage(Languages activeLang)
         {
-            string MessageToReturn = "SuggestedRecipeMSG";
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "It's too late to eat! Wait until the morning.";
 
-            if (enUS)
-                MessageToReturn = "Click on an item to add it";
+                case Languages.Bulgarian:
+                    return "Много е късно да ядете! Изчакайте до сутринта.";
 
-            if (bgBG)
-                MessageToReturn = "Кликнете върху храната да я добавите.";
-
-            return MessageToReturn;
+                default:
+                    return "Lang Err";
+            }            
         }
 
-        public static string GetTypeForFoodPrompt(bool enUS, bool bgBG)
+        public static string GetClickToAddFoodMessage(Languages activeLang)
         {
-            string MessageToReturn = "SuggestedRecipeMSG";
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Click on an item to add it";
 
-            if (enUS)
-                MessageToReturn = "Type what you would like to add.";
+                case Languages.Bulgarian:
+                    return "Кликнете върху храната да я добавите.";
 
-            if (bgBG)
-                MessageToReturn = "Напишете това което търсите.";
-
-            return MessageToReturn;
+                default:
+                    return "Lang Err";
+            }            
         }
 
-        public static string FoodAmountNullWarning(bool enUS, bool bgBG)
+        public static string GetTypeForFoodPrompt(Languages activeLang)
         {
-            string MessageToReturn = "SuggestedRecipeMSG";
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Type what you would like to add.";
 
-            if (enUS)
-                MessageToReturn = "Please add a food amount!";
+                case Languages.Bulgarian:
+                    return "Напишете това което търсите.";
 
-            if (bgBG)
-                MessageToReturn = "Моля добавете количество за храната!";
-
-            return MessageToReturn;
+                default:
+                    return "Lang Err";
+            }           
         }
 
-        public static string ItemAddedMessage (bool enUS, bool bgBG)
+        public static string FoodAmountNullWarning(Languages activeLang)
         {
-            string MessageToReturn = "SuggestedRecipeMSG";
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Please add a food amount!";
 
-            if (enUS)
-                MessageToReturn = "Item added!";
+                case Languages.Bulgarian:
+                    return "Моля добавете количество за храната!";
 
-            if (bgBG)
-                MessageToReturn = "Продукта добавен!";
-
-            return MessageToReturn;
+                default:
+                    return "Lang Err";
+            }            
         }
 
-        public static string ItemAlreadyInFridgeMessage(bool enUS, bool bgBG)
+        public static string ItemAddedMessage(Languages activeLang)
         {
-            string MessageToReturn = "SuggestedRecipeMSG";
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Item added!";
 
-            if (enUS)
-                MessageToReturn = "Item already in fridge.";
+                case Languages.Bulgarian:
+                    return "Продукта добавен!";
 
-            if (bgBG)
-                MessageToReturn = "Продукта вече е в хладилника.";
-
-            return MessageToReturn;
+                default:
+                    return "Lang Err";
+            }            
         }
 
-        public static string GetTextboxDefaultText(bool enUS, bool bgBG)
+        public static string ItemAlreadyInFridgeMessage(Languages activeLang)
         {
-            string MessageToReturn = "SuggestedRecipeMSG";
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Item already in fridge.";
 
-            if (enUS)
-                MessageToReturn = "Search";
+                case Languages.Bulgarian:
+                    return "Продукта вече е в хладилника.";
 
-            if (bgBG)
-                MessageToReturn = "Търси";
+                default:
+                    return "Lang Err";
+            }          
+        }
 
-            return MessageToReturn;
+        public static string GetTextboxDefaultText(Languages activeLang)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Search";
+
+                case Languages.Bulgarian:
+                    return "Търси";
+
+
+                default:
+                    return "Lang Err";
+            }          
         }
     }
 }
