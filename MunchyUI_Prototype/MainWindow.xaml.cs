@@ -202,7 +202,7 @@ namespace MunchyUI
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
                     tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
-                    Img_SuggestedRecipeImage.Fill = Brushes.WhiteSmoke;
+                    Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
 
@@ -220,7 +220,7 @@ namespace MunchyUI
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
                     tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
-                    Img_SuggestedRecipeImage.Fill = Brushes.WhiteSmoke;
+                    Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
 
@@ -238,7 +238,7 @@ namespace MunchyUI
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
                     tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
-                    Img_SuggestedRecipeImage.Fill = Brushes.WhiteSmoke;
+                    Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
 
@@ -248,7 +248,7 @@ namespace MunchyUI
                 tB_RecipeName.Text = null;
                 tB_RecipeName.FontSize = 18;
                 tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(enUS, bgBG);
-                Img_SuggestedRecipeImage.Fill = Brushes.WhiteSmoke;
+                Img_SuggestedRecipeImage.Fill = Brushes.White;
             }
 
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
@@ -893,19 +893,22 @@ namespace MunchyUI
                 }
             }
 
+            SuggestedRecipe = new RecipeDef();
+            img_RecipeImage.Fill = Brushes.White;
+            RecipeIngredientList = new List<FoodDef>();
+            lv_Ingredients.ItemsSource = RecipeIngredientList;
+
             CurrentManager.SaveUser();
             CurrentManager.User.CalculateIndex();
             CurrentManager.SaveUser();
             tB_UserName.Text = CurrentManager.User.UserName;
             CurrentManager.RecipieManag.SortRecipes();
             SuggestRecipe();
-            SuggestedRecipe = new RecipeDef();
 
-            RecipeIngredientList.Clear();
-            lv_Ingredients.ItemsSource = RecipeIngredientList;
+
             tB_Directions.Text = null;
             tB_RecipeTitle.Text = null;
-            tB_TimeToCookAmount.Text = null;           
+            tB_TimeToCookAmount.Text = null;
         }
         #endregion
         #endregion
