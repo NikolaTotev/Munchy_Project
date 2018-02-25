@@ -23,19 +23,19 @@ namespace MunchyUI
     {
         //Getting user applicaitondata folder.
         static string LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        static string ProgramFolder = LocalAppDataPath + "\\Munchy";
-        static string ImageFolderPath = ProgramFolder + "\\Images\\";
+        static string ProgramFolder = System.IO.Path.Combine(LocalAppDataPath, "Munchy");
+        static string ImageFolderPath =System.IO.Path.Combine(ProgramFolder, "Images");
 
         //Data File Locations
-        string UserFile = ProgramFolder + "\\USER.json";
+        string UserFile = System.IO.Path.Combine(ProgramFolder, "USER.json");
 
-        string UserFridgeFile = ProgramFolder + "\\USER_FRIDGE.json";
+        string UserFridgeFile = System.IO.Path.Combine(ProgramFolder, "USER_FRIDGE.json");
 
-        string FoodDefFile = ProgramFolder + "\\FoodData.json";
-        string RecipeDatabase = ProgramFolder + "\\Recipes.json";
+        string FoodDefFile = System.IO.Path.Combine(ProgramFolder, "FoodData.json");
+        string RecipeDatabase = System.IO.Path.Combine(ProgramFolder, "Recipes.json");
 
-        string RecipeSaveFile = ProgramFolder + "\\RecipeSavesFile.json";
-        string StatSavePath = ProgramFolder + "\\StatSavePath.json";
+        string RecipeSaveFile = System.IO.Path.Combine(ProgramFolder, "RecipeSavesFile.json");
+        string StatSavePath = System.IO.Path.Combine(ProgramFolder, "StatSavePath.json");
 
         //Booleans for determining what language to use in runtime. English is the default language.
         bool enUS = true;
@@ -279,9 +279,9 @@ namespace MunchyUI
                 CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
 
-            if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
+            if (File.Exists(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile)))
             {
-                SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
+                SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile), UriKind.Relative));
                 Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
             }
             else
@@ -298,9 +298,9 @@ namespace MunchyUI
         //Sets up the initial FullRecipe view. Called when the "Show Recipe" button is pressed.
         private void SetupFullRecipeViewImg()
         {
-            if (File.Exists(ImageFolderPath + SuggestedRecipe.ImageFile))
+            if (File.Exists(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile)))
             {
-                RecipeImage.ImageSource = new BitmapImage(new Uri(ImageFolderPath + SuggestedRecipe.ImageFile, UriKind.Relative));
+                RecipeImage.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile), UriKind.Relative));
                 img_RecipeImage.Fill = RecipeImage;
             }
             else
@@ -470,9 +470,9 @@ namespace MunchyUI
                 {
                     if (i <= 6 && CurrentManager.RecipieManag.Recipies.ContainsKey(CurrentManager.UserRecipeSaves.USRecentlyViewed[i]))
                     {
-                        if (File.Exists(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile))
+                        if (File.Exists(System.IO.Path.Combine(ImageFolderPath, CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile)))
                         {
-                            RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(ImageFolderPath + CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile, UriKind.Relative));
+                            RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(ImageFolderPath, CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile), UriKind.Relative));
                             RecentlyViewedRecipesImages[i].ToolTip = GetRecentlyViewedList()[i];
                             RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
                             if (i <= 4)
