@@ -702,7 +702,8 @@ namespace MunchyUI
 
                 foreach (RadioButton checkBox in AmountRadioButtons)
                 {
-                    checkBox.Content = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts[Array.IndexOf(AmountRadioButtons, checkBox)];
+                    if (Array.IndexOf(AmountRadioButtons, checkBox) < CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts.Count)
+                        checkBox.Content = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts[Array.IndexOf(AmountRadioButtons, checkBox)];
                 }
 
                 if (enUS)
@@ -979,7 +980,7 @@ namespace MunchyUI
                 NumerOfRecipeToSuggest++;
                 SuggestRecipe();
                 SetRecentlyViewedImages();
-            }          
+            }
         }
 
         //Handles Showing previour recipe  to the user.
@@ -990,7 +991,7 @@ namespace MunchyUI
                 tB_RecipeName.FontSize = 24;
                 NumerOfRecipeToSuggest--;
                 SuggestRecipe();
-            }          
+            }
         }
 
         //Handles opening of the Cooked Recipes search panel.
