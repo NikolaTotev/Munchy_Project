@@ -244,7 +244,10 @@ namespace FoodAndRecipeCreationTool
                 if (!FoodList.ContainsKey(NewFoodItem.USName.ToLower()))
                     FoodList.Add(NewFoodItem.USName.ToLower(), NewFoodItem);
             }
+
             SaveFoodList();
+            FoodList = GetFoodList();
+           
 
             BG_UOMInput.Clear();
             US_UOMInput.Clear();
@@ -256,8 +259,10 @@ namespace FoodAndRecipeCreationTool
             tb_SugarInput.Clear();
             US_FoodName.Clear();
             Lb_SuggestedAmounts.Items.Clear();
-            SuggestedAmounts.Clear();
+            SuggestedAmounts = new List<float>();
             BG_FoodName.Clear();
+            Lb_SuggestedAmounts.Items.Clear();
+            
         }
 
         private void BTN_SaveRecipe(object sender, RoutedEventArgs e)

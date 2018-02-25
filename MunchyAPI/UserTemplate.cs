@@ -34,6 +34,7 @@ namespace Nikola.Munchy.MunchyAPI
             CalculateIndex();
         }
 
+        //Calculates compatability index based one the compatabilitymap in the ProgramManager. For more information on how it works visit the github wiki.
         public void CalculateIndex()
         {
             CompatabilityIndex = 0;

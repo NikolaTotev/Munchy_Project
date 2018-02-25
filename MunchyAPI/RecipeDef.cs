@@ -22,7 +22,6 @@ namespace Nikola.Munchy.MunchyAPI
         public List <string> Units { get; set; }
         public string ImageFile { get; set; }
         public int RecipeIndex { get; set; }
-        public int Calories { get; set; }         
-       
+        public int Calories { get; set; }                
     }
 }

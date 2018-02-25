@@ -16,6 +16,7 @@ namespace Nikola.Munchy.MunchyAPI
         public int UserIndex;
         public int RecipieIndex = 0;
 
+        //Constants that are used for sorting recipes. These contants are also used when creating recipes.
         public const string BreakfastTag = "breakfast";
         public const string LunchTag = "lunch";
         public const string DinnerTag = "dinner";
@@ -46,10 +47,8 @@ namespace Nikola.Munchy.MunchyAPI
             SortRecipes();
         }
 
-        /// <summary>
-        /// Returns a dictionary based on a specified JSON file. 
-        /// </summary>
-        /// <returns></returns>
+     
+        //Deserializes the RecipeDatabase file.
         public Dictionary<string, RecipeDef> GetRecipies()
         {
             // Checks if given file exists.
@@ -69,16 +68,15 @@ namespace Nikola.Munchy.MunchyAPI
                 return Recipes;
             }
 
-        }
-
-        
-
-        /// <summary>
-        /// Sorts recipies using Bit Comparison. Sorts recipes based on: Appropriate based on user settings, 
-        /// if they are good for breakfast, lunch, dinner, and if the user has all the ingredients for the recipes.
-        /// </summary>
+        } 
+    
+        //Sorting algorithm that organizes all the recipes on launch. This is done only once per application launch. For more infomation on how it works please vist the github wiki.
         public void SortRecipes()
         {
+            Breakfast.Clear();
+            Lunch.Clear();
+            Dinner.Clear();
+            CompatableRecipes.Clear();
             UserIndex = CurrentManager.User.CompatabilityIndex;
             foreach (KeyValuePair<string, RecipeDef> item in Recipies)
             {
@@ -129,6 +127,8 @@ namespace Nikola.Munchy.MunchyAPI
                 }
                 else
                 {
+                    CompatableRecipes.Add(item.Key);
+
                     if (item.Value.TimeTags.Contains(BreakfastTag))
                     {
                         Breakfast.Add(item.Key);
@@ -162,9 +162,7 @@ namespace Nikola.Munchy.MunchyAPI
                         RecipesWithFridgeFoods.Add(item.Key);
                     }
                 }
-
                 RecipieIndex = 0; 
-
             }
         }
     }

@@ -24,6 +24,7 @@ namespace Nikola.Munchy.MunchyAPI
         public RecipeSaver UserRecipeSaves;
         public StatisticsManager StatManager;
 
+        //Compatability map is used for determining which recipes are compatable with the users preferences.
         public List<string> CompatabilityMap = new List<string>
             {
                 "isvegan",
@@ -71,11 +72,8 @@ namespace Nikola.Munchy.MunchyAPI
             RecipieManag = new RecipeManager(RecipiesFile, this);
         }
 
-        /// <summary>
-        /// Gets saved recipe saver. If the save file doesn't exsit, it uses the default save file. 
-        /// If that doesnt exsit it creates a save file and contiunes work as normal.
-        /// </summary>
-        /// <returns></returns>
+      
+        //Deserializes the recipe saver. Recipe saver is used to save recently viewed recipe, saved recipes and cooked recipes.
         public RecipeSaver GetRecipeSaver()
         {
             RecipeSaver RetrivedSaver;
@@ -92,6 +90,7 @@ namespace Nikola.Munchy.MunchyAPI
             }
         }
 
+        //Deserializes the statistics manager.
         private StatisticsManager GetStatisticManager()
         {
             StatisticsManager RetrivedManager;
@@ -109,16 +108,15 @@ namespace Nikola.Munchy.MunchyAPI
             }
         }
 
-        /// <summary>
-        /// If the "UserFile" exists, the "User" instance gets assigned the returned "UserTemplate". If the file does not exist
-        /// i.e. there has not been a user created yet, the User gets assinged to Null. 
-        /// </summary>
-        /// <returns></returns>
+        //Gets the user by deserializing the user save file.
         public UserTemplate GetUser()
         {
             UserTemplate RetrievedUser;
             if (!File.Exists(UserFile))
             {
+                SaveUser();
+                User.Weight = 50;
+                User.Age = 20;
                 SaveUser();
             }
 
@@ -141,6 +139,7 @@ namespace Nikola.Munchy.MunchyAPI
             UserToUse.UserFridge = UsersFridge;
         }
 
+        //Handles saving the user.
         public void SaveUser()
         {
             using (StreamWriter file = File.CreateText(UserFile))

@@ -22,8 +22,6 @@ namespace Nikola.Munchy.MunchyAPI
 
         [NonSerialized]
         public string SaveLocation;
-        //string DefaultSaver = @"C:\Users\Nikola\AppData\Roaming\Munchy\DefaultSaverFile.json";
-
 
         public RecipeSaver(string SavePath)
         {
@@ -39,9 +37,9 @@ namespace Nikola.Munchy.MunchyAPI
             BGCookedToday = new List<string>();
         }
 
+        //Handles saving the recipe saver. Files saved to JSON. 
         public void SaveRecipeSaver()
         {
-
             using (StreamWriter file = File.CreateText(SaveLocation))
             {
                 JsonSerializer serializer = new JsonSerializer();

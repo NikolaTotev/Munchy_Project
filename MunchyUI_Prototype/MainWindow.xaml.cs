@@ -24,7 +24,7 @@ namespace MunchyUI
         //Getting user applicaitondata folder.
         static string LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         static string ProgramFolder = System.IO.Path.Combine(LocalAppDataPath, "Munchy");
-        static string ImageFolderPath =System.IO.Path.Combine(ProgramFolder, "Images");
+        static string ImageFolderPath = System.IO.Path.Combine(ProgramFolder, "Images");
 
         //Data File Locations
         string UserFile = System.IO.Path.Combine(ProgramFolder, "USER.json");
@@ -202,6 +202,7 @@ namespace MunchyUI
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
                     tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                    Img_SuggestedRecipeImage.Fill = Brushes.WhiteSmoke;
                 }
             }
 
@@ -219,6 +220,7 @@ namespace MunchyUI
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
                     tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                    Img_SuggestedRecipeImage.Fill = Brushes.WhiteSmoke;
                 }
             }
 
@@ -236,6 +238,7 @@ namespace MunchyUI
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
                     tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(enUS, bgBG);
+                    Img_SuggestedRecipeImage.Fill = Brushes.WhiteSmoke;
                 }
             }
 
@@ -245,6 +248,7 @@ namespace MunchyUI
                 tB_RecipeName.Text = null;
                 tB_RecipeName.FontSize = 18;
                 tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(enUS, bgBG);
+                Img_SuggestedRecipeImage.Fill = Brushes.WhiteSmoke;
             }
 
             CurrentManager.UserRecipeSaves.SaveRecipeSaver();
@@ -298,17 +302,21 @@ namespace MunchyUI
         //Sets up the initial FullRecipe view. Called when the "Show Recipe" button is pressed.
         private void SetupFullRecipeViewImg()
         {
-            if (File.Exists(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile)))
+            if (SuggestedRecipe != null && CurrentManager.RecipieManag.CompatableRecipes.Count > 0)
             {
-                RecipeImage.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile), UriKind.Relative));
-                img_RecipeImage.Fill = RecipeImage;
+                if (File.Exists(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile)))
+                {
+                    RecipeImage.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile), UriKind.Relative));
+                    img_RecipeImage.Fill = RecipeImage;
+                }
+                else
+                {
+                    img_RecipeImage.Fill = null;
+                    MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
+                    System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
+                }
             }
-            else
-            {
-                img_RecipeImage.Fill = null;
-                MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
-                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
-            }
+
         }
 
         //Adds information about the recipe to the FullRecipeView panel.
@@ -812,12 +820,14 @@ namespace MunchyUI
                 tb_WeightInput.Text = null;
             }
 
-            //if (p_Settings.Visibility == Visibility.Hidden)
-            //    p_Settings.Visibility = Visibility.Visible;
+            if (CurrentManager.User.Sex == "male")
+                rb_Male.IsChecked = true;
 
-            //else
-            //    p_Settings.Visibility = Visibility.Hidden;
+            if (CurrentManager.User.Sex == "female")
+                rb_Female.IsChecked = true;
 
+            if (CurrentManager.User.Sex == "other")
+                rb_Other.IsChecked = true;
         }
 
         //Handles saving the user settings. All values on the settings panel are set to the corresponding properties of the User class in the CurrentManager.
@@ -887,6 +897,15 @@ namespace MunchyUI
             CurrentManager.User.CalculateIndex();
             CurrentManager.SaveUser();
             tB_UserName.Text = CurrentManager.User.UserName;
+            CurrentManager.RecipieManag.SortRecipes();
+            SuggestRecipe();
+            SuggestedRecipe = new RecipeDef();
+
+            RecipeIngredientList.Clear();
+            lv_Ingredients.ItemsSource = RecipeIngredientList;
+            tB_Directions.Text = null;
+            tB_RecipeTitle.Text = null;
+            tB_TimeToCookAmount.Text = null;           
         }
         #endregion
         #endregion

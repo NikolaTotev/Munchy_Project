@@ -11,9 +11,10 @@ namespace Nikola.Munchy.MunchyAPI
     public class FridgeTemplate
     {
 
-
+        //Stores foods with the key being the bulgarian name.
         public Dictionary<string, FoodDef> BGUserFoods { get; set; }
 
+        //Stores foods with the key being the English name. This is the main list.
         public Dictionary<string, FoodDef> USUsersFoods { get; set; }
 
         public string SavedFilePath;
@@ -29,6 +30,7 @@ namespace Nikola.Munchy.MunchyAPI
             RefreshBGList();
         }
 
+        //Handles updating the BGUserFoods dictionary
         public void RefreshBGList()
         {
             BGUserFoods.Clear();
@@ -100,7 +102,7 @@ namespace Nikola.Munchy.MunchyAPI
         {
             for (int i = 0; i < FoodItemsToChange.Count; i++)
             {
-                float AmountToRemove = UnitConverter.GetMass(FoodItemsToChange[i], AmountsToChange[i], Units[i], foodManager);
+                float AmountToRemove = UnitConverter.GetAmountToRemove(FoodItemsToChange[i], AmountsToChange[i], Units[i], foodManager);
 
                 foreach (KeyValuePair<string, FoodDef> element in USUsersFoods)
                 {

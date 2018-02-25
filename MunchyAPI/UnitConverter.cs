@@ -8,12 +8,13 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public static class UnitConverter
     {
+        //Dictionary of standard values that are used in the program.
         private static Dictionary<string, float> StandardUnits = new Dictionary<string, float> { { "Cup", 236 }, { "Tbsp", 15 }, { "Tsp", 15 } };
 
-        public static float GetMass(string FoodName, float FoodAmount, string Unit, FoodManager foodManager)
+        //Gets the amount needed to be removed based on what unit is being used and the density of the given food being modified. Returns a float.
+        public static float GetAmountToRemove(string FoodName, float FoodAmount, string Unit, FoodManager foodManager)
         {
             float Mass = 0;
-
             float FoodDensity = 0;
             float VolumeToUse = 0;
 

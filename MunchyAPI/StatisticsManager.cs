@@ -44,6 +44,7 @@ namespace Nikola.Munchy.MunchyAPI
             SaveStatistics();
         }
 
+        //Adds calories to the statistics and then saves information.
         public void AddToCalorieStatistics(int AmountToAdd)
         {
             TotalCaloriesConsumed += AmountToAdd;
@@ -56,9 +57,9 @@ namespace Nikola.Munchy.MunchyAPI
             DailyReset();
         }
 
+        //Handles saving statistics to JSON file.
         public void SaveStatistics()
         {
-
             using (StreamWriter file = File.CreateText(SaveLocation))
             {
                 JsonSerializer serializer = new JsonSerializer();
@@ -66,6 +67,7 @@ namespace Nikola.Munchy.MunchyAPI
             }
         }
 
+        //Handles resetting calories daily.
         public void DailyReset()
         {
             if (DateTime.Now.Day > PreviousDay)
@@ -74,6 +76,7 @@ namespace Nikola.Munchy.MunchyAPI
             }
         }
 
+        //Handles tracking date changes.
         public void DateManagement()
         {
             int CurrentDate = DateTime.Now.Day;
@@ -99,6 +102,7 @@ namespace Nikola.Munchy.MunchyAPI
             SaveStatistics();
         }
 
+        //Calcualates average values.
         public void CalculateAverageSums()
         {
             if (TotalDaysUsingProgram > 0)
