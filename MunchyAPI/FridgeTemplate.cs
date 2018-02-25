@@ -162,6 +162,7 @@ namespace Nikola.Munchy.MunchyAPI
         public void ClearFridge()
         {
             USUsersFoods.Clear();
+            RefreshBGList();
         }
     }
 }

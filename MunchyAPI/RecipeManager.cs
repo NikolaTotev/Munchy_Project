@@ -16,6 +16,10 @@ namespace Nikola.Munchy.MunchyAPI
         public int UserIndex;
         public int RecipieIndex = 0;
 
+        public const string BreakfastTag = "breakfast";
+        public const string LunchTag = "lunch";
+        public const string DinnerTag = "dinner";
+
         // Recipes that are compatable with the user's preferences.
         public List<string> CompatableRecipes = new List<string>();
         // All compatable recipies that have the time tag "breakfast".
@@ -89,17 +93,17 @@ namespace Nikola.Munchy.MunchyAPI
                     {
                         CompatableRecipes.Add(item.Key);
 
-                        if (item.Value.TimeTags.Contains("breakfast"))
+                        if (item.Value.TimeTags.Contains(BreakfastTag))
                         {
                             Breakfast.Add(item.Key);
                         }
 
-                        if (item.Value.TimeTags.Contains("lunch"))
+                        if (item.Value.TimeTags.Contains(LunchTag))
                         {
                             Lunch.Add(item.Key);
                         }
 
-                        if (item.Value.TimeTags.Contains("dinner"))
+                        if (item.Value.TimeTags.Contains(DinnerTag))
                         {
                             Dinner.Add(item.Key);
                         }
@@ -125,17 +129,17 @@ namespace Nikola.Munchy.MunchyAPI
                 }
                 else
                 {
-                    if (item.Value.TimeTags.Contains("breakfast"))
+                    if (item.Value.TimeTags.Contains(BreakfastTag))
                     {
                         Breakfast.Add(item.Key);
                     }
 
-                    if (item.Value.TimeTags.Contains("lunch"))
+                    if (item.Value.TimeTags.Contains(LunchTag))
                     {
                         Lunch.Add(item.Key);
                     }
 
-                    if (item.Value.TimeTags.Contains("dinner"))
+                    if (item.Value.TimeTags.Contains(DinnerTag))
                     {
                         Dinner.Add(item.Key);
                     }

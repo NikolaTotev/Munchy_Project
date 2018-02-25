@@ -24,10 +24,10 @@ namespace FoodAndRecipeCreationTool
     public partial class MainWindow : Window
     {
         static string LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        static string ProgramFolder = LocalAppDataPath + "\\Munchy";
+        static string ProgramFolder = System.IO.Path.Combine(LocalAppDataPath, "Munchy");
 
-        string FoodData = ProgramFolder + "\\FoodData.json";
-        string RecipeDatabase = ProgramFolder + "\\Recipes.json";
+        string FoodData = System.IO.Path.Combine(ProgramFolder, "FoodData.json");
+        string RecipeDatabase = System.IO.Path.Combine(ProgramFolder, "Recipes.json");
 
         List<CheckBox> SettingOptions;
         List<RadioButton> Units;
@@ -37,11 +37,12 @@ namespace FoodAndRecipeCreationTool
 
         List<string> USIngredients = new List<string>();
         List<string> BGIngredients = new List<string>();
+        List<float> Amounts = new List<float>();
+
         List<string> UnitsToAdd = new List<string>();
 
         List<float> SuggestedAmounts = new List<float>();
 
-        List<float> Amounts = new List<float>();
         List<string> Preferences = new List<string>();
 
         public List<string> CompatabilityMap = new List<string>
@@ -259,153 +260,150 @@ namespace FoodAndRecipeCreationTool
             BG_FoodName.Clear();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BTN_SaveRecipe(object sender, RoutedEventArgs e)
         {
             RecipeDef NewRecipeDef = new RecipeDef();
             NewRecipeDef.TimeTags = new List<string>();
-            NewRecipeDef.Units = new List<string>();
+            NewRecipeDef.UserTags = new List<string>();
 
-            if (!string.IsNullOrWhiteSpace(BG_NameInput.Text))
-                NewRecipeDef.BGName = BG_NameInput.Text.ToLower();
+            if (!string.IsNullOrWhiteSpace(US_NameInput.Text) && !string.IsNullOrWhiteSpace(BG_NameInput.Text))
+            {
+                NewRecipeDef.USName = US_NameInput.Text.ToString();
+                NewRecipeDef.BGName = BG_NameInput.Text.ToString();
+            }
 
-            if (!string.IsNullOrWhiteSpace(US_NameInput.Text))
-                NewRecipeDef.USName = US_NameInput.Text.ToLower();
+            if (!string.IsNullOrWhiteSpace(US_Directions.Text) && !string.IsNullOrWhiteSpace(BG_Directions.Text))
+            {
+                NewRecipeDef.USDirections = US_Directions.Text.ToString();
+                NewRecipeDef.BGDirections = BG_Directions.Text.ToString();
+            }
 
+            if (!string.IsNullOrWhiteSpace(TB_ImageNameInput.Text))
+                NewRecipeDef.ImageFile = TB_ImageNameInput.Text.ToString() + ".jpg";
 
+            if (CB_Breakfast.IsChecked == true)
+                NewRecipeDef.TimeTags.Add(RecipeManager.BreakfastTag);
 
-            if (Amounts != null && Amounts.Count > 0 && Amounts.Count == USIngredients.Count)
-                NewRecipeDef.Amounts = Amounts;
+            if (CB_Lunch.IsChecked == true)
+                NewRecipeDef.TimeTags.Add(RecipeManager.LunchTag);
 
-            if (USIngredients != null && USIngredients.Count > 0 && Amounts.Count == USIngredients.Count)
-                NewRecipeDef.USIngredients = USIngredients;
+            if (CB_Dinner.IsChecked == true)
+                NewRecipeDef.TimeTags.Add(RecipeManager.DinnerTag);
 
-            if (BGIngredients != null && BGIngredients.Count > 0 && Amounts.Count == BGIngredients.Count)
-                NewRecipeDef.BGIngredients = BGIngredients;
+            if (!string.IsNullOrWhiteSpace(TB_RecipeCalorieInput.Text))
+            {
+                if (int.TryParse(TB_RecipeCalorieInput.Text, out int parsedValue1))
+                {
+                    NewRecipeDef.Calories = int.Parse(TB_RecipeCalorieInput.Text);
+                }
+            }
 
-            if (!string.IsNullOrWhiteSpace(tb_ImageNameInput.Text))
-                NewRecipeDef.ImageFile = tb_ImageNameInput.Text + ".jpg";
-
-            if (!string.IsNullOrWhiteSpace(US_Directions.Text))
-                NewRecipeDef.USDirections = US_Directions.Text;
-
-            if (!string.IsNullOrWhiteSpace(BG_Directions.Text))
-                NewRecipeDef.BGDirections = BG_Directions.Text;
-
-            if (int.TryParse(tb_RecipeCalorieInput.Text, out int n) && !string.IsNullOrWhiteSpace(tb_RecipeCalorieInput.Text))
-                NewRecipeDef.Calories = int.Parse(tb_RecipeCalorieInput.Text);
-
-            if (!string.IsNullOrWhiteSpace(tb_TimeToCook.Text))
-                NewRecipeDef.TimeToCook = tb_TimeToCook.Text;
-
-
-
-            if (UnitsToAdd.Count > 0)
-                NewRecipeDef.Units = UnitsToAdd;
+            if (!string.IsNullOrWhiteSpace(TB_TimeToCook.Text))
+                NewRecipeDef.TimeToCook = TB_TimeToCook.Text.ToString();
 
             foreach (CheckBox element in SettingOptions)
             {
                 if (element.IsChecked == true)
                 {
-                    if (!Preferences.Contains(CompatabilityMap[SettingOptions.IndexOf(element)]))
-                    {
-                        Preferences.Add(CompatabilityMap[SettingOptions.IndexOf(element)]);
-                    }
-                    element.IsChecked = false;
+                    NewRecipeDef.UserTags.Add(CompatabilityMap[SettingOptions.IndexOf(element)]);
                 }
             }
 
-            if (CB_Breakfast.IsChecked == true)
+            if (USIngredients.Count > 0 && BGIngredients.Count > 0 && Amounts.Count > 0 && UnitsToAdd.Count == Amounts.Count && Amounts.Count == USIngredients.Count && Amounts.Count == BGIngredients.Count)
             {
-                NewRecipeDef.TimeTags.Add("breakfast");
+                NewRecipeDef.USIngredients = USIngredients;
+                NewRecipeDef.BGIngredients = BGIngredients;
+                NewRecipeDef.Units = UnitsToAdd;
+                NewRecipeDef.Amounts = Amounts;
             }
 
-            if (CB_Lunch.IsChecked == true)
-            {
-                NewRecipeDef.TimeTags.Add("lunch");
-            }
-
-            if (CB_Dinner.IsChecked == true)
-            {
-                NewRecipeDef.TimeTags.Add("dinner");
-            }
-
-            if (Preferences != null)
-            {
-                NewRecipeDef.UserTags = Preferences;
-            }
-
-            if (NewRecipeDef.USName != null)
+            if (NewRecipeDef.USIngredients.Count == NewRecipeDef.Amounts.Count && NewRecipeDef.BGIngredients.Count == NewRecipeDef.Amounts.Count && NewRecipeDef.Amounts.Count == NewRecipeDef.Units.Count)
             {
                 if (!RecipeList.ContainsKey(NewRecipeDef.USName.ToLower()))
                 {
                     RecipeList.Add(NewRecipeDef.USName.ToLower(), NewRecipeDef);
-                    L_WarningLabel_2.Text = "Recipe succesfully added!";
-                }
-                else
-                    L_WarningLabel_2.Text = "Recipe already exists in the recipe list";
+                    SaveRecipeList();
+                    RecipeList = GetRecipies();
 
+                    if (RecipeList.ContainsKey(NewRecipeDef.USName.ToLower()))
+                    {
+                        NewRecipeDef = new RecipeDef();
+
+                        USIngredients = new List<string>();
+                        BGIngredients = new List<string>();
+                        Amounts = new List<float>();
+                        UnitsToAdd = new List<string>();
+                        US_FoodName.Clear();
+                        BG_FoodName.Clear();
+
+                        foreach (CheckBox element in SettingOptions)
+                        {
+                            element.IsChecked = false;
+                        }
+
+                        foreach (CheckBox element in SettingOptions)
+                        {
+                            element.IsChecked = false;
+                        }
+
+                        US_IngredientList.Items.Clear();
+                        BG_IngredientList.Items.Clear();
+                        AmountListbox.Items.Clear();
+                        TB_ImageNameInput.Clear();
+                        TB_RecipeCalorieInput.Clear();
+                        TB_TimeToCook.Clear();
+                    }
+                }
             }
 
-            SaveRecipeList();
-            RecipeList.Clear();
-            RecipeList = GetRecipies();
-            tb_TimeToCook.Clear();
-            US_NameInput.Clear();
-            BG_NameInput.Clear();
-            tb_RecipeCalorieInput.Clear();
-            BG_IngredientList.Items.Clear();
-            BGIngredients = new List<string>();
-            USIngredients = new List<string>();
-            NewRecipeDef.USIngredients = new List<string>();
-            NewRecipeDef.BGIngredients = new List<string>();
         }
 
         private void Btn_AddIngredient_Click(object sender, RoutedEventArgs e)
         {
+
+            bool UnitSelected = false;
+
             foreach (RadioButton element in Units)
             {
                 if (element.IsChecked == true)
                 {
-                    UnitsToAdd.Add(element.Content.ToString());
-                }
-                element.IsChecked = false;
-            }
-
-            if (!string.IsNullOrWhiteSpace(US_IngredientInput.Text) && !string.IsNullOrWhiteSpace(BG_IngredientInput.Text))
-            {
-                string USIngrToAdd = US_IngredientInput.Text;
-                string BGIngrToAdd = BG_IngredientInput.Text;
-                US_IngredientList.Items.Add(USIngrToAdd);
-                BG_IngredientList.Items.Add(BGIngrToAdd);
-                USIngredients.Add(USIngrToAdd.ToLower());
-                BGIngredients.Add(BGIngrToAdd.ToLower());
-            }
-            else
-            {
-                L_WarningLabel_2.Text = "You can't cook with an ingredient you don't know!";
-            }
-
-            if (!string.IsNullOrWhiteSpace(tb_AmountInput.Text))
-            {
-                if (float.TryParse(tb_AmountInput.Text, out float n))
-                {
-                    string AmountToAdd = tb_AmountInput.Text;
-                    AmountListbox.Items.Add(AmountToAdd);
-                    Amounts.Add(float.Parse(AmountToAdd));
+                    UnitSelected = true;
+                    break;
                 }
                 else
                 {
-                    L_WarningLabel_2.Text = "The amount must have a numerical value";
+                    UnitSelected = false;
+                }
+
+            }
+
+            if (!string.IsNullOrWhiteSpace(US_IngredientInput.Text) && !string.IsNullOrWhiteSpace(BG_IngredientInput.Text) && !string.IsNullOrWhiteSpace(TB_AmountInput.Text) && UnitSelected == true)
+            {
+                if (!USIngredients.Contains(US_IngredientInput.ToString().ToLower()) && !BGIngredients.Contains(BG_IngredientInput.ToString().ToLower()))
+                {
+                    USIngredients.Add(US_IngredientInput.Text.ToString().ToLower());
+                    BGIngredients.Add(BG_IngredientInput.Text.ToString().ToLower());
+                    Amounts.Add(float.Parse(TB_AmountInput.Text));
+
+
+                    US_IngredientList.Items.Add(US_IngredientInput.Text.ToLower());
+                    BG_IngredientList.Items.Add(BG_IngredientInput.Text.ToLower());
+                    AmountListbox.Items.Add(float.Parse(TB_AmountInput.Text));
+
+                    foreach (RadioButton element in Units)
+                    {
+                        if (element.IsChecked == true)
+                        {
+                            UnitsToAdd.Add(element.Content.ToString());
+                        }
+                    }
+
+                    US_IngredientInput.Clear();
+                    BG_IngredientInput.Clear();
+                    TB_AmountInput.Clear();
                 }
             }
-            else
-            {
-                L_WarningLabel_2.Text = "You need amounts for ingredients!";
-            }
-            tb_AmountInput.Clear();
-            US_IngredientInput.Clear();
-            BG_IngredientInput.Clear();
-
+            
         }
 
         private void BTN_AddSuggestedAmount(object sender, RoutedEventArgs e)
@@ -422,5 +420,7 @@ namespace FoodAndRecipeCreationTool
             }
             SuggestAmountInput.Clear();
         }
+
+
     }
 }

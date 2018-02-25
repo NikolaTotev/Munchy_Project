@@ -51,8 +51,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompleteProgramTest.cs" />
-    <Compile Include="FoodItemSystemTest.cs" />
+    <Compile Include="MunchyAPISerializationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
