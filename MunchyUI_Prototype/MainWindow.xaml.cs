@@ -27,88 +27,87 @@ namespace MunchyUI
     public partial class MainWindow : Window
     {
         //Getting user applicaitondata folder.
-        static string LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        static string ProgramFolder = System.IO.Path.Combine(LocalAppDataPath, "Munchy");
-        static string ImageFolderPath = System.IO.Path.Combine(ProgramFolder, "Images");
+        static string m_LocalAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+        static string m_ProgramFolder = System.IO.Path.Combine(m_LocalAppDataPath, "Munchy");
+        static string m_ImageFolderPath = System.IO.Path.Combine(m_ProgramFolder, "Images");
 
         //Data File Locations
-        string UserFile = System.IO.Path.Combine(ProgramFolder, "USER.json");
+        string m_UserFile = System.IO.Path.Combine(m_ProgramFolder, "USER.json");
 
-        string UserFridgeFile = System.IO.Path.Combine(ProgramFolder, "USER_FRIDGE.json");
+        string m_UserFridgeFile = System.IO.Path.Combine(m_ProgramFolder, "USER_FRIDGE.json");
 
-        string FoodDefFile = System.IO.Path.Combine(ProgramFolder, "FoodData.json");
-        string RecipeDatabase = System.IO.Path.Combine(ProgramFolder, "Recipes.json");
+        string m_FoodDefFile = System.IO.Path.Combine(m_ProgramFolder, "FoodData.json");
+        string m_RecipeDatabase = System.IO.Path.Combine(m_ProgramFolder, "Recipes.json");
 
-        string RecipeSaveFile = System.IO.Path.Combine(ProgramFolder, "RecipeSavesFile.json");
-        string StatSavePath = System.IO.Path.Combine(ProgramFolder, "StatSavePath.json");
+        string m_RecipeSaveFile = System.IO.Path.Combine(m_ProgramFolder, "RecipeSavesFile.json");
+        string m_StatSavePath = System.IO.Path.Combine(m_ProgramFolder, "StatSavePath.json");
 
         //Booleans for determining what language to use in runtime. English is the default language.        
-        Languages ActiveLanguage = Languages.English;
+        Languages m_ActiveLanguage = Languages.English;
         //Variables that are used to display the fridge summary.
-        float CalorieSum = 0;
-        float ProteinSum = 0;
-        float FatSum = 0;
-        float CarbSum = 0;
-        float SugarSum = 0;
-        float SodiumSum = 0;
+        float m_CalorieSum = 0;
+        float m_ProteinSum = 0;
+        float m_FatSum = 0;
+        float m_CarbSum = 0;
+        float m_SugarSum = 0;
+        float m_SodiumSum = 0;
 
         //This textblock array is used to store all the summary textboxes. This enables easy population of said textboxes.
-        TextBlock[] SummaryTextBlocks;
+        TextBlock[] m_SummaryTextBlocks;
 
         //This float array stores the values mentioned above. It allows for fast population of the Textblock array
-        float[] SummaryValues;
+        float[] m_SummaryValues;
 
         //Integer that keeps track of daily calories the user has consumed.
-        int DailyCalories = 0;
+        int m_DailyCalories = 0;
 
         //Integer that keeps track of what recipe the user is on. This integer is responsible for browsing through the suggested recipe list.
-        int NumerOfRecipeToSuggest = 0;
+        int m_NumerOfRecipeToSuggest = 0;
 
         //A list of checkboxes that are used for saving the users settings and preferences
-        List<CheckBox> SettingOptions;
+        List<CheckBox> m_SettingOptions;
 
         //This list is used to keep track of the elements in the SuggestedFoods listbox.
-        List<string> ItemsInFoodSearch = new List<string>();
+        List<string> m_ItemsInFoodSearch = new List<string>();
 
         //This list is used to keep track of the elements in the users fridge.
-        List<string> ItemsFoodList = new List<string>();
+        List<string> m_ItemsFoodList = new List<string>();
 
         // This list is used for populating the Ingredients ListView in the UI.
-        List<FoodDef> RecipeIngredientList;
+        List<FoodDef> m_RecipeIngredientList;
 
         //This is the RecipeDef item that is used to store the user is supposed to see. It is updated everytime the user  wants to go to the next recipe
         // in the sugggested recipe list.
-        RecipeDef SuggestedRecipe = new RecipeDef();
+        RecipeDef m_SuggestedRecipe = new RecipeDef();
 
         //This is the main brain of the application. It is the interface between the UI and back end.
-        ProgramManager CurrentManager;
+        ProgramManager m_CurrentManager;
 
         //RecipeImage handles image of the ful recipe view.
-        ImageBrush RecipeImage = new ImageBrush();
+        ImageBrush m_RecipeImage = new ImageBrush();
 
         //SuggestedRecipeImage handles showing the image of the recipe on the front page.
-        ImageBrush SuggestedRecipeImage = new ImageBrush();
+        ImageBrush m_SuggestedRecipeImage = new ImageBrush();
 
         //These brushes are used for loading recently viewed recipes. Each is assigned to a different elipse on the UI.
-        ImageBrush RecentRecipe_1 = new ImageBrush();
-        ImageBrush RecentRecipe_2 = new ImageBrush();
-        ImageBrush RecentRecipe_3 = new ImageBrush();
-        ImageBrush RecentRecipe_4 = new ImageBrush();
-        ImageBrush RecentRecipe_5 = new ImageBrush();
-        ImageBrush RecentRecipe_6 = new ImageBrush();
+        ImageBrush m_RecentRecipe_1 = new ImageBrush();
+        ImageBrush m_RecentRecipe_2 = new ImageBrush();
+        ImageBrush m_RecentRecipe_3 = new ImageBrush();
+        ImageBrush m_RecentRecipe_4 = new ImageBrush();
+        ImageBrush m_RecentRecipe_5 = new ImageBrush();
+        ImageBrush m_RecentRecipe_6 = new ImageBrush();
 
         //This imagebrush array stores the RecentRecipe brushes.
-        ImageBrush[] RecentlyViewedRecipeImages;
+        ImageBrush[] m_RecentlyViewedRecipeImages;
 
         //This Elipse array stores the elipses on the "SavedRecipes" panel.
-        Ellipse[] RecentlyViewedRecipesImages;
+        Ellipse[] m_RecentlyViewedRecipesImages;
 
         //This elipse array stores the elipses on the front page.
-        Ellipse[] FrontPageRecentlyViewedImages;
+        Ellipse[] m_FrontPageRecentlyViewedImages;
 
         //These RadioButtons are used for setting the amounts of the fooditems the user adds.
-        RadioButton[] AmountRadioButtons;
-
+        RadioButton[] m_AmountRadioButtons;
 
         // ================= UI LOGIC =================
         #region UI Logic
@@ -121,7 +120,7 @@ namespace MunchyUI
 
             //Checks if FoodDefFile and RecipeDatabase exist, if they dont a message box is shown and the user is redirected to the Support page.
             //This prevents operation errors down the line. These two files are critical for the operation of the program.
-            if (!File.Exists(FoodDefFile) || !File.Exists(RecipeDatabase))
+            if (!File.Exists(m_FoodDefFile) || !File.Exists(m_RecipeDatabase))
             {
                 MessageBox.Show("EN: The program seems to have encountered an error Press OK to open the support page and look for the following code : Error Code: ERR-RFM " + "\n" + "\n" + " BG: Грешка! : Липсват файлове нужни за функционирането на програмата.Моля посетете https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting за насоки да поправите грешката.");
                 System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
@@ -131,7 +130,7 @@ namespace MunchyUI
 
             //Checks if the UserFile exists. If it doesn't this suggests that this is the first time the user is using the program and therefore he is prompted to
             //enter his information. The information is used to suggest recipes.
-            if (!File.Exists(UserFile))
+            if (!File.Exists(m_UserFile))
             {
                 MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");
             }
@@ -139,43 +138,43 @@ namespace MunchyUI
             //Intitially sets the default language.
             Localizer.SetDefaultLanguage(this);
 
-            CurrentManager = new ProgramManager(UserFile, UserFridgeFile, RecipeDatabase, FoodDefFile, RecipeSaveFile, StatSavePath);
+            m_CurrentManager = new ProgramManager(m_UserFile, m_UserFridgeFile, m_RecipeDatabase, m_FoodDefFile, m_RecipeSaveFile, m_StatSavePath);
 
             //Sets the users name.
-            if (CurrentManager.User.UserName != null)
-                tB_UserName.Text = CurrentManager.User.UserName;
+            if (m_CurrentManager.User.UserName != null)
+                tB_UserName.Text = m_CurrentManager.User.UserName;
 
             //Gets the language that the user has saved. It does not check if it is english as english is the default for the program.
-            if (CurrentManager.User.LanguagePref == "BG")
+            if (m_CurrentManager.User.LanguagePref == "BG")
             {
-                ActiveLanguage = Languages.Bulgarian;
+                m_ActiveLanguage = Languages.Bulgarian;
                 Localizer.SwitchLanguage(this, "bg-BG");
             }
 
-            SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
-            SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
-            RecentlyViewedRecipeImages = new ImageBrush[] { RecentRecipe_1, RecentRecipe_2, RecentRecipe_3, RecentRecipe_4, RecentRecipe_5, RecentRecipe_6 };
-            RecentlyViewedRecipesImages = new Ellipse[] { Img_RecentlyViewed_1, Img_RecentlyViewed_2, Img_RecentlyViewed_3, Img_RecentlyViewed_4, Img_RecentlyViewed_5, Img_RecentlyViewed_6 };
-            FrontPageRecentlyViewedImages = new Ellipse[] { Img_FrontRecentlyViewed_1, Img_FrontRecentlyViewed_2, Img_FrontRecentlyViewed_3, Img_FrontRecentlyViewed_4, Img_FrontRecentlyViewed_5 };
-            AmountRadioButtons = new RadioButton[] { Cb_SuggestedAmount_1, Cb_SuggestedAmount_2, Cb_SuggestedAmount_3, Cb_SuggestedAmount_4 };
-            RecipeIngredientList = new List<FoodDef>();
+            m_SettingOptions = new List<CheckBox> { cb_Vegan, cb_Vegetarian, cb_Diabetic, cb_Eggs, cb_Dairy, cb_Fish, cb_Nuts, cb_Gluten, cb_Soy };
+            m_SummaryTextBlocks = new TextBlock[] { tB_CalorieSummary, tB_ProteinSummary, tB_FatSummary, tB_CarbsSummary, tB_SugarSumary, tB_SodiumSummary };
+            m_RecentlyViewedRecipeImages = new ImageBrush[] { m_RecentRecipe_1, m_RecentRecipe_2, m_RecentRecipe_3, m_RecentRecipe_4, m_RecentRecipe_5, m_RecentRecipe_6 };
+            m_RecentlyViewedRecipesImages = new Ellipse[] { Img_RecentlyViewed_1, Img_RecentlyViewed_2, Img_RecentlyViewed_3, Img_RecentlyViewed_4, Img_RecentlyViewed_5, Img_RecentlyViewed_6 };
+            m_FrontPageRecentlyViewedImages = new Ellipse[] { Img_FrontRecentlyViewed_1, Img_FrontRecentlyViewed_2, Img_FrontRecentlyViewed_3, Img_FrontRecentlyViewed_4, Img_FrontRecentlyViewed_5 };
+            m_AmountRadioButtons = new RadioButton[] { Cb_SuggestedAmount_1, Cb_SuggestedAmount_2, Cb_SuggestedAmount_3, Cb_SuggestedAmount_4 };
+            m_RecipeIngredientList = new List<FoodDef>();
             InitialFridgeUISetup();
             PopulateFridgeSummary();
             SuggestRecipe();
             SetRecentlyViewedImages();
 
-            CurrentManager.StatManager.DailyReset();
-            DailyCalories = CurrentManager.StatManager.DailyCalories;
-            L_DailyCalories.Text = DailyCalories.ToString();
+            m_CurrentManager.StatManager.DailyReset();
+            m_DailyCalories = m_CurrentManager.StatManager.DailyCalories;
+            L_DailyCalories.Text = m_DailyCalories.ToString();
         }
 
         //On start populates the fridge on the main page with 10 items from the UserFridge.
         private void InitialFridgeUISetup()
         {
-            if (CurrentManager.User.UserFridge.USUsersFoods != null && CurrentManager.User.UserFridge.USUsersFoods.Count > 0)
+            if (m_CurrentManager.User.UserFridge.USUsersFoods != null && m_CurrentManager.User.UserFridge.USUsersFoods.Count > 0)
             {
                 RefreshFridge();
-                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
+                foreach (KeyValuePair<string, FoodDef> element in m_CurrentManager.User.UserFridge.USUsersFoods)
                 {
                     if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
                     {
@@ -195,17 +194,17 @@ namespace MunchyUI
             //Breakfast.
             if (DateTime.Now.Hour > 7 && DateTime.Now.Hour < 11)
             {
-                if (CurrentManager.RecipieManag.Breakfast.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count && NumerOfRecipeToSuggest >= 0)
+                if (m_CurrentManager.RecipieManag.Breakfast.Count > 0 && m_NumerOfRecipeToSuggest < m_CurrentManager.RecipieManag.Breakfast.Count && m_NumerOfRecipeToSuggest >= 0)
                 {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Breakfast[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
-                    ManageSuggestedRecipe(SuggestedRecipe);
+                    m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[m_CurrentManager.RecipieManag.Breakfast[m_NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(m_SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(m_SuggestedRecipe).ToString().Substring(1);
+                    ManageSuggestedRecipe(m_SuggestedRecipe);
                 }
                 else
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(ActiveLanguage);
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(m_ActiveLanguage);
                     Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
@@ -213,17 +212,17 @@ namespace MunchyUI
             //Lunch.
             if (DateTime.Now.Hour >= 11 && DateTime.Now.Hour < 17)
             {
-                if (CurrentManager.RecipieManag.Lunch.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count && NumerOfRecipeToSuggest >= 0)
+                if (m_CurrentManager.RecipieManag.Lunch.Count > 0 && m_NumerOfRecipeToSuggest < m_CurrentManager.RecipieManag.Lunch.Count && m_NumerOfRecipeToSuggest >= 0)
                 {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Lunch[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
-                    ManageSuggestedRecipe(SuggestedRecipe);
+                    m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[m_CurrentManager.RecipieManag.Lunch[m_NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(m_SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(m_SuggestedRecipe).ToString().Substring(1);
+                    ManageSuggestedRecipe(m_SuggestedRecipe);
                 }
                 else
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(ActiveLanguage);
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(m_ActiveLanguage);
                     Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
@@ -231,17 +230,17 @@ namespace MunchyUI
             //Dinner.
             if (DateTime.Now.Hour >= 17 && DateTime.Now.Hour < 24)
             {
-                if (CurrentManager.RecipieManag.Dinner.Count > 0 && NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count && NumerOfRecipeToSuggest >= 0)
+                if (m_CurrentManager.RecipieManag.Dinner.Count > 0 && m_NumerOfRecipeToSuggest < m_CurrentManager.RecipieManag.Dinner.Count && m_NumerOfRecipeToSuggest >= 0)
                 {
-                    SuggestedRecipe = CurrentManager.RecipieManag.Recipies[CurrentManager.RecipieManag.Dinner[NumerOfRecipeToSuggest]];
-                    tB_RecipeName.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
-                    ManageSuggestedRecipe(SuggestedRecipe);
+                    m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[m_CurrentManager.RecipieManag.Dinner[m_NumerOfRecipeToSuggest]];
+                    tB_RecipeName.Text = GetSuggestedRecipeName(m_SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(m_SuggestedRecipe).ToString().Substring(1);
+                    ManageSuggestedRecipe(m_SuggestedRecipe);
                 }
                 else
                 {
                     tB_RecipeName.Text = null;
                     tB_RecipeName.FontSize = 18;
-                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(ActiveLanguage);
+                    tB_RecipeName.Text = TranslatorCore.GetSuggestedRecipeInfo(m_ActiveLanguage);
                     Img_SuggestedRecipeImage.Fill = Brushes.White;
                 }
             }
@@ -251,44 +250,44 @@ namespace MunchyUI
             {
                 tB_RecipeName.Text = null;
                 tB_RecipeName.FontSize = 18;
-                tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(ActiveLanguage);
+                tB_RecipeName.Text = TranslatorCore.GetTooLateToEatMessage(m_ActiveLanguage);
                 Img_SuggestedRecipeImage.Fill = Brushes.White;
             }
 
-            CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+            m_CurrentManager.UserRecipeSaves.SaveRecipeSaver();
         }
 
         //Handles the suggested recipe. Updates the recently viewed list and adds the recipe to it, handles images of recently viewed recipes.
         private void ManageSuggestedRecipe(RecipeDef inputrecipe)
         {
-            RecipeSaver saver = CurrentManager.UserRecipeSaves;
+            RecipeSaver saver = m_CurrentManager.UserRecipeSaves;
            
             if (saver.USRecentlyViewed.Count < 6 && saver.BGRecentlyViewed.Count < 6)
             {
-                AddToList(saver.USRecentlyViewed, SuggestedRecipe.USName);
-                AddToList(saver.BGRecentlyViewed, SuggestedRecipe.BGName);
-                CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+                AddToList(saver.USRecentlyViewed, m_SuggestedRecipe.USName);
+                AddToList(saver.BGRecentlyViewed, m_SuggestedRecipe.BGName);
+                m_CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
             else
             {
-                if (!saver.USRecentlyViewed.Contains(SuggestedRecipe.USName.ToLower()))
+                if (!saver.USRecentlyViewed.Contains(m_SuggestedRecipe.USName.ToLower()))
                 {
                     saver.USRecentlyViewed.RemoveAt(5);
-                    saver.USRecentlyViewed.Insert(0, SuggestedRecipe.USName.ToLower());
+                    saver.USRecentlyViewed.Insert(0, m_SuggestedRecipe.USName.ToLower());
                 }
 
-                if (!saver.BGRecentlyViewed.Contains(SuggestedRecipe.BGName.ToLower()))
+                if (!saver.BGRecentlyViewed.Contains(m_SuggestedRecipe.BGName.ToLower()))
                 {
                     saver.BGRecentlyViewed.RemoveAt(5);
-                    saver.BGRecentlyViewed.Insert(0, SuggestedRecipe.BGName.ToLower());
+                    saver.BGRecentlyViewed.Insert(0, m_SuggestedRecipe.BGName.ToLower());
                 }
-                CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+                m_CurrentManager.UserRecipeSaves.SaveRecipeSaver();
             }
 
-            if (File.Exists(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile)))
+            if (File.Exists(System.IO.Path.Combine(m_ImageFolderPath, m_SuggestedRecipe.ImageFile)))
             {
-                SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile), UriKind.Relative));
-                Img_SuggestedRecipeImage.Fill = SuggestedRecipeImage;
+                m_SuggestedRecipeImage.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(m_ImageFolderPath, m_SuggestedRecipe.ImageFile), UriKind.Relative));
+                Img_SuggestedRecipeImage.Fill = m_SuggestedRecipeImage;
             }
             else
             {
@@ -297,19 +296,19 @@ namespace MunchyUI
                 System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
             }
 
-            CurrentManager.StatManager.TotalRecipesSeen++;
-            CurrentManager.StatManager.SaveStatistics();
+            m_CurrentManager.StatManager.TotalRecipesSeen++;
+            m_CurrentManager.StatManager.SaveStatistics();
         }
 
         //Sets up the initial FullRecipe view. Called when the "Show Recipe" button is pressed.
         private void SetupFullRecipeViewImg()
         {
-            if (SuggestedRecipe != null && CurrentManager.RecipieManag.CompatableRecipes.Count > 0)
+            if (m_SuggestedRecipe != null && m_CurrentManager.RecipieManag.CompatableRecipes.Count > 0)
             {
-                if (File.Exists(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile)))
+                if (File.Exists(System.IO.Path.Combine(m_ImageFolderPath, m_SuggestedRecipe.ImageFile)))
                 {
-                    RecipeImage.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(ImageFolderPath, SuggestedRecipe.ImageFile), UriKind.Relative));
-                    img_RecipeImage.Fill = RecipeImage;
+                    m_RecipeImage.ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(m_ImageFolderPath, m_SuggestedRecipe.ImageFile), UriKind.Relative));
+                    img_RecipeImage.Fill = m_RecipeImage;
                 }
                 else
                 {
@@ -324,15 +323,15 @@ namespace MunchyUI
         //Adds information about the recipe to the FullRecipeView panel.
         private void AddInformationToFullRecipeView()
         {
-            RecipeIngredientList.Clear();
+            m_RecipeIngredientList.Clear();
 
-            if (GetIngredientList(SuggestedRecipe) != null && GetIngredientList(SuggestedRecipe).Count > 0)
+            if (GetIngredientList(m_SuggestedRecipe) != null && GetIngredientList(m_SuggestedRecipe).Count > 0)
             {
-                foreach (string ingredient in GetIngredientList(SuggestedRecipe))
+                foreach (string ingredient in GetIngredientList(m_SuggestedRecipe))
                 {
-                    if (GetIngredientList(SuggestedRecipe).Count == SuggestedRecipe.Units.Count)
+                    if (GetIngredientList(m_SuggestedRecipe).Count == m_SuggestedRecipe.Units.Count)
                     {
-                        RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = SuggestedRecipe.Amounts[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + SuggestedRecipe.Units[GetIngredientList(SuggestedRecipe).IndexOf(ingredient)].ToString() });
+                        m_RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = m_SuggestedRecipe.Amounts[GetIngredientList(m_SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + m_SuggestedRecipe.Units[GetIngredientList(m_SuggestedRecipe).IndexOf(ingredient)].ToString() });
                     }
 
                     else
@@ -343,35 +342,35 @@ namespace MunchyUI
                     }
                 }
 
-                lv_Ingredients.ItemsSource = RecipeIngredientList;
+                lv_Ingredients.ItemsSource = m_RecipeIngredientList;
                 lv_Ingredients.Items.Refresh();
-                tB_Directions.Text = GetDirections(SuggestedRecipe);
-                tB_RecipeTitle.Text = GetSuggestedRecipeName(SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(SuggestedRecipe).ToString().Substring(1);
-                tB_TimeToCookAmount.Text = SuggestedRecipe.TimeToCook.ToString();
+                tB_Directions.Text = GetDirections(m_SuggestedRecipe);
+                tB_RecipeTitle.Text = GetSuggestedRecipeName(m_SuggestedRecipe).First().ToString().ToUpper() + GetSuggestedRecipeName(m_SuggestedRecipe).ToString().Substring(1);
+                tB_TimeToCookAmount.Text = m_SuggestedRecipe.TimeToCook.ToString();
             }
         }
 
         //Handles adding the suggested to the CookedRecipes list. A recipe is added only when the user pressed the "I'll Cook It" Button.
         private void AddToCookedRecipes()
         {
-            RecipeSaver saver = CurrentManager.UserRecipeSaves;
-            AddToList(saver.USCookedRecipes, SuggestedRecipe.USName);
-            AddToList(saver.BGCookedRecipes, SuggestedRecipe.BGName);
+            RecipeSaver saver = m_CurrentManager.UserRecipeSaves;
+            AddToList(saver.USCookedRecipes, m_SuggestedRecipe.USName);
+            AddToList(saver.BGCookedRecipes, m_SuggestedRecipe.BGName);
 
-            CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-            CurrentManager.StatManager.AddToCalorieStatistics(SuggestedRecipe.Calories);
-            DailyCalories = CurrentManager.StatManager.DailyCalories;
-            L_DailyCalories.Text = DailyCalories.ToString();
-            CurrentManager.UsersFridge.ModifyFoodItemAmount(SuggestedRecipe.USIngredients, SuggestedRecipe.Amounts, SuggestedRecipe.Units, CurrentManager.FoodManag);
+            m_CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+            m_CurrentManager.StatManager.AddToCalorieStatistics(m_SuggestedRecipe.Calories);
+            m_DailyCalories = m_CurrentManager.StatManager.DailyCalories;
+            L_DailyCalories.Text = m_DailyCalories.ToString();
+            m_CurrentManager.UsersFridge.ModifyFoodItemAmount(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag);
             RefreshFridge();
         }
 
         //Handles adding the suggested recipe to saved recipes. A recipe is saved only when the user pressed the "Save" button.
         private void AddToSavedReicpe()
         {
-            RecipeSaver saver = CurrentManager.UserRecipeSaves;
-            AddToList(saver.USSavedRecipes, SuggestedRecipe.USName.ToString());
-            AddToList(saver.BGSavedRecipes, SuggestedRecipe.BGName.ToString());           
+            RecipeSaver saver = m_CurrentManager.UserRecipeSaves;
+            AddToList(saver.USSavedRecipes, m_SuggestedRecipe.USName.ToString());
+            AddToList(saver.BGSavedRecipes, m_SuggestedRecipe.BGName.ToString());           
         }
 
         //Handles adding recipes to lists.
@@ -390,7 +389,7 @@ namespace MunchyUI
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchSavedRecipes.Text))
             {
-                if (tb_SearchSavedRecipes.Text != TranslatorCore.GetTextboxDefaultText(ActiveLanguage))
+                if (tb_SearchSavedRecipes.Text != TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
                 {
                     string SearchedSavedRecipe = tb_SearchSavedRecipes.Text;
                     string LowerCase = SearchedSavedRecipe.ToLower();
@@ -415,7 +414,7 @@ namespace MunchyUI
         {
             if (!string.IsNullOrWhiteSpace(tb_SearchCookedRecipes.Text))
             {
-                if (tb_SearchCookedRecipes.Text != TranslatorCore.GetTextboxDefaultText(ActiveLanguage))
+                if (tb_SearchCookedRecipes.Text != TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
                 {
                     string SearchedRecipe = tb_SearchCookedRecipes.Text;
                     string LowerCase = SearchedRecipe.ToLower();
@@ -442,27 +441,27 @@ namespace MunchyUI
         private void ConfigureSavedRecipesPanel()
         {
             ShowAllSavedRecipes();
-            CurrentManager.StatManager.CalculateAverageSums();
-            tB_TotalCalories.Text = CurrentManager.StatManager.TotalCaloriesConsumed.ToString();
-            tB_TotalRecipesCooked.Text = CurrentManager.StatManager.TotalRecipesCooked.ToString();
-            tB_TotalRecipeSeen.Text = CurrentManager.StatManager.TotalRecipesSeen.ToString();
+            m_CurrentManager.StatManager.CalculateAverageSums();
+            tB_TotalCalories.Text = m_CurrentManager.StatManager.TotalCaloriesConsumed.ToString();
+            tB_TotalRecipesCooked.Text = m_CurrentManager.StatManager.TotalRecipesCooked.ToString();
+            tB_TotalRecipeSeen.Text = m_CurrentManager.StatManager.TotalRecipesSeen.ToString();
 
-            if (CurrentManager.StatManager.AverageDailyCalories != 0)
+            if (m_CurrentManager.StatManager.AverageDailyCalories != 0)
             {
-                tB_AverageDailyCalories.Text = CurrentManager.StatManager.AverageDailyCalories.ToString();
+                tB_AverageDailyCalories.Text = m_CurrentManager.StatManager.AverageDailyCalories.ToString();
             }
             else
             {
-                tB_AverageDailyCalories.Text = TranslatorCore.GetNoDataLabel(ActiveLanguage);
+                tB_AverageDailyCalories.Text = TranslatorCore.GetNoDataLabel(m_ActiveLanguage);
             }
 
-            if (CurrentManager.StatManager.AverageMonthtlyCalories != 0)
+            if (m_CurrentManager.StatManager.AverageMonthtlyCalories != 0)
             {
-                tB_AverageMontlyCalories.Text = CurrentManager.StatManager.AverageMonthtlyCalories.ToString();
+                tB_AverageMontlyCalories.Text = m_CurrentManager.StatManager.AverageMonthtlyCalories.ToString();
             }
             else
             {
-                tB_AverageMontlyCalories.Text = TranslatorCore.GetNoDataLabel(ActiveLanguage);
+                tB_AverageMontlyCalories.Text = TranslatorCore.GetNoDataLabel(m_ActiveLanguage);
             }
 
         }
@@ -470,7 +469,7 @@ namespace MunchyUI
         //Opens panel for searching in cooked recipes.
         private void ShowCookedRecipes()
         {
-            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetCookedRecipesTitle(ActiveLanguage);
+            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetCookedRecipesTitle(m_ActiveLanguage);
             P_CookedTodayRecipes.Visibility = Visibility.Hidden;
             P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
             P_SavedRecipesSearch.Visibility = Visibility.Hidden;
@@ -486,7 +485,7 @@ namespace MunchyUI
         //Opens panel to see recently viewed recipes.
         private void ShowRecentlyViewedRecipes()
         {
-            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetRecentlySeenTitle(ActiveLanguage);
+            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetRecentlySeenTitle(m_ActiveLanguage);
             P_CookedTodayRecipes.Visibility = Visibility.Hidden;
             P_RecenltlyViewedRecipes.Visibility = Visibility.Visible;
             P_SavedRecipesSearch.Visibility = Visibility.Hidden;
@@ -497,21 +496,21 @@ namespace MunchyUI
         //Handles showing the user what recipes he has recently viewed. This is done by showing images.(Tool tips will be added showing the name of the recipe)
         private void SetRecentlyViewedImages()
         {
-            if (CurrentManager.UserRecipeSaves.USRecentlyViewed.Count > 0)
+            if (m_CurrentManager.UserRecipeSaves.USRecentlyViewed.Count > 0)
             {
-                for (int i = 0; i < CurrentManager.UserRecipeSaves.USRecentlyViewed.Count; i++)
+                for (int i = 0; i < m_CurrentManager.UserRecipeSaves.USRecentlyViewed.Count; i++)
                 {
-                    if (i <= 6 && CurrentManager.RecipieManag.Recipies.ContainsKey(CurrentManager.UserRecipeSaves.USRecentlyViewed[i]))
+                    if (i <= 6 && m_CurrentManager.RecipieManag.Recipies.ContainsKey(m_CurrentManager.UserRecipeSaves.USRecentlyViewed[i]))
                     {
-                        if (File.Exists(System.IO.Path.Combine(ImageFolderPath, CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile)))
+                        if (File.Exists(System.IO.Path.Combine(m_ImageFolderPath, m_CurrentManager.RecipieManag.Recipies[m_CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile)))
                         {
-                            RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(ImageFolderPath, CurrentManager.RecipieManag.Recipies[CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile), UriKind.Relative));
-                            RecentlyViewedRecipesImages[i].ToolTip = GetRecentlyViewedList()[i];
-                            RecentlyViewedRecipesImages[i].Fill = RecentlyViewedRecipeImages[i];
+                            m_RecentlyViewedRecipeImages[i].ImageSource = new BitmapImage(new Uri(System.IO.Path.Combine(m_ImageFolderPath, m_CurrentManager.RecipieManag.Recipies[m_CurrentManager.UserRecipeSaves.USRecentlyViewed[i]].ImageFile), UriKind.Relative));
+                            m_RecentlyViewedRecipesImages[i].ToolTip = GetRecentlyViewedList()[i];
+                            m_RecentlyViewedRecipesImages[i].Fill = m_RecentlyViewedRecipeImages[i];
                             if (i <= 4)
                             {
-                                FrontPageRecentlyViewedImages[i].ToolTip = GetRecentlyViewedList()[i];
-                                FrontPageRecentlyViewedImages[i].Fill = RecentlyViewedRecipeImages[i];
+                                m_FrontPageRecentlyViewedImages[i].ToolTip = GetRecentlyViewedList()[i];
+                                m_FrontPageRecentlyViewedImages[i].Fill = m_RecentlyViewedRecipeImages[i];
                             }
                         }
                         else
@@ -522,7 +521,7 @@ namespace MunchyUI
                     }
                     else
                     {
-                        RecentlyViewedRecipesImages[i].Fill = null;
+                        m_RecentlyViewedRecipesImages[i].Fill = null;
                         Warning_Label.Text = "There is a corrupted element in a save file! Vist the offical Munchy github for potential fixes";
                     }
                 }
@@ -532,7 +531,7 @@ namespace MunchyUI
         //Opens panel for searching in saved recipes.
         private void ShowAllSavedRecipes()
         {
-            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetSavedRecipesTitle(ActiveLanguage);
+            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetSavedRecipesTitle(m_ActiveLanguage);
             P_CookedTodayRecipes.Visibility = Visibility.Hidden;
             P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
             P_SavedRecipesSearch.Visibility = Visibility.Visible;
@@ -566,21 +565,21 @@ namespace MunchyUI
             if (!string.IsNullOrWhiteSpace(tb_FoodSearch.Text))
             {
                 //Makes sure that text is not the keyword "Search"
-                if (tb_FoodSearch.Text != TranslatorCore.GetTextboxDefaultText(ActiveLanguage))
+                if (tb_FoodSearch.Text != TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
                 {
-                    l_SearchInfo.Text = TranslatorCore.GetClickToAddFoodMessage(ActiveLanguage);
+                    l_SearchInfo.Text = TranslatorCore.GetClickToAddFoodMessage(m_ActiveLanguage);
                     string searchedWord = tb_FoodSearch.Text;
                     string ToLower = searchedWord.ToLower();
 
-                    foreach (KeyValuePair<string, FoodDef> element in CurrentManager.FoodManag.Foods)
+                    foreach (KeyValuePair<string, FoodDef> element in m_CurrentManager.FoodManag.Foods)
                     {
-                        switch (ActiveLanguage)
+                        switch (m_ActiveLanguage)
                         {
                             case Languages.English:
                                 if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
                                 {
                                     lB_SuggestedFoods.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
-                                    ItemsInFoodSearch.Add(element.Value.USName);
+                                    m_ItemsInFoodSearch.Add(element.Value.USName);
                                 }
                                 break;
 
@@ -588,7 +587,7 @@ namespace MunchyUI
                                 if (element.Value.BGName.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString()))
                                 {
                                     lB_SuggestedFoods.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString());
-                                    ItemsInFoodSearch.Add(element.Value.USName);
+                                    m_ItemsInFoodSearch.Add(element.Value.USName);
                                 }
                                 break;
                             default:
@@ -600,8 +599,8 @@ namespace MunchyUI
             else
             {
                 lB_SuggestedFoods.Items.Clear();
-                ItemsInFoodSearch.Clear();
-                l_SearchInfo.Text = TranslatorCore.GetTypeForFoodPrompt(ActiveLanguage);
+                m_ItemsInFoodSearch.Clear();
+                l_SearchInfo.Text = TranslatorCore.GetTypeForFoodPrompt(m_ActiveLanguage);
             }
         }
 
@@ -615,10 +614,10 @@ namespace MunchyUI
             FoodDef ItemToAdd = new FoodDef();
             if (lB_SuggestedFoods.SelectedIndex >= 0)
             {
-                ItemToAdd = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
+                ItemToAdd = m_CurrentManager.FoodManag.Foods[m_ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
             }
 
-            foreach (RadioButton element in AmountRadioButtons)
+            foreach (RadioButton element in m_AmountRadioButtons)
             {
                 if (element.IsChecked == true)
                 {
@@ -635,16 +634,16 @@ namespace MunchyUI
 
             if (ItemToAdd.Amount == 0)
             {
-                L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(ActiveLanguage);
+                L_FoodAmountWarning.Text = TranslatorCore.FoodAmountNullWarning(m_ActiveLanguage);
             }
 
             if (ItemToAdd.USName != null)
             {
-                if (!CurrentManager.User.UserFridge.USUsersFoods.ContainsKey(ItemToAdd.USName))
+                if (!m_CurrentManager.User.UserFridge.USUsersFoods.ContainsKey(ItemToAdd.USName))
                 {
-                    CurrentManager.User.UserFridge.AddToFridge(ItemToAdd);
+                    m_CurrentManager.User.UserFridge.AddToFridge(ItemToAdd);
 
-                    switch (ActiveLanguage)
+                    switch (m_ActiveLanguage)
                     {
                         case Languages.English:
                             lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.USName.First().ToString().ToUpper() + ItemToAdd.USName.ToString().Substring(1), Amount = ItemToAdd.Amount });
@@ -657,19 +656,19 @@ namespace MunchyUI
                             break;
                     }
 
-                    CurrentManager.UsersFridge.SaveFridge();
-                    l_SearchInfo.Text = TranslatorCore.ItemAddedMessage(ActiveLanguage);
+                    m_CurrentManager.UsersFridge.SaveFridge();
+                    l_SearchInfo.Text = TranslatorCore.ItemAddedMessage(m_ActiveLanguage);
 
                     RefreshFridge();
                     PopulateFridgeSummary();
                 }
                 else
                 {
-                    l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(ActiveLanguage);
+                    l_SearchInfo.Text = TranslatorCore.ItemAlreadyInFridgeMessage(m_ActiveLanguage);
                 }
             }
             Tb_CustomAmount.Clear();
-            foreach (RadioButton element in AmountRadioButtons)
+            foreach (RadioButton element in m_AmountRadioButtons)
             {
                 if (element.IsChecked == true)
                 {
@@ -684,11 +683,11 @@ namespace MunchyUI
             //Removing a food items works the same way as adding an item but in reverse.
             if (lb_FoodList.SelectedItem != null)
             {
-                FoodDef ItemToRemove = CurrentManager.FoodManag.Foods[ItemsFoodList[lb_FoodList.SelectedIndex].ToLower()];
-                CurrentManager.User.UserFridge.RemoveFromFridge(ItemToRemove.USName.ToLower());
+                FoodDef ItemToRemove = m_CurrentManager.FoodManag.Foods[m_ItemsFoodList[lb_FoodList.SelectedIndex].ToLower()];
+                m_CurrentManager.User.UserFridge.RemoveFromFridge(ItemToRemove.USName.ToLower());
                 lb_FoodList.Items.Remove(lb_FoodList.SelectedIndex);
                 lb_FoodList.Items.Clear();
-                CurrentManager.User.UserFridge.SaveFridge();
+                m_CurrentManager.User.UserFridge.SaveFridge();
                 RefreshFridge();
                 PopulateFridgeSummary();
             }
@@ -700,9 +699,9 @@ namespace MunchyUI
         private void RefreshFrontPageFride()
         {
             lb_Fridge.Items.Clear();
-            foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
+            foreach (KeyValuePair<string, FoodDef> element in m_CurrentManager.User.UserFridge.USUsersFoods)
             {
-                switch (ActiveLanguage)
+                switch (m_ActiveLanguage)
                 {
                     case Languages.English:
                         if (lb_Fridge.Items.Count < 10 && !lb_Fridge.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1)))
@@ -724,14 +723,14 @@ namespace MunchyUI
         private void RefreshFridge()
         {
             lb_FoodList.Items.Clear();
-            ItemsFoodList.Clear();
-            foreach (KeyValuePair<string, FoodDef> ItemToAdd in CurrentManager.UsersFridge.USUsersFoods)
+            m_ItemsFoodList.Clear();
+            foreach (KeyValuePair<string, FoodDef> ItemToAdd in m_CurrentManager.UsersFridge.USUsersFoods)
             {
-                ItemsFoodList.Add(ItemToAdd.Key.ToLower());
+                m_ItemsFoodList.Add(ItemToAdd.Key.ToLower());
 
                 if (!lb_FoodList.Items.Contains(ItemToAdd.Value.USName) || !lb_FoodList.Items.Contains(ItemToAdd.Value.BGName))
                 {
-                    switch (ActiveLanguage)
+                    switch (m_ActiveLanguage)
                     {
                         case Languages.English:
                             lb_FoodList.Items.Add(new FoodDef() { USName = ItemToAdd.Value.USName.First().ToString().ToUpper() + ItemToAdd.Value.USName.Substring(1), Amount = ItemToAdd.Value.Amount });
@@ -757,20 +756,20 @@ namespace MunchyUI
             {
                 TB_AddedFoodNameItem.Text = lB_SuggestedFoods.SelectedItem.ToString().First().ToString().ToUpper() + lB_SuggestedFoods.SelectedItem.ToString().Substring(1);
 
-                foreach (RadioButton checkBox in AmountRadioButtons)
+                foreach (RadioButton checkBox in m_AmountRadioButtons)
                 {
-                    if (Array.IndexOf(AmountRadioButtons, checkBox) < CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts.Count)
-                        checkBox.Content = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts[Array.IndexOf(AmountRadioButtons, checkBox)];
+                    if (Array.IndexOf(m_AmountRadioButtons, checkBox) < m_CurrentManager.FoodManag.Foods[m_ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts.Count)
+                        checkBox.Content = m_CurrentManager.FoodManag.Foods[m_ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].SuggestedAmounts[Array.IndexOf(m_AmountRadioButtons, checkBox)];
                 }
 
-                switch (ActiveLanguage)
+                switch (m_ActiveLanguage)
                 {
                     case Languages.English:
-                        Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].USUOM;
+                        Tb_UOMLabel.Text = m_CurrentManager.FoodManag.Foods[m_ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].USUOM;
 
                         break;
                     case Languages.Bulgarian:
-                        Tb_UOMLabel.Text = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].BGUOM;
+                        Tb_UOMLabel.Text = m_CurrentManager.FoodManag.Foods[m_ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]].BGUOM;
 
                         break;
                 }
@@ -782,35 +781,35 @@ namespace MunchyUI
         //Updates the content related to fridge statistics on the FridgePanel
         private void PopulateFridgeSummary()
         {
-            CalorieSum = 0;
-            ProteinSum = 0;
-            FatSum = 0;
-            CarbSum = 0;
-            SugarSum = 0;
-            SodiumSum = 0;
-            if (CurrentManager.User.UserFridge.USUsersFoods.Count > 0)
+            m_CalorieSum = 0;
+            m_ProteinSum = 0;
+            m_FatSum = 0;
+            m_CarbSum = 0;
+            m_SugarSum = 0;
+            m_SodiumSum = 0;
+            if (m_CurrentManager.User.UserFridge.USUsersFoods.Count > 0)
             {
-                foreach (KeyValuePair<string, FoodDef> element in CurrentManager.User.UserFridge.USUsersFoods)
+                foreach (KeyValuePair<string, FoodDef> element in m_CurrentManager.User.UserFridge.USUsersFoods)
                 {
-                    CalorieSum += element.Value.Calories;
-                    ProteinSum += element.Value.Protein;
-                    FatSum += element.Value.Fat;
-                    CarbSum += element.Value.Carbs;
-                    SugarSum += element.Value.Sugars;
-                    SodiumSum += element.Value.Sodium;
+                    m_CalorieSum += element.Value.Calories;
+                    m_ProteinSum += element.Value.Protein;
+                    m_FatSum += element.Value.Fat;
+                    m_CarbSum += element.Value.Carbs;
+                    m_SugarSum += element.Value.Sugars;
+                    m_SodiumSum += element.Value.Sodium;
                 }
-                SummaryValues = new float[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
-                for (int i = 0; i < SummaryTextBlocks.Length; i++)
+                m_SummaryValues = new float[] { m_CalorieSum, m_ProteinSum, m_FatSum, m_CarbSum, m_SugarSum, m_SodiumSum };
+                for (int i = 0; i < m_SummaryTextBlocks.Length; i++)
                 {
-                    SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
+                    m_SummaryTextBlocks[i].Text = m_SummaryValues[i].ToString();
                 }
             }
             else
             {
-                SummaryValues = new float[] { CalorieSum, ProteinSum, FatSum, CarbSum, SugarSum, SodiumSum };
-                for (int i = 0; i < SummaryTextBlocks.Length; i++)
+                m_SummaryValues = new float[] { m_CalorieSum, m_ProteinSum, m_FatSum, m_CarbSum, m_SugarSum, m_SodiumSum };
+                for (int i = 0; i < m_SummaryTextBlocks.Length; i++)
                 {
-                    SummaryTextBlocks[i].Text = SummaryValues[i].ToString();
+                    m_SummaryTextBlocks[i].Text = m_SummaryValues[i].ToString();
                 }
             }
         }
@@ -820,7 +819,7 @@ namespace MunchyUI
         {
             if (lb_FoodList.SelectedItem != null)
             {
-                FoodDef SelectedItem = CurrentManager.FoodManag.Foods[ItemsFoodList[lb_FoodList.SelectedIndex].ToLower()];
+                FoodDef SelectedItem = m_CurrentManager.FoodManag.Foods[m_ItemsFoodList[lb_FoodList.SelectedIndex].ToLower()];
                 tb_FoodName.Text = SelectedItem.USName.First().ToString().ToUpper() + SelectedItem.USName.Substring(1);
                 tb_FoodItemCalorie.Text = SelectedItem.Calories.ToString();
                 tB_FoodProtein.Text = SelectedItem.Protein.ToString() + " " + "g";
@@ -848,24 +847,24 @@ namespace MunchyUI
         //Updates information on the UsersSettings panel
         private void UpdateSettingPanel()
         {
-            if (File.Exists(UserFile))
+            if (File.Exists(m_UserFile))
             {
-                tb_NameInput.Text = CurrentManager.User.UserName;
-                tb_AgeInput.Text = CurrentManager.User.Age.ToString();
-                tb_WeightInput.Text = CurrentManager.User.Weight.ToString();
+                tb_NameInput.Text = m_CurrentManager.User.UserName;
+                tb_AgeInput.Text = m_CurrentManager.User.Age.ToString();
+                tb_WeightInput.Text = m_CurrentManager.User.Weight.ToString();
 
-                foreach (CheckBox element in SettingOptions)
+                foreach (CheckBox element in m_SettingOptions)
                 {
-                    if (CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
+                    if (m_CurrentManager.User.Preferences.Contains(m_CurrentManager.CompatabilityMap[m_SettingOptions.IndexOf(element)]))
                         element.IsChecked = true;
                     else
                         element.IsChecked = false;
                 }
 
-                if (CurrentManager.User.LanguagePref == "BG")
+                if (m_CurrentManager.User.LanguagePref == "BG")
                     CB_Bulgarian.IsChecked = true;
 
-                if (CurrentManager.User.LanguagePref == "US")
+                if (m_CurrentManager.User.LanguagePref == "US")
                     CB_English.IsChecked = true;
             }
             else
@@ -875,13 +874,13 @@ namespace MunchyUI
                 tb_WeightInput.Text = null;
             }
 
-            if (CurrentManager.User.Sex == "male")
+            if (m_CurrentManager.User.Sex == "male")
                 rb_Male.IsChecked = true;
 
-            if (CurrentManager.User.Sex == "female")
+            if (m_CurrentManager.User.Sex == "female")
                 rb_Female.IsChecked = true;
 
-            if (CurrentManager.User.Sex == "other")
+            if (m_CurrentManager.User.Sex == "other")
                 rb_Other.IsChecked = true;
         }
 
@@ -890,72 +889,72 @@ namespace MunchyUI
         {
             if (!string.IsNullOrWhiteSpace(tb_NameInput.Text) && !string.IsNullOrWhiteSpace(tb_AgeInput.Text) && !string.IsNullOrWhiteSpace(tb_WeightInput.Text))
             {
-                CurrentManager.User.UserName = tb_NameInput.Text;
+                m_CurrentManager.User.UserName = tb_NameInput.Text;
 
                 if (int.TryParse(tb_AgeInput.Text, out int parsedValue))
-                    CurrentManager.User.Age = int.Parse(tb_AgeInput.Text);
+                    m_CurrentManager.User.Age = int.Parse(tb_AgeInput.Text);
                 else MessageBox.Show("Age is a number value!");
 
                 if (int.TryParse(tb_WeightInput.Text, out parsedValue))
-                    CurrentManager.User.Weight = int.Parse(tb_WeightInput.Text);
+                    m_CurrentManager.User.Weight = int.Parse(tb_WeightInput.Text);
                 else MessageBox.Show("Weight is a number value!");
             }
 
             if (rb_Male.IsChecked == true)
-                CurrentManager.User.Sex = "male";
+                m_CurrentManager.User.Sex = "male";
 
             if (rb_Female.IsChecked == true)
-                CurrentManager.User.Sex = "female";
+                m_CurrentManager.User.Sex = "female";
 
             if (rb_Other.IsChecked == true)
-                CurrentManager.User.Sex = "other";
+                m_CurrentManager.User.Sex = "other";
 
             if (CB_English.IsChecked == true)
-                CurrentManager.User.LanguagePref = "US";
+                m_CurrentManager.User.LanguagePref = "US";
 
             if (CB_Bulgarian.IsChecked == true)
             {
-                ActiveLanguage = Languages.Bulgarian;
-                CurrentManager.User.LanguagePref = "BG";
+                m_ActiveLanguage = Languages.Bulgarian;
+                m_CurrentManager.User.LanguagePref = "BG";
                 Localizer.SwitchLanguage(this, "bg-BG");
             }
 
             if (CB_English.IsChecked == true)
             {
-                ActiveLanguage = Languages.English;
-                CurrentManager.User.LanguagePref = "US";
+                m_ActiveLanguage = Languages.English;
+                m_CurrentManager.User.LanguagePref = "US";
                 Localizer.SwitchLanguage(this, "en-US");
             }
 
-            foreach (CheckBox element in SettingOptions)
+            foreach (CheckBox element in m_SettingOptions)
             {
                 if (element.IsChecked == true)
                 {
-                    if (!CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
+                    if (!m_CurrentManager.User.Preferences.Contains(m_CurrentManager.CompatabilityMap[m_SettingOptions.IndexOf(element)]))
                     {
-                        CurrentManager.User.Preferences.Add(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
+                        m_CurrentManager.User.Preferences.Add(m_CurrentManager.CompatabilityMap[m_SettingOptions.IndexOf(element)]);
                     }
                 }
 
                 if (element.IsChecked == false)
                 {
-                    if (CurrentManager.User.Preferences.Contains(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]))
+                    if (m_CurrentManager.User.Preferences.Contains(m_CurrentManager.CompatabilityMap[m_SettingOptions.IndexOf(element)]))
                     {
-                        CurrentManager.User.Preferences.Remove(CurrentManager.CompatabilityMap[SettingOptions.IndexOf(element)]);
+                        m_CurrentManager.User.Preferences.Remove(m_CurrentManager.CompatabilityMap[m_SettingOptions.IndexOf(element)]);
                     }
                 }
             }
 
-            SuggestedRecipe = new RecipeDef();
+            m_SuggestedRecipe = new RecipeDef();
             img_RecipeImage.Fill = Brushes.White;
-            RecipeIngredientList = new List<FoodDef>();
-            lv_Ingredients.ItemsSource = RecipeIngredientList;
+            m_RecipeIngredientList = new List<FoodDef>();
+            lv_Ingredients.ItemsSource = m_RecipeIngredientList;
 
-            CurrentManager.SaveUser();
-            CurrentManager.User.CalculateIndex();
-            CurrentManager.SaveUser();
-            tB_UserName.Text = CurrentManager.User.UserName;
-            CurrentManager.RecipieManag.SortRecipes();
+            m_CurrentManager.SaveUser();
+            m_CurrentManager.User.CalculateIndex();
+            m_CurrentManager.SaveUser();
+            tB_UserName.Text = m_CurrentManager.User.UserName;
+            m_CurrentManager.RecipieManag.SortRecipes();
             SuggestRecipe();
 
 
@@ -991,7 +990,7 @@ namespace MunchyUI
         //Changes text of the FoodSearch textbox when it looses focus.
         private void FoodSearchLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(ActiveLanguage);
+            tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
         }
 
         //Removes "Search" text fomr FoodSearch textbox when it gets focus
@@ -1049,10 +1048,10 @@ namespace MunchyUI
         //Handles showing next recipe to the user.
         private void Btn_ShowNextRecipe_Click(object sender, RoutedEventArgs e)
         {
-            if (NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Breakfast.Count || NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Lunch.Count || NumerOfRecipeToSuggest < CurrentManager.RecipieManag.Dinner.Count)
+            if (m_NumerOfRecipeToSuggest < m_CurrentManager.RecipieManag.Breakfast.Count || m_NumerOfRecipeToSuggest < m_CurrentManager.RecipieManag.Lunch.Count || m_NumerOfRecipeToSuggest < m_CurrentManager.RecipieManag.Dinner.Count)
             {
                 tB_RecipeName.FontSize = 24;
-                NumerOfRecipeToSuggest++;
+                m_NumerOfRecipeToSuggest++;
                 SuggestRecipe();
                 SetRecentlyViewedImages();
             }
@@ -1061,10 +1060,10 @@ namespace MunchyUI
         //Handles Showing previour recipe  to the user.
         private void Btn_ShowPreviousRecipe_Click(object sender, RoutedEventArgs e)
         {
-            if (NumerOfRecipeToSuggest >= 0)
+            if (m_NumerOfRecipeToSuggest >= 0)
             {
                 tB_RecipeName.FontSize = 24;
-                NumerOfRecipeToSuggest--;
+                m_NumerOfRecipeToSuggest--;
                 SuggestRecipe();
             }
         }
@@ -1117,7 +1116,7 @@ namespace MunchyUI
         //Resets text when the search cooked recipe textbox looses focus. Text is determined by the language that is being used.
         private void SearchCookedRecipesLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(ActiveLanguage);
+            tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
         }
 
         //Saved Recipes
@@ -1137,7 +1136,7 @@ namespace MunchyUI
         //Resets text when the search saved recipe textbox looses focus. Text is determined by the language that is being used.
         private void SavedRecipeSearchLostFocus(object sender, RoutedEventArgs e)
         {
-            tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(ActiveLanguage);
+            tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
         }
 
         //Handles adding the recipe to the saved recipe list.
@@ -1182,14 +1181,14 @@ namespace MunchyUI
             Localizer.SwitchLanguage(this, LocaleCode);
             if (LocaleCode == "bg-BG")
             {
-                ActiveLanguage = Languages.Bulgarian;
-                tB_RecipeName.Text = SuggestedRecipe.BGName;
+                m_ActiveLanguage = Languages.Bulgarian;
+                tB_RecipeName.Text = m_SuggestedRecipe.BGName;
             }
 
             if (LocaleCode == "en-US")
             {
-                ActiveLanguage = Languages.English;
-                tB_RecipeName.Text = SuggestedRecipe.USName;
+                m_ActiveLanguage = Languages.English;
+                tB_RecipeName.Text = m_SuggestedRecipe.USName;
             }
 
             AddInformationToFullRecipeView();
@@ -1199,16 +1198,16 @@ namespace MunchyUI
         //Gets appropriate Saved recipe list.
         private List<string> GetSavedRecipesList()
         {
-            switch (ActiveLanguage)
+            switch (m_ActiveLanguage)
             {
                 case Languages.English:
 
                     {
-                        return CurrentManager.UserRecipeSaves.USSavedRecipes;
+                        return m_CurrentManager.UserRecipeSaves.USSavedRecipes;
                     }
                 case Languages.Bulgarian:
                     {
-                        return CurrentManager.UserRecipeSaves.BGSavedRecipes;
+                        return m_CurrentManager.UserRecipeSaves.BGSavedRecipes;
                     }
 
                 default:
@@ -1222,16 +1221,16 @@ namespace MunchyUI
         //Gets appropriate list for recently viewed recipes name based on language setting.
         private List<string> GetRecentlyViewedList()
         {
-            switch (ActiveLanguage)
+            switch (m_ActiveLanguage)
             {
                 case Languages.English:
 
                     {
-                        return CurrentManager.UserRecipeSaves.USRecentlyViewed;
+                        return m_CurrentManager.UserRecipeSaves.USRecentlyViewed;
                     }
                 case Languages.Bulgarian:
                     {
-                        return CurrentManager.UserRecipeSaves.BGRecentlyViewed;
+                        return m_CurrentManager.UserRecipeSaves.BGRecentlyViewed;
                     }
 
                 default:
@@ -1244,7 +1243,7 @@ namespace MunchyUI
         //Gets approprite directions string based on language setting.
         private string GetDirections(RecipeDef recipe)
         {
-            switch (ActiveLanguage)
+            switch (m_ActiveLanguage)
             {
                 case Languages.English:
 
@@ -1266,7 +1265,7 @@ namespace MunchyUI
         //Gets appropriate igredients list.
         private List<string> GetIngredientList(RecipeDef recipe)
         {
-            switch (ActiveLanguage)
+            switch (m_ActiveLanguage)
             {
                 case Languages.English:
 
@@ -1289,16 +1288,16 @@ namespace MunchyUI
         //Gets appropriate Cooked recipe list.
         private List<string> GetCookedRecipeList()
         {
-            switch (ActiveLanguage)
+            switch (m_ActiveLanguage)
             {
                 case Languages.English:
 
                     {
-                        return CurrentManager.UserRecipeSaves.USCookedRecipes;
+                        return m_CurrentManager.UserRecipeSaves.USCookedRecipes;
                     }
                 case Languages.Bulgarian:
                     {
-                        return CurrentManager.UserRecipeSaves.BGCookedRecipes;
+                        return m_CurrentManager.UserRecipeSaves.BGCookedRecipes;
                     }
 
                 default:
@@ -1311,7 +1310,7 @@ namespace MunchyUI
         //Gets appropriate Recipe name.
         private string GetSuggestedRecipeName(RecipeDef recipe)
         {
-            switch (ActiveLanguage)
+            switch (m_ActiveLanguage)
             {
                 case Languages.English:
 
