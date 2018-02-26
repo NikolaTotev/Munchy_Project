@@ -145,5 +145,51 @@ namespace MunchyUI
                     return "Lang Err";
             }          
         }
+
+        public static string GetCookedRecipesTitle(Languages activeLang)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Cooked Recipes";
+
+                case Languages.Bulgarian:
+                    return "Сготвени рецепти";
+
+                default:
+                    return "Lang Err";
+            }
+        }
+
+        public static string GetSavedRecipesTitle(Languages activeLang)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Saved Recipes";
+
+                case Languages.Bulgarian:
+                    return " Запазени рецепти";
+
+                default:
+                    return "Lang Err";
+            }
+        }
+
+
+        public static string GetRecentlySeenTitle(Languages activeLang)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Recently Seen Recipes";
+
+                case Languages.Bulgarian:
+                    return "Скоро видяни рецепти";
+
+                default:
+                    return "Lang Err";
+            }
+        }
     }
 }

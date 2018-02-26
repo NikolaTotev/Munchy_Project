@@ -45,12 +45,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7E394A5561534F5D9FDBD02FBC3A89EF"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9424A5D08510414899930FE70596EDED"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -69,13 +63,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_AF4FD068D28B4A548B15AE504A9566EB"
+        "MsmKey" = "8:_C2FC9F0234CB43649AFF589CDB70C4F4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C2FC9F0234CB43649AFF589CDB70C4F4"
+        "MsmKey" = "8:_D864339438A3489BA2C4196AC431DAA1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -101,6 +95,12 @@
         {
         "MsmKey" = "8:_E7D3090BB3453DFC96B89D54A62CC8C4"
         "OwnerKey" = "8:_6B70BF0F55294E9CA2CB1466922B697E"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F79CC06AFA88439E8047386E1B3AE0B8"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -293,26 +293,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7E394A5561534F5D9FDBD02FBC3A89EF"
-            {
-            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\TESTJsonMunchy\\FoodData.json"
-            "TargetName" = "8:FoodData.json"
-            "Tag" = "8:"
-            "Folder" = "8:_2CF9BEA0958E468BA829A65D0137869F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9424A5D08510414899930FE70596EDED"
             {
             "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\TESTJsonMunchy\\Images\\corn_salad.png"
@@ -384,12 +364,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_AF4FD068D28B4A548B15AE504A9566EB"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C2FC9F0234CB43649AFF589CDB70C4F4"
             {
-            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\TESTJsonMunchy\\Recipes.json"
-            "TargetName" = "8:Recipes.json"
+            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\TESTJsonMunchy\\Images\\coleslaw.jpg"
+            "TargetName" = "8:coleslaw.jpg"
             "Tag" = "8:"
-            "Folder" = "8:_2CF9BEA0958E468BA829A65D0137869F"
+            "Folder" = "8:_01F92EE95A804B04BD83BD537DFB2DEE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -404,12 +384,12 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C2FC9F0234CB43649AFF589CDB70C4F4"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D864339438A3489BA2C4196AC431DAA1"
             {
-            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\TESTJsonMunchy\\Images\\coleslaw.jpg"
-            "TargetName" = "8:coleslaw.jpg"
+            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\Munchy\\Recipes.json"
+            "TargetName" = "8:Recipes.json"
             "Tag" = "8:"
-            "Folder" = "8:_01F92EE95A804B04BD83BD537DFB2DEE"
+            "Folder" = "8:_2CF9BEA0958E468BA829A65D0137869F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -515,6 +495,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F79CC06AFA88439E8047386E1B3AE0B8"
+            {
+            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\Munchy - Copy\\FoodData.json"
+            "TargetName" = "8:FoodData.json"
+            "Tag" = "8:"
+            "Folder" = "8:_2CF9BEA0958E468BA829A65D0137869F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -605,7 +605,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Munchy©"
         "ProductCode" = "8:{3E3644FC-BF87-4BB9-AC81-8B94F0D9ACD1}"
-        "PackageCode" = "8:{D82F22FD-7E33-4B62-9964-520A9AA9920C}"
+        "PackageCode" = "8:{66BF5333-FB7B-4DD2-972B-1D42CAB30FE1}"
         "UpgradeCode" = "8:{3F958ECF-93CC-4B96-ACBF-9A5AB13186DF}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

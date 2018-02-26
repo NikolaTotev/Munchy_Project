@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="TranslatorCore.cs" />
+    <Resource Include="Images\ic_arrow_back_white_48dp_2x.png" />
     <Resource Include="Images\ic_settings_applications_black_48dp_2x.png" />
     <Resource Include="munchyicon_0gG_icon.ico" />
     <Resource Include="240_f_104887133_z70clb3jv2vey4uldl9qzcizknudcndb_Go4_icon.ico" />

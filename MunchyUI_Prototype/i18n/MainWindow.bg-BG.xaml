@@ -43,6 +43,7 @@
     <sys:String x:Key="OtherCB">Друг</sys:String>
     <sys:String x:Key="ENCB">English</sys:String>
     <sys:String x:Key="BGCB">Български</sys:String>
+    <sys:String x:Key="SettingsSavedPopup">Настройки запазени!</sys:String>
 
 
     <!--Full Recipe View Panel-->
@@ -51,6 +52,8 @@
     <sys:String x:Key="DirectionsTextBlock">Инструкции</sys:String>
     <sys:String x:Key="CookItButton">Ще го сготвя!</sys:String>
     <sys:String x:Key="SaveRecipeButton">Зпази</sys:String>
+    <sys:String x:Key="AddedToSavedRecipesPopup">Рецептата запазена!</sys:String>
+    <sys:String x:Key="AddedToCookedRecipesPopup">Приятно ядене!</sys:String>
 
     <!--Fridge Panel-->
     <sys:String x:Key="CaloriesTB">Калории</sys:String>

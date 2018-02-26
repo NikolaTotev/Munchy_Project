@@ -43,6 +43,8 @@
     <sys:String x:Key="OtherCB">Other</sys:String>
     <sys:String x:Key="ENCB">English</sys:String>
     <sys:String x:Key="BGCB">Български</sys:String>
+    <sys:String x:Key="SettingsSavedPopup">Settings Saved!</sys:String>
+
 
     <!--Full Recipe View Panel-->
     <sys:String x:Key="TimeToCookTextBlock">Time to cook</sys:String>
@@ -50,6 +52,10 @@
     <sys:String x:Key="DirectionsTextBlock">Directions</sys:String>
     <sys:String x:Key="CookItButton">I'll Cook It!</sys:String>
     <sys:String x:Key="SaveRecipeButton">Save</sys:String>
+    <sys:String x:Key="AddedToSavedRecipesPopup">Recipe Saved!</sys:String>
+    <sys:String x:Key="AddedToCookedRecipesPopup">Enjoy!</sys:String>
+
+
 
     <!--Fridge Panel-->
     <sys:String x:Key="CaloriesTB">Calories</sys:String>

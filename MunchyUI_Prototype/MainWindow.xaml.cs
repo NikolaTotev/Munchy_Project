@@ -470,17 +470,23 @@ namespace MunchyUI
         //Opens panel for searching in cooked recipes.
         private void ShowCookedRecipes()
         {
-            tB_SavedRecipesPanelTitle.Text = "Cooked Recipes";
+            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetCookedRecipesTitle(ActiveLanguage);
             P_CookedTodayRecipes.Visibility = Visibility.Hidden;
             P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
             P_SavedRecipesSearch.Visibility = Visibility.Hidden;
             P_CookedRecipes.Visibility = Visibility.Visible;
+            lb_ListOfCookedRecipes.Items.Clear();
+
+            foreach (string element in GetCookedRecipeList())
+            {
+                lb_ListOfCookedRecipes.Items.Add(element.First().ToString().ToUpper() + element.Substring(1));
+            }
         }
 
         //Opens panel to see recently viewed recipes.
         private void ShowRecentlyViewedRecipes()
         {
-            tB_SavedRecipesPanelTitle.Text = "Recently Viewed";
+            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetRecentlySeenTitle(ActiveLanguage);
             P_CookedTodayRecipes.Visibility = Visibility.Hidden;
             P_RecenltlyViewedRecipes.Visibility = Visibility.Visible;
             P_SavedRecipesSearch.Visibility = Visibility.Hidden;
@@ -526,11 +532,17 @@ namespace MunchyUI
         //Opens panel for searching in saved recipes.
         private void ShowAllSavedRecipes()
         {
-            tB_SavedRecipesPanelTitle.Text = "Saved Recipes";
+            tB_SavedRecipesPanelTitle.Text = TranslatorCore.GetSavedRecipesTitle(ActiveLanguage);
             P_CookedTodayRecipes.Visibility = Visibility.Hidden;
             P_RecenltlyViewedRecipes.Visibility = Visibility.Hidden;
             P_SavedRecipesSearch.Visibility = Visibility.Visible;
             P_CookedRecipes.Visibility = Visibility.Hidden;
+            lb_SavedRecipesList.Items.Clear();
+
+            foreach (string element in GetSavedRecipesList())
+            {
+                lb_SavedRecipesList.Items.Add(element.First().ToString().ToUpper() + element.Substring(1));
+            }
         }
 
         /// Function will be used at a late date.
@@ -601,7 +613,7 @@ namespace MunchyUI
             // list. The selected index is used to get that element and then that element is used to add the correct item to the user's fridge.
             // This extra list is required due to the bilingual nature of the application.
             FoodDef ItemToAdd = new FoodDef();
-            if (lB_SuggestedFoods.SelectedIndex > 0)
+            if (lB_SuggestedFoods.SelectedIndex >= 0)
             {
                 ItemToAdd = CurrentManager.FoodManag.Foods[ItemsInFoodSearch[lB_SuggestedFoods.SelectedIndex]];
             }
