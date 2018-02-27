@@ -15,6 +15,12 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MunchySetup", "MunchySetup\
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MunchyToolSetup", "MunchyToolSetup\MunchyToolSetup.vdproj", "{47E4F248-FD59-48F4-A5F7-6CEA1A2D311F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MunchyDataFiles", "MunchyDataFiles", "{53BE7946-0C15-4331-A614-1F60ACAD68DB}"
+	ProjectSection(SolutionItems) = preProject
+		C:\Users\Nikola\AppData\Roaming\Munchy\FoodData.json = C:\Users\Nikola\AppData\Roaming\Munchy\FoodData.json
+		C:\Users\Nikola\AppData\Roaming\Munchy\Recipes.json = C:\Users\Nikola\AppData\Roaming\Munchy\Recipes.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

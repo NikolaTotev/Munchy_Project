@@ -114,9 +114,9 @@ namespace FoodAndRecipeCreationTool
                 Dictionary<string, RecipeDef> Recipes = (Dictionary<string, RecipeDef>)serializer.Deserialize(file, typeof(Dictionary<string, RecipeDef>));
                 return Recipes;
             }
-
         }
 
+        //Handles saving the food list.
         public void SaveFoodList()
         {
             using (StreamWriter file = File.CreateText(FoodData))
@@ -126,6 +126,7 @@ namespace FoodAndRecipeCreationTool
             }
         }
 
+        //Handles saving the recipe list.
         public void SaveRecipeList()
         {
             using (StreamWriter file = File.CreateText(RecipeDatabase))
