@@ -45,6 +45,7 @@ namespace FoodAndRecipeCreationTool
 
         List<string> Preferences = new List<string>();
 
+        // === DO NOT EDIT OR CHANGE ===
         public List<string> CompatabilityMap = new List<string>
             {
                 "isvegan",
@@ -141,7 +142,7 @@ namespace FoodAndRecipeCreationTool
             AmountListbox.Items.Clear();
         }
 
-
+        //Opens recipe tool.
         private void Btn_OpenRecipeTool_Click(object sender, RoutedEventArgs e)
         {
             if (P_RecipeTool.Visibility == Visibility.Hidden)
@@ -155,6 +156,7 @@ namespace FoodAndRecipeCreationTool
             }
         }
 
+        //Opens foodtool.
         private void Btn_OpenFoodTool_Click(object sender, RoutedEventArgs e)
         {
             if (P_FoodTool.Visibility == Visibility.Hidden)
@@ -167,11 +169,8 @@ namespace FoodAndRecipeCreationTool
                 P_FoodTool.Visibility = Visibility.Hidden;
             }
         }
-
     
-
-   
-
+        //Handles saving the newly created FooDef
         private void Btn_SaveFoodItem_Click(object sender, RoutedEventArgs e)
         {
             FoodDef NewFoodItem = new FoodDef();
@@ -260,6 +259,23 @@ namespace FoodAndRecipeCreationTool
             Lb_SuggestedAmounts.Items.Clear();
         }
 
+        //Handles adding suggested food amounts for creating FoodDefs.
+        private void BTN_AddSuggestedAmount(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(SuggestAmountInput.Text, out int n) && SuggestedAmounts.Count < 4)
+            {
+                float AmountToAdd = float.Parse(SuggestAmountInput.Text);
+                SuggestedAmounts.Add(AmountToAdd);
+                Lb_SuggestedAmounts.Items.Add(AmountToAdd);
+            }
+            else
+            {
+                L_WarningLabel_2.Text = "The amount must have a numerical value";
+            }
+            SuggestAmountInput.Clear();
+        }
+
+        //Handles saving the newly created Recipe
         private void BTN_SaveRecipe(object sender, RoutedEventArgs e)
         {
             RecipeDef NewRecipeDef = new RecipeDef();
@@ -297,7 +313,7 @@ namespace FoodAndRecipeCreationTool
             {
                 NewRecipeDef.TimeTags.Add(RecipeManager.DinnerTag);
             }
-        
+
             if (int.TryParse(TB_RecipeCalorieInput.Text, out int parsedValue1))
             {
                 NewRecipeDef.Calories = int.Parse(TB_RecipeCalorieInput.Text);
@@ -366,6 +382,7 @@ namespace FoodAndRecipeCreationTool
 
         }
 
+        //Handles adding ingredients, amounts and units to the corresponding lists.
         private void Btn_AddIngredient_Click(object sender, RoutedEventArgs e)
         {
 
@@ -408,27 +425,60 @@ namespace FoodAndRecipeCreationTool
 
                     US_IngredientInput.Clear();
                     BG_IngredientInput.Clear();
+                    Lb_SuggestFoodsToAdd.Visibility = Visibility.Hidden;
                     TB_AmountInput.Clear();
                 }
             }
 
         }
-
-        private void BTN_AddSuggestedAmount(object sender, RoutedEventArgs e)
+       
+        //Functions called when textbox test is changed.
+        private void USIngrTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (int.TryParse(SuggestAmountInput.Text, out int n) && SuggestedAmounts.Count < 4)
+            Lb_SuggestFoodsToAdd.Visibility = Visibility.Visible;
+            SearchForFoodsToAdd();
+        }
+
+        //Handles searching for food items to suggest.
+        private void SearchForFoodsToAdd()
+        {
+            // Checks if the search box is null or not.
+            if (!string.IsNullOrWhiteSpace(US_IngredientInput.Text))
             {
-                float AmountToAdd = float.Parse(SuggestAmountInput.Text);
-                SuggestedAmounts.Add(AmountToAdd);
-                Lb_SuggestedAmounts.Items.Add(AmountToAdd);
+                string searchedWord = US_IngredientInput.Text;
+                string ToLower = searchedWord.ToLower();
+
+                foreach (KeyValuePair<string, FoodDef> element in FoodList)
+                {
+
+                    if (element.Key.StartsWith(ToLower) && !Lb_SuggestFoodsToAdd.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
+                    {
+                        Lb_SuggestFoodsToAdd.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
+                    }
+                }
             }
             else
             {
-                L_WarningLabel_2.Text = "The amount must have a numerical value";
+                Lb_SuggestFoodsToAdd.Items.Clear();
             }
-            SuggestAmountInput.Clear();
         }
 
+        //Adds names of clicked name of food item in the suggested food items to add list.d
+        private void Lb_SuggestedFoodsSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (Lb_SuggestFoodsToAdd.SelectedItem != null)
+            {
+                string foodItemToAdd = Lb_SuggestFoodsToAdd.SelectedItem.ToString().ToLower();
+                FoodDef foodToAdd = FoodList[foodItemToAdd];
+                US_IngredientInput.Text = Lb_SuggestFoodsToAdd.SelectedItem.ToString().ToLower();
+                BG_IngredientInput.Text = foodToAdd.BGName.ToLower();
+            }
+        }
 
+        //Removes listbox when the amount input gets focus.
+        private void TBAmountInputGotFocus(object sender, RoutedEventArgs e)
+        {
+            Lb_SuggestFoodsToAdd.Visibility = Visibility.Hidden;
+        }
     }
 }

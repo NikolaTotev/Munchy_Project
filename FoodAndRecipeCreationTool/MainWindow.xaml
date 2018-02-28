@@ -13,11 +13,11 @@
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="10,10,0,0" TextWrapping="Wrap" Text="US Recipe Name" VerticalAlignment="Top" Width="253" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"/>
                 <TextBox x:Name="US_NameInput" HorizontalAlignment="Left" Height="35" Margin="10,46,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="253" FontFamily="Roboto" TextAlignment="Center" FontSize="22" SpellCheck.IsEnabled="True"/>
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="23,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"><Run Text=" "/><Run Text="US Ingredient"/></TextBlock>
-                <TextBox x:Name="US_IngredientInput" HorizontalAlignment="Left" Height="35" Margin="23,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto" TextAlignment="Center" FontSize="22"/>
-                <ListBox x:Name="US_IngredientList" HorizontalAlignment="Left" Height="298" Margin="23,256,0,0" VerticalAlignment="Top" Width="179" FontFamily="Roboto"/>
+                <TextBox x:Name="US_IngredientInput" HorizontalAlignment="Left" Height="35" Margin="23,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto" TextAlignment="Center" FontSize="22" TextChanged="USIngrTextChanged"/>
+                <ListBox x:Name="US_IngredientList" HorizontalAlignment="Left" Height="298" Margin="23,257,0,0" VerticalAlignment="Top" Width="179" FontFamily="Roboto" FontSize="24"/>
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="415,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"><Run Text="Amounts"/><LineBreak/><Run/></TextBlock>
-                <TextBox x:Name="TB_AmountInput" HorizontalAlignment="Left" Height="35" Margin="420,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto" TextAlignment="Center" FontSize="22"/>
-                <ListBox x:Name="AmountListbox" HorizontalAlignment="Left" Height="298" Margin="420,256,0,0" VerticalAlignment="Top" Width="179" FontFamily="Roboto"/>
+                <TextBox x:Name="TB_AmountInput" HorizontalAlignment="Left" Height="35" Margin="420,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto" TextAlignment="Center" FontSize="22" GotFocus="TBAmountInputGotFocus"/>
+                <ListBox x:Name="AmountListbox" HorizontalAlignment="Left" Height="298" Margin="420,257,0,0" VerticalAlignment="Top" Width="179" FontFamily="Roboto" FontSize="24"/>
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="203,567,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"><Run Text="Directions"/><LineBreak/><Run/></TextBlock>
                 <TextBox x:Name="US_Directions" HorizontalAlignment="Left" Height="318" Margin="32,599,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="503" FontFamily="Roboto" FontSize="18" SpellCheck.IsEnabled="True"/>
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="616,312,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center" Text="Image Name"/>
@@ -45,8 +45,8 @@
                 <CheckBox x:Name="CB_Nuts" Content="No Nuts" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="955,252,0,0" Height="32" Width="152" FontFamily="Roboto Medium" FontSize="24" BorderBrush="{x:Null}" Foreground="White"/>
                 <CheckBox x:Name="CB_Soy" Content="No Soy" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="955,289,0,0" Height="32" Width="152" FontFamily="Roboto Medium" FontSize="24" BorderBrush="{x:Null}" Foreground="White"/>
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="219,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="179" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"><Run Text="BG Ingredient"/><LineBreak/><Run/></TextBlock>
-                <TextBox x:Name="BG_IngredientInput" HorizontalAlignment="Left" Height="35" Margin="218,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" FontFamily="Roboto" TextAlignment="Center" FontSize="22"/>
-                <ListBox x:Name="BG_IngredientList" HorizontalAlignment="Left" Height="299" Margin="219,255,0,0" VerticalAlignment="Top" Width="179" FontFamily="Roboto"/>
+                <TextBox x:Name="BG_IngredientInput" HorizontalAlignment="Left" Height="35" Margin="219,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" FontFamily="Roboto" TextAlignment="Center" FontSize="22"/>
+                <ListBox x:Name="BG_IngredientList" HorizontalAlignment="Left" Height="299" Margin="219,256,0,0" VerticalAlignment="Top" Width="188" FontFamily="Roboto" FontSize="24"/>
                 <TextBlock HorizontalAlignment="Left" Height="45" Margin="744,567,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="235" FontFamily="Roboto Black" Foreground="White" FontSize="24" TextAlignment="Center"><Run Text="BG Directions"/><LineBreak/><Run/></TextBlock>
                 <TextBox x:Name="BG_Directions" HorizontalAlignment="Left" Height="318" Margin="575,599,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="503" FontFamily="Roboto" FontSize="18" SpellCheck.IsEnabled="True"/>
                 <CheckBox x:Name="CB_Gluten" Content="No Gluten" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="956,335,0,0" Height="32" Width="152" FontFamily="Roboto Medium" FontSize="24" BorderBrush="{x:Null}" Foreground="White"/>
@@ -55,10 +55,11 @@
                 <RadioButton x:Name="RB_Tsp" Content="Tsp" HorizontalAlignment="Left" Height="31" Margin="616,188,0,0" VerticalAlignment="Top" Width="122" Foreground="White" FontSize="20" FontFamily="Roboto Black"/>
                 <RadioButton x:Name="RB_Ml" Content="ml" HorizontalAlignment="Left" Height="31" Margin="616,230,0,0" VerticalAlignment="Top" Width="122" Foreground="White" FontSize="20" FontFamily="Roboto Black"/>
                 <RadioButton x:Name="RB_count" Content="Count" HorizontalAlignment="Left" Height="31" Margin="616,266,0,0" VerticalAlignment="Top" Width="122" Foreground="White" FontSize="20" FontFamily="Roboto Black"/>
+                <ListBox x:Name="Lb_SuggestFoodsToAdd" HorizontalAlignment="Left" Height="298" Margin="23,184,0,0" VerticalAlignment="Top" Width="179" FontFamily="Roboto" BorderBrush="#FF2364AA" FontSize="20" SelectionChanged="Lb_SuggestedFoodsSelectionChanged" Visibility="Hidden"/>
             </Grid>
 
 
-            <Grid x:Name="P_FoodTool" Background="#FFBBE5ED" Height="1103" Visibility="Visible" Width="1171" Margin="0,-210,0,-211">
+            <Grid x:Name="P_FoodTool" Background="#FFBBE5ED" Height="1103" Visibility="Hidden" Width="1171" Margin="0,-210,0,-211">
                 <TextBlock x:Name="l_FoodName" HorizontalAlignment="Left" Height="37" Margin="97,78,0,0" TextWrapping="Wrap" Text="US Name" VerticalAlignment="Top" Width="189" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358" TextAlignment="Center"/>
                 <TextBox x:Name="US_FoodName" HorizontalAlignment="Left" Height="37" Margin="286,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241" BorderBrush="{x:Null}" Foreground="#FF555358" FontFamily="Roboto" FontSize="22" TextAlignment="Center"/>
                 <TextBlock x:Name="l_FoodName_Copy" HorizontalAlignment="Left" Height="37" Margin="218,254,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106" FontFamily="Roboto Black" FontSize="24" Foreground="#FF555358" TextAlignment="Center"><Run Text="Calories"/><LineBreak/><Run/></TextBlock>

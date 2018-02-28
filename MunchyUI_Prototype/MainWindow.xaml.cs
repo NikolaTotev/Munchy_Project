@@ -381,6 +381,15 @@ namespace MunchyUI
                 savelist.Add(recipename.ToLower());
             }
         }
+
+        //Shows the full recipe view of the recenly viewed recipe the user clicked on.
+        private void ShowRecentlyViewedRecipe(object sender, MouseButtonEventArgs e)
+        {
+            string recipeName = (string)((Ellipse)sender).ToolTip.ToString();
+            m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
+            AddInformationToFullRecipeView();
+            SetupFullRecipeViewImg();
+        }
         #endregion
 
         #region Handling searching.
@@ -1329,13 +1338,6 @@ namespace MunchyUI
             }
         }
         #endregion
-
-        private void HowRecentlyViewedRecipe(object sender, MouseButtonEventArgs e)
-        {
-            string recipeName = (string)((Ellipse)sender).ToolTip.ToString();
-            m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
-            AddInformationToFullRecipeView();
-            SetupFullRecipeViewImg();        
-        }
+     
     }
 }
