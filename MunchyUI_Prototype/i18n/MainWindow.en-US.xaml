@@ -6,7 +6,7 @@
     
     <!--Front Page-->
     <sys:String x:Key="ResourceDictionaryName">Loc-en-US</sys:String>
-    <sys:String x:Key="FavouriteRecipesTextBlock">Favourite Recipes</sys:String>
+    <sys:String x:Key="FavouriteRecipesTextBlock">RecentlySeen</sys:String>
     <sys:String x:Key="FridgeTextBlock">Fridge</sys:String>
     <sys:String x:Key="CaloriesTextBlock">Calories</sys:String>
     <sys:String x:Key="SuggestRecipeButton">Find Recipe</sys:String>
