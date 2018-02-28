@@ -261,7 +261,7 @@ namespace MunchyUI
         private void ManageSuggestedRecipe(RecipeDef inputrecipe)
         {
             RecipeSaver saver = m_CurrentManager.UserRecipeSaves;
-           
+
             if (saver.USRecentlyViewed.Count < 6 && saver.BGRecentlyViewed.Count < 6)
             {
                 AddToList(saver.USRecentlyViewed, m_SuggestedRecipe.USName);
@@ -370,11 +370,11 @@ namespace MunchyUI
         {
             RecipeSaver saver = m_CurrentManager.UserRecipeSaves;
             AddToList(saver.USSavedRecipes, m_SuggestedRecipe.USName.ToString());
-            AddToList(saver.BGSavedRecipes, m_SuggestedRecipe.BGName.ToString());           
+            AddToList(saver.BGSavedRecipes, m_SuggestedRecipe.BGName.ToString());
         }
 
         //Handles adding recipes to lists.
-        private void AddToList (List<string> savelist, string recipename)
+        private void AddToList(List<string> savelist, string recipename)
         {
             if (!savelist.Contains(recipename.ToLower()))
             {
@@ -1329,5 +1329,13 @@ namespace MunchyUI
             }
         }
         #endregion
+
+        private void HowRecentlyViewedRecipe(object sender, MouseButtonEventArgs e)
+        {
+            string recipeName = (string)((Ellipse)sender).ToolTip.ToString();
+            m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
+            AddInformationToFullRecipeView();
+            SetupFullRecipeViewImg();        
+        }
     }
 }

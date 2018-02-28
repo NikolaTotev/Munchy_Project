@@ -168,87 +168,82 @@ namespace FoodAndRecipeCreationTool
             }
         }
 
-        private void BTN_RecipeTool_MouseEnter(object sender, MouseEventArgs e)
-        {
+    
 
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+   
 
         private void Btn_SaveFoodItem_Click(object sender, RoutedEventArgs e)
         {
             FoodDef NewFoodItem = new FoodDef();
             if (!string.IsNullOrWhiteSpace(US_FoodName.Text))
+            {
                 NewFoodItem.USName = US_FoodName.Text.ToLower();
+            }
 
             if (!string.IsNullOrWhiteSpace(BG_FoodName.Text))
+            {
                 NewFoodItem.BGName = BG_FoodName.Text.ToLower();
+            }
 
             if (float.TryParse(tb_CalorieInput.Text, out float parsedValue))
             {
-                if (!string.IsNullOrWhiteSpace(tb_CalorieInput.Text))
-                    NewFoodItem.Calories = float.Parse(tb_CalorieInput.Text);
+                NewFoodItem.Calories = float.Parse(tb_CalorieInput.Text);
             }
 
             if (float.TryParse(tb_ProteinInput.Text, out float parsedValue1))
             {
-                if (!string.IsNullOrWhiteSpace(tb_ProteinInput.Text))
-                    NewFoodItem.Protein = float.Parse(tb_ProteinInput.Text);
+                NewFoodItem.Protein = float.Parse(tb_ProteinInput.Text);
             }
 
             if (float.TryParse(tb_FatInput.Text, out float parsedValue2))
             {
-                if (!string.IsNullOrWhiteSpace(tb_FatInput.Text))
-                    NewFoodItem.Fat = float.Parse(tb_FatInput.Text);
+                NewFoodItem.Fat = float.Parse(tb_FatInput.Text);
             }
 
             if (float.TryParse(tb_CarbInput.Text, out float parsedValue3))
             {
-                if (!string.IsNullOrWhiteSpace(tb_CarbInput.Text))
-                    NewFoodItem.Carbs = float.Parse(tb_CarbInput.Text);
+                NewFoodItem.Carbs = float.Parse(tb_CarbInput.Text);
             }
 
 
             if (float.TryParse(tb_SugarInput.Text, out float parsedValue4))
             {
-                if (!string.IsNullOrWhiteSpace(tb_SugarInput.Text))
-                    NewFoodItem.Sugars = float.Parse(tb_SugarInput.Text);
+                NewFoodItem.Sugars = float.Parse(tb_SugarInput.Text);
             }
 
             if (float.TryParse(tb_SodiumInput.Text, out float parsedValue5))
             {
-                if (!string.IsNullOrWhiteSpace(tb_SodiumInput.Text))
-                    NewFoodItem.Sodium = float.Parse(tb_SodiumInput.Text);
+                NewFoodItem.Sodium = float.Parse(tb_SodiumInput.Text);
             }
 
             if (float.TryParse(Tb_DesityInput.Text, out float parsedValue6))
             {
-                if (!string.IsNullOrWhiteSpace(tb_SodiumInput.Text))
-                    NewFoodItem.FoodDensity = float.Parse(Tb_DesityInput.Text);
+                NewFoodItem.FoodDensity = float.Parse(Tb_DesityInput.Text);
             }
 
             if (!string.IsNullOrWhiteSpace(US_UOMInput.Text))
+            {
                 NewFoodItem.USUOM = US_UOMInput.Text;
+            }
+
 
             if (!string.IsNullOrWhiteSpace(BG_UOMInput.Text))
+            {
                 NewFoodItem.BGUOM = BG_UOMInput.Text;
+            }
 
             if (SuggestedAmounts != null && SuggestedAmounts.Count > 0)
+            {
                 NewFoodItem.SuggestedAmounts = SuggestedAmounts;
-
+            }
 
             if (NewFoodItem.USName != null)
             {
-                if (!FoodList.ContainsKey(NewFoodItem.USName.ToLower()))
-                    FoodList.Add(NewFoodItem.USName.ToLower(), NewFoodItem);
+                FoodList.Add(NewFoodItem.USName.ToLower(), NewFoodItem);
             }
 
             SaveFoodList();
             FoodList = GetFoodList();
-           
 
             BG_UOMInput.Clear();
             US_UOMInput.Clear();
@@ -263,7 +258,6 @@ namespace FoodAndRecipeCreationTool
             SuggestedAmounts = new List<float>();
             BG_FoodName.Clear();
             Lb_SuggestedAmounts.Items.Clear();
-            
         }
 
         private void BTN_SaveRecipe(object sender, RoutedEventArgs e)
@@ -285,27 +279,35 @@ namespace FoodAndRecipeCreationTool
             }
 
             if (!string.IsNullOrWhiteSpace(TB_ImageNameInput.Text))
-                NewRecipeDef.ImageFile = TB_ImageNameInput.Text.ToString() + ".jpg";
-
-            if (CB_Breakfast.IsChecked == true)
-                NewRecipeDef.TimeTags.Add(RecipeManager.BreakfastTag);
-
-            if (CB_Lunch.IsChecked == true)
-                NewRecipeDef.TimeTags.Add(RecipeManager.LunchTag);
-
-            if (CB_Dinner.IsChecked == true)
-                NewRecipeDef.TimeTags.Add(RecipeManager.DinnerTag);
-
-            if (!string.IsNullOrWhiteSpace(TB_RecipeCalorieInput.Text))
             {
-                if (int.TryParse(TB_RecipeCalorieInput.Text, out int parsedValue1))
-                {
-                    NewRecipeDef.Calories = int.Parse(TB_RecipeCalorieInput.Text);
-                }
+                NewRecipeDef.ImageFile = TB_ImageNameInput.Text.ToString() + ".jpg";
             }
 
+            if (CB_Breakfast.IsChecked == true)
+            {
+                NewRecipeDef.TimeTags.Add(RecipeManager.BreakfastTag);
+            }
+
+            if (CB_Lunch.IsChecked == true)
+            {
+                NewRecipeDef.TimeTags.Add(RecipeManager.LunchTag);
+            }
+
+            if (CB_Dinner.IsChecked == true)
+            {
+                NewRecipeDef.TimeTags.Add(RecipeManager.DinnerTag);
+            }
+        
+            if (int.TryParse(TB_RecipeCalorieInput.Text, out int parsedValue1))
+            {
+                NewRecipeDef.Calories = int.Parse(TB_RecipeCalorieInput.Text);
+            }
+
+
             if (!string.IsNullOrWhiteSpace(TB_TimeToCook.Text))
+            {
                 NewRecipeDef.TimeToCook = TB_TimeToCook.Text.ToString();
+            }
 
             foreach (CheckBox element in SettingOptions)
             {
@@ -409,7 +411,7 @@ namespace FoodAndRecipeCreationTool
                     TB_AmountInput.Clear();
                 }
             }
-            
+
         }
 
         private void BTN_AddSuggestedAmount(object sender, RoutedEventArgs e)
