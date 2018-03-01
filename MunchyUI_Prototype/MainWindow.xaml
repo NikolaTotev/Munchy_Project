@@ -663,7 +663,7 @@
             <BeginStoryboard x:Name="Highlight_5_Show_BeginStoryboard" Storyboard="{StaticResource Highlight_5_Show}"/>
             <BeginStoryboard x:Name="Highlight_5_Close_BeginStoryboard" Storyboard="{StaticResource Highlight_5_Close}"/>
             <BeginStoryboard x:Name="ShowSettingsHighlight_BeginStoryboard" Storyboard="{StaticResource ShowSettingsHighlight}"/>
-            <BeginStoryboard Storyboard="{StaticResource CloseSettingsHighlight}"/>
+            <BeginStoryboard x:Name="CloseSettingsHighlight_BeginStoryboard" Storyboard="{StaticResource CloseSettingsHighlight}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="btn_ShowRecipe">
             <BeginStoryboard x:Name="ShowFullRecipeView_BeginStoryboard1" Storyboard="{StaticResource ShowFullRecipeView}"/>
@@ -738,7 +738,16 @@
             <BeginStoryboard x:Name="ShowSettingsHighlight_BeginStoryboard1" Storyboard="{StaticResource ShowSettingsHighlight}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="Elip_OpenSettings">
-            <BeginStoryboard Storyboard="{StaticResource SettingsCloseOpacityUP}"/>
+            <BeginStoryboard x:Name="CloseSettingsHighlight_BeginStoryboard1" Storyboard="{StaticResource CloseSettingsHighlight}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseEnter" SourceName="tB_UserName">
+            <BeginStoryboard x:Name="ShowSettingsHighlight_BeginStoryboard2" Storyboard="{StaticResource ShowSettingsHighlight}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="tB_UserName">
+            <BeginStoryboard x:Name="CloseSettingsHighlight_BeginStoryboard2" Storyboard="{StaticResource CloseSettingsHighlight}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Control.MouseDoubleClick" SourceName="lb_SavedRecipesList">
+            <BeginStoryboard x:Name="ShowFullRecipeView_BeginStoryboard7" Storyboard="{StaticResource ShowFullRecipeView}"/>
         </EventTrigger>
     </Window.Triggers>
     <Viewbox>
@@ -850,7 +859,7 @@
                     </Rectangle.Fill>
                 </Rectangle>
                 <TextBlock x:Name="tB_SettingsTitle" HorizontalAlignment="Left" Height="61" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=SettingsTextBlock}" VerticalAlignment="Top" Width="551" FontSize="48" FontFamily="Shrikhand" TextAlignment="Center" Foreground="#FF5E6973" Margin="199,0,0,0"/>
-                <CheckBox x:Name="cb_Vegan" Content="{DynamicResource ResourceKey=VeganCB}" HorizontalAlignment="Left" Height="30" Margin="109,384,0,0" VerticalAlignment="Top" Width="127" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" VerticalContentAlignment="Center"/>
+                <CheckBox x:Name="cb_Vegan" Content="{DynamicResource ResourceKey=VeganCB}" HorizontalAlignment="Left" Height="30" Margin="109,384,0,0" VerticalAlignment="Top" Width="127" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" VerticalContentAlignment="Center" BorderBrush="#FF5E6973"/>
                 <CheckBox x:Name="cb_Vegetarian" Content="{DynamicResource ResourceKey=VegetarianCB}" HorizontalAlignment="Left" Height="30" Margin="109,333,0,0" VerticalAlignment="Top" Width="184" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" VerticalContentAlignment="Center"/>
                 <CheckBox x:Name="cb_Diabetic" Content="{DynamicResource ResourceKey=DiabeticCB}" HorizontalAlignment="Left" Height="26" Margin="408,337,0,0" VerticalAlignment="Top" Width="153" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" VerticalContentAlignment="Center"/>
                 <CheckBox x:Name="cb_Nuts" Content="{DynamicResource ResourceKey=NutsCB}" HorizontalAlignment="Left" Height="26" Margin="646,324,0,0" VerticalAlignment="Top" Width="77" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" VerticalContentAlignment="Center"/>
@@ -866,9 +875,9 @@
                 <TextBlock x:Name="tB_AgeLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=AgeTextBlock}" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FF5E6973" Margin="308,110,0,0"/>
                 <TextBlock x:Name="tB_WeightLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=WeightTextBlock}" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FF5E6973" Margin="574,110,0,0"/>
                 <TextBlock x:Name="tB_SexLabel" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=SexTextBlock}" VerticalAlignment="Top" Width="144" FontSize="24" FontFamily="Roboto Medium" TextAlignment="Center" Foreground="#FF5E6973" Margin="606,170,0,0"/>
-                <TextBox x:Name="tb_NameInput" HorizontalAlignment="Left" Height="36" Margin="169,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FF5E6973" SelectionBrush="#7F223843" Background="White" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20"/>
-                <TextBox x:Name="tb_AgeInput" HorizontalAlignment="Left" Height="36" Margin="415,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FF5E6973" SelectionBrush="#7F223843" Background="White" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20"/>
-                <TextBox x:Name="tb_WeightInput" HorizontalAlignment="Left" Height="36" Margin="695,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FF5E6973" SelectionBrush="#7F223843" Background="White" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20"/>
+                <TextBox x:Name="tb_NameInput" HorizontalAlignment="Left" Height="36" Margin="169,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FF5E6973" SelectionBrush="#7F4392F1" Background="White" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20" BorderBrush="#FF4392F1"/>
+                <TextBox x:Name="tb_AgeInput" HorizontalAlignment="Left" Height="36" Margin="415,107,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FF5E6973" SelectionBrush="#7F4392F1" Background="White" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20" BorderBrush="#FF4392F1"/>
+                <TextBox x:Name="tb_WeightInput" HorizontalAlignment="Left" Height="36" Margin="695,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" Foreground="#FF5E6973" SelectionBrush="#7F4392F1" Background="White" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="20" BorderBrush="#FF4392F1"/>
                 <Button x:Name="btn_Save" Content="{DynamicResource ResourceKey=SaveSettingsButton}" HorizontalAlignment="Left" Height="42" Margin="381,485,0,0" VerticalAlignment="Top" Width="180" FontFamily="Roboto Black" FontSize="24" Foreground="#FFFCFFFC" Click="Btn_Save_Click" Background="#FF4392F1" BorderBrush="{x:Null}"/>
                 <RadioButton x:Name="rb_Male" Content="{DynamicResource ResourceKey=MaleRB}" HorizontalAlignment="Left" Height="23" Margin="536,213,0,0" VerticalAlignment="Top" Width="80" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" VerticalContentAlignment="Center"/>
                 <RadioButton x:Name="rb_Female" Content="{DynamicResource ResourceKey=FemaleRB}" HorizontalAlignment="Left" Height="28" Margin="632,213,0,0" VerticalAlignment="Top" Width="102" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" VerticalContentAlignment="Center"/>
@@ -877,6 +886,88 @@
                 <CheckBox x:Name="CB_English" Content="{DynamicResource ResourceKey=ENCB}" HorizontalAlignment="Left" Height="30" Margin="75,211,0,0" VerticalAlignment="Top" Width="119" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" Checked="UncheckBulgarian" VerticalContentAlignment="Center"/>
                 <CheckBox x:Name="CB_Bulgarian" Content="{DynamicResource ResourceKey=BGCB}" HorizontalAlignment="Left" Height="30" Margin="199,211,0,0" VerticalAlignment="Top" Width="157" FontFamily="Roboto Light" FontSize="24" Background="White" Foreground="#FF5E6973" Checked="UncheckEnglish" VerticalContentAlignment="Center"/>
 
+            </Grid>
+            <Grid x:Name="p_SavedRecipes" HorizontalAlignment="Left" Height="537" Grid.RowSpan="5" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Margin="-988,-1,0,0" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <TextBlock x:Name="tB_SavedRecipesPanelTitle" Height="60" TextWrapping="Wrap" Text="Saved Recipes" VerticalAlignment="Top" Margin="211,10,241,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <Button x:Name="Btn_CookedRecipes" Content="{DynamicResource ResourceKey=CookedRecipeBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,150,0,0" VerticalAlignment="Top" Width="181" Background="#FF4392F1" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedRecipes_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button x:Name="Btn_RecentlyViewed" Content="{DynamicResource ResourceKey=RecentlyViewedBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,257,0,0" VerticalAlignment="Top" Width="181" Background="#FF4392F1" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_RecentlyViewed_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Button x:Name="Btn_CookedToday" Content="Cooked Today" HorizontalAlignment="Left" Height="53" Margin="62,294,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedToday_Click" Visibility="Hidden"/>
+                <Grid x:Name="P_SavedRecipesSearch" HorizontalAlignment="Left" Height="433" Margin="297,65,0,0" VerticalAlignment="Top" Width="307" >
+                    <ListBox x:Name="lb_SavedRecipesList" HorizontalAlignment="Left" Height="364" VerticalAlignment="Top" Width="285" Margin="11,59,0,0" FontSize="20" Foreground="#FF5E6973" BorderBrush="#FF5E6973" FontFamily="Roboto Black" SelectionChanged="SavedRecipesItemClicked"/>
+                    <TextBox x:Name="tb_SearchSavedRecipes" HorizontalAlignment="Left" Height="32" Margin="11,19,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="285" TextAlignment="Center" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" SelectionBrush="#844392F1" LostFocus="SavedRecipeSearchLostFocus" GotFocus="SearchSavedRecipesFocused" TextChanged="SearchSavedRecipesTextChanged" BorderBrush="#FF5E6973"/>
+
+                </Grid>
+                <Button x:Name="Btn_SavedRecipes" Content="{DynamicResource ResourceKey=SavedBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,360,0,0" VerticalAlignment="Top" Width="181" Background="#FF4392F1" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_SavedRecipes_Click" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                </Button>
+                <Grid x:Name="P_RecenltlyViewedRecipes" HorizontalAlignment="Left" Height="420" Margin="297,85,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden">
+                    <Ellipse x:Name="Img_RecentlyViewed_1" Height="118" VerticalAlignment="Top" Margin="10,7,179,0" Stroke="#FF5E6973"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_2" Height="118" VerticalAlignment="Top" Margin="180,10,10,0" Stroke="#FF5E6973"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_4" Height="118" VerticalAlignment="Top" Margin="180,152,10,0" Stroke="#FF5E6973"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_3" Height="118" VerticalAlignment="Top" Margin="10,152,179,0" Stroke="#FF5E6973"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_5" Height="118" VerticalAlignment="Top" Margin="10,285,179,0" Stroke="#FF5E6973"/>
+                    <Ellipse x:Name="Img_RecentlyViewed_6" Height="118" VerticalAlignment="Top" Margin="180,285,10,0" Stroke="#FF5E6973"/>
+                </Grid>
+                <Grid x:Name="P_CookedTodayRecipes" HorizontalAlignment="Left" Height="409" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF" Visibility="Hidden">
+                    <Ellipse Fill="#FFF4F4F5" Height="163" VerticalAlignment="Top" Margin="69,40,76,0"/>
+                    <TextBlock x:Name="tB_CookedTodayRecipeName" Height="60" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="0,235,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
+                    <Button Content="Revisit recipe" HorizontalAlignment="Left" Height="50" Margin="57,314,0,0" VerticalAlignment="Top" Width="191" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="White" FontFamily="Roboto Black" FontSize="24"/>
+                </Grid>
+                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="298,74,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden">
+                    <TextBox x:Name="tb_SearchCookedRecipes" Height="32" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,12,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7F4392F1" BorderBrush="#FF5E6973" Foreground="#FF5E6973" TextAlignment="Center" FontSize="22" TextChanged="CookedRecipesTextChanged" GotFocus="SearchCookedRecipesFocused" LostFocus="SearchCookedRecipesLostFocus" Width="285"/>
+                    <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="364" Margin="10,50,0,0" VerticalAlignment="Top" Width="285" FontSize="20" FontFamily="Roboto Black" BorderBrush="#FF5E6973" Foreground="#FF5E6973"/>
+                </Grid>
+                <Rectangle x:Name="Btn_CloseSavedRecipePanel" HorizontalAlignment="Left" Height="45" Margin="865,10,0,0" VerticalAlignment="Top" Width="49" Opacity="0.5">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="ic_navigate_before_black_48dp_2x.png"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock x:Name="Warning_Label" HorizontalAlignment="Left" Height="61" Margin="627,444,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" FontFamily="Roboto Black" FontSize="14" Foreground="#FFF24333" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_SavedRecipesPanelTitle_Copy" Height="42" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=StatsTB}" VerticalAlignment="Top" Margin="632,60,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="t_TotalCalories" Height="63" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=TotalCaloriesTB}" VerticalAlignment="Top" Margin="632,130,142,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="t_AverageDailyCalories" Height="63" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=AverageDailyCaloriesTB}" VerticalAlignment="Top" Margin="632,205,147,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="t_RecipesCooked" Height="42" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=RecipesCookedTB}" VerticalAlignment="Top" Margin="636,358,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="t_TotalRecipesSeen" Height="42" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=RecipesSeenTB}" VerticalAlignment="Top" Margin="636,411,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="t_AverageMonthlyCalories" Height="73" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=AverageMonthlyCaloriesTB}" VerticalAlignment="Top" Margin="627,274,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_TotalCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="762,133,12,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_AverageDailyCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="762,205,12,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_AverageMontlyCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="765,274,0,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_TotalRecipesCooked" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="771,358,3,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="tB_TotalRecipeSeen" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="771,411,3,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="Tb_DoubleClickOnRecipePrompt" HorizontalAlignment="Left" Height="30" Margin="238,497,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=DoubleClickOnRecipePrompt}" VerticalAlignment="Top" Width="445" TextAlignment="Center" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973"/>
             </Grid>
             <Grid x:Name="p_FullRecipeView" Grid.ColumnSpan="6" HorizontalAlignment="Left" Height="537" Margin="0,131,0,-600" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Grid.Row="4" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>
@@ -1031,92 +1122,11 @@
                         <RadioButton x:Name="Cb_SuggestedAmount_4" Content="" HorizontalAlignment="Left" Height="30" Margin="65,177,0,0" VerticalAlignment="Top" Width="126" Foreground="#FFF8F5F4" BorderBrush="#FF5E6973"/>
                         <TextBlock x:Name="L_FoodAmountWarning" HorizontalAlignment="Left" Height="35" Margin="45,361,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" TextAlignment="Center" FontFamily="Roboto" Foreground="#FFF7F4F3" FontSize="14"/>
                     </Grid>
-                    <TextBox x:Name="tb_FoodSearch" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Margin="7,10,8,0" TextAlignment="Center" FontFamily="Roboto Black" FontSize="18" Foreground="#FF5E6973" BorderBrush="#FF5E6973" Background="#FFF7F4F3" TextChanged="OnTextChanged" Text="Search" GotFocus="SearchFoodClearTextBox" LostFocus="FoodSearchLostFocus"/>
+                    <TextBox x:Name="tb_FoodSearch" Height="28" TextWrapping="Wrap" VerticalAlignment="Top" Margin="7,10,8,0" TextAlignment="Center" FontFamily="Roboto Black" FontSize="18" Foreground="#FF5E6973" BorderBrush="#FF5E6973" Background="#FFF7F4F3" TextChanged="OnTextChanged" Text="Search" GotFocus="SearchFoodClearTextBox" LostFocus="FoodSearchLostFocus" SelectionBrush="#7F0078D7"/>
                     <ListBox x:Name="lB_SuggestedFoods" HorizontalAlignment="Left" Height="329" Margin="7,43,0,0" VerticalAlignment="Top" Width="289" SelectionChanged="AddClickedItem" BorderBrush="#FF5E6973" Background="#FFF7F4F3" Foreground="#FF5E6973" FontFamily="Roboto Medium" FontSize="18"/>
                     <TextBlock x:Name="l_SearchInfo" HorizontalAlignment="Left" Height="29" Margin="0,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="304" Foreground="#FFF7F4F3" FontFamily="Roboto Light" FontSize="14" TextAlignment="Center"><Run Text="Type to search for foods to add"/><LineBreak/><Run Text="."/></TextBlock>
                     <Button x:Name="btn_Close" Content="{DynamicResource ResourceKey=CloseAddFoodButton}" Margin="84,414,85,10" Background="#FFF8F5F4" BorderBrush="{x:Null}" Foreground="#FF4392F1" FontFamily="Roboto Black" FontSize="16"/>
                 </Grid>
-            </Grid>
-            <Grid x:Name="p_SavedRecipes" HorizontalAlignment="Left" Height="537" Grid.RowSpan="5" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Margin="-988,-1,0,0" RenderTransformOrigin="0.5,0.5">
-                <Grid.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Grid.RenderTransform>
-                <TextBlock x:Name="tB_SavedRecipesPanelTitle" Height="60" TextWrapping="Wrap" Text="Saved Recipes" VerticalAlignment="Top" Margin="211,10,241,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <Button x:Name="Btn_CookedRecipes" Content="{DynamicResource ResourceKey=CookedRecipeBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,150,0,0" VerticalAlignment="Top" Width="181" Background="#FF4392F1" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedRecipes_Click" RenderTransformOrigin="0.5,0.5">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                </Button>
-                <Button x:Name="Btn_RecentlyViewed" Content="{DynamicResource ResourceKey=RecentlyViewedBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,257,0,0" VerticalAlignment="Top" Width="181" Background="#FF4392F1" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_RecentlyViewed_Click" RenderTransformOrigin="0.5,0.5">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                </Button>
-                <Button x:Name="Btn_CookedToday" Content="Cooked Today" HorizontalAlignment="Left" Height="53" Margin="62,294,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedToday_Click" Visibility="Hidden"/>
-                <Grid x:Name="P_SavedRecipesSearch" HorizontalAlignment="Left" Height="433" Margin="297,65,0,0" VerticalAlignment="Top" Width="307" >
-                    <ListBox x:Name="lb_SavedRecipesList" HorizontalAlignment="Left" Height="364" VerticalAlignment="Top" Width="285" Margin="11,59,0,0" FontSize="20" Foreground="#FF5E6973" BorderBrush="#FF5E6973" FontFamily="Roboto Black"/>
-                    <TextBox x:Name="tb_SearchSavedRecipes" HorizontalAlignment="Left" Height="32" Margin="11,19,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="285" TextAlignment="Center" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" SelectionBrush="#B2FE5F55" LostFocus="SavedRecipeSearchLostFocus" GotFocus="SearchSavedRecipesFocused" TextChanged="SearchSavedRecipesTextChanged" BorderBrush="#FF5E6973"/>
-
-                </Grid>
-                <Button x:Name="Btn_SavedRecipes" Content="{DynamicResource ResourceKey=SavedBTN}" HorizontalAlignment="Left" Height="53" Margin="-208,360,0,0" VerticalAlignment="Top" Width="181" Background="#FF4392F1" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontSize="22" FontFamily="Roboto Black" Click="Btn_SavedRecipes_Click" RenderTransformOrigin="0.5,0.5">
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                </Button>
-                <Grid x:Name="P_RecenltlyViewedRecipes" HorizontalAlignment="Left" Height="420" Margin="297,85,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden">
-                    <Ellipse x:Name="Img_RecentlyViewed_1" Height="118" VerticalAlignment="Top" Margin="10,7,179,0" Stroke="#FF5E6973"/>
-                    <Ellipse x:Name="Img_RecentlyViewed_2" Height="118" VerticalAlignment="Top" Margin="180,10,10,0" Stroke="#FF5E6973"/>
-                    <Ellipse x:Name="Img_RecentlyViewed_4" Height="118" VerticalAlignment="Top" Margin="180,152,10,0" Stroke="#FF5E6973"/>
-                    <Ellipse x:Name="Img_RecentlyViewed_3" Height="118" VerticalAlignment="Top" Margin="10,152,179,0" Stroke="#FF5E6973"/>
-                    <Ellipse x:Name="Img_RecentlyViewed_5" Height="118" VerticalAlignment="Top" Margin="10,285,179,0" Stroke="#FF5E6973"/>
-                    <Ellipse x:Name="Img_RecentlyViewed_6" Height="118" VerticalAlignment="Top" Margin="180,285,10,0" Stroke="#FF5E6973"/>
-                </Grid>
-                <Grid x:Name="P_CookedTodayRecipes" HorizontalAlignment="Left" Height="409" Margin="306,70,0,0" VerticalAlignment="Top" Width="307" Background="#19FFFFFF" Visibility="Hidden">
-                    <Ellipse Fill="#FFF4F4F5" Height="163" VerticalAlignment="Top" Margin="69,40,76,0"/>
-                    <TextBlock x:Name="tB_CookedTodayRecipeName" Height="60" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="0,235,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
-                    <Button Content="Revisit recipe" HorizontalAlignment="Left" Height="50" Margin="57,314,0,0" VerticalAlignment="Top" Width="191" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="White" FontFamily="Roboto Black" FontSize="24"/>
-                </Grid>
-                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="298,74,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden">
-                    <TextBox x:Name="tb_SearchCookedRecipes" Height="32" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,12,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7FFE5F55" BorderBrush="#FF5E6973" Foreground="#FF5E6973" TextAlignment="Center" FontSize="22" TextChanged="CookedRecipesTextChanged" GotFocus="SearchCookedRecipesFocused" LostFocus="SearchCookedRecipesLostFocus" Width="285"/>
-                    <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="364" Margin="10,50,0,0" VerticalAlignment="Top" Width="285" FontSize="20" FontFamily="Roboto Black" BorderBrush="#FF5E6973" Foreground="#FF5E6973"/>
-                </Grid>
-                <Rectangle x:Name="Btn_CloseSavedRecipePanel" HorizontalAlignment="Left" Height="45" Margin="865,10,0,0" VerticalAlignment="Top" Width="49" Opacity="0.5">
-                    <Rectangle.Fill>
-                        <ImageBrush ImageSource="ic_navigate_before_black_48dp_2x.png"/>
-                    </Rectangle.Fill>
-                </Rectangle>
-                <TextBlock x:Name="Warning_Label" HorizontalAlignment="Left" Height="61" Margin="627,444,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="267" FontFamily="Roboto Black" FontSize="14" Foreground="#FFF24333" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_SavedRecipesPanelTitle_Copy" Height="42" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=StatsTB}" VerticalAlignment="Top" Margin="632,60,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="t_TotalCalories" Height="63" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=TotalCaloriesTB}" VerticalAlignment="Top" Margin="632,130,142,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="t_AverageDailyCalories" Height="63" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=AverageDailyCaloriesTB}" VerticalAlignment="Top" Margin="632,205,147,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="t_RecipesCooked" Height="42" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=RecipesCookedTB}" VerticalAlignment="Top" Margin="636,358,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="t_TotalRecipesSeen" Height="42" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=RecipesSeenTB}" VerticalAlignment="Top" Margin="636,411,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="t_AverageMonthlyCalories" Height="73" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=AverageMonthlyCaloriesTB}" VerticalAlignment="Top" Margin="627,274,138,0" FontFamily="Roboto Medium" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_TotalCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="762,133,12,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_AverageDailyCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="762,205,12,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_AverageMontlyCalories" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="765,274,0,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_TotalRecipesCooked" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="771,358,3,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="tB_TotalRecipeSeen" Height="42" TextWrapping="Wrap" VerticalAlignment="Top" Margin="771,411,3,0" FontFamily="Roboto Light" FontSize="18" Foreground="#FF5E6973" TextAlignment="Center"/>
             </Grid>
             <Button 
                 x:Name="Btn_OpenLanguageSettings" 

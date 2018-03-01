@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_5D9F9BFBD7144142B58E12FFD54E0C17"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_646DF6049B04D98106C0D921603DFF6D"
         "OwnerKey" = "8:_AAD0C2BBCC729E1F856B0D0620F236D6"
         "MsmSig" = "8:_UNDEFINED"
@@ -57,6 +63,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A62AB48C6B5849769156F06CE5894FCA"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_AAD0C2BBCC729E1F856B0D0620F236D6"
         "OwnerKey" = "8:_6B70BF0F55294E9CA2CB1466922B697E"
         "MsmSig" = "8:_UNDEFINED"
@@ -64,12 +76,6 @@
         "Entry"
         {
         "MsmKey" = "8:_C2FC9F0234CB43649AFF589CDB70C4F4"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D864339438A3489BA2C4196AC431DAA1"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -99,7 +105,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F79CC06AFA88439E8047386E1B3AE0B8"
+        "MsmKey" = "8:_EC5BC94326F944EA886976F4F73FA747"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -242,6 +248,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5D9F9BFBD7144142B58E12FFD54E0C17"
+            {
+            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\Munchy - Copy\\FoodData.json"
+            "TargetName" = "8:FoodData.json"
+            "Tag" = "8:"
+            "Folder" = "8:_2CF9BEA0958E468BA829A65D0137869F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_646DF6049B04D98106C0D921603DFF6D"
             {
             "AssemblyRegister" = "3:1"
@@ -333,6 +359,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A62AB48C6B5849769156F06CE5894FCA"
+            {
+            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\Munchy - Copy\\Recipes.json"
+            "TargetName" = "8:Recipes.json"
+            "Tag" = "8:"
+            "Folder" = "8:_2CF9BEA0958E468BA829A65D0137869F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AAD0C2BBCC729E1F856B0D0620F236D6"
             {
             "AssemblyRegister" = "3:1"
@@ -370,26 +416,6 @@
             "TargetName" = "8:coleslaw.jpg"
             "Tag" = "8:"
             "Folder" = "8:_01F92EE95A804B04BD83BD537DFB2DEE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D864339438A3489BA2C4196AC431DAA1"
-            {
-            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\Munchy\\Recipes.json"
-            "TargetName" = "8:Recipes.json"
-            "Tag" = "8:"
-            "Folder" = "8:_2CF9BEA0958E468BA829A65D0137869F"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -495,12 +521,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F79CC06AFA88439E8047386E1B3AE0B8"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EC5BC94326F944EA886976F4F73FA747"
             {
-            "SourcePath" = "8:C:\\Users\\Nikola\\AppData\\Roaming\\Munchy - Copy\\FoodData.json"
-            "TargetName" = "8:FoodData.json"
+            "SourcePath" = "8:..\\..\\..\\..\\Icons\\munchyiconv2.ico"
+            "TargetName" = "8:munchyiconv2.ico"
             "Tag" = "8:"
-            "Folder" = "8:_2CF9BEA0958E468BA829A65D0137869F"
+            "Folder" = "8:_A8E229E5D8FF4335968EF62A0D6EC354"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -736,7 +762,7 @@
             "Target" = "8:_6B70BF0F55294E9CA2CB1466922B697E"
             "Folder" = "8:_C8172C81EE0E494385BF578245B23D60"
             "WorkingFolder" = "8:_A8E229E5D8FF4335968EF62A0D6EC354"
-            "Icon" = "8:_E2A818439DC84F5EB6B7214452C44B84"
+            "Icon" = "8:_EC5BC94326F944EA886976F4F73FA747"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9E2FC9973A2544D7AFBD48097C5FF924"
@@ -750,7 +776,7 @@
             "Target" = "8:_6B70BF0F55294E9CA2CB1466922B697E"
             "Folder" = "8:_5174C4F7B72348DFB60ABD15071C4082"
             "WorkingFolder" = "8:_A8E229E5D8FF4335968EF62A0D6EC354"
-            "Icon" = "8:_E2A818439DC84F5EB6B7214452C44B84"
+            "Icon" = "8:_EC5BC94326F944EA886976F4F73FA747"
             "Feature" = "8:"
             }
         }

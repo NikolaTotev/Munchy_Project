@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>munchyicon_0gG_icon.ico</ApplicationIcon>
+    <ApplicationIcon>munchyiconv2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="TranslatorCore.cs" />
+    <Resource Include="munchyiconv2.ico" />
     <Resource Include="Images\ic_arrow_back_white_48dp_2x.png" />
     <Resource Include="Images\ic_settings_applications_black_48dp_2x.png" />
     <Resource Include="munchyicon_0gG_icon.ico" />

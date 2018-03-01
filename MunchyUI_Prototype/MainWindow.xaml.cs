@@ -385,7 +385,7 @@ namespace MunchyUI
         //Shows the full recipe view of the recenly viewed recipe the user clicked on.
         private void ShowRecentlyViewedRecipe(object sender, MouseButtonEventArgs e)
         {
-            string recipeName = (string)((Ellipse)sender).ToolTip.ToString();
+            string recipeName = (string)((Ellipse)sender).ToolTip.ToString().ToLower();
             m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
             AddInformationToFullRecipeView();
             SetupFullRecipeViewImg();
@@ -395,7 +395,7 @@ namespace MunchyUI
         #region Handling searching.
         //Handles searching in the SavedRecipe list.
         private void SavedRecipesSearch()
-        {
+        {            
             if (!string.IsNullOrWhiteSpace(tb_SearchSavedRecipes.Text))
             {
                 if (tb_SearchSavedRecipes.Text != TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
@@ -1338,6 +1338,16 @@ namespace MunchyUI
             }
         }
         #endregion
-     
+
+        private void SavedRecipesItemClicked(object sender, SelectionChangedEventArgs e)
+        {
+            if(lb_SavedRecipesList.SelectedItem != null)
+            {
+                string recipeName = lb_SavedRecipesList.SelectedItem.ToString().ToLower();
+                m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
+                AddInformationToFullRecipeView();
+                SetupFullRecipeViewImg();
+            }            
+        }
     }
 }

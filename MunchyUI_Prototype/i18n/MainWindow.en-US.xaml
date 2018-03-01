@@ -81,6 +81,7 @@
     <sys:String x:Key="AverageMonthlyCaloriesTB">Average Monthly Calories</sys:String>
     <sys:String x:Key="RecipesCookedTB">Recipes Cooked</sys:String>
     <sys:String x:Key="RecipesSeenTB">Recipes Seen</sys:String>
+    <sys:String x:Key="DoubleClickOnRecipePrompt">Double click to open recipe.</sys:String>
 
     <sys:String x:Key="IngredientListIngredients">Ingredients</sys:String>
     <sys:String x:Key="IngredientListAmounts">Amounts</sys:String>
