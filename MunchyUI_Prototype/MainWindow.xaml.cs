@@ -385,17 +385,80 @@ namespace MunchyUI
         //Shows the full recipe view of the recenly viewed recipe the user clicked on.
         private void ShowRecentlyViewedRecipe(object sender, MouseButtonEventArgs e)
         {
-            string recipeName = (string)((Ellipse)sender).ToolTip.ToString().ToLower();
-            m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
-            AddInformationToFullRecipeView();
-            SetupFullRecipeViewImg();
+            switch (m_ActiveLanguage)
+            {
+                case Languages.English:
+                    string recipeName = (string)((Ellipse)sender).ToolTip.ToString().ToLower();
+                    m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
+                    AddInformationToFullRecipeView();
+                    SetupFullRecipeViewImg();
+                    break;
+                case Languages.Bulgarian:
+                    string rName = (string)((Ellipse)sender).ToolTip.ToString().ToLower();
+                    string USRecipeName = m_CurrentManager.UserRecipeSaves.USRecentlyViewed[GetRecentlyViewedList().IndexOf(rName)];
+                    m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[USRecipeName.ToLower()];
+                    AddInformationToFullRecipeView();
+                    SetupFullRecipeViewImg();
+
+                    break;
+            }
+        }
+
+        //Handles opening the recipe the user clicked on from saved recipes.
+        private void SavedRecipesItemClicked(object sender, SelectionChangedEventArgs e)
+        {
+            m_SuggestedRecipe = new RecipeDef();
+            if (lb_SavedRecipesList.SelectedItem != null)
+            {
+                switch (m_ActiveLanguage)
+                {
+                    case Languages.English:
+                        string recipeName = lb_SavedRecipesList.SelectedItem.ToString().ToLower();
+                        m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
+                        AddInformationToFullRecipeView();
+                        SetupFullRecipeViewImg();
+                        break;
+                    case Languages.Bulgarian:
+                        string rName = lb_SavedRecipesList.SelectedItem.ToString().ToLower();
+                        string USRecipeName = m_CurrentManager.UserRecipeSaves.USSavedRecipes[GetSavedRecipesList().IndexOf(rName)];
+                        m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[USRecipeName.ToLower()];
+                        AddInformationToFullRecipeView();
+                        SetupFullRecipeViewImg();
+                        break;
+                }
+            }
+        }
+
+        //Handles opening the recipe the user clicked on from cooked recipes.
+        private void CookedRecipeClicked(object sender, SelectionChangedEventArgs e)
+        {
+            m_SuggestedRecipe = new RecipeDef();
+            if (lb_ListOfCookedRecipes.SelectedItem != null)
+            {
+                switch (m_ActiveLanguage)
+                {
+                    case Languages.English:
+                        string recipeName = lb_ListOfCookedRecipes.SelectedItem.ToString().ToLower();
+                        m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
+                        AddInformationToFullRecipeView();
+                        SetupFullRecipeViewImg();
+                        break;
+                    case Languages.Bulgarian:
+                        string rName = lb_ListOfCookedRecipes.SelectedItem.ToString().ToLower();
+                        string USRecipeName = m_CurrentManager.UserRecipeSaves.USCookedRecipes[GetCookedRecipeList().IndexOf(rName)];
+                        m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[USRecipeName.ToLower()];
+                        AddInformationToFullRecipeView();
+                        SetupFullRecipeViewImg();
+                        break;
+                }
+            }
         }
         #endregion
 
         #region Handling searching.
         //Handles searching in the SavedRecipe list.
         private void SavedRecipesSearch()
-        {            
+        {
             if (!string.IsNullOrWhiteSpace(tb_SearchSavedRecipes.Text))
             {
                 if (tb_SearchSavedRecipes.Text != TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
@@ -1191,17 +1254,30 @@ namespace MunchyUI
             if (LocaleCode == "bg-BG")
             {
                 m_ActiveLanguage = Languages.Bulgarian;
-                tB_RecipeName.Text = m_SuggestedRecipe.BGName;
+                tB_RecipeName.Text = m_SuggestedRecipe.BGName.First().ToString().ToUpper() + m_SuggestedRecipe.BGName.Substring(1);
             }
 
             if (LocaleCode == "en-US")
             {
                 m_ActiveLanguage = Languages.English;
-                tB_RecipeName.Text = m_SuggestedRecipe.USName;
+                tB_RecipeName.Text = m_SuggestedRecipe.USName.First().ToString().ToUpper() + m_SuggestedRecipe.USName.Substring(1);
             }
 
             AddInformationToFullRecipeView();
+            SetRecentlyViewedImages();
             RefreshFridge();
+            ConfigureSavedRecipesPanel();
+            lb_SavedRecipesList.Items.Clear();
+            lb_ListOfCookedRecipes.Items.Clear();
+            foreach (string element in GetSavedRecipesList())
+            {
+                lb_SavedRecipesList.Items.Add(element.First().ToString().ToUpper() + element.Substring(1));
+            }
+
+            foreach (string element in GetCookedRecipeList())
+            {
+                lb_ListOfCookedRecipes.Items.Add(element.First().ToString().ToUpper() + element.Substring(1));
+            }
         }
 
         //Gets appropriate Saved recipe list.
@@ -1338,16 +1414,5 @@ namespace MunchyUI
             }
         }
         #endregion
-
-        private void SavedRecipesItemClicked(object sender, SelectionChangedEventArgs e)
-        {
-            if(lb_SavedRecipesList.SelectedItem != null)
-            {
-                string recipeName = lb_SavedRecipesList.SelectedItem.ToString().ToLower();
-                m_SuggestedRecipe = m_CurrentManager.RecipieManag.Recipies[recipeName];
-                AddInformationToFullRecipeView();
-                SetupFullRecipeViewImg();
-            }            
-        }
     }
 }

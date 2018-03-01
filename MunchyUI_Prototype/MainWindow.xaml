@@ -746,6 +746,9 @@
         <EventTrigger RoutedEvent="UIElement.MouseLeave" SourceName="tB_UserName">
             <BeginStoryboard x:Name="CloseSettingsHighlight_BeginStoryboard2" Storyboard="{StaticResource CloseSettingsHighlight}"/>
         </EventTrigger>
+        <EventTrigger RoutedEvent="Control.MouseDoubleClick" SourceName="lb_ListOfCookedRecipes">
+            <BeginStoryboard x:Name="ShowFullRecipeView_BeginStoryboard8" Storyboard="{StaticResource ShowFullRecipeView}"/>
+        </EventTrigger>
         <EventTrigger RoutedEvent="Control.MouseDoubleClick" SourceName="lb_SavedRecipesList">
             <BeginStoryboard x:Name="ShowFullRecipeView_BeginStoryboard7" Storyboard="{StaticResource ShowFullRecipeView}"/>
         </EventTrigger>
@@ -918,7 +921,7 @@
                     </Button.RenderTransform>
                 </Button>
                 <Button x:Name="Btn_CookedToday" Content="Cooked Today" HorizontalAlignment="Left" Height="53" Margin="62,294,0,0" VerticalAlignment="Top" Width="181" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="#FFFCFFFC" FontSize="22" FontFamily="Roboto Black" Click="Btn_CookedToday_Click" Visibility="Hidden"/>
-                <Grid x:Name="P_SavedRecipesSearch" HorizontalAlignment="Left" Height="433" Margin="297,65,0,0" VerticalAlignment="Top" Width="307" >
+                <Grid x:Name="P_SavedRecipesSearch" HorizontalAlignment="Left" Height="433" Margin="297,65,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden" >
                     <ListBox x:Name="lb_SavedRecipesList" HorizontalAlignment="Left" Height="364" VerticalAlignment="Top" Width="285" Margin="11,59,0,0" FontSize="20" Foreground="#FF5E6973" BorderBrush="#FF5E6973" FontFamily="Roboto Black" SelectionChanged="SavedRecipesItemClicked"/>
                     <TextBox x:Name="tb_SearchSavedRecipes" HorizontalAlignment="Left" Height="32" Margin="11,19,0,0" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Width="285" TextAlignment="Center" FontFamily="Roboto Black" FontSize="22" Foreground="#FF5E6973" SelectionBrush="#844392F1" LostFocus="SavedRecipeSearchLostFocus" GotFocus="SearchSavedRecipesFocused" TextChanged="SearchSavedRecipesTextChanged" BorderBrush="#FF5E6973"/>
 
@@ -946,9 +949,9 @@
                     <TextBlock x:Name="tB_CookedTodayRecipeName" Height="60" TextWrapping="Wrap" Text="Recipe Name" VerticalAlignment="Top" Margin="0,235,0,0" FontFamily="Shrikhand" FontSize="36" Foreground="#FFFCFFFC" TextAlignment="Center"/>
                     <Button Content="Revisit recipe" HorizontalAlignment="Left" Height="50" Margin="57,314,0,0" VerticalAlignment="Top" Width="191" Background="#FFFE5F55" BorderBrush="{x:Null}" Foreground="White" FontFamily="Roboto Black" FontSize="24"/>
                 </Grid>
-                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="298,74,0,0" VerticalAlignment="Top" Width="307" Visibility="Hidden">
+                <Grid x:Name="P_CookedRecipes" HorizontalAlignment="Left" Height="420" Margin="298,74,0,0" VerticalAlignment="Top" Width="307" Visibility="Visible">
                     <TextBox x:Name="tb_SearchCookedRecipes" Height="32" TextWrapping="Wrap" Text="Search" VerticalAlignment="Top" Margin="10,10,12,0" FontFamily="Roboto Black" Background="White" SelectionBrush="#7F4392F1" BorderBrush="#FF5E6973" Foreground="#FF5E6973" TextAlignment="Center" FontSize="22" TextChanged="CookedRecipesTextChanged" GotFocus="SearchCookedRecipesFocused" LostFocus="SearchCookedRecipesLostFocus" Width="285"/>
-                    <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="364" Margin="10,50,0,0" VerticalAlignment="Top" Width="285" FontSize="20" FontFamily="Roboto Black" BorderBrush="#FF5E6973" Foreground="#FF5E6973"/>
+                    <ListBox x:Name="lb_ListOfCookedRecipes" HorizontalAlignment="Left" Height="364" Margin="10,50,0,0" VerticalAlignment="Top" Width="285" FontSize="20" FontFamily="Roboto Black" BorderBrush="#FF5E6973" Foreground="#FF5E6973" SelectionChanged="CookedRecipeClicked"/>
                 </Grid>
                 <Rectangle x:Name="Btn_CloseSavedRecipePanel" HorizontalAlignment="Left" Height="45" Margin="865,10,0,0" VerticalAlignment="Top" Width="49" Opacity="0.5">
                     <Rectangle.Fill>
