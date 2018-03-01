@@ -68,25 +68,27 @@ namespace Nikola.Munchy.MunchyAPI
         /// </summary>
         /// <param name="foods"></param>
         /// <returns></returns>
-        public bool FridgeConatains(string[] foods, float[] amounts)
+        public bool FridgeConatains(List<string> FoodItemsToChange, List<float> AmountsToChange, List<string> Units, FoodManager foodManager)
         {
-
-            for (int i = 0; i < foods.Length; i++)
+            for (int i = 0; i < FoodItemsToChange.Count; i++)
             {
-                // First the function checks if the dictonary contains the item.
-                if (!USUsersFoods.ContainsKey(foods[i]))
+                float AmountToRemove = UnitConverter.GetAmountToRemove(FoodItemsToChange[i], AmountsToChange[i], Units[i], foodManager);
+
+                if (USUsersFoods.ContainsKey(FoodItemsToChange[i]))
+                {
+                    foreach (KeyValuePair<string, FoodDef> element in USUsersFoods)
+                    {
+                        if (element.Value.USName == FoodItemsToChange[i] && element.Value.Amount - AmountToRemove < 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
                 {
                     return false;
                 }
-
-                // Then it gets the "FoodItem" that corresponds to the tag that was just checked.
-                USUsersFoods.TryGetValue(foods[i], out FoodDef FoodItem);
-
-                // From the FoodItem it checks if there is the proper amount.
-                if (FoodItem.Amount < amounts[i])
-                {
-                    return false;
-                }
+                
             }
 
             // Only if both requirements are met does the function return true.

@@ -132,7 +132,7 @@ namespace MunchyUI
             //enter his information. The information is used to suggest recipes.
             if (!File.Exists(m_UserFile))
             {
-                MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");
+                MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");                
             }
 
             //Intitially sets the default language.
@@ -353,16 +353,27 @@ namespace MunchyUI
         //Handles adding the suggested to the CookedRecipes list. A recipe is added only when the user pressed the "I'll Cook It" Button.
         private void AddToCookedRecipes()
         {
-            RecipeSaver saver = m_CurrentManager.UserRecipeSaves;
-            AddToList(saver.USCookedRecipes, m_SuggestedRecipe.USName);
-            AddToList(saver.BGCookedRecipes, m_SuggestedRecipe.BGName);
+            if(m_CurrentManager.UsersFridge.FridgeConatains(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag))
+            {
+                RecipeSaver saver = m_CurrentManager.UserRecipeSaves;
+                AddToList(saver.USCookedRecipes, m_SuggestedRecipe.USName);
+                AddToList(saver.BGCookedRecipes, m_SuggestedRecipe.BGName);
 
-            m_CurrentManager.UserRecipeSaves.SaveRecipeSaver();
-            m_CurrentManager.StatManager.AddToCalorieStatistics(m_SuggestedRecipe.Calories);
-            m_DailyCalories = m_CurrentManager.StatManager.DailyCalories;
-            L_DailyCalories.Text = m_DailyCalories.ToString();
-            m_CurrentManager.UsersFridge.ModifyFoodItemAmount(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag);
-            RefreshFridge();
+                m_CurrentManager.UserRecipeSaves.SaveRecipeSaver();
+                m_CurrentManager.StatManager.AddToCalorieStatistics(m_SuggestedRecipe.Calories);
+                m_DailyCalories = m_CurrentManager.StatManager.DailyCalories;
+                L_DailyCalories.Text = m_DailyCalories.ToString();
+                m_CurrentManager.UsersFridge.ModifyFoodItemAmount(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag);
+                RefreshFridge();
+                Tb_IngrMessageTitle.Foreground = Brushes.Green;
+                Tb_IngrMessageTitle.Text = "Ingredient amounts removed!";
+            }
+            else
+            {
+                Tb_IngrMessageTitle.Foreground = Brushes.Red;
+                Tb_IngrMessageTitle.Text = "You dont have all ingredients!";
+            }
+          
         }
 
         //Handles adding the suggested recipe to saved recipes. A recipe is saved only when the user pressed the "Save" button.

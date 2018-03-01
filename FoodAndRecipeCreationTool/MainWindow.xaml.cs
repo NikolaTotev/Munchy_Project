@@ -169,7 +169,7 @@ namespace FoodAndRecipeCreationTool
                 P_FoodTool.Visibility = Visibility.Hidden;
             }
         }
-    
+
         //Handles saving the newly created FooDef
         private void Btn_SaveFoodItem_Click(object sender, RoutedEventArgs e)
         {
@@ -379,13 +379,11 @@ namespace FoodAndRecipeCreationTool
                     }
                 }
             }
-
         }
 
         //Handles adding ingredients, amounts and units to the corresponding lists.
         private void Btn_AddIngredient_Click(object sender, RoutedEventArgs e)
         {
-
             bool UnitSelected = false;
 
             foreach (RadioButton element in Units)
@@ -399,7 +397,6 @@ namespace FoodAndRecipeCreationTool
                 {
                     UnitSelected = false;
                 }
-
             }
 
             if (!string.IsNullOrWhiteSpace(US_IngredientInput.Text) && !string.IsNullOrWhiteSpace(BG_IngredientInput.Text) && !string.IsNullOrWhiteSpace(TB_AmountInput.Text) && UnitSelected == true)
@@ -431,7 +428,7 @@ namespace FoodAndRecipeCreationTool
             }
 
         }
-       
+
         //Functions called when textbox test is changed.
         private void USIngrTextChanged(object sender, TextChangedEventArgs e)
         {
@@ -450,7 +447,6 @@ namespace FoodAndRecipeCreationTool
 
                 foreach (KeyValuePair<string, FoodDef> element in FoodList)
                 {
-
                     if (element.Key.StartsWith(ToLower) && !Lb_SuggestFoodsToAdd.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
                     {
                         Lb_SuggestFoodsToAdd.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
