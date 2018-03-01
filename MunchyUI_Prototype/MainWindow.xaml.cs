@@ -407,7 +407,6 @@ namespace MunchyUI
         //Handles opening the recipe the user clicked on from saved recipes.
         private void SavedRecipesItemClicked(object sender, SelectionChangedEventArgs e)
         {
-            m_SuggestedRecipe = new RecipeDef();
             if (lb_SavedRecipesList.SelectedItem != null)
             {
                 switch (m_ActiveLanguage)
@@ -432,7 +431,6 @@ namespace MunchyUI
         //Handles opening the recipe the user clicked on from cooked recipes.
         private void CookedRecipeClicked(object sender, SelectionChangedEventArgs e)
         {
-            m_SuggestedRecipe = new RecipeDef();
             if (lb_ListOfCookedRecipes.SelectedItem != null)
             {
                 switch (m_ActiveLanguage)
