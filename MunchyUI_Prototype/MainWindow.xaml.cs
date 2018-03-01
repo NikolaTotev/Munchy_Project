@@ -1286,7 +1286,6 @@ namespace MunchyUI
             switch (m_ActiveLanguage)
             {
                 case Languages.English:
-
                     {
                         return m_CurrentManager.UserRecipeSaves.USSavedRecipes;
                     }
@@ -1294,7 +1293,6 @@ namespace MunchyUI
                     {
                         return m_CurrentManager.UserRecipeSaves.BGSavedRecipes;
                     }
-
                 default:
                     {
                         return new List<string>();
@@ -1376,7 +1374,6 @@ namespace MunchyUI
             switch (m_ActiveLanguage)
             {
                 case Languages.English:
-
                     {
                         return m_CurrentManager.UserRecipeSaves.USCookedRecipes;
                     }
