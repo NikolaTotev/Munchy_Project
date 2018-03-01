@@ -6,15 +6,15 @@
     
     <!--Front Page-->
     <sys:String x:Key="ResourceDictionaryName">Loc-en-US</sys:String>
-    <sys:String x:Key="FavouriteRecipesTextBlock">RecentlySeen</sys:String>
+    <sys:String x:Key="FavouriteRecipesTextBlock">Recently seen</sys:String>
     <sys:String x:Key="FridgeTextBlock">Fridge</sys:String>
     <sys:String x:Key="CaloriesTextBlock">Calories</sys:String>
-    <sys:String x:Key="SuggestRecipeButton">Find Recipe</sys:String>
+    <sys:String x:Key="SuggestRecipeButton">Find recipe</sys:String>
     <sys:String x:Key="DiscoverRecipesButton">Discover</sys:String>
-    <sys:String x:Key="SeeAllFavouriteRecipesButton">See All</sys:String>
-    <sys:String x:Key="ShowRecipeButton">Show Recipe</sys:String>
-    <sys:String x:Key="ShowFridgeButton">Show Fridge</sys:String>
-    <sys:String x:Key="DietBalanceTextBlock">Diet Balance</sys:String>
+    <sys:String x:Key="SeeAllFavouriteRecipesButton">See all</sys:String>
+    <sys:String x:Key="ShowRecipeButton">Show becipe</sys:String>
+    <sys:String x:Key="ShowFridgeButton">Show fridge</sys:String>
+    <sys:String x:Key="DietBalanceTextBlock">Diet balance</sys:String>
     <sys:String x:Key="PreviousRecipeBTN">Previous recipe</sys:String>
     <sys:String x:Key="NextRecipeBTN">Next recipe</sys:String>
 
@@ -22,15 +22,15 @@
     <sys:String x:Key="SettingsTextBlock">Settings</sys:String>
     <sys:String x:Key="SexTextBlock">Sex</sys:String>
     <sys:String x:Key="LanguagePrefTextBlock">Language</sys:String>
-    <sys:String x:Key="FoodPrefTextBlock">Food Preferences</sys:String>
-    <sys:String x:Key="HealthIssuesTextBlock">Health Issues</sys:String>
+    <sys:String x:Key="FoodPrefTextBlock">Food preferences</sys:String>
+    <sys:String x:Key="HealthIssuesTextBlock">Health issues</sys:String>
     <sys:String x:Key="AllergiesTextBlock">Allergies</sys:String>
     <sys:String x:Key="UserNameTextBlock">Name</sys:String>
     <sys:String x:Key="AgeTextBlock">Age</sys:String>
     <sys:String x:Key="WeightTextBlock">Weight</sys:String>
-    <sys:String x:Key="VegetarianCB">I'm Vegetarian</sys:String>
-    <sys:String x:Key="VeganCB">I'm Vegan</sys:String>
-    <sys:String x:Key="DiabeticCB">I'm Diabetic</sys:String>
+    <sys:String x:Key="VegetarianCB">I'm vegetarian</sys:String>
+    <sys:String x:Key="VeganCB">I'm vegan</sys:String>
+    <sys:String x:Key="DiabeticCB">I'm diabetic</sys:String>
     <sys:String x:Key="NutsCB">Nuts</sys:String>
     <sys:String x:Key="SoyCB">Soy</sys:String>
     <sys:String x:Key="GlutenCB">Gluten</sys:String>
@@ -40,19 +40,18 @@
     <sys:String x:Key="SaveSettingsButton">Save</sys:String>
     <sys:String x:Key="MaleRB">Male</sys:String>
     <sys:String x:Key="FemaleRB">Female</sys:String>
-    <sys:String x:Key="OtherCB">Other</sys:String>
     <sys:String x:Key="ENCB">English</sys:String>
     <sys:String x:Key="BGCB">Български</sys:String>
-    <sys:String x:Key="SettingsSavedPopup">Settings Saved!</sys:String>
+    <sys:String x:Key="SettingsSavedPopup">Settings saved!</sys:String>
 
 
     <!--Full Recipe View Panel-->
     <sys:String x:Key="TimeToCookTextBlock">Time to cook</sys:String>
     <sys:String x:Key="IngredientsTextBlock">Ingredients</sys:String>
     <sys:String x:Key="DirectionsTextBlock">Directions</sys:String>
-    <sys:String x:Key="CookItButton">I'll Cook It!</sys:String>
+    <sys:String x:Key="CookItButton">I'll cook it!</sys:String>
     <sys:String x:Key="SaveRecipeButton">Save</sys:String>
-    <sys:String x:Key="AddedToSavedRecipesPopup">Recipe Saved!</sys:String>
+    <sys:String x:Key="AddedToSavedRecipesPopup">Recipe saved!</sys:String>
     <sys:String x:Key="AddedToCookedRecipesPopup">Enjoy!</sys:String>
 
 
@@ -73,14 +72,14 @@
 
     <!--Saved Recipes Panel-->
     <sys:String x:Key="CookedRecipeBTN">CookedRecipes</sys:String>
-    <sys:String x:Key="RecentlyViewedBTN">Recently Viewed</sys:String>
-    <sys:String x:Key="SavedBTN">Saved Recipes</sys:String>
+    <sys:String x:Key="RecentlyViewedBTN">Recently viewed</sys:String>
+    <sys:String x:Key="SavedBTN">Saved recipes</sys:String>
     <sys:String x:Key="StatsTB">Statistics</sys:String>
-    <sys:String x:Key="TotalCaloriesTB">Total Calories Consumed</sys:String>
-    <sys:String x:Key="AverageDailyCaloriesTB">Average Daily Calories</sys:String>
-    <sys:String x:Key="AverageMonthlyCaloriesTB">Average Monthly Calories</sys:String>
-    <sys:String x:Key="RecipesCookedTB">Recipes Cooked</sys:String>
-    <sys:String x:Key="RecipesSeenTB">Recipes Seen</sys:String>
+    <sys:String x:Key="TotalCaloriesTB">Total calories consumed</sys:String>
+    <sys:String x:Key="AverageDailyCaloriesTB">Average daily calories</sys:String>
+    <sys:String x:Key="AverageMonthlyCaloriesTB">Average monthly calories</sys:String>
+    <sys:String x:Key="RecipesCookedTB">Recipes cooked</sys:String>
+    <sys:String x:Key="RecipesSeenTB">Recipes seen</sys:String>
     <sys:String x:Key="DoubleClickOnRecipePrompt">Double click to open recipe.</sys:String>
 
     <sys:String x:Key="IngredientListIngredients">Ingredients</sys:String>

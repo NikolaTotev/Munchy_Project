@@ -949,9 +949,6 @@ namespace MunchyUI
 
             if (m_CurrentManager.User.Sex == "female")
                 rb_Female.IsChecked = true;
-
-            if (m_CurrentManager.User.Sex == "other")
-                rb_Other.IsChecked = true;
         }
 
         //Handles saving the user settings. All values on the settings panel are set to the corresponding properties of the User class in the CurrentManager.
@@ -974,10 +971,7 @@ namespace MunchyUI
                 m_CurrentManager.User.Sex = "male";
 
             if (rb_Female.IsChecked == true)
-                m_CurrentManager.User.Sex = "female";
-
-            if (rb_Other.IsChecked == true)
-                m_CurrentManager.User.Sex = "other";
+                m_CurrentManager.User.Sex = "female";          
 
             if (CB_English.IsChecked == true)
                 m_CurrentManager.User.LanguagePref = "US";

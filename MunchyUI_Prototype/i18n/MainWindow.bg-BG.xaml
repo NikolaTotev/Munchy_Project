@@ -9,12 +9,12 @@
     <sys:String x:Key="FavouriteRecipesTextBlock">Скоро видяни</sys:String>
     <sys:String x:Key="FridgeTextBlock">Хладилник</sys:String>
     <sys:String x:Key="CaloriesTextBlock">Калории</sys:String>
-    <sys:String x:Key="SuggestRecipeButton">Намери Рецепта</sys:String>
+    <sys:String x:Key="SuggestRecipeButton">Намери рецепта</sys:String>
     <sys:String x:Key="DiscoverRecipesButton">Открии</sys:String>
     <sys:String x:Key="SeeAllFavouriteRecipesButton">Виж всички</sys:String>
-    <sys:String x:Key="ShowRecipeButton">Покажи Рецепта</sys:String>
-    <sys:String x:Key="ShowFridgeButton">Отвори Хладилник</sys:String>
-    <sys:String x:Key="DietBalanceTextBlock">Диетичен Баланс</sys:String>
+    <sys:String x:Key="ShowRecipeButton">Покажи рецепта</sys:String>
+    <sys:String x:Key="ShowFridgeButton">Отвори хладилник</sys:String>
+    <sys:String x:Key="DietBalanceTextBlock">Диетичен баланс</sys:String>
     <sys:String x:Key="PreviousRecipeBTN">Предишна рецепта</sys:String>
     <sys:String x:Key="NextRecipeBTN">Следваща рецепта</sys:String>
 
@@ -23,7 +23,7 @@
     <sys:String x:Key="SexTextBlock">Пол</sys:String>
     <sys:String x:Key="LanguagePrefTextBlock">Език</sys:String>
     <sys:String x:Key="FoodPrefTextBlock">Предпочитания</sys:String>
-    <sys:String x:Key="HealthIssuesTextBlock">Здравословни Проблеми</sys:String>
+    <sys:String x:Key="HealthIssuesTextBlock">Здравословни проблеми</sys:String>
     <sys:String x:Key="AllergiesTextBlock">Алергии</sys:String>
     <sys:String x:Key="UserNameTextBlock">Име</sys:String>
     <sys:String x:Key="AgeTextBlock">Възраст</sys:String>
@@ -40,7 +40,6 @@
     <sys:String x:Key="SaveSettingsButton">Запази</sys:String>
     <sys:String x:Key="MaleRB">Мъж</sys:String>
     <sys:String x:Key="FemaleRB">Жена</sys:String>
-    <sys:String x:Key="OtherCB">Друг</sys:String>
     <sys:String x:Key="ENCB">English</sys:String>
     <sys:String x:Key="BGCB">Български</sys:String>
     <sys:String x:Key="SettingsSavedPopup">Настройки запазени!</sys:String>
@@ -71,13 +70,13 @@
 
     <!--Saved Recipes Panel-->
     <sys:String x:Key="CookedRecipeBTN">Сготвени</sys:String>
-    <sys:String x:Key="RecentlyViewedBTN">Скоро Видяни</sys:String>
+    <sys:String x:Key="RecentlyViewedBTN">Скоро видяни</sys:String>
     <sys:String x:Key="SavedBTN">Запазени</sys:String>
     <sys:String x:Key="StatsTB">Статистики</sys:String>
     <sys:String x:Key="TotalCaloriesTB">Общо калории приети</sys:String>
-    <sys:String x:Key="AverageDailyCaloriesTB">Средни Днвени Калории</sys:String>
-    <sys:String x:Key="AverageMonthlyCaloriesTB">Средни Месечни Калории</sys:String>
-    <sys:String x:Key="RecipesCookedTB">Сготвени Рецепти</sys:String>
+    <sys:String x:Key="AverageDailyCaloriesTB">Средни днвени калории</sys:String>
+    <sys:String x:Key="AverageMonthlyCaloriesTB">Средни месечни калории</sys:String>
+    <sys:String x:Key="RecipesCookedTB">Сготвени рецепти</sys:String>
     <sys:String x:Key="RecipesSeenTB">Видяни рецепти</sys:String>
     <sys:String x:Key="DoubleClickOnRecipePrompt">Кликнете два пъти за да отворите рецептата.</sys:String>
 
