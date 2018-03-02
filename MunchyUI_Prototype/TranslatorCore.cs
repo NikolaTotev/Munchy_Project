@@ -21,7 +21,6 @@ namespace MunchyUI
                 default:
                     return "Lang Err";
             }
-
         }
 
         public static string GetNoDataLabel(Languages activeLang)
@@ -37,7 +36,6 @@ namespace MunchyUI
                 default:
                     return "Lang Err";
             }
-
         }
 
         public static string GetTooLateToEatMessage(Languages activeLang)
@@ -151,7 +149,7 @@ namespace MunchyUI
             switch (activeLang)
             {
                 case Languages.English:
-                    return "Cooked Recipes";
+                    return "Cooked recipes";
 
                 case Languages.Bulgarian:
                     return "Сготвени рецепти";
@@ -166,7 +164,7 @@ namespace MunchyUI
             switch (activeLang)
             {
                 case Languages.English:
-                    return "Saved Recipes";
+                    return "Saved recipes";
 
                 case Languages.Bulgarian:
                     return " Запазени рецепти";
@@ -182,10 +180,71 @@ namespace MunchyUI
             switch (activeLang)
             {
                 case Languages.English:
-                    return "Recently Seen Recipes";
+                    return "Recently seen recipes";
 
                 case Languages.Bulgarian:
                     return "Скоро видяни рецепти";
+
+                default:
+                    return "Lang Err";
+            }
+        }
+
+        public static string GetMessageTitleForAllIngrPresent(Languages activeLang)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "You have everything!";
+
+                case Languages.Bulgarian:
+                    return "Имате всички продукти!";
+
+                default:
+                    return "Lang Err";
+            }
+        }
+
+
+        public static string GetMessageContentForAllIngrPresent(Languages activeLang)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Ready to cook! Ingredient amounts have been removed from fridge.";
+
+                case Languages.Bulgarian:
+                    return "Готви сте за готвене! Количествата на продуктите премахнати от хладилника.";
+
+                default:
+                    return "Lang Err";
+            }
+        }
+
+        public static string GetMessageTitleForIngrNotPresent(Languages activeLang)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "You dont have all ingredients!";
+
+                case Languages.Bulgarian:
+                    return "Нямате всички продукти!";
+
+                default:
+                    return "Lang Err";
+            }
+        }
+
+        public static string GetMessageContentForIngrNotPresent(Languages activeLang)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return "Some ingredients are missnig, would you a list of them to be sent to your e-mail?";
+
+                case Languages.Bulgarian:
+                    return "Някои продукти липсват, искате ли списък с тях да бъде пратен на вашия имейл?";
 
                 default:
                     return "Lang Err";

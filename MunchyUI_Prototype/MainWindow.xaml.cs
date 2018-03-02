@@ -132,7 +132,9 @@ namespace MunchyUI
             //enter his information. The information is used to suggest recipes.
             if (!File.Exists(m_UserFile))
             {
-                MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");                
+                MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");
+                tB_UserName.Text = "Click me/Кликни ме";
+                Rect_UNameBackground.Stroke = Brushes.Red;                
             }
 
             //Intitially sets the default language.
@@ -366,14 +368,16 @@ namespace MunchyUI
                 m_CurrentManager.UsersFridge.ModifyFoodItemAmount(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag);
                 RefreshFridge();
                 Tb_IngrMessageTitle.Foreground = Brushes.Green;
-                Tb_IngrMessageTitle.Text = "Ingredient amounts removed!";
+                Tb_IngrMessageTitle.Text = TranslatorCore.GetMessageTitleForAllIngrPresent(m_ActiveLanguage);
+                Tb_IngrMessageContents.Text = TranslatorCore.GetMessageContentForAllIngrPresent(m_ActiveLanguage);
             }
             else
             {
                 Tb_IngrMessageTitle.Foreground = Brushes.Red;
-                Tb_IngrMessageTitle.Text = "You dont have all ingredients!";
+                Tb_IngrMessageTitle.Text = TranslatorCore.GetMessageTitleForIngrNotPresent(m_ActiveLanguage);
+                Tb_IngrMessageContents.Text = TranslatorCore.GetMessageContentForIngrNotPresent(m_ActiveLanguage);
             }
-          
+
         }
 
         //Handles adding the suggested recipe to saved recipes. A recipe is saved only when the user pressed the "Save" button.
@@ -956,10 +960,14 @@ namespace MunchyUI
             }
 
             if (m_CurrentManager.User.Sex == "male")
+            {
                 rb_Male.IsChecked = true;
-
+            }
+            
             if (m_CurrentManager.User.Sex == "female")
+            {
                 rb_Female.IsChecked = true;
+            }            
         }
 
         //Handles saving the user settings. All values on the settings panel are set to the corresponding properties of the User class in the CurrentManager.
@@ -979,13 +987,22 @@ namespace MunchyUI
             }
 
             if (rb_Male.IsChecked == true)
+            {
                 m_CurrentManager.User.Sex = "male";
-
+            }
+            
             if (rb_Female.IsChecked == true)
-                m_CurrentManager.User.Sex = "female";          
+            {
+                m_CurrentManager.User.Sex = "female";
+            }
+            
 
             if (CB_English.IsChecked == true)
+            {
+                m_ActiveLanguage = Languages.English;            
                 m_CurrentManager.User.LanguagePref = "US";
+                Localizer.SwitchLanguage(this, "en-US");
+            }
 
             if (CB_Bulgarian.IsChecked == true)
             {
@@ -1231,7 +1248,8 @@ namespace MunchyUI
         //Updates setting panel information on panel show.
         private void ShowSettings(object sender, MouseButtonEventArgs e)
         {
-            UpdateSettingPanel();
+            UpdateSettingPanel();           
+            Rect_UNameBackground.Stroke = Brushes.Transparent;
         }
 
         //Allows only english checkbox to be checked.
@@ -1280,6 +1298,23 @@ namespace MunchyUI
             foreach (string element in GetCookedRecipeList())
             {
                 lb_ListOfCookedRecipes.Items.Add(element.First().ToString().ToUpper() + element.Substring(1));
+            }
+
+            tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
+            tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
+            tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
+
+            if (m_CurrentManager.UsersFridge.FridgeConatains(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag))
+            {
+                Tb_IngrMessageTitle.Foreground = Brushes.Green;
+                Tb_IngrMessageTitle.Text = TranslatorCore.GetMessageTitleForAllIngrPresent(m_ActiveLanguage);
+                Tb_IngrMessageContents.Text = TranslatorCore.GetMessageContentForAllIngrPresent(m_ActiveLanguage);
+            }
+            else
+            {
+                Tb_IngrMessageTitle.Foreground = Brushes.Red;
+                Tb_IngrMessageTitle.Text = TranslatorCore.GetMessageTitleForIngrNotPresent(m_ActiveLanguage);
+                Tb_IngrMessageContents.Text = TranslatorCore.GetMessageContentForIngrNotPresent(m_ActiveLanguage);
             }
         }
 
