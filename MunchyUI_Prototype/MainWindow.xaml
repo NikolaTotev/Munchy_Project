@@ -1143,7 +1143,7 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-                <TextBlock x:Name="tB_Directions" HorizontalAlignment="Left" Height="317.134" Margin="318.426,140.016,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="594.444" FontFamily="Roboto Medium" FontSize="16" Foreground="#FF5E6973" RenderTransformOrigin="0.5,0.5" Background="#19FFFFFF" UseLayoutRounding="False" d:LayoutRounding="Auto">
+                <TextBlock x:Name="tB_Directions" HorizontalAlignment="Left" Height="190.748" Margin="318.426,140.016,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="594.444" FontFamily="Roboto Medium" FontSize="16" Foreground="#FF5E6973" RenderTransformOrigin="0.5,0.5" Background="#19FFFFFF" UseLayoutRounding="False" d:LayoutRounding="Auto">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -1176,9 +1176,11 @@
                     </TextBlock.RenderTransform>
                 </TextBlock>
                 <Button x:Name="BTN_AddToSavedRecipes" Content="{DynamicResource ResourceKey=SaveRecipeButton}" HorizontalAlignment="Left" Height="41" Margin="476,475,0,0" VerticalAlignment="Top" Width="148" Background="#FF4392F1" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontFamily="Roboto Black" FontSize="22" Click="BTN_AddToSavedRecipes_Click"/>
-                <Rectangle x:Name="P_IngrMessage" Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="180" Margin="629,336,0,0" Stroke="#FF4392F1" VerticalAlignment="Top" Width="285"/>
-                <TextBlock x:Name="Tb_IngrMessageTitle" HorizontalAlignment="Left" Height="29" Margin="629,343,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Roboto Black" TextAlignment="Center" FontSize="18"/>
-                <TextBlock x:Name="Tb_IngrMessageContents" HorizontalAlignment="Left" Height="104" Margin="629,376,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Roboto Light" TextAlignment="Center" FontSize="18"/>
+                <Grid x:Name="P_IngrAmountSatusMsg" HorizontalAlignment="Left" Height="168" Margin="632,359,0,0" VerticalAlignment="Top" Width="285" Background="#FFF7F4F3">
+                    <TextBlock x:Name="Tb_IngrMessageContents" HorizontalAlignment="Left" Height="109" Margin="0,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Roboto Light" TextAlignment="Center" FontSize="18" Foreground="#FF5E6973"><Run/><LineBreak/><Run/></TextBlock>
+                    <TextBlock x:Name="Tb_IngrMessageTitle" HorizontalAlignment="Left" Height="34" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" FontFamily="Roboto Black" TextAlignment="Center" FontSize="18" Foreground="#FF5E6973" Margin="0,6,0,0"/>
+                </Grid>
+
             </Grid>
             <Grid x:Name="p_UserFoods" HorizontalAlignment="Left" Height="537" Grid.RowSpan="5" VerticalAlignment="Top" Width="924" Background="#FFF7F4F3" Margin="93,-1,-1017,0" Grid.Column="6" RenderTransformOrigin="0.5,0.5">
                 <Grid.RenderTransform>

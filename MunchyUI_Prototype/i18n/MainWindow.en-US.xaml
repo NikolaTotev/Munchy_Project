@@ -12,7 +12,7 @@
     <sys:String x:Key="SuggestRecipeButton">Find recipe</sys:String>
     <sys:String x:Key="DiscoverRecipesButton">Discover</sys:String>
     <sys:String x:Key="SeeAllFavouriteRecipesButton">See all</sys:String>
-    <sys:String x:Key="ShowRecipeButton">Show becipe</sys:String>
+    <sys:String x:Key="ShowRecipeButton">Show recipe</sys:String>
     <sys:String x:Key="ShowFridgeButton">Show fridge</sys:String>
     <sys:String x:Key="DietBalanceTextBlock">Diet balance</sys:String>
     <sys:String x:Key="PreviousRecipeBTN">Previous recipe</sys:String>

@@ -320,6 +320,19 @@ namespace MunchyUI
                 }
             }
 
+            if (m_CurrentManager.UsersFridge.FridgeConatains(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag))
+            {
+                Tb_IngrMessageTitle.Foreground = Brushes.Green;
+                Tb_IngrMessageTitle.Text = TranslatorCore.GetMessageTitleForAllIngrPresent(m_ActiveLanguage);
+                Tb_IngrMessageContents.Text = TranslatorCore.GetMessageContentForAllIngrPresent(m_ActiveLanguage);
+            }
+            else
+            {
+                Tb_IngrMessageTitle.Foreground = Brushes.Red;
+                Tb_IngrMessageTitle.Text = TranslatorCore.GetMessageTitleForIngrNotPresent(m_ActiveLanguage);
+                Tb_IngrMessageContents.Text = TranslatorCore.GetMessageContentForIngrNotPresent(m_ActiveLanguage);
+            }
+
         }
 
         //Adds information about the recipe to the FullRecipeView panel.
@@ -333,7 +346,7 @@ namespace MunchyUI
                 {
                     if (GetIngredientList(m_SuggestedRecipe).Count == m_SuggestedRecipe.Units.Count)
                     {
-                        m_RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = m_SuggestedRecipe.Amounts[GetIngredientList(m_SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + m_SuggestedRecipe.Units[GetIngredientList(m_SuggestedRecipe).IndexOf(ingredient)].ToString() });
+                        m_RecipeIngredientList.Add(new FoodDef() { USName = ingredient, IngrAmount = m_SuggestedRecipe.Amounts[GetIngredientList(m_SuggestedRecipe).IndexOf(ingredient)].ToString() + " " + TranslatorCore.GetUnit(m_ActiveLanguage, m_SuggestedRecipe.Units[GetIngredientList(m_SuggestedRecipe).IndexOf(ingredient)].ToString()) });
                     }
 
                     else
@@ -377,7 +390,6 @@ namespace MunchyUI
                 Tb_IngrMessageTitle.Text = TranslatorCore.GetMessageTitleForIngrNotPresent(m_ActiveLanguage);
                 Tb_IngrMessageContents.Text = TranslatorCore.GetMessageContentForIngrNotPresent(m_ActiveLanguage);
             }
-
         }
 
         //Handles adding the suggested recipe to saved recipes. A recipe is saved only when the user pressed the "Save" button.

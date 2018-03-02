@@ -8,6 +8,9 @@ namespace MunchyUI
 {
     public static class TranslatorCore
     {
+
+        private static Dictionary<string, string> Units = new Dictionary<string, string> { { "Cup", "Чаша" }, { "Tbsp", "С.Л" }, { "Tsp", "Ч.Л" }, { "Count", "Брой" }, { "ml", "мл" } };
+
         public static string GetSuggestedRecipeInfo(Languages activeLang)
         {
             switch (activeLang)
@@ -50,7 +53,7 @@ namespace MunchyUI
 
                 default:
                     return "Lang Err";
-            }            
+            }
         }
 
         public static string GetClickToAddFoodMessage(Languages activeLang)
@@ -65,7 +68,7 @@ namespace MunchyUI
 
                 default:
                     return "Lang Err";
-            }            
+            }
         }
 
         public static string GetTypeForFoodPrompt(Languages activeLang)
@@ -80,7 +83,7 @@ namespace MunchyUI
 
                 default:
                     return "Lang Err";
-            }           
+            }
         }
 
         public static string FoodAmountNullWarning(Languages activeLang)
@@ -95,7 +98,7 @@ namespace MunchyUI
 
                 default:
                     return "Lang Err";
-            }            
+            }
         }
 
         public static string ItemAddedMessage(Languages activeLang)
@@ -110,7 +113,7 @@ namespace MunchyUI
 
                 default:
                     return "Lang Err";
-            }            
+            }
         }
 
         public static string ItemAlreadyInFridgeMessage(Languages activeLang)
@@ -125,7 +128,7 @@ namespace MunchyUI
 
                 default:
                     return "Lang Err";
-            }          
+            }
         }
 
         public static string GetTextboxDefaultText(Languages activeLang)
@@ -141,7 +144,7 @@ namespace MunchyUI
 
                 default:
                     return "Lang Err";
-            }          
+            }
         }
 
         public static string GetCookedRecipesTitle(Languages activeLang)
@@ -250,5 +253,28 @@ namespace MunchyUI
                     return "Lang Err";
             }
         }
+
+        public static string GetUnit(Languages activeLang, string inputUnit)
+        {
+            switch (activeLang)
+            {
+                case Languages.English:
+                    return inputUnit;
+
+                case Languages.Bulgarian:
+                    if (Units.TryGetValue(inputUnit, out string BgUnit))
+                    {
+                        return BgUnit;
+                    }
+                    else
+                    {
+                        return inputUnit;
+                    }
+                     
+                default:
+                    return "Lang Err";
+            }
+        }
+
     }
 }
