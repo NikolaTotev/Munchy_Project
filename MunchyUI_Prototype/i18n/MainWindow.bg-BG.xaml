@@ -64,7 +64,7 @@
     <sys:String x:Key="SearchButton">Търси</sys:String>
     <sys:String x:Key="RemoveButton">Премахни</sys:String>
     <sys:String x:Key="CloseAddFoodButton">Затвори</sys:String>
-    <sys:String x:Key="SummaryTB">Обобщения</sys:String>
+    <sys:String x:Key="SummaryTB">Статистика</sys:String>
     <sys:String x:Key="FoodInfoTB">Информация</sys:String>
     <sys:String x:Key="FoodsTB">Храни</sys:String>
 

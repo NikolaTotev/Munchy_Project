@@ -898,7 +898,7 @@ namespace MunchyUI
                 m_SummaryValues = new float[] { m_CalorieSum, m_ProteinSum, m_FatSum, m_CarbSum, m_SugarSum, m_SodiumSum };
                 for (int i = 0; i < m_SummaryTextBlocks.Length; i++)
                 {
-                    m_SummaryTextBlocks[i].Text = m_SummaryValues[i].ToString();
+                    m_SummaryTextBlocks[i].Text = m_SummaryValues[i].ToString() + " " + "g";
                 }
             }
             else
@@ -906,7 +906,7 @@ namespace MunchyUI
                 m_SummaryValues = new float[] { m_CalorieSum, m_ProteinSum, m_FatSum, m_CarbSum, m_SugarSum, m_SodiumSum };
                 for (int i = 0; i < m_SummaryTextBlocks.Length; i++)
                 {
-                    m_SummaryTextBlocks[i].Text = m_SummaryValues[i].ToString();
+                    m_SummaryTextBlocks[i].Text = m_SummaryValues[i].ToString() + " " + "g";
                 }
             }
         }
@@ -924,6 +924,20 @@ namespace MunchyUI
                 tB_FoodCarbs.Text = SelectedItem.Carbs.ToString() + " " + "g";
                 tB_FoodSugar.Text = SelectedItem.Sugars.ToString() + " " + "g";
                 tB_FoodSodium.Text = SelectedItem.Sodium.ToString() + " " + "g";
+
+                switch (m_ActiveLanguage)
+                {
+                    case Languages.English:
+                        tb_FoodName.Text = SelectedItem.USName.First().ToString().ToUpper() + SelectedItem.USName.Substring(1);
+                        break;
+                    case Languages.Bulgarian:
+                        tb_FoodName.Text = SelectedItem.BGName.First().ToString().ToUpper() + SelectedItem.BGName.Substring(1);
+                        break;
+                    default:
+                        break;
+                }
+                
+
             }
             else
             {
@@ -1302,6 +1316,7 @@ namespace MunchyUI
             ConfigureSavedRecipesPanel();
             lb_SavedRecipesList.Items.Clear();
             lb_ListOfCookedRecipes.Items.Clear();
+            GetAndShowFoodInfo();
             foreach (string element in GetSavedRecipesList())
             {
                 lb_SavedRecipesList.Items.Add(element.First().ToString().ToUpper() + element.Substring(1));
