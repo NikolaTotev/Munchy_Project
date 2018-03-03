@@ -21,6 +21,12 @@ namespace MunchyUI
         English,
         Bulgarian
     }
+
+    public enum ActiveFoodsearch
+    {
+        Fridge,
+        ShoppingList
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -41,8 +47,12 @@ namespace MunchyUI
 
         string m_RecipeSaveFile = System.IO.Path.Combine(m_ProgramFolder, "RecipeSavesFile.json");
         string m_StatSavePath = System.IO.Path.Combine(m_ProgramFolder, "StatSavePath.json");
+        string m_ShoppingListFile = System.IO.Path.Combine(m_ProgramFolder, "ShoppingList.json");
 
-        //Booleans for determining what language to use in runtime. English is the default language.        
+        //Checks what food search is open.
+        ActiveFoodsearch m_ActiveFoodsearch;
+
+        //Enum for determining what language to use in runtime. English is the default language.        
         Languages m_ActiveLanguage = Languages.English;
         //Variables that are used to display the fridge summary.
         float m_CalorieSum = 0;
@@ -134,13 +144,13 @@ namespace MunchyUI
             {
                 MessageBox.Show("It seems like your user file is empty. Take a moment to fill in some of your details. This will help Munchy suggest recipes exactly to your tastes." + "\n" + "\n" + "Изглежда че вашия личен файл е празен. Отделете няколко минути да попълните информация за вашите предпочитания. Това ще помогне на програмата да предляга подходящи за вас рецепти.");
                 tB_UserName.Text = "Click me/Кликни ме";
-                Rect_UNameBackground.Stroke = Brushes.Red;                
+                Rect_UNameBackground.Stroke = Brushes.Red;
             }
 
             //Intitially sets the default language.
             Localizer.SetDefaultLanguage(this);
 
-            m_CurrentManager = new ProgramManager(m_UserFile, m_UserFridgeFile, m_RecipeDatabase, m_FoodDefFile, m_RecipeSaveFile, m_StatSavePath);
+            m_CurrentManager = new ProgramManager(m_UserFile, m_UserFridgeFile, m_RecipeDatabase, m_FoodDefFile, m_RecipeSaveFile, m_StatSavePath, m_ShoppingListFile);
 
             //Sets the users name.
             if (m_CurrentManager.User.UserName != null)
@@ -368,7 +378,7 @@ namespace MunchyUI
         //Handles adding the suggested to the CookedRecipes list. A recipe is added only when the user pressed the "I'll Cook It" Button.
         private void AddToCookedRecipes()
         {
-            if(m_CurrentManager.UsersFridge.FridgeConatains(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag))
+            if (m_CurrentManager.UsersFridge.FridgeConatains(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag))
             {
                 RecipeSaver saver = m_CurrentManager.UserRecipeSaves;
                 AddToList(saver.USCookedRecipes, m_SuggestedRecipe.USName);
@@ -658,14 +668,30 @@ namespace MunchyUI
         //Handles searching for fooditems. Function is called when the text in the FoodSearch textbox is changed
         private void SearchFoodItems()
         {
+            TextBox textBoxToUse = new TextBox();
+            ListBox listToTarget = new ListBox();
+            switch (m_ActiveFoodsearch)
+            {
+                case ActiveFoodsearch.Fridge:
+                    textBoxToUse = tb_FoodSearch;
+                    listToTarget = lB_SuggestedFoods;
+                    break;
+                case ActiveFoodsearch.ShoppingList:
+                    textBoxToUse = Tb_AddToShoppingListSearch;
+                    listToTarget = L_ShoppingListSuggestedItem;
+                    break;
+                default:
+                    break;
+            }
+
             // Checks if the search box is null or not.
-            if (!string.IsNullOrWhiteSpace(tb_FoodSearch.Text))
+            if (!string.IsNullOrWhiteSpace(textBoxToUse.Text))
             {
                 //Makes sure that text is not the keyword "Search"
-                if (tb_FoodSearch.Text != TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
+                if (textBoxToUse.Text != TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
                 {
                     l_SearchInfo.Text = TranslatorCore.GetClickToAddFoodMessage(m_ActiveLanguage);
-                    string searchedWord = tb_FoodSearch.Text;
+                    string searchedWord = textBoxToUse.Text;
                     string ToLower = searchedWord.ToLower();
 
                     foreach (KeyValuePair<string, FoodDef> element in m_CurrentManager.FoodManag.Foods)
@@ -673,29 +699,28 @@ namespace MunchyUI
                         switch (m_ActiveLanguage)
                         {
                             case Languages.English:
-                                if (element.Key.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
+                                if (element.Key.StartsWith(ToLower) && !listToTarget.Items.Contains(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString()))
                                 {
-                                    lB_SuggestedFoods.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
+                                    listToTarget.Items.Add(element.Key.First().ToString().ToUpper() + element.Key.Substring(1).ToString());
                                     m_ItemsInFoodSearch.Add(element.Value.USName);
                                 }
                                 break;
 
                             case Languages.Bulgarian:
-                                if (element.Value.BGName.StartsWith(ToLower) && !lB_SuggestedFoods.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString()))
+                                if (element.Value.BGName.StartsWith(ToLower) && !listToTarget.Items.Contains(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString()))
                                 {
-                                    lB_SuggestedFoods.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString());
+                                    listToTarget.Items.Add(element.Value.BGName.First().ToString().ToUpper() + element.Value.BGName.Substring(1).ToString());
                                     m_ItemsInFoodSearch.Add(element.Value.USName);
                                 }
                                 break;
-                            default:
-                                break;
+                          
                         }
                     }
                 }
             }
             else
             {
-                lB_SuggestedFoods.Items.Clear();
+                listToTarget.Items.Clear();
                 m_ItemsInFoodSearch.Clear();
                 l_SearchInfo.Text = TranslatorCore.GetTypeForFoodPrompt(m_ActiveLanguage);
             }
@@ -936,7 +961,7 @@ namespace MunchyUI
                     default:
                         break;
                 }
-                
+
 
             }
             else
@@ -989,11 +1014,11 @@ namespace MunchyUI
             {
                 rb_Male.IsChecked = true;
             }
-            
+
             if (m_CurrentManager.User.Sex == "female")
             {
                 rb_Female.IsChecked = true;
-            }            
+            }
         }
 
         //Handles saving the user settings. All values on the settings panel are set to the corresponding properties of the User class in the CurrentManager.
@@ -1016,16 +1041,16 @@ namespace MunchyUI
             {
                 m_CurrentManager.User.Sex = "male";
             }
-            
+
             if (rb_Female.IsChecked == true)
             {
                 m_CurrentManager.User.Sex = "female";
             }
-            
+
 
             if (CB_English.IsChecked == true)
             {
-                m_ActiveLanguage = Languages.English;            
+                m_ActiveLanguage = Languages.English;
                 m_CurrentManager.User.LanguagePref = "US";
                 Localizer.SwitchLanguage(this, "en-US");
             }
@@ -1117,6 +1142,18 @@ namespace MunchyUI
             tb_FoodSearch.Text = null;
         }
 
+        //Removes "Search" text from ShoppingListSearch textbox when it gets focus
+        private void ShoppingListSearchGotFocus(object sender, RoutedEventArgs e)
+        {
+            Tb_AddToShoppingListSearch.Text = null;
+        }
+
+        //Changes text of the ShoppingListSearch textbox when it looses focus.
+        private void ShoppingListSearchLostFocus(object sender, RoutedEventArgs e)
+        {
+            Tb_AddToShoppingListSearch.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
+        }
+
         //Handles adding items to fridge.
         private void AddClickedItem(object sender, SelectionChangedEventArgs e)
         {
@@ -1129,10 +1166,45 @@ namespace MunchyUI
             SearchFoodItems();
         }
 
+
+        private void Tb_AddToShoppingListTxtChanged(object sender, TextChangedEventArgs e)
+        {
+            if (L_ShoppingListSuggestedItem != null)
+            {
+                L_ShoppingListSuggestedItem.Visibility = Visibility.Visible;
+            }
+            SearchFoodItems();
+
+        }
+
         //Adds the configured food item to the fridge.
         private void AddFoodItemClick(object sender, RoutedEventArgs e)
         {
+            L_ShoppingListSuggestedItem.Visibility = Visibility.Visible;
             AddFoodItem();
+        }
+
+        //Suggests items the user might want to add to their shopping list.
+        private void ItemToAddToListSelected(object sender, MouseButtonEventArgs e)
+        {
+            Tb_AddToShoppingListSearch.Text = L_ShoppingListSuggestedItem.SelectedItem.ToString();
+            L_ShoppingListSuggestedItem.Visibility = Visibility.Hidden;
+        }
+
+        //Sets active food search enum to fridge.
+        private void Btn_SearchFoods_Click(object sender, RoutedEventArgs e)
+        {
+            m_ActiveFoodsearch = ActiveFoodsearch.Fridge;
+        }
+
+        //Sets active food search enum to shopping list.
+        private void Btn_OpenShoppingCart_Click(object sender, RoutedEventArgs e)
+        {
+            m_ActiveFoodsearch = ActiveFoodsearch.ShoppingList;
+            foreach(string element in m_CurrentManager.User.UserShoppingList.FoodsToBuy)
+            {
+                Lb_ShoppingList.Items.Add(element);
+            }
         }
         #endregion
 
@@ -1274,7 +1346,7 @@ namespace MunchyUI
         //Updates setting panel information on panel show.
         private void ShowSettings(object sender, MouseButtonEventArgs e)
         {
-            UpdateSettingPanel();           
+            UpdateSettingPanel();
             Rect_UNameBackground.Stroke = Brushes.Transparent;
         }
 
@@ -1476,5 +1548,26 @@ namespace MunchyUI
             }
         }
         #endregion
+
+        private void Btn_AddToShoppingList_Click(object sender, RoutedEventArgs e)
+        {
+            Lb_ShoppingList.Items.Add(Tb_AddToShoppingListSearch.Text);
+            m_CurrentManager.User.UserShoppingList.AddToShoppingList(Tb_AddToShoppingListSearch.Text);
+            m_CurrentManager.SaveShoppingList();
+        }      
+
+        private void ShoppingListSuggestedItemSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if(L_ShoppingListSuggestedItem.SelectedItem != null)
+            {
+                Tb_AddToShoppingListSearch.Text = L_ShoppingListSuggestedItem.SelectedItem.ToString();
+                L_ShoppingListSuggestedItem.Visibility = Visibility.Hidden;
+            }            
+        }
+
+        private void Btn_RemoveFromShoppingList_Click()
+        {
+
+        }
     }
 }

@@ -26,8 +26,10 @@ namespace Nikola.Munchy.MunchyTester
 
             string recipeSaveFile = System.IO.Path.Combine(programFolder, "RecipeSavesFile.json");
             string statSavePath = System.IO.Path.Combine(programFolder, "StatSavePath.json");
+            string m_ShoppingListFile = System.IO.Path.Combine(programFolder, "ShoppingList.json");
 
-            ProgramManager currentManager = new ProgramManager(userFile, userFridgeFile, recipeDatabase, foodDefFile, recipeSaveFile, statSavePath);
+
+            ProgramManager currentManager = new ProgramManager(userFile, userFridgeFile, recipeDatabase, foodDefFile, recipeSaveFile, statSavePath, m_ShoppingListFile);
             List<string> preferences = new List<string>
             {
                 "isvegan",
@@ -77,8 +79,10 @@ namespace Nikola.Munchy.MunchyTester
 
             string recipeSaveFile = System.IO.Path.Combine(programFolder, "RecipeSavesFile.json");
             string statSavePath = System.IO.Path.Combine(programFolder, "StatSavePath.json");
+            string m_ShoppingListFile = System.IO.Path.Combine(programFolder, "ShoppingList.json");
 
-            ProgramManager currentManager = new ProgramManager(userFile, userFridgeFile, recipeDatabase, foodDefFile, recipeSaveFile, statSavePath);
+
+            ProgramManager currentManager = new ProgramManager(userFile, userFridgeFile, recipeDatabase, foodDefFile, recipeSaveFile, statSavePath, m_ShoppingListFile);
 
             FoodDef milk = new FoodDef();
             milk.USName = "milk";

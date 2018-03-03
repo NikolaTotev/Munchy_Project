@@ -11,14 +11,7 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public class ShoppingList
     {
-        string SaveLocation;
-        public List<string> FoodsToBuy = new List<string>();
-
-
-        public ShoppingList(string ShoppingListSaveLocation)
-        {
-            SaveLocation = ShoppingListSaveLocation;
-        }
+        public List<string> FoodsToBuy = new List<string>();    
 
         public void AddToShoppingList(string FoodToAdd)
         {
@@ -35,13 +28,6 @@ namespace Nikola.Munchy.MunchyAPI
             FoodsToBuy.Clear();
         }
 
-        public void SaveShoppingList()
-        {
-            using (StreamWriter file = File.CreateText(SaveLocation))
-            {
-                JsonSerializer serializer = new JsonSerializer();
-                serializer.Serialize(file, this);
-            }
-        }
+       
     }
 }
