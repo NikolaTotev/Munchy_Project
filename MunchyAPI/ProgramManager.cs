@@ -103,6 +103,8 @@ namespace Nikola.Munchy.MunchyAPI
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, UserShoppingList);
             }
+
+            User.UserShoppingList = GetShoppingList();
         }
 
         //Deserializes the recipe saver. Recipe saver is used to save recently viewed recipe, saved recipes and cooked recipes.

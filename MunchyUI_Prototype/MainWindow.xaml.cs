@@ -713,7 +713,7 @@ namespace MunchyUI
                                     m_ItemsInFoodSearch.Add(element.Value.USName);
                                 }
                                 break;
-                          
+
                         }
                     }
                 }
@@ -978,6 +978,104 @@ namespace MunchyUI
         #endregion
         #endregion
 
+        #region Shopping List 
+        //Handles refreshing the shopping list listbox
+        private void ManageShoppingList()
+        {
+            Lb_ShoppingList.Items.Clear();
+            Lb_ShoppingList.Items.Refresh();
+            List<string> listToUse = new List<string>();
+            switch (m_ActiveLanguage)
+            {
+                case Languages.English:
+                    listToUse = m_CurrentManager.User.UserShoppingList.USFoodsToBuy;
+                    break;
+                case Languages.Bulgarian:
+                    listToUse = m_CurrentManager.User.UserShoppingList.BGFoodsToBuy;
+                    break;
+            }
+            foreach (string element in listToUse)
+            {
+                if (!Lb_ShoppingList.Items.Contains(element))
+                {
+                    Lb_ShoppingList.Items.Add(element);
+                }
+            }
+        }
+
+        //Handles adding to the shopping list
+        private void Btn_AddToShoppingList_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Lb_ShoppingList.Items.Contains(Tb_AddToShoppingListSearch.Text.ToLower()) && Tb_AddToShoppingListSearch.Text != TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
+            {
+                FoodDef foodItemBeingUsed = m_CurrentManager.FoodManag.Foods[m_ItemsInFoodSearch[L_ShoppingListSuggestedItem.SelectedIndex]];
+
+                switch (m_ActiveLanguage)
+                {
+                    case Languages.English:
+                        Lb_ShoppingList.Items.Add(foodItemBeingUsed.USName);
+                        break;
+                    case Languages.Bulgarian:
+                        Lb_ShoppingList.Items.Add(foodItemBeingUsed.BGName);
+                        break;
+                }
+
+                m_CurrentManager.UserShoppingList.AddToShoppingList(foodItemBeingUsed.USName, foodItemBeingUsed.BGName);
+                m_CurrentManager.SaveShoppingList();
+                ManageShoppingList();
+            }
+            Tb_AddToShoppingListSearch.Text = null;
+        }
+
+        //Handles adding the name of the itme to add and closing the suggesed items list.
+        private void ShoppingListSuggestedItemSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if (L_ShoppingListSuggestedItem.SelectedItem != null)
+            {
+                Tb_AddToShoppingListSearch.Text = L_ShoppingListSuggestedItem.SelectedItem.ToString();
+                L_ShoppingListSuggestedItem.Visibility = Visibility.Hidden;
+            }
+        }
+
+        //Handles removing items from the shopping list.
+        private void Btn_RemoveFromShoppingList_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (Lb_ShoppingList.SelectedItem != null)
+            {
+                m_CurrentManager.UserShoppingList.RemoveFromShoppingList(Lb_ShoppingList.SelectedIndex);
+                m_CurrentManager.SaveShoppingList();
+                ManageShoppingList();
+            }
+        }
+
+        //Handles showing the suggested items to add list.
+        private void ShoppingSearchMouseEnter(object sender, MouseEventArgs e)
+        {
+            L_ShoppingListSuggestedItem.Visibility = Visibility.Visible;
+        }
+
+        //Handles hiding the suggested items to add when there is no text in the textbox.
+        private void ShoppingSearchMouseLeave(object sender, MouseEventArgs e)
+        {
+            if (Tb_AddToShoppingListSearch.Text == null || Tb_AddToShoppingListSearch.Text == TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage))
+            {
+                L_ShoppingListSuggestedItem.Visibility = Visibility.Hidden;
+            }
+        }
+
+        //Hides suggested items to add to shopping list when mouse leaves.
+        private void SuggestedItemsMouseLeave(object sender, MouseEventArgs e)
+        {
+            L_ShoppingListSuggestedItem.Visibility = Visibility.Hidden;
+        }
+
+        //Handles hiding suggested items list on shopping list close.
+        private void Btn_CloseShoppingList_Click(object sender, RoutedEventArgs e)
+        {
+            L_ShoppingListSuggestedItem.Visibility = Visibility.Hidden;
+        }
+
+        #endregion
 
         #region User settings functions
         //Updates information on the UsersSettings panel
@@ -1145,6 +1243,10 @@ namespace MunchyUI
         //Removes "Search" text from ShoppingListSearch textbox when it gets focus
         private void ShoppingListSearchGotFocus(object sender, RoutedEventArgs e)
         {
+            if (L_ShoppingListSuggestedItem != null)
+            {
+                L_ShoppingListSuggestedItem.Visibility = Visibility.Visible;
+            }
             Tb_AddToShoppingListSearch.Text = null;
         }
 
@@ -1169,12 +1271,7 @@ namespace MunchyUI
 
         private void Tb_AddToShoppingListTxtChanged(object sender, TextChangedEventArgs e)
         {
-            if (L_ShoppingListSuggestedItem != null)
-            {
-                L_ShoppingListSuggestedItem.Visibility = Visibility.Visible;
-            }
             SearchFoodItems();
-
         }
 
         //Adds the configured food item to the fridge.
@@ -1201,10 +1298,7 @@ namespace MunchyUI
         private void Btn_OpenShoppingCart_Click(object sender, RoutedEventArgs e)
         {
             m_ActiveFoodsearch = ActiveFoodsearch.ShoppingList;
-            foreach(string element in m_CurrentManager.User.UserShoppingList.FoodsToBuy)
-            {
-                Lb_ShoppingList.Items.Add(element);
-            }
+            ManageShoppingList();
         }
         #endregion
 
@@ -1389,6 +1483,7 @@ namespace MunchyUI
             lb_SavedRecipesList.Items.Clear();
             lb_ListOfCookedRecipes.Items.Clear();
             GetAndShowFoodInfo();
+            ManageShoppingList();
             foreach (string element in GetSavedRecipesList())
             {
                 lb_SavedRecipesList.Items.Add(element.First().ToString().ToUpper() + element.Substring(1));
@@ -1402,6 +1497,7 @@ namespace MunchyUI
             tb_FoodSearch.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
             tb_SearchSavedRecipes.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
             tb_SearchCookedRecipes.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
+            Tb_AddToShoppingListSearch.Text = TranslatorCore.GetTextboxDefaultText(m_ActiveLanguage);
 
             if (m_CurrentManager.UsersFridge.FridgeConatains(m_SuggestedRecipe.USIngredients, m_SuggestedRecipe.Amounts, m_SuggestedRecipe.Units, m_CurrentManager.FoodManag))
             {
@@ -1547,27 +1643,6 @@ namespace MunchyUI
                     }
             }
         }
-        #endregion
-
-        private void Btn_AddToShoppingList_Click(object sender, RoutedEventArgs e)
-        {
-            Lb_ShoppingList.Items.Add(Tb_AddToShoppingListSearch.Text);
-            m_CurrentManager.User.UserShoppingList.AddToShoppingList(Tb_AddToShoppingListSearch.Text);
-            m_CurrentManager.SaveShoppingList();
-        }      
-
-        private void ShoppingListSuggestedItemSelected(object sender, SelectionChangedEventArgs e)
-        {
-            if(L_ShoppingListSuggestedItem.SelectedItem != null)
-            {
-                Tb_AddToShoppingListSearch.Text = L_ShoppingListSuggestedItem.SelectedItem.ToString();
-                L_ShoppingListSuggestedItem.Visibility = Visibility.Hidden;
-            }            
-        }
-
-        private void Btn_RemoveFromShoppingList_Click()
-        {
-
-        }
+        #endregion      
     }
 }

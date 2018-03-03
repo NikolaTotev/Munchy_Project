@@ -11,21 +11,24 @@ namespace Nikola.Munchy.MunchyAPI
 {
     public class ShoppingList
     {
-        public List<string> FoodsToBuy = new List<string>();    
+        public List<string> USFoodsToBuy = new List<string>();
+        public List<string> BGFoodsToBuy = new List<string>();
 
-        public void AddToShoppingList(string FoodToAdd)
+        public void AddToShoppingList(string USFoodToAdd, string BGFoodToAdd)
         {
-            FoodsToBuy.Add(FoodToAdd);
+            USFoodsToBuy.Add(USFoodToAdd);
+            BGFoodsToBuy.Add(BGFoodToAdd);
         }
 
-        public void RemoveFromShoppingList(string FoodToRemove)
+        public void RemoveFromShoppingList(int positionToRemoveAt)
         {
-            FoodsToBuy.Add(FoodToRemove);
+            USFoodsToBuy.RemoveAt(positionToRemoveAt);
+            BGFoodsToBuy.RemoveAt(positionToRemoveAt);
         }
 
         public void ClearList()
         {
-            FoodsToBuy.Clear();
+            USFoodsToBuy.Clear();
         }
 
        
