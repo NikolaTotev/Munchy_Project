@@ -1418,6 +1418,53 @@
                 <Button Content="Add Item" HorizontalAlignment="Left" Height="39" Margin="8,115,0,0" VerticalAlignment="Top" Width="118" Foreground="#FF4392F1" Background="#FFF7F4F3" BorderBrush="{x:Null}" FontFamily="Roboto Medium" FontSize="18"/>
                 <TextBlock HorizontalAlignment="Left" Height="28" Margin="12,14,0,0" TextWrapping="Wrap" Text="Shopping List" VerticalAlignment="Top" Width="256" FontFamily="Roboto Black" Foreground="#FFF7F4F3" TextAlignment="Center" FontSize="24"/>
                 <Button Content="Remove" HorizontalAlignment="Left" Height="39" Margin="155,115,0,0" VerticalAlignment="Top" Width="119" Foreground="#FF4392F1" Background="#FFF7F4F3" BorderBrush="{x:Null}" FontFamily="Roboto Medium" FontSize="18"/>
+                <Button Content="" HorizontalAlignment="Left" Height="32" Margin="234,14,0,0" VerticalAlignment="Top" Width="34" RenderTransformOrigin="0.5,0.5">
+                    <Button.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="180"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Button.RenderTransform>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border
+                                    x:Name="border"
+                                    Background="Transparent"
+                                    BorderBrush="Transparent"
+                                    BorderThickness="0"
+                                    CornerRadius="0"
+                                    TextBlock.Foreground="Black">
+                                            <Grid>
+                                                <Image
+                                            x:Name="buttonImage"
+                                            Source="Images/ic_close_white_512dp_2x.png"
+                                            Stretch="UniformToFill" />
+                                                <ContentPresenter
+                                            Margin="{TemplateBinding Padding}"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="true">
+                                                <Setter TargetName="buttonImage" Property="Source" Value="Images/ic_arrow_back_white_48dp_2x.png" />
+
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="true">
+                                                <Setter TargetName="border" Property="Background" Value="#4C808080" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </Grid>
 
         </Grid>
