@@ -67,7 +67,7 @@ namespace FoodAndRecipeCreationTool
             SaveRecipeList();
             SaveFoodList();
             SettingOptions = new List<CheckBox> { CB_IsVegan, CB_IsVegetarian, CB_IsDiabetic, CB_Eggs, CB_Dairy, CB_Fish, CB_Nuts, CB_Gluten, CB_Soy };
-            Units = new List<RadioButton> { RB_Cup, RB_Tbsp, RB_Tsp, RB_count, RB_Ml };
+            Units = new List<RadioButton> {RB_Cup, RB_Tbsp, RB_Tsp, RB_count, RB_Ml, RB_grams};
         }
 
         /// <summary>

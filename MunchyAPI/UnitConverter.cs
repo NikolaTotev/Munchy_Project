@@ -30,11 +30,19 @@ namespace Nikola.Munchy.MunchyAPI
             }
 
             if (Unit == "ml")
+            {
                 Mass = FoodAmount * StandardUnits[Unit];
-
+            }
+            
             if (Unit == "Count")
+            {
                 Mass = FoodAmount;
+            }         
 
+            if (Unit == "g")
+            {
+                Mass = FoodAmount;
+            }
             return Mass;
         }
     }
