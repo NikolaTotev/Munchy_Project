@@ -70,28 +70,30 @@ namespace Nikola.Munchy.MunchyAPI
         /// <returns></returns>
         public bool FridgeConatains(List<string> FoodItemsToChange, List<float> AmountsToChange, List<string> Units, FoodManager foodManager)
         {
-            for (int i = 0; i < FoodItemsToChange.Count; i++)
+            if(FoodItemsToChange != null)
             {
-                float AmountToRemove = UnitConverter.GetAmountToRemove(FoodItemsToChange[i], AmountsToChange[i], Units[i], foodManager);
-
-                if (USUsersFoods.ContainsKey(FoodItemsToChange[i]))
+                for (int i = 0; i < FoodItemsToChange.Count; i++)
                 {
-                    foreach (KeyValuePair<string, FoodDef> element in USUsersFoods)
+                    float AmountToRemove = UnitConverter.GetAmountToRemove(FoodItemsToChange[i], AmountsToChange[i], Units[i], foodManager);
+
+                    if (USUsersFoods.ContainsKey(FoodItemsToChange[i]))
                     {
-                        if (element.Value.USName == FoodItemsToChange[i] && element.Value.Amount - AmountToRemove < 0)
+                        foreach (KeyValuePair<string, FoodDef> element in USUsersFoods)
                         {
-                            return false;
+                            if (element.Value.USName == FoodItemsToChange[i] && element.Value.Amount - AmountToRemove < 0)
+                            {
+                                return false;
+                            }
                         }
                     }
-                }
-                else
-                {
-                    return false;
-                }
-                
-            }
+                    else
+                    {
+                        return false;
+                    }
 
-            // Only if both requirements are met does the function return true.
+                }
+            }            
+            // Only if requirements are met does the function return true.
             return true;
         }
 

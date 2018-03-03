@@ -315,7 +315,7 @@ namespace MunchyUI
         //Sets up the initial FullRecipe view. Called when the "Show Recipe" button is pressed.
         private void SetupFullRecipeViewImg()
         {
-            if (m_SuggestedRecipe != null && m_CurrentManager.RecipieManag.CompatableRecipes.Count > 0)
+            if (m_SuggestedRecipe != null && m_CurrentManager.RecipieManag.CompatableRecipes.Count > 0 && m_SuggestedRecipe.ImageFile != null)
             {
                 if (File.Exists(System.IO.Path.Combine(m_ImageFolderPath, m_SuggestedRecipe.ImageFile)))
                 {

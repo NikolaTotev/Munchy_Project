@@ -17,7 +17,10 @@
     <sys:String x:Key="DietBalanceTextBlock">Диетичен баланс</sys:String>
     <sys:String x:Key="PreviousRecipeBTN">Предишна рецепта</sys:String>
     <sys:String x:Key="NextRecipeBTN">Следваща рецепта</sys:String>
+    <sys:String x:Key="AddFoodBTN">Добави</sys:String>
+    <sys:String x:Key="ShoppingList">Списък за пазар</sys:String>
 
+    
     <!--Settings Panel-->
     <sys:String x:Key="SettingsTextBlock">Настройки</sys:String>
     <sys:String x:Key="SexTextBlock">Пол</sys:String>

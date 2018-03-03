@@ -80,7 +80,7 @@
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                     <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1"/>
                 </DoubleAnimationUsingKeyFrames>
-                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TB_FoodInfo">
                     <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                     <EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="1"/>
                 </DoubleAnimationUsingKeyFrames>
@@ -193,7 +193,7 @@
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SummaryTB">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
                 </DoubleAnimationUsingKeyFrames>
-                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="TB_FoodInfo">
                     <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
                 </DoubleAnimationUsingKeyFrames>
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="textBlock1">
@@ -1231,7 +1231,7 @@
                 </ListView>
                 <Button x:Name="Btn_SearchFoods" Content="{DynamicResource ResourceKey=SearchButton}" HorizontalAlignment="Left" Height="39" Margin="308,440,0,0" VerticalAlignment="Top" Width="142" Background="#FF4392F1" BorderBrush="{x:Null}" Foreground="#FFF7F4F3" FontFamily="Roboto Black" FontSize="24" Click="Btn_SearchFoods_Click"/>
                 <TextBlock x:Name="SummaryTB" HorizontalAlignment="Left" Height="30" Margin="47,66,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=SummaryTB}" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="26" Foreground="#FF5E6973" TextAlignment="Center"/>
-                <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="30" Margin="681,66,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=FoodInfoTB}" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="26" Foreground="#FF5E6973" TextAlignment="Center"/>
+                <TextBlock x:Name="TB_FoodInfo" HorizontalAlignment="Left" Height="30" Margin="681,66,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=FoodInfoTB}" VerticalAlignment="Top" Width="192" FontFamily="Roboto Black" FontSize="26" Foreground="#FF5E6973" TextAlignment="Center"/>
                 <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Height="30" Margin="0,132,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=CaloriesTB}" VerticalAlignment="Top" Width="164.017" FontFamily="Roboto Light" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
                 <TextBlock x:Name="tB_CalorieSummary" HorizontalAlignment="Left" Height="30" Margin="161,133.9,0,0" TextWrapping="Wrap" Text="9000" VerticalAlignment="Top" Width="109" FontFamily="Roboto Thin" FontSize="20" Foreground="#FF5E6973" TextAlignment="Center" RenderTransformOrigin="0.525,0.095"/>
                 <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Height="30" Margin="0,204,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=ProteinTB}" VerticalAlignment="Top" Width="164" FontFamily="Roboto Light" FontSize="22" Foreground="#FF5E6973" TextAlignment="Center"/>
@@ -1295,7 +1295,7 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock x:Name="TB_AddedFoodNameItem" HorizontalAlignment="Left" Height="42" Margin="29,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="219" FontFamily="Roboto Medium" FontSize="20" TextAlignment="Center" Foreground="#FFF8F5F4"/>
-                        <Button Content="Add Food" HorizontalAlignment="Left" Height="31" Margin="79,413,0,0" VerticalAlignment="Top" Width="112" Click="AddFoodItemClick" Background="#FFF7F4F3" BorderBrush="{x:Null}" Foreground="#FF4392F1" FontFamily="Roboto Black" FontSize="16" Grid.RowSpan="1"/>
+                        <Button Content="{DynamicResource ResourceKey=AddFoodBTN}" HorizontalAlignment="Left" Height="31" Margin="79,413,0,0" VerticalAlignment="Top" Width="112" Click="AddFoodItemClick" Background="#FFF7F4F3" BorderBrush="{x:Null}" Foreground="#FF4392F1" FontFamily="Roboto Black" FontSize="16" Grid.RowSpan="1"/>
                         <TextBox x:Name="Tb_CustomAmount" HorizontalAlignment="Left" Height="28" Margin="45,293,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" FontSize="14" TextAlignment="Center" Foreground="#FF5E6973" SelectionBrush="#7FF24333" BorderBrush="#FF5E6973"/>
                         <TextBlock x:Name="Tb_UOMLabel" HorizontalAlignment="Left" Height="35" Margin="45,230,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="185" TextAlignment="Center" Foreground="#FFF8F5F4" FontFamily="Roboto Medium" FontSize="16"/>
                         <RadioButton x:Name="Cb_SuggestedAmount_1" Content="" HorizontalAlignment="Left" Height="30" Margin="66,72,0,0" VerticalAlignment="Top" Width="126" Foreground="#FFF8F5F4"/>
@@ -1433,9 +1433,9 @@
                 </Grid.RenderTransform>
                 <ListBox x:Name="Lb_ShoppingList" HorizontalAlignment="Left" Height="365" Margin="13,164,0,0" VerticalAlignment="Top" Width="256"/>
                 <TextBox x:Name="Tb_AddToShoppingListSearch" HorizontalAlignment="Left" Height="41" Margin="13,57,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="255" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" SelectionBrush="#800078D7" BorderBrush="{x:Null}" Foreground="#FF5E6973" FontFamily="Roboto Medium" FontSize="20" TextChanged="Tb_AddToShoppingListTxtChanged" Text="Search" GotFocus="ShoppingListSearchGotFocus" LostFocus="ShoppingListSearchLostFocus" MouseEnter="ShoppingSearchMouseEnter" MouseLeave="ShoppingSearchMouseLeave"/>
-                <Button x:Name="Btn_AddToShoppingList" Content="Add Item" HorizontalAlignment="Left" Height="39" Margin="13,115,0,0" VerticalAlignment="Top" Width="118" Foreground="#FF4392F1" Background="#FFF7F4F3" BorderBrush="{x:Null}" FontFamily="Roboto Medium" FontSize="18" Click="Btn_AddToShoppingList_Click"/>
-                <TextBlock HorizontalAlignment="Left" Height="28" Margin="0,11,0,0" TextWrapping="Wrap" Text="Shopping List" VerticalAlignment="Top" Width="280" FontFamily="Roboto Black" Foreground="#FFF7F4F3" TextAlignment="Center" FontSize="24"/>
-                <Button x:Name="Btn_RemoveFromShoppingList" Content="Remove" HorizontalAlignment="Left" Height="39" Margin="150,115,0,0" VerticalAlignment="Top" Width="119" Foreground="#FF4392F1" Background="#FFF7F4F3" BorderBrush="{x:Null}" FontFamily="Roboto Medium" FontSize="18" Click="Btn_RemoveFromShoppingList_Click_1"/>
+                <Button x:Name="Btn_AddToShoppingList" Content="{DynamicResource ResourceKey=AddFoodBTN}" HorizontalAlignment="Left" Height="39" Margin="13,115,0,0" VerticalAlignment="Top" Width="118" Foreground="#FF4392F1" Background="#FFF7F4F3" BorderBrush="{x:Null}" FontFamily="Roboto Medium" FontSize="18" Click="Btn_AddToShoppingList_Click"/>
+                <TextBlock x:Name="TB_ShoppingList" HorizontalAlignment="Left" Height="28" Margin="0,11,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=ShoppingList}" VerticalAlignment="Top" Width="280" FontFamily="Roboto Black" Foreground="#FFF7F4F3" TextAlignment="Center" FontSize="24"/>
+                <Button x:Name="Btn_RemoveFromShoppingList" Content="{DynamicResource ResourceKey=RemoveButton}" HorizontalAlignment="Left" Height="39" Margin="150,115,0,0" VerticalAlignment="Top" Width="119" Foreground="#FF4392F1" Background="#FFF7F4F3" BorderBrush="{x:Null}" FontFamily="Roboto Medium" FontSize="18" Click="Btn_RemoveFromShoppingList_Click_1"/>
                 <Button x:Name="Btn_CloseShoppingList" Content="" HorizontalAlignment="Left" Height="27" Margin="242,9,0,0" VerticalAlignment="Top" Width="29" RenderTransformOrigin="0.487,0.202" Click="Btn_CloseShoppingList_Click">
                     <Button.RenderTransform>
                         <TransformGroup>

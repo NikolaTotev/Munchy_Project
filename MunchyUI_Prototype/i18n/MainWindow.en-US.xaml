@@ -17,6 +17,8 @@
     <sys:String x:Key="DietBalanceTextBlock">Diet balance</sys:String>
     <sys:String x:Key="PreviousRecipeBTN">Previous recipe</sys:String>
     <sys:String x:Key="NextRecipeBTN">Next recipe</sys:String>
+    <sys:String x:Key="AddFoodBTN">Add</sys:String>
+    <sys:String x:Key="ShoppingList">Shopping list</sys:String>
 
     <!--Settings Panel-->
     <sys:String x:Key="SettingsTextBlock">Settings</sys:String>
