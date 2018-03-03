@@ -133,7 +133,7 @@ namespace MunchyUI
             if (!File.Exists(m_FoodDefFile) || !File.Exists(m_RecipeDatabase))
             {
                 MessageBox.Show("EN: The program seems to have encountered an error Press OK to open the support page and look for the following code : Error Code: ERR-RFM " + "\n" + "\n" + " BG: Грешка! : Липсват файлове нужни за функционирането на програмата.Моля посетете https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting за насоки да поправите грешката.");
-                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
+                System.Diagnostics.Process.Start("https://github.com/NikolaTotev/Munchy/wiki/Toubleshooting#fix-instructions");
                 Close();
                 return;
             }
@@ -305,7 +305,7 @@ namespace MunchyUI
             {
                 Img_SuggestedRecipeImage.Fill = null;
                 MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
-                System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
+                System.Diagnostics.Process.Start("https://github.com/NikolaTotev/Munchy/wiki/Toubleshooting#fix-instructions");
             }
 
             m_CurrentManager.StatManager.TotalRecipesSeen++;
@@ -326,7 +326,7 @@ namespace MunchyUI
                 {
                     img_RecipeImage.Fill = null;
                     MessageBox.Show("You are missing Image files please Click OK to open the support page to reslove the issue. Look for error code : ERR-ImgFM");
-                    System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
+                    System.Diagnostics.Process.Start("https://github.com/NikolaTotev/Munchy/wiki/Toubleshooting#fix-instructions");
                 }
             }
 
@@ -362,7 +362,7 @@ namespace MunchyUI
                     else
                     {
                         MessageBox.Show("You seem to have a probelem with the Recipe File. Press OK to open the support page.");
-                        System.Diagnostics.Process.Start("https://github.com/ProjectMunchy/Munchy/wiki/Troubleshooting");
+                        System.Diagnostics.Process.Start("https://github.com/NikolaTotev/Munchy/wiki/Toubleshooting#fix-instructions");
                         break;
                     }
                 }
