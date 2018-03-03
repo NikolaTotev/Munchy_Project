@@ -1436,7 +1436,7 @@
                 <Button x:Name="Btn_AddToShoppingList" Content="{DynamicResource ResourceKey=AddFoodBTN}" HorizontalAlignment="Left" Height="39" Margin="13,115,0,0" VerticalAlignment="Top" Width="118" Foreground="#FF4392F1" Background="#FFF7F4F3" BorderBrush="{x:Null}" FontFamily="Roboto Medium" FontSize="18" Click="Btn_AddToShoppingList_Click"/>
                 <TextBlock x:Name="TB_ShoppingList" HorizontalAlignment="Left" Height="28" Margin="0,11,0,0" TextWrapping="Wrap" Text="{DynamicResource ResourceKey=ShoppingList}" VerticalAlignment="Top" Width="280" FontFamily="Roboto Black" Foreground="#FFF7F4F3" TextAlignment="Center" FontSize="24"/>
                 <Button x:Name="Btn_RemoveFromShoppingList" Content="{DynamicResource ResourceKey=RemoveButton}" HorizontalAlignment="Left" Height="39" Margin="150,115,0,0" VerticalAlignment="Top" Width="119" Foreground="#FF4392F1" Background="#FFF7F4F3" BorderBrush="{x:Null}" FontFamily="Roboto Medium" FontSize="18" Click="Btn_RemoveFromShoppingList_Click_1"/>
-                <Button x:Name="Btn_CloseShoppingList" Content="" HorizontalAlignment="Left" Height="27" Margin="242,9,0,0" VerticalAlignment="Top" Width="29" RenderTransformOrigin="0.487,0.202" Click="Btn_CloseShoppingList_Click">
+                <Button x:Name="Btn_CloseShoppingList" Content="" HorizontalAlignment="Left" Height="27" Margin="242,13,0,0" VerticalAlignment="Top" Width="29" RenderTransformOrigin="0.487,0.202" Click="Btn_CloseShoppingList_Click">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
